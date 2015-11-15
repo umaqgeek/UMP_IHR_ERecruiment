@@ -1,18 +1,40 @@
 
-<head>
-    <!-- Loading Bootstrap -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+<%@page import="config.Config"%>
+<html>
+    <head>
 
-    <!-- Loading Stylesheets -->    
-    <link href="assets/css/font-awesome.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css"> 
-    <link href="assets/css/login.css" rel="stylesheet" type="text/css"> 
-    <link href="assets/less/style.less" rel="stylesheet"  title="lessCss" id="lessCss">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <!-- Loading Custom Stylesheets -->    
-    <link href="assets/css/custom.css" rel="stylesheet">
-    <link rel="shortcut icon" href="assets/images/ump-logo.png">
+        <title>UMP-IMS E-Recruitment</title>
 
-    <!-- Loading jQuery -->
-    <script src="assets/js/jquery-1.10.2.min.js"></script>
-</head>
+        <!-- Bootstrap Core CSS -->
+        <link href="<%=Config.getBase_url(request) %>assets/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="<%=Config.getBase_url(request) %>assets/css/landing-page.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="<%=Config.getBase_url(request) %>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- jQuery -->
+        <script src="<%=Config.getBase_url(request) %>assets/js/jquery.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<%=Config.getBase_url(request) %>assets/js/bootstrap.min.js"></script>
+        
+        <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+    </head>
+    <body>
