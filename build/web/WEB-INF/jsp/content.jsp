@@ -1,7 +1,7 @@
 
 <div class="row animated fadeILeftBig">
      <div class="login-holder col-md-6 col-md-offset-3">
-       <h2 class="page-header text-center text-primary"> Welcome to <br/> UMP-IMS E-Recruitement System </h2>
+       <h2 class="page-header text-center text-primary"> Welcome to <br/> UMP-IMS E-Recruitment System </h2>
        <form name="form_login" method="post" action="">
         <div class="form-group">
             <input type="text" class="form-control" id="u_username" placeholder="Enter username" name="u_username">
