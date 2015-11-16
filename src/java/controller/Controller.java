@@ -11,9 +11,21 @@ package controller;
  */
 public class Controller {
     
+    public final static String dashboardLinks[][] = {
+        {"E-Advertisement", "Advertisement"},
+        {"E-Application", "Application"},
+        {"E-Filter", "Filter"},
+        {"E-Test", "Test"},
+        {"E-Interview", "Interview"},
+        {"E-Result", "Result"},
+        {"E-Offer", "Offer"},
+        {"E-Register", "Register"}
+    };
+    
     private static String pages[][] = {
         {"Login", "auth/login.jsp"},
-        {"Dashboard", "dashboard.jsp"}
+        {"Dashboard", "dashboard.jsp"},
+        {"Application", "application/profile.jsp"}
     };
     
     public static String getPages(String method) {
