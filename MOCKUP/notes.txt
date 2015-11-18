@@ -1,0 +1,9 @@
+Nanti apa2 file .html yang mockup, letak dalam folder ini.
+
+Structure kan begini:-
+
+MOCKUP
+|- notes.txt
+|- application
+   |- application_profile.html
+|- filter
