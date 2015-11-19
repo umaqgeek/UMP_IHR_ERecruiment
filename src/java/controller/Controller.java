@@ -25,7 +25,8 @@ public class Controller {
     private static String pages[][] = {
         {"Login", "auth/login.jsp"},
         {"Dashboard", "dashboard.jsp"},
-        {"Application", "application/profile.jsp"}
+        {"Application", "application/profile.jsp"},
+        {"Advertisement", "advertisement/index.jsp"}
     };
     
     public static String getPages(String method) {
