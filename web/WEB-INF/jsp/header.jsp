@@ -35,6 +35,12 @@
         <script src="<%=Config.getBase_url(request) %>assets/js/bootstrap.min.js"></script>
         
         <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+        
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="<%=Config.getBase_url(request) %>assets/js/ie10-viewport-bug-workaround.js"></script>
+        
+        <!-- Custom CSS -->
+        <link href="<%=Config.getBase_url(request) %>assets/css/sb-admin.css" rel="stylesheet">
 
     </head>
     <body>

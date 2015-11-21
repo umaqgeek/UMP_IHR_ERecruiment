@@ -1,12 +1,37 @@
 
-<%@page import="controller.Controller"%>
-<div class="row">
-    <% for (int i = 0; i < Controller.dashboardLinks.length; i++) { %>
-    <div class="col-md-3" style="height: 100; cursor: pointer;" onclick="location.href='?m=<%=Controller.dashboardLinks[i][1] %>';">
-        <center>
-            <span class="glyphicon glyphicon-list"> <%=Controller.dashboardLinks[i][0] %></span>
-        </center>
-    </div>
-    <% } %>
-</div>
 
+    <div id="wrapper">
+
+        <jsp:include page="menu.jsp"></jsp:include>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            e-Recruitment
+                            <small>PTJ</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="?m=Dashboard">Dashboard</a>
+                            </li>
+                            <!--<li class="active">
+                                <i class="fa fa-file"></i> Blank Page
+                            </li>-->
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
