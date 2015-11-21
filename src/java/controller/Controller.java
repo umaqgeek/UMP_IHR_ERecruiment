@@ -28,6 +28,7 @@ public class Controller {
         {"Application", "application/profile.jsp"},
         {"EIklan1", "advertisement/e-iklan.jsp"},
         {"EIklan2", "advertisement/e-iklan_BPSM.jsp"}
+//        {"Advertisement", "advertisement/index.jsp"}
     };
     
     public static String getPages(String method) {
