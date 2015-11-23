@@ -26,6 +26,10 @@ public class Controller {
         {"Login", "auth/login.jsp"},
         {"Dashboard", "dashboard.jsp"},
         {"Application", "application/profile.jsp"},
+        {"Application-Personal", "application/e-mohon_personal.jsp"},
+        {"Application-Academic", "application/e-mohon_academic.jsp"},
+        {"Application-Job", "application/e-mohon_job.jsp"},
+        {"Application-Working", "application/e-mohon_working.jsp"},
         {"EIklan1", "advertisement/e-iklan.jsp"},
         {"EIklan2", "advertisement/e-iklan_BPSM.jsp"}
 //        {"Advertisement", "advertisement/index.jsp"}

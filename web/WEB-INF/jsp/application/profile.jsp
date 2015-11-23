@@ -24,11 +24,11 @@
                                     <h3>Updating Profile</h3> (Please click menu to update your resume)<hr />
                                     <div class="col-md-6">
                                         <ul>
-                                            <li><a href="#!"><span class="glyphicon glyphicon-list"> Personal Info</span></a></li>
-                                            <li><a href="#!"><span class="glyphicon glyphicon-list"> Academic</span></a></li>
+                                            <li><a href="?m=Application-Personal"><span class="glyphicon glyphicon-list"> Personal Info</span></a></li>
+                                            <li><a href="?m=Application-Academic"><span class="glyphicon glyphicon-list"> Academic</span></a></li>
                                             <li><a href="#!"><span class="glyphicon glyphicon-list"> Professional Certificate</span></a></li>
                                             <li><a href="#!"><span class="glyphicon glyphicon-list"> KPSL</span></a></li>
-                                            <li><a href="#!"><span class="glyphicon glyphicon-list"> Experiences</span></a></li>
+                                            <li><a href="?m=Application-Working"><span class="glyphicon glyphicon-list"> Experiences</span></a></li>
                                             <li><a href="#!"><span class="glyphicon glyphicon-list"> Appendix</span></a></li>
                                         </ul>
                                     </div>
@@ -48,7 +48,7 @@
                                 <td colspan="2">
                                     <h3>Application</h3> <hr />
                                     <h4>Position</h4>
-                                    <button class="btn btn-info">Apply New Position</button>
+                                    <button class="btn btn-info" onclick="location.href='?m=Application-Job';">Apply New Position</button>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
