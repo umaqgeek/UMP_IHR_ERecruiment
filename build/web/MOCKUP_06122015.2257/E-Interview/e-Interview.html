@@ -1,5 +1,3 @@
-
-
 <html>
     <head>
 
@@ -16,12 +14,14 @@
 
         <!-- Custom CSS -->
         <link href="assets/css/landing-page.css" rel="stylesheet">
+        <link href="assets/css/datepicker.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<style>
+			.datepicker{z-index:1151 !important;}
+		</style>        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -33,6 +33,7 @@
 
         <!-- Bootstrap Core JavaScript -->
         <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/bootstrap-datepicker.js"></script>
         
         <link href="assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         
@@ -231,10 +232,10 @@
                                 <a href="#!">e-Interview</a>
                             </li>
                             <li>
-                                <a href="#!">e-Result</a>
+                                <a href="?m=EResult">e-Result</a>
                             </li>
 							<li>
-                                <a href="#!">e-Offer</a>
+                                <a href="?m=EOffer">e-Offer</a>
                             </li>
 							<li>
                                 <a href="#!">e-Register</a>
@@ -253,13 +254,15 @@
         </nav>
 
         <div id="page-wrapper">
+
             <div class="container-fluid">
+
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             e-Recruitment
-                            <small>Candidate</small>
+                            <small>BPSM</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
@@ -269,73 +272,192 @@
                                 <i class="fa fa-file"></i> System
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> e-Result
+                                <i class="fa fa-file"></i> e-Interview
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
+				
+				<div class="row">
+				<div class="well">
+			   <div class="row">
+				   <div class="col-sm-12"> Setup e-Filter</div>
+			   </div>
+                <!-- /.row -->
 				<div class="row">
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th>Bil</th>
-								<th style="text-align:center">Position</th>
-								<th colspan="3" style="text-align:center">e-Filter</th>
-								<th colspan="2" style="text-align:center">e-Interview</th>
-								<th>Status</th>
-							</tr>
-							<tr>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>Sistem</th>
-								<th>PTJ</th>
-								<th>BPSM</th>
-								<th>PTJ</th>
-								<th>Universiti</th>
-								<th>&nbsp;</th>
+								<th style="text-align:center;width:10%">Bil</th>
+								<th style="text-align:center;width:10%">Gred</th>
+								<th style="text-align:center;width:30%">Jawatan</th>
+								<th style="text-align:center;width:30%">Name</th>
+								<th style="text-align:center;width:10%">PTJ</th>
+								<th style="text-align:center;width:10%">Universiti</th>
 							</tr>
 					</thead>
 					<tbody>
 						<!--Data from DB. Below rows to be remarked upon DB connection.-->
 						<tr>
 							<td>1.</td>
-							<td>Pembantu Makmal</td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td>Gagal</td>
+							<td>FT41</td>
+							<td>Pegawai IT</td>
+							<td>Muhammad Akmal</td>
+							<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myPTJ">SET</button></td>
+							<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myUni">SET</button></td>
 						</tr>
 						<tr>
-							<td>2.</td>
-							<td>Timb. Pendaftar</td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td>KIV</td>
-							<td>KIV</td>
-						</tr>
-						<tr>
-							<td>3.</td>
-							<td>Penolong Pegawai IT</td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td>Lulus</td>
+							<td>1.</td>
+							<td>Q41</td>
+							<td>Pegawai Penyelidik</td>
+							<td>Nur Syuhaida</td>
+							<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myPTJ">SET</button></td>
+							<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myUni">SET</button></td>
 						</tr>
 						</tbody>
 					</table>
 				</div>
+				<div id="myPTJ" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content for PTJ-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Set Interview PTJ</h4>
+							</div>
+							<div class="modal-body">
+								<form id="frmPTJ" name="frmPTJ" method="POST" class="form-horizontal" action="#">
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Nama</label>
+										<div class="col-lg-10">
+											<input type="text" id="txtName" name="txtName" class="form-control" placeholder="Name" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">IC</label>
+										<div class="col-lg-4">
+											<input type="text" id="txtIC" name="txtIC" class="form-control" placeholder="123456-12-1234" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">H/P</label>
+										<div class="col-lg-4">
+											<input type="text" id="txtHP" name="txtHP" class="form-control" placeholder="+60123456789" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Alamat</label>
+										<div class="col-lg-10">
+											<textarea id="txtAdd" name="txtAdd" class="form-control" placeholder="Address" Rows="5" Required="true"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Tarikh Interview</label>
+										<div class="col-lg-4">
+											<input type="text" id="txtPIntDate" name="txtIntDate" class="form-control" placeholder="01-01-2015" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Panel</label>
+										<div class="col-lg-4">
+											<select id="lstPanel" name="lstPanel" class="form-control">
+												<option value="">Please select</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Alamat Panel</label>
+										<div class="col-lg-10">
+											<select id="lstAlamat" name="lstAlamat" class="form-control">
+												<option value="">Please select</option>
+											</select>
+										</div>
+									</div>
+									<script>
+										$("#txtPIntDate").datepicker({format:"dd-mm-yyyy"});
+									</script>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="myUni" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content for Universiti-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Set Interview Universiti</h4>
+							</div>
+							<div class="modal-body">
+								<form id="frmPTJ" name="frmPTJ" method="POST" class="form-horizontal" action="#">
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Nama</label>
+										<div class="col-lg-10">
+											<input type="text" id="txtName" name="txtName" class="form-control" placeholder="Name" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">IC</label>
+										<div class="col-lg-4">
+											<input type="text" id="txtIC" name="txtIC" class="form-control" placeholder="123456-12-1234" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">H/P</label>
+										<div class="col-lg-4">
+											<input type="text" id="txtHP" name="txtHP" class="form-control" placeholder="+60123456789" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Alamat</label>
+										<div class="col-lg-10">
+											<textarea id="txtAdd" name="txtAdd" class="form-control" placeholder="Address" Rows="5" Required="true"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Tarikh Interview</label>
+										<div class="col-lg-4">
+											<input type="text" id="txtUIntDate" name="txtUIntDate" class="form-control" placeholder="01-01-2015" Required="true"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Panel</label>
+										<div class="col-lg-4">
+											<select id="lstPanel" name="lstPanel" class="form-control">
+												<option value="">Please select</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Alamat Panel</label>
+										<div class="col-lg-10">
+											<select id="lstAlamat" name="lstAlamat" class="form-control">
+												<option value="">Please select</option>
+											</select>
+										</div>
+									</div>
+									<script>
+										$("#txtUIntDate").datepicker({format:"dd-mm-yyyy"});
+									</script>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+							</div>
+						</div>
+					</div>
+				</div>
+				
            </div>
 		</div>
 
-	</div>
-	<!-- /.container-fluid -->
+            </div>
+            <!-- /.container-fluid -->
 
         </div>
         <!-- /#page-wrapper -->

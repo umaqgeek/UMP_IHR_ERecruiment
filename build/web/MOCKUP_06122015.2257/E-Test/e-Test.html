@@ -1,5 +1,3 @@
-
-
 <html>
     <head>
 
@@ -16,12 +14,14 @@
 
         <!-- Custom CSS -->
         <link href="assets/css/landing-page.css" rel="stylesheet">
+        <link href="assets/css/datepicker.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<style>
+			.datepicker{z-index:1151 !important;}
+		</style>        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -33,6 +33,7 @@
 
         <!-- Bootstrap Core JavaScript -->
         <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/bootstrap-datepicker.js"></script>
         
         <link href="assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         
@@ -231,10 +232,10 @@
                                 <a href="#!">e-Interview</a>
                             </li>
                             <li>
-                                <a href="#!">e-Result</a>
+                                <a href="?m=EResult">e-Result</a>
                             </li>
 							<li>
-                                <a href="#!">e-Offer</a>
+                                <a href="?m=EOffer">e-Offer</a>
                             </li>
 							<li>
                                 <a href="#!">e-Register</a>
@@ -253,13 +254,15 @@
         </nav>
 
         <div id="page-wrapper">
+
             <div class="container-fluid">
+
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             e-Recruitment
-                            <small>Candidate</small>
+                            <small>PTJ</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
@@ -269,73 +272,79 @@
                                 <i class="fa fa-file"></i> System
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> e-Result
+                                <i class="fa fa-file"></i> e-Test
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
+				
 				<div class="row">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Bil</th>
-								<th style="text-align:center">Position</th>
-								<th colspan="3" style="text-align:center">e-Filter</th>
-								<th colspan="2" style="text-align:center">e-Interview</th>
-								<th>Status</th>
-							</tr>
-							<tr>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>Sistem</th>
-								<th>PTJ</th>
-								<th>BPSM</th>
-								<th>PTJ</th>
-								<th>Universiti</th>
-								<th>&nbsp;</th>
-							</tr>
-					</thead>
-					<tbody>
-						<!--Data from DB. Below rows to be remarked upon DB connection.-->
-						<tr>
-							<td>1.</td>
-							<td>Pembantu Makmal</td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td>Gagal</td>
-						</tr>
-						<tr>
-							<td>2.</td>
-							<td>Timb. Pendaftar</td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/no.png" height="20" width="20"/></td>
-							<td>KIV</td>
-							<td>KIV</td>
-						</tr>
-						<tr>
-							<td>3.</td>
-							<td>Penolong Pegawai IT</td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td><img src="assets/img/yes.gif" height="20" width="20"/></td>
-							<td>Lulus</td>
-						</tr>
-						</tbody>
-					</table>
+				<div class="well">
+			   <div class="row">
+				   <div class="col-sm-12"> Setup e-Test</div>
+			   </div>
+                <!-- /.row -->
+				<br/><br/>
+				<div class="row">
+					<form class="form-horizontal" id="frm" name="frm" action="#" method="POST" role="form">
+					<div class="form-group">
+						<label class="col-lg-2 control-label">Set Soalan</label>
+						<div class="col-lg-2">
+							<input type="text" id="txtSet" name="txtSet" class="form-control" Placeholder="1" Required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">No Soalan</label>
+						<div class="col-lg-2">
+							<input type="text" id="txtNo" name="txtNo" class="form-control" Placeholder="#1" Required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">Soalan</label>
+						<div class="col-lg-8">
+							<textarea id="txtSoalan" name="txtSoalan" class="form-control" Placeholder="Soalan" Rows="3" Required="true"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">Jawapan</label>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">A</label>
+						<div class="col-lg-4">
+							<input type="text" id="txtJA" name="txtJA" class="form-control" Placeholder="Option A" Required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">B</label>
+						<div class="col-lg-4">
+							<input type="text" id="txtJB" name="txtJB" class="form-control" Placeholder="Option B" Required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">C</label>
+						<div class="col-lg-4">
+							<input type="text" id="txtJC" name="txtJC" class="form-control" Placeholder="Option C" Required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">D</label>
+						<div class="col-lg-4">
+							<input type="text" id="txtJD" name="txtJD" class="form-control" Placeholder="Option D" Required="true"/>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button class="btn btn-success">Save</button>
+					</div>
+					</form>
 				</div>
+				</div>
+				
            </div>
 		</div>
 
-	</div>
-	<!-- /.container-fluid -->
+            </div>
+            <!-- /.container-fluid -->
 
         </div>
         <!-- /#page-wrapper -->
