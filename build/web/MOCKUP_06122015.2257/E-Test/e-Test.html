@@ -10,14 +10,14 @@
         <title>UMP-IMS E-Recruitment</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="assets/css/landing-page.css" rel="stylesheet">
-        <link href="assets/css/datepicker.css" rel="stylesheet">
+        <link href="../assets/css/landing-page.css" rel="stylesheet">
+        <link href="../assets/css/datepicker.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
-        <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 		<style>
 			.datepicker{z-index:1151 !important;}
@@ -29,19 +29,19 @@
         <![endif]-->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.js"></script>
+        <script src="../assets/js/jquery.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/bootstrap-datepicker.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/bootstrap-datepicker.js"></script>
         
-        <link href="assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+        <link href="../assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+        <script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
         
         <!-- Custom CSS -->
-        <link href="assets/css/sb-admin.css" rel="stylesheet">
+        <link href="../assets/css/sb-admin.css" rel="stylesheet">
 
     </head>
     <body>
@@ -187,7 +187,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="?m=Login"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="../index.html"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -211,34 +211,16 @@
                         <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
                     </li>-->
                     <li>
-                        <a href="?m=Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a href="../e-recruitment-home.html"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-file"></i> System <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-file"></i> E-Test <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
-                            <li>
-                                <a href="?m=EIklan1">e-Advertisement</a>
+                            <li class="active">
+                                <a href="e-Test.html"><i class="fa fa-fw fa-file"></i>E-Test Setup</a>
                             </li>
                             <li>
-                                <a href="?m=Application">e-Application</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Filter</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Test</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Interview</a>
-                            </li>
-                            <li>
-                                <a href="?m=EResult">e-Result</a>
-                            </li>
-							<li>
-                                <a href="?m=EOffer">e-Offer</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Register</a>
+                                <a href="e-TestResult.html"><i class="fa fa-fw fa-file"></i>E-Test Result</a>
                             </li>
                         </ul>
                     </li>
@@ -266,13 +248,13 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="?m=Dashboard">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="../e-recruitment-home.html">Dashboard</a>
                             </li>
 							<li class="active">
                                 <i class="fa fa-file"></i> System
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> e-Test
+                                <i class="fa fa-file"></i> E-Test Setup
                             </li>
                         </ol>
                     </div>
@@ -282,7 +264,7 @@
 				<div class="row">
 				<div class="well">
 			   <div class="row">
-				   <div class="col-sm-12"> Setup e-Test</div>
+				   <div class="col-sm-12"> Setup E-Test</div>
 			   </div>
                 <!-- /.row -->
 				<br/><br/>
@@ -291,7 +273,7 @@
 					<div class="form-group">
 						<label class="col-lg-2 control-label">Set Soalan</label>
 						<div class="col-lg-2">
-							<input type="text" id="txtSet" name="txtSet" class="form-control" Placeholder="1" Required="true"/>
+							<input type="text" id="txtSet" name="txtSet" class="form-control" Placeholder="1" Required />
 						</div>
 					</div>
 					<div class="form-group">
@@ -354,7 +336,7 @@
 
         
     </div>
-</div>
+
 
 </body>
 
