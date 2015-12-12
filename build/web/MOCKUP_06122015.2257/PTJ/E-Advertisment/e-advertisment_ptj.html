@@ -48,8 +48,13 @@
 	</style>
 	
 	<!--Javascript-->
-	<script src="../../js/jquery.js"></script>
+	<script src="../../js/jquery-1.11.3.min.js"></script>
 	<script src="../../js/bootstrap.min.js"></script>
+	<script src="../../js/highcharts.js"></script>
+	<script src="../../js/exporting.js"></script>
+
+
+	
 	
 	
 	
@@ -243,10 +248,76 @@
                 </div>
                 <!-- /.row -->
 				
+				
+				
+				
+				
 				<div class="row">
 				
+						<div class="row">
+						
+						
+						
+						
+						<div id="container" style="min-width: 310px; min-height: 260px; max-height: 500px; max-width: 600px; margin: 0 auto"></div>
+
+						<script>
+						$(function () {
+							$('#container').highcharts({
+								chart: {
+									plotBackgroundColor: null,
+									plotBorderWidth: null,
+									plotShadow: false,
+									type: 'pie'
+								},
+								title: {
+									text: 'Warrant Statistic By Status'
+								},
+								tooltip: {
+									pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+								},
+								plotOptions: {
+									pie: {
+										allowPointSelect: true,
+										cursor: 'pointer',
+										dataLabels: {
+											enabled: true,
+											format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+											style: {
+												color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+											}
+										}
+									}
+								},
+								credits: {
+									  enabled: false
+								  },
+								series: [{
+									name: "Brands",
+									colorByPoint: true,
+									data: [{
+										name: "Pegawai Teknologi Maklumat",
+										y: 33.33
+									}, {
+										name: "Pegawai Jurutera",
+										y:33.03,
+										sliced: true,
+										selected: true
+									}, {
+										name: "Pegawai Penyelidik",
+										y: 33.33
+									}]
+								}]
+							});
+						});
+						</script>	
+						
+						</div>
+				
 					<div class="well">	
-					
+
+						<div class="row">
+						
 						<table class="table table-condensed" style="border-collapse:collapse;">
 							<thead>
 								<tr>
@@ -327,8 +398,9 @@
 							  </div>
 							</div>
 
-						  </div>
-						</div>-->
+						  </div>-->
+						</div>
+						
 						
 					</div>
 				</div>
@@ -341,10 +413,7 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../../js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
+    
     </div>
 </body>
 
