@@ -9,8 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UMP IMS E-Recruitment</title>
-    
+    <title>E-Advertisment</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -40,6 +39,7 @@
     
     th {
          background-color:blue;
+		 color:white;
     }
  		.hiddenRow {
 		padding: 0 !important;
@@ -51,7 +51,7 @@
 	<script src="../../js/bootstrap.min.js"></script>
 	
 	
-	<link href="../../assets/img/ump-logo.png" rel="icon" />
+	
 
 </head>
 
@@ -208,20 +208,16 @@
                         <a href="../e-recruitment-home.html"><i class="fa fa-fw fa-file"></i> System</a>
                     </li>
                     <li class="active">
-                        <a href="e-advertisment_BPSM.html"><i class="fa fa-fw fa-file"></i> E-Advertisement (BPSM)</a>
-                    </li>
-<!--					<li>
-                        <a href="../E-Application/e-mohon.html"><i class="fa fa-fw fa-file"></i>E-Application</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-fw fa-file"></i>E-Filter</a>
-                    </li>
-                    <li>
-                        <a href="../E-Result/e-Result.html"><i class="fa fa-fw fa-file"></i>E-Result</a>
-                    </li>
-                    <li>
-                        <a href="../E-Offer/e-Offer.html"><i class="fa fa-fw fa-file"></i>E-Offer</a>
-                    </li>-->
+                        <a href="javascript:;"data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-file"></i>  E-Advertisment <i class="fa fa-fw fa-caret-down"></i></a>
+						<ul id="demo1" class="collapse">
+							<li>
+                                 <a href="e-advertisment_BPSM.html"><i class="fa fa-fw fa-file"></i> Main Setup</a>
+                            </li>
+                            <li>
+                                 <a href="e-advertisment_BPSM_mini_setup.html"><i class="fa fa-fw fa-file"></i> Setup Gred & Name</a>
+                            </li>
+                        </ul>
+					</li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -235,7 +231,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            e-Recruitment
+                            E-Recruitment
                             <small>BPSM</small>
                         </h1>
                         <ol class="breadcrumb">
@@ -261,63 +257,37 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>ID</th>
-									<th>Position</th>
-									<th>Gred</th>
-									<th>Status</th>
+									<th>Department</th>
 									<th>Total</th>
-									<th>Expand</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td></td>
-									<td>J41</td>
-									<td></td>
-									<td></td>
-									<td><span class="badge">42</span></td>
-									<td><a href="e-advertisment_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td></td>
-									<td>Q41</td>
-									<td></td>
-									<td></td>
-									<td><span class="badge">2</span></td>
-									<td><a href="e-advertisment_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-								</tr>							
-								<tr>
-									<td>3</td>
-									<td></td>
-									<td>FT41</td>
-									<td></td>
-									<td></td>
-									<td><span class="badge">3</span></td>
-									<td><a href="e-advertisment_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-								</tr>
+									<td><a href="#" data-toggle="modal" data-target="#myModal">Jabatan Pembangunan</a></td>
+									<td><a href="#" data-toggle="modal" data-target="#myModal"><span class="badge">3</span></a></td>
+								</tr>						
 							</tbody>
 						</table>
 						
 						<!-- Modal -->
-						<!--<div id="myModal" class="modal fade" role="dialog">
+						<div id="myModal" class="modal fade" role="dialog">
 						  <div class="modal-dialog">
 
-							<!-- Modal content
+							<!-- Modal content--->
 							<div class="modal-content">
-							  <div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Gred</h4>
-							  </div>
+							<div class="well">
+							
+							
 							  <div class="modal-body">
+							  <h2>Jabatan Pembangunan</h2>
 								<table class="table table-condensed" style="border-collapse:collapse;">
 									<thead>
 										<tr>
 											<th>#</th>
 											<th>Gred</th>
 											<th>Position</th>
-											<th>Blank</th>
 											<th>Total</th>
 											<th>Setup</th>
 										</tr>
@@ -325,26 +295,9 @@
 									<tbody>
 										<tr>
 											<td>1</td>
-											<td>J41</td>
-											<td></td>
-											<td></td>
-											<td><span class="badge">2</span></td>
-											<td><a href="e-advertisment_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-										</tr>
-										<tr>
-											<td>2</td>
 											<td>FT41</td>
-											<td></td>
-											<td></td>
-											<td><span class="badge">2</span></td>
-											<td><a href="e-advertisment_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-										</tr>							
-										<tr>
-											<td>3</td>
-											<td>Q41</td>
-											<td></td>
-											<td></td>
-											<td><span class="badge">2</span></td>
+											<td>Pegawai Teknologi Maklumat</td>
+											<td><span class="badge">3</span></td>
 											<td><a href="e-advertisment_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
 										</tr>
 									</tbody>
@@ -353,13 +306,13 @@
 							  <div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							  </div>
+							  </div>
 							</div>
 
 						  </div>
-						</div>-->
+						</div>
 						
 					</div>
-				</div>
 				<!-- /.container-fluid -->
 
         </div>
@@ -367,7 +320,8 @@
 
     </div>
     <!-- /#wrapper -->
+        </div></div>
 
-    </div>
 </body>
+
 </html>
