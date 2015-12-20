@@ -7,17 +7,21 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libraries.My_func;
+import models.DBConn;
+import oms.rmi.server.MainClient;
 
 /**
  *
  * @author umarmukhtar
  */
-@WebServlet(name = "Index", urlPatterns = {"/SYSTEM/Index"})
+@WebServlet(name = "Index", urlPatterns = {"/Index"})
 public class Index extends HttpServlet {
 
     /**
@@ -76,16 +80,37 @@ public class Index extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        
+        // declaration
         String userid = request.getParameter("userid");
+        String pwd = request.getParameter("pwd");
+        
+        // sql query
+        String sql = "SELECT rl.rl_role "
+                + "FROM role rl, login l "
+                + "WHERE rl.rl_refid = l.rl_refid "
+                + "AND l.l_username = ? "
+                + "AND l.l_password = ? "
+                + "AND l.l_verification = 'VERIFIED' ";
+        String params[] = {userid, pwd};
+        
+        // connection to db
+        MainClient mc = new MainClient(DBConn.getHost());
+        ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
 
-        if (userid.equals("ptj")) {
-            response.sendRedirect("PTJ/e-recruitment-home.html");
-        } else if (userid.equals("bpsm")) {
-            response.sendRedirect("BPSM/e-recruitment-home.html");
-        } else if (userid.equals("cand")) {
-            response.sendRedirect("Candidate/e-recruitment-home.html");
+        if (data.size() > 0) {
+            String role = data.get(0).get(0);
+            if (role.toUpperCase().equals("PTJ")) {
+                response.sendRedirect("PTJ/e-recruitment-home.html");
+            } else if (role.toUpperCase().equals("BPSM")) {
+                response.sendRedirect("BPSM/e-recruitment-home.html");
+            } else if (role.toUpperCase().equals("CANDIDATE")) {
+                response.sendRedirect("Candidate/e-recruitment-home.html");
+            } else {
+                response.sendRedirect("index.jsp?invalid=2");
+            }
         } else {
-            response.sendRedirect("index.html?invalid=1");
+            response.sendRedirect("index.jsp?invalid=1");
         }
     }
 
