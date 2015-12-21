@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app >
+   <description><![CDATA[web.xml file by Vijay..]]></description>
+   <distributable/>
+   <servlet>
+		<servlet-name>personalitytestsetup</servlet-name>
+		<servlet-class>eRecruitment.eTest.ePersonalityTest.servlet.PersonalityTestSetup</servlet-class>
+   </servlet>
+   <servlet-mapping>
+		<servlet-name>personalitytestsetup</servlet-name>
+		<url-pattern>/PersonalityTestSetup</url-pattern>
+   </servlet-mapping>
+</web-app>
