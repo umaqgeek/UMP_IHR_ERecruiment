@@ -5,7 +5,9 @@
  */
 package servlets;
 
+import config.Config;
 import helpers.J;
+import helpers.SendMail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -95,14 +97,25 @@ public class Register extends HttpServlet {
         String data1[] = {c_icno, c_name};
         String query1 = "INSERT INTO candidate(c_icno, c_name) "
                 + "VALUES(?,?)";
-        String c_refid = mc.setQuery(query1, data1);
+        String c_refid = mc.setQuery(query1, data1, "c_refid");
         
-        // execute query 2.
-        String query2 = "INSERT INTO login(rl_refid, c_refid, l_username, l_password, l_safequest, l_safeans, l_email, l_verification) "
-                + "VALUES(?,?,?,?,?,?,?,?)";
-        // 1450063069.273 -> role id of candidate
-        String data2[] = {"1450630515.382", c_refid, l_username, l_password, l_safequest, l_safeans, l_email, "UNVERIFIED"};
-        String l_refid = mc.setQuery(query2, data2);
+        // open another connection.
+        MainClient mc2 = new MainClient(DBConn.getHost());
+        
+        String l_refid = "0";
+        // execute query 2. If only query 1 was succeed.
+        if (c_refid != "-1" && c_refid != "0") {
+            String query2 = "INSERT INTO login(rl_refid, c_refid, l_username, l_password, l_safequest, l_safeans, l_email, l_verification) "
+                    + "VALUES(?,?,?,?,?,?,?,?)";
+            // 1450630515.382 -> role reference id of candidate.
+            String data2[] = {"1450630515.382", c_refid, l_username, l_password, l_safequest, l_safeans, l_email, "UNVERIFIED"};
+            l_refid = mc2.setQuery(query2, data2, "l_refid");
+        }
+        
+        if (l_refid != "-1" && l_refid != "0") {
+            String link = Config.getBase_url(request) + "Verify?l_refid=" + l_refid;
+            SendMail.send(l_email, "Click this link to verify your account: <a href='" + link + "'>Verify Account</a>");
+        }
         
         // redirect to login page.
         response.sendRedirect("index.jsp");

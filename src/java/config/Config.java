@@ -14,6 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 public class Config {
     
     public static String getBase_url(HttpServletRequest request) {
-        return request.getContextPath()+"/";
+        return "http://localhost:8080"+request.getContextPath()+"/";
     }
 }

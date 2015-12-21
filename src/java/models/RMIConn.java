@@ -19,7 +19,7 @@ public class RMIConn {
     private static Message impl;
     private static String localRMIFlag = "DBConn";
     
-    public static boolean startRMI(String host, int port) {
+    public boolean startRMI(String host, int port) {
         
         DBConn.setHost(host);
         DBConn.setPort_rmi(port);
@@ -31,7 +31,7 @@ public class RMIConn {
             
             System.out.println("RMI Connected.");
             System.out.println("Sending dummy message ...");
-            impl.sendMessage("DB Connect");
+            impl.sendMessageUMP("DB Connect");
             System.out.println("Message Sent.");
             
             status = true;
@@ -45,7 +45,7 @@ public class RMIConn {
         return status;
     }
     
-    public static Message getImpl() {
+    public Message getImpl() {
         return impl;
     }
 }

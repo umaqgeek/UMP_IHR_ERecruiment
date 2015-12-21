@@ -15,8 +15,9 @@ import java.util.Vector;
  */
 public interface Message extends Remote {
     
-    public void sendMessage(String msg) throws RemoteException;
+    public void sendMessageUMP(String msg) throws RemoteException;
     
-    public String setQuery(String query, String data[]) throws RemoteException;
-    public ArrayList<ArrayList<String>> getQuery(String query, String data[]) throws RemoteException;
+    public String setQueryUMP(String query, String data[]) throws RemoteException;
+    public String setQueryUMP(String query, String data[], String priKey) throws RemoteException;
+    public ArrayList<ArrayList<String>> getQueryUMP(String query, String data[]) throws RemoteException;
 }
