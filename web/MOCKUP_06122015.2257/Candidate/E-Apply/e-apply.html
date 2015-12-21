@@ -2045,25 +2045,118 @@ Please select</option>
 			  <div id="collapse4" class="panel-collapse collapse">
 				<div class="panel-body">
 					
-				<div class="row">
-					<div class="col-xs-2">
-						<label for="form-input-col-xs-4" class="wb-inv">Date</label>
-						<input type="date" class="form-control" id="form-input-col-xs-2" placeholder="col-xs-2" />
-					</div>
-					<div class="col-xs-3">
-						<label for="form-input-col-xs-4" class="wb-inv">Title</label>
-						<input type="text" class="form-control" id="form-input-col-xs-3" placeholder="Achivement" />
-					</div>
-					<div class="col-xs-4">
-						<label for="form-input-col-xs-4" class="wb-inv"><code></code> Discription</label>
-						<input type="text" class="form-control" id="form-input-col-xs-4" placeholder="Discription" />
-					</div>
-					<div class="col-xs-1">
-						<label for="form-input-col-xs-4" class="wb-inv"> Add</label>
-						<i class="fa fa-file-text-o"></i> 
-					</div>
+					<div class="row">
+						   
+						   <div class="col-sm-3"> 
+								<div class="form-group">
+									<label  for="gred">Years</label>
+									<input type="text"  class="form-control" id="gred" placeholder="Grade" >
+								</div>
+						   </div>
+						   <div class="col-sm-3"> 
+								<div class="form-group">
+									<label  for="position">Tittle</label>
+									<input type="text" class="form-control" id="position" placeholder="position" >
+								</div>
+						   </div>
+						   <div class="col-sm-2"> </div>
+					   </div>
+
+           
+            <div class="row">
+            
+               <div class="col-sm-12"> 
+			   <label>Description</label>
+                  <textarea name="editor3" id="editor3" rows="10" cols="80">
+									
+								</textarea>
+								<script>
+									// Replace the <textarea id="editor1"> with a CKEditor
+									// instance, using default configuration.
+									CKEDITOR.replace( 'editor3' );
+								</script>
+               </div>
+           </div>
+				<br/>
+					<div class="row">
+		    
+               <div class="col-sm-4"></div>
+               <div class="col-sm-8">
+				   <div class="form-group">
+					<input type="button" value="SAVE" >
 				</div>
+			   </div>
+               <div class="col-sm-1"></div>
+
+            </div>
+			<br/>
+           <div class="row">
+			
+			   <form class="navbar-form" role="search">
+			   
+			   <div style="float:left;" class="form-group">
+				<select class="form-control" id="sel1">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+				</select>
 				
+				
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+				<div class="form-group">
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</form>
+			
+			   
+               <table  class="table table-bordered">
+                <thead>
+                  <tr>
+                    
+                    <th>Years</th>
+                    <th >Tittle</th>
+					<th>Description</th>
+					<th>Edit</th>
+					<th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    
+                    <td>hh/mm/yyyy</td>
+                    <td>tittle</td>
+					<td>Discription</td>
+                    <td><a href="#"><i class="glyphicon glyphicon-edit"></a></td>
+				    <td><a href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
+                  </tr>
+ 
+                </tbody>
+              </table>
+			  <nav>
+				  <ul class="pagination pagination-sm pull-right">
+					<li>
+					  <a href="#" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					  </a>
+					</li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li>
+					  <a href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					  </a>
+					</li>
+				  </ul>
+				</nav>
+            </div>
+			
+       
+							
 				</div>
 			  </div>
 			  <script>
@@ -2100,6 +2193,79 @@ Please select</option>
 					<td colspan=3><input type="submit"></td>
 					</table>
 					</form>
+				
+				<br/>
+           <div class="row">
+			
+			   <form class="navbar-form" role="search">
+			   
+			   <div style="float:left;" class="form-group">
+				<select class="form-control" id="sel1">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+				</select>
+				
+				
+					<input type="text" class="form-control" placeholder="Search">
+				</div>
+				<div class="form-group">
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</form>
+			
+			   
+               <table  class="table table-bordered">
+                <thead>
+                  <tr>
+                    
+                    <th>#</th>
+                    <th>File</th>
+					<th>Date</th>
+					
+					<th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Resume</td>
+                    <td>1/12/2015</td>
+                   
+				    <td><a href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
+                  </tr>
+				  <tr>
+                    <td>2</td>
+					<td>Sijil Degree</td>
+                    <td>1/12/2015</td>
+                   
+				    <td><a href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
+                  </tr>
+ 
+                </tbody>
+              </table>
+			  <nav>
+				  <ul class="pagination pagination-sm pull-right">
+					<li>
+					  <a href="#" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					  </a>
+					</li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li>
+					  <a href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					  </a>
+					</li>
+				  </ul>
+				</nav>
+            </div>
+				
 				
 				</div>
 			  </div>
@@ -2147,8 +2313,8 @@ Please select</option>
 						   
 						   <div class="col-sm-3"> 
 								<div class="form-group">
-									<label  for="gred">Position</label>
-									<input type="text"  class="form-control" id="gred" placeholder="Gred" >
+									<label  for="gred">Grade</label>
+									<input type="text"  class="form-control" id="gred" placeholder="Grade" >
 								</div>
 						   </div>
 						   <div class="col-sm-3"> 
@@ -2164,7 +2330,7 @@ Please select</option>
             <div class="row">
             
                <div class="col-sm-12"> 
-			   <label  for="position">Position</label>
+			   <label>Description</label>
                   <textarea name="editor3" id="editor3" rows="10" cols="80">
 									
 								</textarea>
