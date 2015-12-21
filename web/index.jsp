@@ -1,3 +1,7 @@
+<%
+    response.sendRedirect("MOCKUP_06122015.2257/index.html");
+    %>
+
 <jsp:include page="WEB-INF/jsp/header.jsp"></jsp:include>
     
 <%
