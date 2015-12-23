@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class My_func {
     
+    public static final String INFO_KEY = "info";
+    public static final String ERROR_KEY = "error";
+    public static final String SUCCESS_KEY = "success";
+    
     public static String getURI(HttpServletRequest request, int uri) {
         String currURL = (request.getRequestURL()).toString();
         String baseURL = Config.getBase_url(request);

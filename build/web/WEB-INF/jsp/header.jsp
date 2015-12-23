@@ -1,4 +1,5 @@
 
+<%@page import="libraries.My_func"%>
 <%@page import="config.Config"%>
 <html>
     <head>
@@ -41,6 +42,39 @@
         
         <!-- Custom CSS -->
         <link href="<%=Config.getBase_url(request) %>assets/css/sb-admin.css" rel="stylesheet">
+        
+        <%
+        String msgINFO = "-";
+        try {
+            msgINFO = request.getAttribute(My_func.INFO_KEY).toString();
+            out.print("<script>alert('"+msgINFO+"');</script>");
+            msgINFO = "-";
+            request.removeAttribute(My_func.INFO_KEY);
+        } catch (Exception e) {
+        }
+        %>
+        
+        <%
+        String msgERROR = "-";
+        try {
+            msgERROR = request.getAttribute(My_func.ERROR_KEY).toString();
+            out.print("<script>alert('"+msgERROR+"');</script>");
+            msgERROR = "-";
+            request.removeAttribute(My_func.ERROR_KEY);
+        } catch (Exception e) {
+        }
+        %>
+        
+        <%
+        String msgSUCCESS = "-";
+        try {
+            msgSUCCESS = request.getAttribute(My_func.SUCCESS_KEY).toString();
+            out.print("<script>alert('"+msgSUCCESS+"');</script>");
+            msgSUCCESS = "-";
+            request.removeAttribute(My_func.SUCCESS_KEY);
+        } catch (Exception e) {
+        }
+        %>
 
     </head>
     <body>
