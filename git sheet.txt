@@ -1,0 +1,15 @@
+TO PUSH CODE INTO SERVER
+--------------------
+
+cd C:\xampp\htdocs\UMP_IHR_ERecruiment
+git checkout azmi
+git add *
+git commit -m "message kau"
+git push origin azmi
+
+
+TO PULL CODE FROM SERVER
+-------------------
+
+cd C:\xampp\htdocs\UMP_IHR_ERecruiment
+git pull origin master
