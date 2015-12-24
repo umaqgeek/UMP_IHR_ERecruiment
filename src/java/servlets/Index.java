@@ -96,7 +96,7 @@ public class Index extends HttpServlet {
         
         // connection to db
         MainClient mc = new MainClient(DBConn.getHost());
-        ArrayList<ArrayList<String>> data = mc.get(sql, params);
+        ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
 
         if (data.size() > 0) {
             String role = data.get(0).get(0);

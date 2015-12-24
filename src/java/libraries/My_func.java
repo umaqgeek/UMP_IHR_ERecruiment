@@ -18,6 +18,9 @@ public class My_func {
     public static final String ERROR_KEY = "error";
     public static final String SUCCESS_KEY = "success";
     
+    public static final String PAGE_KEY = "pageurl";
+    public static final String URL_KEY = "p";
+    
     public static String getURI(HttpServletRequest request, int uri) {
         String currURL = (request.getRequestURL()).toString();
         String baseURL = Config.getBase_url(request);

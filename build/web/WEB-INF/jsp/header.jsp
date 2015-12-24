@@ -9,17 +9,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
+        
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/main.css" />
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 
         <title>UMP-IMS E-Recruitment</title>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="<%=Config.getBase_url(request) %>assets/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="<%=Config.getBase_url(request) %>assets/css/landing-page.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="<%=Config.getBase_url(request) %>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,19 +26,13 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <!-- jQuery -->
-        <script src="<%=Config.getBase_url(request) %>assets/js/jquery.js"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="<%=Config.getBase_url(request) %>assets/js/bootstrap.min.js"></script>
+        <!-- Scripts -->
+        <script src="<%=Config.getBase_url(request) %>assets/js/jquery.min.js"></script>
+        <script src="<%=Config.getBase_url(request) %>assets/js/skel.min.js"></script>
+        <script src="<%=Config.getBase_url(request) %>assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="<%=Config.getBase_url(request) %>assets/js/main.js"></script>
         
-        <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
-        
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="<%=Config.getBase_url(request) %>assets/js/ie10-viewport-bug-workaround.js"></script>
-        
-        <!-- Custom CSS -->
-        <link href="<%=Config.getBase_url(request) %>assets/css/sb-admin.css" rel="stylesheet">
         
         <%
         String msgINFO = "-";
@@ -78,3 +69,6 @@
 
     </head>
     <body>
+        
+        <!-- Wrapper -->
+        <div id="wrapper">

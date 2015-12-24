@@ -142,7 +142,7 @@ public class MainClient {
      * Zero or Positive number: If sql execution was success.<br />
      * Negative number: If sql execution was failed and has error.<br />
      */
-    protected String setQuery(String query, String data[]) {
+    public String setQuery(String query, String data[]) {
         String key = "0";
         RMIConn rmic = new RMIConn();
         try {
@@ -183,7 +183,7 @@ public class MainClient {
      * Zero or Positive number: If sql execution was success.<br />
      * Negative number: If sql execution was failed and has error.<br />
      */
-    protected String setQuery(String query, String data[], String priKey) {
+    public String setQuery(String query, String data[], String priKey) {
         String key = "0";
         RMIConn rmic = new RMIConn();
         try {
@@ -216,7 +216,7 @@ public class MainClient {
      * ArrayList<ArrayList<String>> output = mc.getQuery(query, data);<br /><br />
      * @return It will return a table data with rows and columns into a 2D array list.
      */
-    public ArrayList<ArrayList<String>> get(String query, String data[]) {
+    public ArrayList<ArrayList<String>> getQuery(String query, String data[]) {
         ArrayList<ArrayList<String>> output = new ArrayList<ArrayList<String>>();
         RMIConn rmic = new RMIConn();
         try {
