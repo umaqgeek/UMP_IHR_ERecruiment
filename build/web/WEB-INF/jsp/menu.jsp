@@ -150,7 +150,7 @@
                                 <a href="#!">e-Filter</a>
                             </li>
 							<li>
-                                <a href="#!">e-Test</a>
+                                <a href="index.jsp?p=Candidate/E-Test/e-Test.jsp">e-Test</a>
                             </li>
 							<li>
                                 <a href="#!">e-Interview</a>
