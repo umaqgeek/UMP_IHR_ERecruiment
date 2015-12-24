@@ -39,7 +39,7 @@ public class RMIConn {
         } catch (Exception e) {
             
             status = false;
-            J.o("Network Error", "Network Error!\nPlease check with your administrator ..", 0);
+            System.out.println("Error: "+"Network Error!\nPlease check with your administrator ..");
             e.printStackTrace();
         }
         return status;

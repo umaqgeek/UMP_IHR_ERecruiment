@@ -19,7 +19,7 @@ import oms.rmi.server.Message;
  */
 public class MainClient {
     
-    private String host;
+    private String host = DBConn.getHost();
     
     /**
      * Call this constructor to start the RMI connection.<br />
@@ -53,6 +53,69 @@ public class MainClient {
         }
     }
     
+    public String add(String table, String data[][], String primaryKey) {
+        String out = "-1";
+        try {
+            if (data.length > 0) {
+                String query = "INSERT INTO "+table+"(";
+                for (int i = 0; i < data.length-1; i++) {
+                    query += data[i][0] + ",";
+                }
+                query += data[data.length-1][0] + ") VALUES(";
+                for (int i = 0; i < data.length-1; i++) {
+                    query += "?,";
+                }
+                query += "?)";
+                String params[] = new String[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    params[i] = data[i][1];
+                }
+                out = setQuery(query, params, primaryKey);
+            } else {
+                out = "-1";
+            }
+        } catch (Exception e) {
+            out = "-1";
+        }
+        return out;
+    }
+    
+    public String update(String table, String data[][], String primaryKey[][]) {
+        String out = "-1";
+        try {
+            if (data.length > 0) {
+                String query = "UPDATE "+table+" SET ";
+                for (int i = 0; i < data.length-1; i++) {
+                    query += data[i][0] + "=?,";
+                }
+                query += data[data.length-1][0] + "=? WHERE ";
+                query += primaryKey[0][0] + "=?";
+                for (int i = 1; i < primaryKey.length; i++) {
+                    query += " AND " + primaryKey[i][0] + "=?";
+                }
+                int length = data.length + primaryKey.length;
+                String params[] = new String[length];
+                int index = 0;
+                for (int i = 0; i < data.length; i++) {
+                    params[i] = data[i][1];
+                    index = i;
+                }
+                for (int i = index+1, j = 0; i < length && j < primaryKey.length; i++) {
+                    params[i] = primaryKey[j][1];
+                    j++;
+                }
+                
+                out = setQuery(query, params);
+            } else {
+                out = "-1";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = "-1";
+        }
+        return out;
+    }
+    
     /**
      * Use this method to send SQL query that does not return a table data values, such as:-<br />
      * 1. INSERT statement.<br />
@@ -79,7 +142,7 @@ public class MainClient {
      * Zero or Positive number: If sql execution was success.<br />
      * Negative number: If sql execution was failed and has error.<br />
      */
-    public String setQuery(String query, String data[]) {
+    protected String setQuery(String query, String data[]) {
         String key = "0";
         RMIConn rmic = new RMIConn();
         try {
@@ -120,7 +183,7 @@ public class MainClient {
      * Zero or Positive number: If sql execution was success.<br />
      * Negative number: If sql execution was failed and has error.<br />
      */
-    public String setQuery(String query, String data[], String priKey) {
+    protected String setQuery(String query, String data[], String priKey) {
         String key = "0";
         RMIConn rmic = new RMIConn();
         try {
@@ -153,7 +216,7 @@ public class MainClient {
      * ArrayList<ArrayList<String>> output = mc.getQuery(query, data);<br /><br />
      * @return It will return a table data with rows and columns into a 2D array list.
      */
-    public ArrayList<ArrayList<String>> getQuery(String query, String data[]) {
+    public ArrayList<ArrayList<String>> get(String query, String data[]) {
         ArrayList<ArrayList<String>> output = new ArrayList<ArrayList<String>>();
         RMIConn rmic = new RMIConn();
         try {

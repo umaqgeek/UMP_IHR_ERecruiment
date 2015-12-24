@@ -73,12 +73,14 @@ public class Verify extends HttpServlet {
             response.sendRedirect("index.jsp?p=index.jsp");
         }
 
-        String query = "UPDATE login "
-                + "SET l_verification = 'VERIFIED' "
-                + "WHERE l_refid = ? ";
         MainClient mc = new MainClient(DBConn.getHost());
-        String data1[] = {l_refid};
-        String status = mc.setQuery(query, data1);
+        String data1[][] = {
+            {"l_verification", "VERIFIED"}
+        };
+        String update1[][] = {
+            {"l_refid", l_refid}
+        };
+        String status = mc.update("login", data1, update1);
 
         if (status == "0") {
             request.setAttribute(My_func.INFO_KEY, "Your account has been verified.");
@@ -107,14 +109,16 @@ public class Verify extends HttpServlet {
             request.setAttribute(My_func.ERROR_KEY, "Invalid Key!");
             response.sendRedirect("index.jsp?p=index.jsp");
         }
-        
-        String query = "UPDATE login "
-                + "SET l_verification = 'VERIFIED' "
-                + "WHERE l_refid = ? ";
+
         MainClient mc = new MainClient(DBConn.getHost());
-        String data1[] = {l_refid};
-        String status = mc.setQuery(query, data1);
-        
+        String data1[][] = {
+            {"l_verification", "VERIFIED"}
+        };
+        String update1[][] = {
+            {"l_refid", l_refid}
+        };
+        String status = mc.update("login", data1, update1);
+
         if (status == "0") {
             request.setAttribute(My_func.INFO_KEY, "Your account has been verified.");
         } else {
