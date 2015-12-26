@@ -1,6 +1,6 @@
 <%@page import="libraries.My_func"%>
 <%
-String pageURLTemp = "WEB-INF/jsp/index.jsp";
+String pageURLTemp = My_func.LOGIN_URL;
 String pageURL = pageURLTemp;
 try {
     if (request.getParameter(My_func.URL_KEY) != null) {
@@ -9,7 +9,7 @@ try {
 } catch (Exception e) {
     pageURL = pageURLTemp;
 }
-session.setAttribute(My_func.PAGE_KEY, pageURL);
+session.setAttribute(My_func.SESSION_KEY, pageURL);
 
 response.sendRedirect("index.jsp");
 %>

@@ -18,8 +18,10 @@ public class My_func {
     public static final String ERROR_KEY = "error";
     public static final String SUCCESS_KEY = "success";
     
-    public static final String PAGE_KEY = "pageurl";
+    public static final String SESSION_KEY = "pageurl";
     public static final String URL_KEY = "p";
+    
+    public static final String LOGIN_URL = "WEB-INF/jsp/login.jsp";
     
     public static String getURI(HttpServletRequest request, int uri) {
         String currURL = (request.getRequestURL()).toString();

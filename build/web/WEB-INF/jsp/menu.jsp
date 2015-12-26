@@ -1,3 +1,4 @@
+<%@page import="libraries.My_func"%>
 <!-- Header -->
             <header id="header">
                 <h1><a href="#">UMP IMS E-Recruitment</a></h1>
@@ -24,32 +25,26 @@
             <!-- Right Menu -->
             <section id="menu">
 
-
+                <% 
+                String sessPage = My_func.LOGIN_URL;
+                try {
+                    sessPage = session.getAttribute(My_func.SESSION_KEY).toString();
+                } catch (Exception e) {
+                    sessPage = "";
+                }
+                if (!sessPage.equals(My_func.LOGIN_URL)) { 
+                %>
                 <!-- Links -->
                 <section>
                     <ul class="links">
                         <li>
                             <a href="#">
-                                <h3>Lorem ipsum</h3>
-                                <p>Feugiat tempus veroeros dolor</p>
+                                <h3>Link 1</h3>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <h3>Dolor sit amet</h3>
-                                <p>Sed vitae justo condimentum</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <h3>Feugiat veroeros</h3>
-                                <p>Phasellus sed ultricies mi congue</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <h3>Etiam sed consequat</h3>
-                                <p>Porta lectus amet ultricies</p>
+                                <h3>Link 2</h3>
                             </a>
                         </li>
                     </ul>
@@ -58,8 +53,9 @@
                 <!-- Actions -->
                 <section>
                     <ul class="actions vertical">
-                        <li><a href="#" class="button big fit">Log In</a></li>
+                        <li><a href="logout.jsp" class="button big fit">Log Out</a></li>
                     </ul>
                 </section>
+                <% } %>
 
             </section>

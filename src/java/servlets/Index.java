@@ -101,16 +101,16 @@ public class Index extends HttpServlet {
         if (data.size() > 0) {
             String role = data.get(0).get(0);
             if (role.toUpperCase().equals("PTJ")) {
-                response.sendRedirect("PTJ/e-recruitment-home.html");
+                response.sendRedirect("process.jsp?p=PTJ/e-recruitment-home.html");
             } else if (role.toUpperCase().equals("BPSM")) {
-                response.sendRedirect("BPSM/e-recruitment-home.html");
+                response.sendRedirect("process.jsp?p=BPSM/e-recruitment-home.html");
             } else if (role.toUpperCase().equals("CANDIDATE")) {
-                response.sendRedirect("Candidate/e-recruitment-home.html");
+                response.sendRedirect("process.jsp?p=Candidate/e-recruitment-home.html");
             } else {
-                response.sendRedirect("index.jsp?invalid=2");
+                response.sendRedirect("index.jsp?"+My_func.ERROR_KEY+"=Invalid Role!");
             }
         } else {
-            response.sendRedirect("index.jsp?invalid=1");
+            response.sendRedirect("index.jsp?"+My_func.ERROR_KEY+"=Invalid Identification No. / Password!");
         }
     }
 

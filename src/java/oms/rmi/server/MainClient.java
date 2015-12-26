@@ -105,6 +105,11 @@ public class MainClient {
                     j++;
                 }
                 
+                for (int i = 0; i < params.length; i++) {
+                    System.out.println(""+i+":"+params[i]);
+                }
+                System.out.println("query:"+query);
+                
                 out = setQuery(query, params);
             } else {
                 out = "-1";

@@ -33,12 +33,14 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="<%=Config.getBase_url(request) %>assets/js/main.js"></script>
         
+        <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+        
         
         <%
         String msgINFO = "-";
         try {
-            msgINFO = request.getAttribute(My_func.INFO_KEY).toString();
-            out.print("<script>alert('"+msgINFO+"');</script>");
+            msgINFO = request.getParameter(My_func.INFO_KEY).toString();
+            out.print("<script>alert('"+msgINFO+"');location.href='index.jsp';</script>");
             msgINFO = "-";
             request.removeAttribute(My_func.INFO_KEY);
         } catch (Exception e) {
@@ -48,8 +50,8 @@
         <%
         String msgERROR = "-";
         try {
-            msgERROR = request.getAttribute(My_func.ERROR_KEY).toString();
-            out.print("<script>alert('"+msgERROR+"');</script>");
+            msgERROR = request.getParameter(My_func.ERROR_KEY).toString();
+            out.print("<script>alert('"+msgERROR+"');location.href='index.jsp';</script>");
             msgERROR = "-";
             request.removeAttribute(My_func.ERROR_KEY);
         } catch (Exception e) {
@@ -59,8 +61,8 @@
         <%
         String msgSUCCESS = "-";
         try {
-            msgSUCCESS = request.getAttribute(My_func.SUCCESS_KEY).toString();
-            out.print("<script>alert('"+msgSUCCESS+"');</script>");
+            msgSUCCESS = request.getParameter(My_func.SUCCESS_KEY).toString();
+            out.print("<script>alert('"+msgSUCCESS+"');location.href='index.jsp';</script>");
             msgSUCCESS = "-";
             request.removeAttribute(My_func.SUCCESS_KEY);
         } catch (Exception e) {

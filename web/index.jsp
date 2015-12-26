@@ -8,11 +8,11 @@
 <jsp:include page="WEB-INF/jsp/menu.jsp"></jsp:include>
     
 <%
-String pageURLTemp = "WEB-INF/jsp/index.jsp";
+String pageURLTemp = My_func.LOGIN_URL;
 String pageURL = pageURLTemp;
 try {
-    if (session.getAttribute(My_func.PAGE_KEY) != null) {
-        pageURL = session.getAttribute(My_func.PAGE_KEY).toString();
+    if (session.getAttribute(My_func.SESSION_KEY) != null) {
+        pageURL = session.getAttribute(My_func.SESSION_KEY).toString();
     }
 } catch (Exception e) {
     pageURL = pageURLTemp;

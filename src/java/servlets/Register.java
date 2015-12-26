@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libraries.My_func;
 import models.DBConn;
 import oms.rmi.server.MainClient;
 
@@ -120,14 +121,22 @@ public class Register extends HttpServlet {
             l_refid = mc2.add("login", data2, "l_refid");
         }
         
+        String urlParam = "";
+        
         // send emel if success.
         if (l_refid != "-1" && l_refid != "0") {
             String link = Config.getBase_url(request) + "Verify?l_refid=" + l_refid;
             SendMail.send(l_email, "Click this link to verify your account: <a href='" + link + "'>Verify Account</a>");
+            
+            urlParam = "?" + My_func.SUCCESS_KEY + "=Your account has been registered.";
+            
+        } else {
+            
+            urlParam = "?" + My_func.ERROR_KEY + "=Your account cannot be registered!";
         }
         
         // redirect to login page.
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("index.jsp"+urlParam);
     }
 
     /**
