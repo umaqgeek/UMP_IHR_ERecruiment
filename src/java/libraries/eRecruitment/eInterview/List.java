@@ -5,7 +5,7 @@
  */
 package libraries.eRecruitment.eInterview;
 
-import System.objData;
+import helpers.objData;
 import models.DBConn;
 import oms.rmi.server.MainClient;
 
@@ -14,8 +14,40 @@ import oms.rmi.server.MainClient;
  * @author SUNNY
  */
 public class List {
+    public objData getVenueList(){
+        objData objdata = new objData();
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            String query = "SELECT ID, DESC FROM VENUES";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception e){
+            objdata.setErrorMessage(e.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+    public objData getPanelList(){
+        objData objdata = new objData();
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            String query = "SELECT ID, DESC FROM PANEL";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception e){
+            objdata.setErrorMessage(e.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
     /*  Method to display the list of ADs that are ended */
-    public objData  getEndedAds(){
+    public objData  getJobListEnding(){
         objData objdata = new objData();
         try{
             MainClient mc = new MainClient(DBConn.getHost());
@@ -32,7 +64,7 @@ public class List {
         return objdata;
     }
     /*  Method to display the list of all ADs */
-    public objData getAds(){
+    public objData getJobList(){
         objData objdata = new objData();
         try{
             MainClient mc = new MainClient(DBConn.getHost());
