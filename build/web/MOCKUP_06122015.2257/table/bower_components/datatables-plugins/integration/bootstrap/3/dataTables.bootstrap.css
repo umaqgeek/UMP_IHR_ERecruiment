@@ -182,9 +182,7 @@ ul.DTTT_dropdown.dropdown-menu {
   z-index: 2003;
 }
 
-ul.DTTT_dropdown.dropdown-menu a {
-	color: #333 !important; /* needed only when demo_page.css is included */
-}
+
 
 ul.DTTT_dropdown.dropdown-menu li {
 	position: relative;
