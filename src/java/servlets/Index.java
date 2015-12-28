@@ -86,7 +86,7 @@ public class Index extends HttpServlet {
         String pwd = request.getParameter("pwd");
         
         // sql query
-        String sql = "SELECT rl.rl_role "
+        String sql = "SELECT rl.rl_role, l.l_refid "
                 + "FROM role rl, login l "
                 + "WHERE rl.rl_refid = l.rl_refid "
                 + "AND l.l_username = ? "
@@ -100,6 +100,7 @@ public class Index extends HttpServlet {
 
         if (data.size() > 0) {
             String role = data.get(0).get(0);
+            String l_refid = data.get(0).get(1);
             if (role.toUpperCase().equals("PTJ")) {
                 response.sendRedirect("process.jsp?p=PTJ/e-recruitment-home.html");
             } else if (role.toUpperCase().equals("BPSM")) {

@@ -1,3 +1,4 @@
+<%@page import="controller.Session"%>
 <%@page import="libraries.My_func"%>
 <%
 String pageURLTemp = My_func.LOGIN_URL;
@@ -9,7 +10,7 @@ try {
 } catch (Exception e) {
     pageURL = pageURLTemp;
 }
-session.setAttribute(My_func.SESSION_KEY, pageURL);
+session.setAttribute(Session.SESSION_KEY, pageURL);
 
 response.sendRedirect("index.jsp");
 %>

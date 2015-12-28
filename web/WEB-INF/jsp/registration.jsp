@@ -7,7 +7,6 @@
         <div class="modal-content">
             <form method="post" action="Register">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">New Registration</h4>
                 </div>
                 <div class="modal-body">
