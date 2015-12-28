@@ -39,7 +39,7 @@
                                 <tr>
                                     <td style="width:5%">#</td>
                                     <td style="width:85%">Description</td>
-                                    <td style="width:10%" colspan="2" style="text-align: center">Action</td>
+                                    <td style="width:10%; text-align: center" colspan="2">Action</td>
                                 </tr>
                             </thead>
                             <tbody>

@@ -1,9 +1,8 @@
-<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
+<%@page import="controller.eRecruitment.eTest.List"%>
+<%@page import="controller.eRecruitment.eTest.Action"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eTest.ePersonalityTest.List"%>
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eTest.ePersonalityTest.Action"%>
 <%
     if (request.getParameter("lst_TDB_REFID")!=null){
         ArrayList<String> data = new ArrayList<String>();

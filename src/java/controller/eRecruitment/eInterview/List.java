@@ -14,35 +14,67 @@ import oms.rmi.server.MainClient;
  * @author SUNNY
  */
 public class List {
-    /*  Method to display the list of ADs that are ended */
-    public objData  getEndedAds(){
+
+    public objData getVenueList() {
         objData objdata = new objData();
-        try{
+        try {
+            MainClient mc = new MainClient(DBConn.getHost());
+
+            String query = "SELECT ID, DESC FROM VENUES";
+            String data[] = {};
+
+            objdata.setTableData(mc.getQuery(query, data));
+        } catch (Exception e) {
+            objdata.setErrorMessage(e.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+
+    public objData getPanelList() {
+        objData objdata = new objData();
+        try {
+            MainClient mc = new MainClient(DBConn.getHost());
+
+            String query = "SELECT ID, DESC FROM PANEL";
+            String data[] = {};
+
+            objdata.setTableData(mc.getQuery(query, data));
+        } catch (Exception e) {
+            objdata.setErrorMessage(e.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+    /*  Method to display the list of ADs that are ended */
+
+    public objData getJobListEnding() {
+        objData objdata = new objData();
+        try {
             MainClient mc = new MainClient(DBConn.getHost());
 
             String query = "SELECT * FROM EADS WHERE END_DATE < NOW()";
             String data[] = {};
 
-            objdata.setTableData(mc.getQuery(query,data));
-        }
-        catch(Exception e){
+            objdata.setTableData(mc.getQuery(query, data));
+        } catch (Exception e) {
             objdata.setErrorMessage(e.toString());
             objdata.setFlag(1);
         }
         return objdata;
     }
     /*  Method to display the list of all ADs */
-    public objData getAds(){
+
+    public objData getJobList() {
         objData objdata = new objData();
-        try{
+        try {
             MainClient mc = new MainClient(DBConn.getHost());
 
             String query = "SELECT * FROM EADS";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             objdata.setErrorMessage(e.toString());
             objdata.setFlag(1);
         }

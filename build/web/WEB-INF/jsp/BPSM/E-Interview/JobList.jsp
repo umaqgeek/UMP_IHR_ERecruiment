@@ -1,8 +1,7 @@
-<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 <%@page import="java.util.ArrayList"%>
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eInterview.List"%>
+<%@page import="controller.eRecruitment.eInterview.List"%>
 <%
     /*
     if (request.getParameter("txt_TDB_SET_NAME")!=null){
@@ -114,10 +113,3 @@
         </div>
     </div>
 </div>
-<!-- /.container-fluid -->
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="js/ie10-viewport-bug-workaround.js"></script>
