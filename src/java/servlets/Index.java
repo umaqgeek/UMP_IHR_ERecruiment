@@ -102,11 +102,11 @@ public class Index extends HttpServlet {
             String role = data.get(0).get(0);
             String l_refid = data.get(0).get(1);
             if (role.toUpperCase().equals("PTJ")) {
-                response.sendRedirect("process.jsp?p=PTJ/e-recruitment-home.html");
+                response.sendRedirect("process.jsp?p=PTJ/e-recruitment-home.jsp");
             } else if (role.toUpperCase().equals("BPSM")) {
-                response.sendRedirect("process.jsp?p=BPSM/e-recruitment-home.html");
+                response.sendRedirect("process.jsp?p=BPSM/e-recruitment-home.jsp");
             } else if (role.toUpperCase().equals("CANDIDATE")) {
-                response.sendRedirect("process.jsp?p=Candidate/e-recruitment-home.html");
+                response.sendRedirect("process.jsp?p=Candidate/e-recruitment-home.jsp");
             } else {
                 response.sendRedirect("index.jsp?"+My_func.ERROR_KEY+"=Invalid Role!");
             }

@@ -1,9 +1,8 @@
-<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eTest.List"%>
+<%@page import="controller.eRecruitment.eTest.List"%>
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eTest.Action"%>
+<%@page import="controller.eRecruitment.eTest.Action"%>
 <%
     if (request.getParameter("txt_TDB_SET_NAME")!=null){
         ArrayList<String> data = new ArrayList<String>();

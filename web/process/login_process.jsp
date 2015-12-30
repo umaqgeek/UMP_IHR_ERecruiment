@@ -34,11 +34,11 @@
         if (role.toUpperCase().equals("Administrator".toUpperCase())) {
             response.sendRedirect("../process.jsp?p=Admin/dashboard.jsp");
         } else if (role.toUpperCase().equals("ptj".toUpperCase())) {
-            response.sendRedirect("../process.jsp?p=PTJ/e-recruitment-home.html");
+            response.sendRedirect("../process.jsp?p=PTJ/e-recruitment-home.jsp");
         } else if (role.toUpperCase().equals("bpsm".toUpperCase())) {
-            response.sendRedirect("../process.jsp?p=BPSM/e-recruitment-home.html");
+            response.sendRedirect("../process.jsp?p=BPSM/e-recruitment-home.jsp");
         } else if (role.toUpperCase().equals("candidate".toUpperCase())) {
-            response.sendRedirect("../process.jsp?p=Candidate/e-recruitment-home.html");
+            response.sendRedirect("../process.jsp?p=Candidate/e-recruitment-home.jsp");
         } else {
             response.sendRedirect("../index.jsp?" + My_func.ERROR_KEY + "=Invalid Role!");
         }
