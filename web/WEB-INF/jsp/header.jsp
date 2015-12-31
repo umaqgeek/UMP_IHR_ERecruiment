@@ -68,6 +68,11 @@
         }
         %>
 
+        <script>
+            $(document).ready(function () {
+                $("#txtEditor").Editor();
+            });
+        </script>
     </head>
     <body>
         

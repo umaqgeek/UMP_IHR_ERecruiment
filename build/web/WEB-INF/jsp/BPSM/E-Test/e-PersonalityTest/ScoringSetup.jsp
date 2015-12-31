@@ -1,4 +1,3 @@
-<jsp:include page="WEB-INF/jsp/menu.jsp"></jsp:include>
 <div id="wrapper">
     <div class="container-fluid">
         <!-- Page Heading -->
@@ -12,7 +11,7 @@
                     <li>
                         <i class="fa fa-dashboard"></i>  <a href="../../e-recruitment-home.html">Dashboard</a>
                     </li>
-                                                <li class="active">
+                    <li class="active">
                         <i class="fa fa-file"></i> System
                     </li>
                     <li class="active">
@@ -78,11 +77,4 @@
         </div>
     </div>
 </div>
-<!-- /.container-fluid -->
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="js/ie10-viewport-bug-workaround.js"></script>
 
