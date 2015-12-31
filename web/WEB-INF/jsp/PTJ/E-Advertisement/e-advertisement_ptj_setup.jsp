@@ -1,3 +1,7 @@
+<%
+out.print(session.getAttribute("w_refid"));  
+%>
+
 <div class="row">
     <div class="well">
         <div class="row">

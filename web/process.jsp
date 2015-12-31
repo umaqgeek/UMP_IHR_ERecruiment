@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@page import="controller.Session"%>
 <%@page import="libraries.My_func"%>
 <%
@@ -11,6 +12,17 @@ try {
     pageURL = pageURLTemp;
 }
 session.setAttribute(Session.SESSION_KEY, pageURL);
+
+Enumeration en = request.getParameterNames();
+while (en.hasMoreElements()) {
+    Object objOri = en.nextElement();
+    String param = (String) objOri;
+    String value = request.getParameter(param);
+    if (!My_func.URL_KEY.toUpperCase().equals(param.toUpperCase())) {
+        session.setAttribute(param, value);
+    }
+}
+            
 
 response.sendRedirect("index.jsp");
 %>

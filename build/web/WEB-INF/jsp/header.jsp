@@ -1,4 +1,5 @@
 
+<%@page import="controller.Session"%>
 <%@page import="libraries.My_func"%>
 <%@page import="config.Config"%>
 <html>
@@ -33,6 +34,11 @@
         <script src="<%=Config.getBase_url(request) %>assets/js/util.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/js/main.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+        
+        <script src="<%=Config.getBase_url(request) %>assets/js/jquery-1.11.3.min.js"></script>
+	<script src="<%=Config.getBase_url(request) %>assets/js/bootstrap.min.js"></script>
+	<script src="<%=Config.getBase_url(request) %>assets/js/highcharts.js"></script>
+	<script src="<%=Config.getBase_url(request) %>assets/js/exporting.js"></script>
         
         
         <%
@@ -70,11 +76,11 @@
 
         <script>
             $(document).ready(function () {
-                $("#txtEditor").Editor();
+                //$("#txtEditor").Editor();
             });
         </script>
     </head>
     <body>
-        
+        <br/><%=session.getAttribute(Session.SESSION_KEY) %>
         <!-- Wrapper -->
         <div id="wrapper">

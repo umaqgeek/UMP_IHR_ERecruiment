@@ -1,12 +1,27 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%
+  String sql = "SELECT w.w_grade, w.w_position, w.w_ptj, w.w_total, w.w_refid "
+          + "FROM warrant w "
+          + "WHERE w.w_status = 1 ";
+  String params[] = {};
+  
+  MainClient mc = new MainClient(DBConn.getHost());
+  ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
+  
+  String graphData = "";
+  for (int i = 0; i < data.size()-1; i++) {
+      graphData += "{ name: \""+data.get(i).get(1)+"\", y: "+data.get(i).get(3)+" },";
+  }
+  if (data.size() > 0) {
+      int s = data.size();
+      graphData += "{ name: \""+data.get(s-1).get(1)+"\", y: "+data.get(s-1).get(3)+" },";
+  }
+%>
+
 <div class="row">
-
-    <div class="row">
-
-
-
-
-        <div id="container" style="min-width: 310px; min-height: 260px; max-height: 500px; max-width: 600px; margin: 0 auto"></div>
-
+    <table><tr><td align="center"><div id="container" style="margin: 0 auto"></div></td></tr></table>
         <script>
             $(function () {
                 $('#container').highcharts({
@@ -39,114 +54,37 @@
                         enabled: false
                     },
                     series: [{
-                            name: "Brands",
+                            name: "Total",
                             colorByPoint: true,
-                            data: [{
-                                    name: "Pegawai Teknologi Maklumat",
-                                    y: 33.33
-                                }, {
-                                    name: "Pegawai Jurutera",
-                                    y: 33.03,
-                                    sliced: true,
-                                    selected: true
-                                }, {
-                                    name: "Pegawai Penyelidik",
-                                    y: 33.33
-                                }]
+                            data: [<%=graphData %>]
                         }]
                 });
             });
         </script>	
 
-    </div>
+</div>
 
-    <div class="well">	
-
-        <div class="row">
-
+<div class="row">
             <table class="table table-condensed" style="border-collapse:collapse;">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Gred</th>
-                        <th>Postiton </th>
+                        <th>Grade</th>
+                        <th>Position </th>
                         <th>Total</th>
                         <th>Setup</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <% for (int i = 0; i < data.size(); i++) { %>
                     <tr>
-                        <td>1</td>
-                        <td>FT41</td>
-                        <td>Pegawai Teknologi Maklumat</td>
-                        <td><span class="badge">3</span></td>
-                        <td><a href="e-advertisement_ptj_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
+                        <td><%=i+1 %></td>
+                        <td><%=data.get(i).get(0) %></td>
+                        <td><%=data.get(i).get(1) %></td>
+                        <td><span class="badge"><%=data.get(i).get(3) %></span></td>
+                        <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_setup.jsp&w_refid=<%=data.get(i).get(4) %>" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>J41</td>
-                        <td>Pegawai Jurutera</td>
-                        <td><span class="badge">3</span></td>
-                        <td><a href="#" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-                    </tr>							
-                    <tr>
-                        <td>3</td>
-                        <td>Q41</td>
-                        <td>Pegawai Penyelidik</td>
-                        <td><span class="badge">3</span></td>
-                        <td><a href="#" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-                    </tr>
+                    <% } %>
                 </tbody>
             </table>
-
-            <!-- Modal 
-            <div id="myModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
-            <!-- Modal content
-            <div class="modal-content">
-              
-              <div class="modal-body">
-                    <table class="table table-condensed" style="border-collapse:collapse;">
-                            <thead>
-                                    <tr>
-                                            <th>#</th>
-                                            <th>Gred</th>
-                                            <th>Position</th>
-                                            <th>Level Posts</th>
-                                            <th>Total</th>
-                                            <th>Setup</th>
-                                    </tr>
-                            </thead>
-                            <tbody>
-                                    <tr>
-                                            <td>1</td>
-                                            <td>FT41</td>
-                                            <td>Pegawai Teknologi Maklumat</td>
-                                            <td>Permanent</td>
-                                            <td><span class="badge">2</span></td>
-                                            <td><a href="e-Advertisement_ptj_setup_sample1.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                            <td>2</td>
-                                            <td>FT41</td>
-                                            <td>Pegawai Teknologi Maklumat</td>
-                                            <td>Contract</td>
-                                            <td><span class="badge">1</span></td>
-                                            <td><a href="e-Advertisement_ptj_setup_sample2.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-                                    </tr>							
-                                    
-                            </tbody>
-                    </table>
-              </div>
-              <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-
-      </div>-->
-        </div>
-
-
-    </div>
 </div>
