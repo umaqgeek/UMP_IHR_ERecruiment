@@ -1,67 +1,37 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%
+String query3 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, SUM(vpp.vpp_total), pph.pph_status, pph.w_refid "
+        + "FROM vacancy_pos_ptj vpp, position_ptj_hr pph "
+        + "WHERE pph.pph_refid = vpp.pph_refid "
+        + "AND pph.pph_status = 'HR' "
+        + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status, pph.w_refid ";
+MainClient mc3 = new MainClient(DBConn.getHost());
+String params3[] = {};
+ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
+%>
+
 <div class="row">
-
-    <div class="well">	
-
-        <table class="table table-condensed" style="border-collapse:collapse;">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Department</th>
-                    <th>Total</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><a href="#" data-toggle="modal" data-target="#myModal">Jabatan Pembangunan</a></td>
-                    <td><a href="#" data-toggle="modal" data-target="#myModal"><span class="badge">3</span></a></td>
-                </tr>						
-            </tbody>
-        </table>
-
-        <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content--->
-                <div class="modal-content">
-                    <div class="well">
-
-
-                        <div class="modal-body">
-                            <h2>Jabatan Pembangunan</h2>
-                            <table class="table table-condensed" style="border-collapse:collapse;">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Grade</th>
-                                        <th>Position</th>
-                                        <th>Total</th>
-                                        <th>Setup</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>FT41</td>
-                                        <td>Pegawai Teknologi Maklumat</td>
-                                        <td><span class="badge">3</span></td>
-                                        <td><a href="e-advertisement_BPSM_setup.html" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-    <!-- /.container-fluid -->
-
+    <h2>List of Positions</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Grade</th>
+                <th>Position</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (int i = 0; i < pph.size(); i++) {%>
+            <tr>
+                <td><%=i + 1%></td>
+                <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(1)%></a></td>
+                <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(2)%></a></td>
+                <td><%=pph.get(i).get(3)%></td>
+            </tr>
+            <% }%>
+        </tbody>
+    </table>
 </div>

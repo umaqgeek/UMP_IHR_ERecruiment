@@ -40,6 +40,10 @@
 	<script src="<%=Config.getBase_url(request) %>assets/js/highcharts.js"></script>
 	<script src="<%=Config.getBase_url(request) %>assets/js/exporting.js"></script>
         
+	<script src="<%=Config.getBase_url(request) %>assets/ckeditor/ckeditor.js"></script>
+        
+        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
         
         <%
         String msgINFO = "-";
@@ -81,6 +85,6 @@
         </script>
     </head>
     <body>
-        <br/><%=session.getAttribute(Session.SESSION_KEY) %>
-        <!-- Wrapper -->
+<!--        <br/><%=session.getAttribute(Session.SESSION_KEY) %>
+        <br />-->
         <div id="wrapper">
