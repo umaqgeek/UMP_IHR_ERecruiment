@@ -16,7 +16,7 @@
   }
   if (data.size() > 0) {
       int s = data.size();
-      graphData += "{ name: \""+data.get(s-1).get(1)+"\", y: "+data.get(s-1).get(3)+" },";
+      graphData += "{ name: \""+data.get(s-1).get(1)+"\", y: "+data.get(s-1).get(3)+" }";
   }
 %>
 <div class="row">

@@ -38,7 +38,7 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
     <li><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM.jsp">&lt;&lt; Back to List of Positions </a></li>
 </ul>
 
-<form method="post" action="process/ptj/eAds/eAds1.jsp" id="form_bpsm_eads1">
+<form method="post" action="process/bpsm/eAds/eAds1.jsp" id="form_bpsm_eads1">
     <div class="row">
         Grade: <%=data_vpp.get(0).get(11) %> <br />
         Position: <%=data_vpp.get(0).get(12) %> <br />
@@ -127,7 +127,7 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
     
     <div class="row">
         Start Date : <br />
-        <input type='date' class="form-control" name="pph_startdate" /> <br />
+        <input type='date' class="form-control" name="pph_startdate" /> <br /><br />
         End Date : <br />
         <input type='date' class="form-control" name="pph_enddate" />
     </div>
@@ -183,9 +183,9 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
     $(document).ready(function() {
         $("#btn_bpsm_save").click(function() {
             $("#button_type").val("HR");
-            $("#form_bpsm_eads1").submit();
+            //$("#form_bpsm_eads1").submit();
         });
-        $("#btn_hr").click(function() {
+        $("#btn_bpsm_publish").click(function() {
             $("#button_type").val("PUBLISH");
             $("#form_bpsm_eads1").submit();
         });
