@@ -42,8 +42,11 @@
         
 	<script src="<%=Config.getBase_url(request) %>assets/ckeditor/ckeditor.js"></script>
         
-        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<!--        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>-->
+        
+        <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
+        <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
         
         <%
         String msgINFO = "-";
@@ -87,4 +90,5 @@
     <body>
 <!--        <br/><%=session.getAttribute(Session.SESSION_KEY) %>
         <br />-->
+
         <div id="wrapper">
