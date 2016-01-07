@@ -20,45 +20,48 @@
   }
 %>
 <div class="row">
-    <table><tr><td align="center"><div id="container" style="margin: 0 auto"></div></td></tr></table>
+   <div id="container" style="min-width:100%; height: 400px; max-width:100%; margin: 0 auto">
         <script>
             $(function () {
-                $('#container').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'Warrant Statistic By Status'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    series: [{
-                            name: "Total",
-                            colorByPoint: true,
-                            data: [<%=graphData %>]
-                        }]
-                });
-            });
+				var chart;
+				$(document).ready(function() {
+					chart = new Highcharts.Chart({
+						chart: {
+							renderTo: 'container',
+							plotBackgroundColor: null,
+							plotBorderWidth: null,
+							plotShadow: false,
+							type: 'pie'
+						},
+						title: {
+							 text: 'Warrant Statistic By Status'
+						},
+						tooltip: {
+							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+							percentageDecimals: 1
+						},
+						plotOptions: {
+							pie: {
+										allowPointSelect: true,
+										cursor: 'pointer',
+										dataLabels: {
+											enabled: true,
+											format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+											style: {
+												color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+											}
+										}
+									}
+						},
+						 series: [{
+										name: "Total",
+										colorByPoint: true,
+										data: [<%=graphData %>]
+									}]
+					});
+				});
+				
+			});
         </script>	
 
 </div>

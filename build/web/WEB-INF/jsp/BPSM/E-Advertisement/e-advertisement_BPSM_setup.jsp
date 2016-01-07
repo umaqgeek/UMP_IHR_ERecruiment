@@ -39,88 +39,113 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
 </ul>
 
 <form method="post" action="process/bpsm/eAds/eAds1.jsp" id="form_bpsm_eads1">
-    <div class="row">
+    <!--<div class="row">
         Grade: <%=data_vpp.get(0).get(11) %> <br />
         Position: <%=data_vpp.get(0).get(12) %> <br />
         PTJ: <%=data_vpp.get(0).get(13) %> <br />
     </div>
-    <hr />
-    <div class="row">
-        Vacancy Position:- <br />
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Job Status</th>
-                    <th>Total</th>
-                    <th>Campus</th>
-<!--                    <th>Add</th>-->
-                </tr>
-            </thead>
-            <tbody>
-                <% for (int i = 0; i < data_vpp.size(); i++) { %>
-                <tr>
-                    <td><%=data_vpp.get(i).get(5) %></td>
-                    <td><%=data_vpp.get(i).get(3) %></td>
-                    <td><%=data_vpp.get(i).get(7) %></td>
-<!--                    <td>
-                        <button type="button">
-                            <i class="glyphicon glyphicon-plus"></i> Add
-                        </button>
-                    </td>-->
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-    <hr />
-    <div class="row">            
-        Special Competence (PTJ):- <br />
-        <div class="tabbable boxed parentTabs">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#set1">Skill</a>  
-                </li>
-                <li><a href="#set2">Attitude</a>
-                </li>
-                <li><a href="#set3">Knowledge</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="set1">
-                    <%=data_vpp.get(0).get(14) %>
-                </div>
+    <hr />--->
+  
 
-                <div class="tab-pane fade" id="set2">
-                    <%=data_vpp.get(0).get(15) %>
-                </div>
+	<!-----------------start------------------->
+		<div class="accordion">
+		<div class="accordion-section ">
+				<a class="accordion-section-title " href="#accordion-5">PTJ: <%=data_vpp.get(0).get(13) %></a>
+				<div id="accordion-5" class="accordion-section-content">
+					Grade: <%=data_vpp.get(0).get(11) %> <br />
+					Position: <%=data_vpp.get(0).get(12) %> <br />
+				</div><!--end .accordion-section-content-->
+			</div><!--end .accordion-section-->
 
-                <div class="tab-pane fade" id="set3">
-                    <%=data_vpp.get(0).get(16) %>
-                </div>
-            </div>
-        </div>
+		
+			<div class="accordion-section">
+				<a class="accordion-section-title" href="#accordion-1">Vacancy Position</a>
+				<div id="accordion-1" class="accordion-section-content">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Job Status</th>
+								<th>Total</th>
+								<th>Campus</th>
+			<!--                    <th>Add</th>-->
+							</tr>
+						</thead>
+						<tbody>
+							<% for (int i = 0; i < data_vpp.size(); i++) { %>
+							<tr>
+								<td><%=data_vpp.get(i).get(5) %></td>
+								<td><%=data_vpp.get(i).get(3) %></td>
+								<td><%=data_vpp.get(i).get(7) %></td>
+			<!--                    <td>
+									<button type="button">
+										<i class="glyphicon glyphicon-plus"></i> Add
+									</button>
+								</td>-->
+							</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div><!--end .accordion-section-content-->
+			</div><!--end .accordion-section-->
 
-        <script>
-            $("ul.nav-tabs a").click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
-        </script>
-    </div>
-    <hr />
-    <div class="row">
-        Area of Expertise  (PTJ):- <br />
-        <% for (int i = 0; i < data_aep.size(); i++) { %>
-            <%=data_aep.get(i).get(4) %> <br />
-        <% } %>
-    </div>
-    <hr />
-    <div class="row">
-        Additional conditions (if any) (PTJ):- <br />
-        <%=data_vpp.get(0).get(17) %>
-    </div>
-    <hr />
+			<div class="accordion-section">
+				<a class="accordion-section-title" href="#accordion-2">Special Competence (PTJ)</a>
+				<div id="accordion-2" class="accordion-section-content">
+					<div class="tabbable boxed parentTabs">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#set1">Skill</a>  
+							</li>
+							<li><a href="#set2">Attitude</a>
+							</li>
+							<li><a href="#set3">Knowledge</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="set1">
+								<%=data_vpp.get(0).get(14) %>
+							</div>
+
+							<div class="tab-pane fade" id="set2">
+								<%=data_vpp.get(0).get(15) %>
+							</div>
+
+							<div class="tab-pane fade" id="set3">
+								<%=data_vpp.get(0).get(16) %>
+							</div>
+						</div>
+					</div>
+
+					<script>
+						$("ul.nav-tabs a").click(function (e) {
+							e.preventDefault();
+							$(this).tab('show');
+						});
+					</script>
+				</div><!--end .accordion-section-content-->
+			</div><!--end .accordion-section-->
+
+			<div class="accordion-section">
+				<a class="accordion-section-title" href="#accordion-3">Area of Expertise  (PTJ)</a>
+				<div id="accordion-3" class="accordion-section-content">
+					 <% for (int i = 0; i < data_aep.size(); i++) { %>
+						<%=data_aep.get(i).get(4) %> <br />
+					<% } %>
+				</div><!--end .accordion-section-content-->
+			</div><!--end .accordion-section-->
+			
+			<div class="accordion-section">
+				<a class="accordion-section-title" href="#accordion-4"> Additional conditions (if any) (PTJ)</a>
+				<div id="accordion-4" class="accordion-section-content">
+					 <%=data_vpp.get(0).get(17) %>
+				</div><!--end .accordion-section-content-->
+			</div><!--end .accordion-section-->
+		</div><!--end .accordion-->
+	
+	<!------------------------end---------------->
     <input type="hidden" name="pph_refid" value="<%=pph_refid %>" />
-
+	<br/>
+	<hr/>
+	<br/>
 
 
     <!-- data for BPSM -->
