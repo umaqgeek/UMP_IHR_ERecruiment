@@ -21,7 +21,7 @@ ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
 
 <div class="row">
     <h2>E-Warrant</h2>
-    <table class="table table-condensed" style="border-collapse:collapse;">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>#</th>
