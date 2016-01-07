@@ -1,16 +1,17 @@
-<div class="panel-group">
-    <!---Personal-->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <button id="personal" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse1">
-                    <span class="glyphicon glyphicon-collapse-down"></span> Personal Information
-                </button>
-            </h4>
-        </div>
-        <div id="collapse1" class="panel-collapse collapse in">
-            <div class="panel-body">
-                <div class="row">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Personal Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                  <div class="row">
 
                     <div class="row">
                         <!-- left column -->
@@ -26,7 +27,7 @@
                         <!-- edit form column -->
                         <div class="col-md-7 personal-info">
                             <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">×</a> 
+                                <a class="panel-close close" data-dismiss="alert">×</a>
                                 <i class="fa fa-coffee"></i>
                                 This is an <strong>.alert</strong>. Use this to show important messages to the user.
                             </div>
@@ -72,7 +73,7 @@
                                             <option>Sabah</option>
                                             <option>Sarawak</option>
                                             <option>Terengganu Darul Iman</option>
-                                        </select> 
+                                        </select>
                                     </div>
                                 </div>
 
@@ -82,7 +83,7 @@
                                     <div class="col-lg-6">
                                         <input class="form-control" type="text" value="">
                                     </div>
-                                </div>   
+                                </div>
 
 
 
@@ -102,7 +103,7 @@
                                                 });											</script>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
 
 
 
@@ -111,14 +112,14 @@
                                     <div class="col-lg-6">
                                         <input class="form-control" type="text" value="">
                                     </div>
-                                </div>   
+                                </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Email:</label>
                                     <div class="col-lg-6">
                                         <input class="form-control" type="text" value="">
                                     </div>
-                                </div>     
+                                </div>
 
 
                                 <div class="form-group">
@@ -147,7 +148,7 @@
                                                 <option>Hindu</option>
                                                 <option>Buddha</option>
 
-                                            </select> 
+                                            </select>
                                         </div>
                                     </div>
 
@@ -164,7 +165,7 @@
                                                 <option>Iban</option>
                                             </select>
                                         </div>
-                                    </div> 
+                                    </div>
 
 
                                     <div class="form-group">
@@ -203,7 +204,7 @@
                                                         <option>Married</option>
                                                     </select>
                                                 </div>
-                                            </div>      
+                                            </div>
 
 
 
@@ -211,7 +212,7 @@
 
                                             <div class="form-group">
                                                 <label class="col-lg-3 control-label">
-                                                    Vehicle license:</label>		
+                                                    Vehicle license:</label>
                                                 <div class="col-md-4">
                                                     <div class="form-inline">
                                                         <div class="controls-row">
@@ -231,7 +232,7 @@
                                                             <label class="radio inline">
                                                                 <input type="radio" value="4"/>
                                                                 B2
-                                                            </label>  
+                                                            </label>
 
                                                             <label class="radio inline">
                                                                 <input type="radio" value="5"/>
@@ -278,8 +279,6 @@
                                                     </div>
                                                 </div>
 
-
-
                                                 <div class="col-md-7">
                                                     <input type="button" class="btn btn-primary" value="Save Changes">
                                                     <span></span>
@@ -293,49 +292,39 @@
                                 </div>
                         </div>
 
-
-
+                    </div>
+                </div>
                     </div>
                 </div>
             </div>
-            <script>
-                        $(document).ready(function(){
-                $("#collapse1").on("hide.bs.collapse", function(){
-                $("#personal").html('<span class="glyphicon glyphicon-collapse-down"></span>  Personal Information');
-                });
-                        $("#collapse1").on("show.bs.collapse", function(){
-                $("#personal").html('<span class="glyphicon glyphicon-collapse-up"></span>  Personal Information');
-                });
-                });				</script>
-        </div>
-        <!---Academic-->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <button id="academic" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse2">
-                        <span class="glyphicon glyphicon-collapse-down"></span> Academic Information
-                    </button>
-                </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse" >
-                <div class="panel-body">
-                    <!--indside-->
-                    <!--PMR-->
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    PMR/SRP/LCE&nbsp;<a data-toggle="collapse"  href="#collapse8"> <span class="glyphicon glyphicon-collapse-down"></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapse8" class="panel-collapse collapse in">
-                                <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Academic Information
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <div class="panel-group" id="accordionAcademic" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            PMR/SRP/LCE
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="academicheadingOne">
+                                    <div class="panel-body">
+                                        <div class="panel-body">
 
                                     <form id="pmrForm" name="pmrForm" action="pmr.html" method="post" onsubmit="return SendSearch( & #39; pmrForm & #39; );">
 
                                         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" background="bground.png">
 
-                                            <tbody><tr> 
+                                            <tbody><tr>
                                                     <td>
 
 
@@ -348,7 +337,7 @@
                                                                         For PMR certificate , please select grades A to E and the certificates SRP / LCE , please select grade 1 to 9															</td>
                                                                 </tr>
 
-                                                                <tr> 
+                                                                <tr>
                                                                     <td colspan="6"><hr></td>
                                                                 </tr>
 
@@ -454,7 +443,7 @@
                                                                     </td>
                                                                     <td align="right"></td>
                                                                     <td align="right"></td>
-                                                                    <td align="left">&nbsp;</td> 
+                                                                    <td align="left">&nbsp;</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -834,7 +823,7 @@
 
                                                             </tr></table><p>&nbsp;</p><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr>
                                                                 <td align="left">&nbsp;</td>
-                                                            </tr>                                                         
+                                                            </tr>
 
 
 
@@ -849,38 +838,25 @@
                                             </tbody></table>
                                     </form>
 
-
-
-
-
-
-
-
-
-
-
+                                </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!--End-->
-                    <!--SPM-->
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    SPM/MCE/SPM(V)/SPVM&nbsp;<a data-toggle="collapse"  href="#collapse9"> <span class="glyphicon glyphicon-collapse-down"></span></a>
-                                </h4>
-                            </div>
-                            <div id="collapse9" class="panel-collapse collapse in">
-                                <div class="panel-body">
-
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            SPM/MCE/SPM(V)/SPVM
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingTwo">
+                                    <div class="panel-body">
                                     <form id="pmrForm" name="pmrForm" action="pmr.html" method="post" onsubmit="return SendSearch( & #39; pmrForm & #39; );">
 
                                         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" background="bground.png">
 
-                                            <tbody><tr> 
+                                            <tbody><tr>
                                                     <td>
 
 
@@ -893,7 +869,7 @@
                                                                         For SPM</td>
                                                                 </tr>
 
-                                                                <tr> 
+                                                                <tr>
                                                                     <td colspan="6"><hr></td>
                                                                 </tr>
 
@@ -999,7 +975,7 @@
                                                                     </td>
                                                                     <td align="right"></td>
                                                                     <td align="right"></td>
-                                                                    <td align="left">&nbsp;</td> 
+                                                                    <td align="left">&nbsp;</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -1574,10 +1550,7 @@
 
                                                             </tr></table><p>&nbsp;</p><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr>
                                                                 <td align="left">&nbsp;</td>
-                                                            </tr>                                                         
-
-
-
+                                                            </tr>
 
 
                                                         </table>
@@ -1588,53 +1561,37 @@
 
                                             </tbody></table>
                                     </form>
-
-
-
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            IPTA/IPTS
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingThree">
+                                    <div class="panel-body">
+                                    IPTA/IPTS
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--End-->
-                    <!--IPTA/IPTS-->
-                    <div class="panel-group">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="#collapse10">IPTA/IPTS</a>
-                                </h4>
-                            </div>
-                            <div id="collapse10" class="panel-collapse collapse in">
-                                <div class="panel-body">IPTA/IPTS</div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
-                <script>
-                            $(document).ready(function(){
-                    $("#collapse2").on("hide.bs.collapse", function(){
-                    $("#academic").html('<span class="glyphicon glyphicon-collapse-down"></span>  Academic Information');
-                    });
-                            $("#collapse2").on("show.bs.collapse", function(){
-                    $("#academic").html('<span class="glyphicon glyphicon-collapse-up"></span>  Academic Information');
-                    });
-                    });				</script>
             </div>
-            <!---Skill-->
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
-                        <button id="Skill" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse3">
-                            <span class="glyphicon glyphicon-collapse-down"></span> Skill
-                        </button>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Skill
+                        </a>
                     </h4>
                 </div>
-                <div id="collapse3" class="panel-collapse collapse">
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
-
                         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
 
                             <tbody><tr>
@@ -1654,11 +1611,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <table id="dataTambah">  
+                                                        <table id="dataTambah">
 
                                                             <tbody><tr>
                                                                     <td width="24%" align="left" class="body_fnt1">
-                                                                        <select name="bakat" onfocus="focusColour(this);"> 
+                                                                        <select name="bakat" onfocus="focusColour(this);">
 
                                                                             <option value="">Sila Pilih</option>
 
@@ -1695,7 +1652,7 @@
 
                                                                 <tr>
                                                                     <td width="24%" align="left" class="body_fnt1">
-                                                                        <select name="bakat" onfocus="focusColour(this);"> 
+                                                                        <select name="bakat" onfocus="focusColour(this);">
 
                                                                             <option value="">Sila Pilih</option>
 
@@ -1734,7 +1691,7 @@
 
                                                                 <tr>
                                                                     <td width="24%" align="left" class="body_fnt1">
-                                                                        <select id="bakat" name="bakat" onchange="document.getElementById( & #39; bakatAsal2 & #39; ).value = this.value" onfocus="focusColour(this);"> 
+                                                                        <select id="bakat" name="bakat" onchange="document.getElementById( & #39; bakatAsal2 & #39; ).value = this.value" onfocus="focusColour(this);">
 
                                                                             <option value="">Sila Pilih</option>
 
@@ -1788,41 +1745,29 @@
                                     </td>
                                 </tr>
                             </tbody></table>
-
-
                     </div>
                 </div>
-                <script>
-                            $(document).ready(function(){
-                    $("#collapse3").on("hide.bs.collapse", function(){
-                    $("#Skill").html('<span class="glyphicon glyphicon-collapse-down"></span>  Skill');
-                    });
-                            $("#collapse3").on("show.bs.collapse", function(){
-                    $("#Skill").html('<span class="glyphicon glyphicon-collapse-up"></span>  Skill');
-                    });
-                    });				</script>
             </div>
-            <!---Achievement-->
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
-                        <button id="Achievement" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse4">
-                            <span class="glyphicon glyphicon-collapse-down"></span> Achievement
-                        </button>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                            Achievement
+                        </a>
                     </h4>
                 </div>
-                <div id="collapse4" class="panel-collapse collapse">
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                     <div class="panel-body">
 
                         <div class="row">
 
-                            <div class="col-sm-3"> 
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label  for="gred">Years</label>
                                     <input type="text"  class="form-control" id="gred" placeholder="Grade" >
                                 </div>
                             </div>
-                            <div class="col-sm-3"> 
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label  for="position">Tittle</label>
                                     <input type="text" class="form-control" id="position" placeholder="position" >
@@ -1834,10 +1779,10 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12"> 
+                            <div class="col-sm-12">
                                 <label>Description</label>
                                 <textarea name="editor3" id="editor3" rows="10" cols="80">
-									
+
                                 </textarea>
                                 <script>
                                             // Replace the <textarea id="editor1"> with a CKEditor
@@ -1927,27 +1872,17 @@
 
                     </div>
                 </div>
-                <script>
-                            $(document).ready(function(){
-                    $("#collapse4").on("hide.bs.collapse", function(){
-                    $("#Achievement").html('<span class="glyphicon glyphicon-collapse-down"></span>  Achievement');
-                    });
-                            $("#collapse4").on("show.bs.collapse", function(){
-                    $("#Achievement").html('<span class="glyphicon glyphicon-collapse-up"></span>  Achievement');
-                    });
-                    });				</script>
             </div>
-            <!---Related Document-->
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" role="tab" id="headingFive">
                     <h4 class="panel-title">
-                        <button id="rDocument" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse5">
-                            <span class="glyphicon glyphicon-collapse-down"></span> Related Document
-                        </button>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                            Related Document
+                        </a>
                     </h4>
                 </div>
-                <div id="collapse5" class="panel-collapse collapse">
-                    <div class="panel-body">
+                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                   <div class="panel-body">
                         <form>
                             <table>
                                 <tr>
@@ -2036,37 +1971,27 @@
 
                     </div>
                 </div>
-                <script>
-                            $(document).ready(function(){
-                    $("#collapse5").on("hide.bs.collapse", function(){
-                    $("#rDocument").html('<span class="glyphicon glyphicon-collapse-down"></span>  Related Document');
-                    });
-                            $("#collapse5").on("show.bs.collapse", function(){
-                    $("#rDocument").html('<span class="glyphicon glyphicon-collapse-up"></span>  Related Document');
-                    });
-                    });				</script>
             </div>
-            <!---Job Experience-->
             <div class="panel panel-default">
-                <div class="panel-heading">
+                <div class="panel-heading" role="tab" id="headingSix">
                     <h4 class="panel-title">
-                        <button id="Experience" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse6">
-                            <span class="glyphicon glyphicon-collapse-down"></span> Job Experience
-                        </button>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+                            Job Experience
+                        </a>
                     </h4>
                 </div>
-                <div id="collapse6" class="panel-collapse collapse">
+                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
                     <div class="panel-body">
 
                         <div class="row">
 
-                            <div class="col-sm-3"> 
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label  for="gred">Start Date</label>
                                     <input type="date"  class="form-control" id="sDate"  >
                                 </div>
                             </div>
-                            <div class="col-sm-3"> 
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label  for="position">End Date</label>
                                     <input type="date" class="form-control" id="eDate" >
@@ -2077,13 +2002,13 @@
 
                         <div class="row">
 
-                            <div class="col-sm-3"> 
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label  for="gred">Grade</label>
                                     <input type="text"  class="form-control" id="gred" placeholder="Grade" >
                                 </div>
                             </div>
-                            <div class="col-sm-3"> 
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <label  for="position">Position</label>
                                     <input type="text" class="form-control" id="position" placeholder="position" >
@@ -2095,10 +2020,10 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12"> 
+                            <div class="col-sm-12">
                                 <label>Description</label>
                                 <textarea name="editor3" id="editor3" rows="10" cols="80">
-									
+
                                 </textarea>
                                 <script>
                                             // Replace the <textarea id="editor1"> with a CKEditor
@@ -2190,33 +2115,18 @@
                         </div>
 
                     </div>
-
-
-
-
                 </div>
             </div>
-            <script>
-                        $(document).ready(function(){
-                $("#collapse6").on("hide.bs.collapse", function(){
-                $("#Experience").html('<span class="glyphicon glyphicon-collapse-down"></span> Job Experience');
-                });
-                        $("#collapse6").on("show.bs.collapse", function(){
-                $("#Experience").html('<span class="glyphicon glyphicon-collapse-up"></span> Job Experience');
-                });
-                });				</script>
-        </div>
-        <!---Job Apply-->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <button id="jApply" type="button" class="btn btn-success" data-toggle="collapse" data-target="#collapse7">
-                        <span class="glyphicon glyphicon-collapse-down"></span> Job Apply
-                    </button>
-                </h4>
-            </div>
-            <div id="collapse7" class="panel-collapse collapse">
-                <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingSeven">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseThree">
+                            Job Apply
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                    <div class="panel-body">
 
                     <table class="table table-condensed" style="border-collapse:collapse;">
                         <thead>
@@ -2240,7 +2150,7 @@
                                 <td>31/12/2015</td>
                                 <td></td>
                                 <td><a href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
-                            </tr>						
+                            </tr>
                         </tbody>
                     </table>
 
@@ -2285,22 +2195,9 @@
 
                     </div>
                 </div>
-                <script>
-                            $(document).ready(function(){
-                    $("#collapse7").on("hide.bs.collapse", function(){
-                    $("#jApply").html('<span class="glyphicon glyphicon-collapse-down"></span> Job Apply');
-                    });
-                            $("#collapse7").on("show.bs.collapse", function(){
-                    $("#jApply").html('<span class="glyphicon glyphicon-collapse-up"></span> Job Apply');
-                    });
-                    });
-                </script>
+                </div>
             </div>
 
         </div>
     </div>
-
-
-    <!-- /.row -->
-
 </div>

@@ -57,7 +57,7 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
 
 <div class="row">
     <h2>List of Published Positions</h2>
-    <table>
+    <table class="table-bordered">
         <thead>
             <tr>
                 <th rowspan="2">#</th>
