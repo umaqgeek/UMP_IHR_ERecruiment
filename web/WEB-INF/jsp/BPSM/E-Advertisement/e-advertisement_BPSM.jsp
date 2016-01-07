@@ -2,11 +2,11 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%
-String query3 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, SUM(vpp.vpp_total), pph.pph_status, pph.w_refid "
+String query3 = "SELECT *, SUM(vpp.vpp_total) "
         + "FROM vacancy_pos_ptj vpp, position_ptj_hr pph "
         + "WHERE pph.pph_refid = vpp.pph_refid "
         + "AND pph.pph_status = 'HR' "
-        + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status, pph.w_refid ";
+        + "GROUP BY vpp.pph_refid ";
 MainClient mc3 = new MainClient(DBConn.getHost());
 String params3[] = {};
 ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);

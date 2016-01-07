@@ -2,9 +2,19 @@
 <link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
 <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
-<div id="cv" class="instaFade">
-    Iklan bla bla.. kemudian design ..
-</div>
+<div id="cv" class="instaFade"></div>
+
+<table>
+    <tr>
+        <td><img src="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" /></td>
+        <td><strong>BAHAGIAN PENGURUSAN SUMBER MANUSIA,<br />
+JABATAN PENDAFTAR,<br />
+UNIVERSITI MALAYSIA PAHANG,<br />
+26600 PEKAN,<br />
+PAHANG DARUL MAKMUR</strong>
+</td>
+    </tr>
+</table>
 
 
 <script type="text/javascript">
