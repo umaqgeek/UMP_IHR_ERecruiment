@@ -1,178 +1,105 @@
-
-
-<!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#!">PTJ</a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#!" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#!">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Please take note</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#!">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p> Please take note</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#!">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">
-                                            <strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Please take note</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#!">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#!" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#!">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#!">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#!">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#!">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#!">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#!">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#!">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#!" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#!"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#!"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#!"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="?m=Login"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <!--<li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-                    </li>
-                    <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>-->
-                    <li>
-                        <a href="?m=Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-file"></i> System <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="?m=EIklan1">e-Advertisement</a>
-                            </li>
-                            <li>
-                                <a href="?m=Application">e-Application</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Filter</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Test</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Interview</a>
-                            </li>
-                            <li>
-                                <a href="#!">e-Result</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Offer</a>
-                            </li>
-							<li>
-                                <a href="#!">e-Register</a>
-                            </li>
+<%@page import="controller.Login"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="controller.Controller"%>
+<%@page import="controller.Session"%>
+<%@page import="config.Config"%>
+<%@page import="libraries.My_func"%>
+<!-- Header -->
+<header id="header" style="height:6.5em">
+    <h1>
+        <img src="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" />
+        <a href="process.jsp?p=login.jsp">UMP IMS E-Recruitment</a>
+    </h1>
+    <!--                <nav class="links">
+                        <ul>
+                            <li><a href="#">Home</a></li>
                         </ul>
-                    </li>
-                    <!--<li class="active">
-                        <a href="main.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>-->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
+                    </nav>-->
+    <nav class="main">
+        <ul>
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="#">
+                    <input type="text" name="query" placeholder="Search" />
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Right Menu -->
+<section id="menu">
+
+    <%
+        String sessPage = My_func.LOGIN_URL;
+        try {
+            sessPage = session.getAttribute(Session.SESSION_KEY).toString();
+        } catch (Exception e) {
+            sessPage = "";
+        }
+//        if (!sessPage.equals(My_func.LOGIN_URL)) {
+        String isLoggedIn = "false";
+        try {
+            isLoggedIn = session.getAttribute(Session.KEY_IS_LOGGED_IN).toString();
+        } catch (Exception e) {
+            isLoggedIn = "false";
+        }
+        if (isLoggedIn.equals("false")) {
+    %>
+    <!-- Links -->
+    <section>
+        <ul class="links">
+            <li>
+                <a href="process.jsp?p=login.jsp">
+                    <h3>Log In</h3>
+                </a>
+            </li>
+            <li>
+                <a href="process.jsp?p=registration.jsp">
+                    <h3>Registration</h3>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Actions -->
+<!--    <section>
+        <ul class="actions vertical">
+            <li><a href="logout.jsp" class="button big fit">Log Out</a></li>
+        </ul>
+    </section>-->
+    <% } else { 
+    
+            Login login = new Login();
+            String role = "-";
+            try {
+                role = session.getAttribute(Session.KEY_ROLE_ID).toString();
+            } catch (Exception e) {
+            }
+            ArrayList<ArrayList<String>> menus = login.menuList(role);
+    %>
+    
+    <section>
+        <ul class="links">
+            <% for (int i = 0; i < menus.size(); i++) { %>
+            <li>
+                <a href="process.jsp?p=<%=menus.get(i).get(1) %>">
+                    <h3><%=menus.get(i).get(0) %></h3>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+    </section>
+    
+    <section>
+        <ul class="actions vertical">
+            <li><a href="logout.jsp" class="button big fit">Log Out</a></li>
+        </ul>
+    </section>
+    
+    <% } %>
+
+</section>

@@ -1,21 +1,35 @@
+<%@page import="libraries.My_func"%>
+<%@page import="config.Config"%>
 <%
-    response.sendRedirect("MOCKUP_06122015.2257/index.html");
-    %>
+//response.sendRedirect("MOCKUP_06122015.2257/index.html");
+%>
 
 <jsp:include page="WEB-INF/jsp/header.jsp"></jsp:include>
+<jsp:include page="WEB-INF/jsp/menu.jsp"></jsp:include>
     
 <%
-String pageURL = "WEB-INF/jsp/index.jsp";
+String pageURLTemp = My_func.LOGIN_URL;
+String pageURL = pageURLTemp;
 try {
-    if (request.getParameter("p") != null) {
-        pageURL = "WEB-INF/jsp/"+request.getParameter("p");
+    if (session.getAttribute(My_func.SESSION_KEY) != null) {
+        pageURL = session.getAttribute(My_func.SESSION_KEY).toString();
     }
 } catch (Exception e) {
-    pageURL = "WEB-INF/jsp/index.jsp";
+    pageURL = pageURLTemp;
 }
 %>
-<jsp:include page="<%=pageURL %>"></jsp:include>
-    
+
+<!-- Main -->
+<div id="main">
+
+    <!-- Post -->
+    <article class="post">
+
+        <jsp:include page="<%=pageURL %>"></jsp:include>
+
+    </article>
+
+</div>
     
 <jsp:include page="WEB-INF/jsp/footer.jsp"></jsp:include>
 

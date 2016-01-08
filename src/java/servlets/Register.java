@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import libraries.My_func;
 import models.DBConn;
 import oms.rmi.server.MainClient;
 
@@ -94,31 +95,48 @@ public class Register extends HttpServlet {
         MainClient mc = new MainClient(DBConn.getHost());
         
         // execute query 1.
-        String data1[] = {c_icno, c_name};
-        String query1 = "INSERT INTO candidate(c_icno, c_name) "
-                + "VALUES(?,?)";
-        String c_refid = mc.setQuery(query1, data1, "c_refid");
+        String data1[][] = {
+            {"c_icno", c_icno}, 
+            {"c_name", c_name}
+        };
+        String c_refid = mc.add("candidate", data1, "c_refid");
         
         // open another connection.
         MainClient mc2 = new MainClient(DBConn.getHost());
         
-        String l_refid = "0";
         // execute query 2. If only query 1 was succeed.
+        String l_refid = "0";
         if (c_refid != "-1" && c_refid != "0") {
-            String query2 = "INSERT INTO login(rl_refid, c_refid, l_username, l_password, l_safequest, l_safeans, l_email, l_verification) "
-                    + "VALUES(?,?,?,?,?,?,?,?)";
             // 1450630515.382 -> role reference id of candidate.
-            String data2[] = {"1450630515.382", c_refid, l_username, l_password, l_safequest, l_safeans, l_email, "UNVERIFIED"};
-            l_refid = mc2.setQuery(query2, data2, "l_refid");
+            String data2[][] = {
+                {"l_refid", "1450630515.382"}, 
+                {"c_refid", c_refid}, 
+                {"l_username", l_username}, 
+                {"l_password", l_password}, 
+                {"l_safequest", l_safequest}, 
+                {"l_safeans", l_safeans}, 
+                {"l_email", l_email}, 
+                {"l_verification", "UNVERIFIED"}
+            };
+            l_refid = mc2.add("login", data2, "l_refid");
         }
         
+        String urlParam = "";
+        
+        // send emel if success.
         if (l_refid != "-1" && l_refid != "0") {
             String link = Config.getBase_url(request) + "Verify?l_refid=" + l_refid;
             SendMail.send(l_email, "Click this link to verify your account: <a href='" + link + "'>Verify Account</a>");
+            
+            urlParam = "?" + My_func.SUCCESS_KEY + "=Your account has been registered.";
+            
+        } else {
+            
+            urlParam = "?" + My_func.ERROR_KEY + "=Your account cannot be registered!";
         }
         
         // redirect to login page.
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("index.jsp"+urlParam);
     }
 
     /**

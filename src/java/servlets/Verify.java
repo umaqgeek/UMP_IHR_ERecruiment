@@ -65,27 +65,32 @@ public class Verify extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String urlParam = "";
         String l_refid = "0";
         try {
             l_refid = request.getParameter("l_refid");
         } catch (Exception e) {
-            request.setAttribute(My_func.ERROR_KEY, "Invalid Key!");
-            response.sendRedirect("index.jsp?p=index.jsp");
+            urlParam = "?" + My_func.ERROR_KEY + "=Invalid Key!";
+            response.sendRedirect("index.jsp"+urlParam);
         }
 
-        String query = "UPDATE login "
-                + "SET l_verification = 'VERIFIED' "
-                + "WHERE l_refid = ? ";
         MainClient mc = new MainClient(DBConn.getHost());
-        String data1[] = {l_refid};
-        String status = mc.setQuery(query, data1);
-
+        String data1[][] = {
+            {"l_verification", "VERIFIED"}
+        };
+        String update1[][] = {
+            {"l_refid", l_refid}
+        };
+        String status = mc.update("login", data1, update1);
+        
+        System.out.println("status:"+status);
+        System.out.println("asdasd:"+(status == "0"));
         if (status == "0") {
-            request.setAttribute(My_func.INFO_KEY, "Your account has been verified.");
+            urlParam = "?" + My_func.SUCCESS_KEY + "=Your account has been verified.";
         } else {
-            request.setAttribute(My_func.ERROR_KEY, "Your account cannot be verified!");
+            urlParam = "?" + My_func.ERROR_KEY + "=Your account cannot be verified!";
         }
-        response.sendRedirect("index.jsp?p=index.jsp");
+        response.sendRedirect("index.jsp"+urlParam);
     }
 
     /**
@@ -107,20 +112,23 @@ public class Verify extends HttpServlet {
             request.setAttribute(My_func.ERROR_KEY, "Invalid Key!");
             response.sendRedirect("index.jsp?p=index.jsp");
         }
-        
-        String query = "UPDATE login "
-                + "SET l_verification = 'VERIFIED' "
-                + "WHERE l_refid = ? ";
+
         MainClient mc = new MainClient(DBConn.getHost());
-        String data1[] = {l_refid};
-        String status = mc.setQuery(query, data1);
-        
+        String data1[][] = {
+            {"l_verification", "VERIFIED"}
+        };
+        String update1[][] = {
+            {"l_refid", l_refid}
+        };
+        String status = mc.update("login", data1, update1);
+
+        String urlParam = "";
         if (status == "0") {
-            request.setAttribute(My_func.INFO_KEY, "Your account has been verified.");
+            urlParam = "?" + My_func.SUCCESS_KEY + "=Your account has been verified.";
         } else {
-            request.setAttribute(My_func.ERROR_KEY, "Your account cannot be verified!");
+            urlParam = "?" + My_func.ERROR_KEY + "=Your account cannot be verified!";
         }
-        response.sendRedirect("index.jsp?p=index.jsp");
+        response.sendRedirect("index.jsp"+urlParam);
     }
 
     /**

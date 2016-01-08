@@ -19,7 +19,7 @@ import oms.rmi.server.Message;
  */
 public class MainClient {
     
-    private String host;
+    private String host = DBConn.getHost();
     
     /**
      * Call this constructor to start the RMI connection.<br />
@@ -51,6 +51,74 @@ public class MainClient {
             System.out.println("Error:"+ex.getMessage());
             ex.printStackTrace();
         }
+    }
+    
+    public String add(String table, String data[][], String primaryKey) {
+        String out = "-1";
+        try {
+            if (data.length > 0) {
+                String query = "INSERT INTO "+table+"(";
+                for (int i = 0; i < data.length-1; i++) {
+                    query += data[i][0] + ",";
+                }
+                query += data[data.length-1][0] + ") VALUES(";
+                for (int i = 0; i < data.length-1; i++) {
+                    query += "?,";
+                }
+                query += "?)";
+                String params[] = new String[data.length];
+                for (int i = 0; i < data.length; i++) {
+                    params[i] = data[i][1];
+                }
+                out = setQuery(query, params, primaryKey);
+            } else {
+                out = "-1";
+            }
+        } catch (Exception e) {
+            out = "-1";
+        }
+        return out;
+    }
+    
+    public String update(String table, String data[][], String primaryKey[][]) {
+        String out = "-1";
+        try {
+            if (data.length > 0) {
+                String query = "UPDATE "+table+" SET ";
+                for (int i = 0; i < data.length-1; i++) {
+                    query += data[i][0] + "=?,";
+                }
+                query += data[data.length-1][0] + "=? WHERE ";
+                query += primaryKey[0][0] + "=?";
+                for (int i = 1; i < primaryKey.length; i++) {
+                    query += " AND " + primaryKey[i][0] + "=?";
+                }
+                int length = data.length + primaryKey.length;
+                String params[] = new String[length];
+                int index = 0;
+                for (int i = 0; i < data.length; i++) {
+                    params[i] = data[i][1];
+                    index = i;
+                }
+                for (int i = index+1, j = 0; i < length && j < primaryKey.length; i++) {
+                    params[i] = primaryKey[j][1];
+                    j++;
+                }
+                
+                for (int i = 0; i < params.length; i++) {
+                    System.out.println(""+i+":"+params[i]);
+                }
+                System.out.println("query:"+query);
+                
+                out = setQuery(query, params);
+            } else {
+                out = "-1";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = "-1";
+        }
+        return out;
     }
     
     /**
