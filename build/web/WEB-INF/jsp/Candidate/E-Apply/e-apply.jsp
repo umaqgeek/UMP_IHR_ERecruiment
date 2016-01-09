@@ -27,38 +27,38 @@
                         <!-- edit form column -->
                         <div class="col-md-7 personal-info">
                             <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">Ã—</a>
+                                <a class="panel-close close" data-dismiss="alert">×</a>
                                 <i class="fa fa-coffee"></i>
                                 This is an <strong>.alert</strong>. Use this to show important messages to the user.
                             </div>
                             <h3>Personal info</h3>
 
-                            <form class="form-horizontal" role="form">
+                            <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Full Name:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" type="text" value="Jane">
+                                        <input class="form-control" name="C_Name" type="text" value="Jane">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Address:</label>
                                     <div class="col-lg-6">
-                                        <textarea name="" cols="45" rows="5"></textarea>
+                                        <textarea name="A_RoadNo" cols="45" rows="5"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postcode:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" type="text" value="">
+                                        <input class="form-control" name="A_Poscode" type="text" value="">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">State:</label>
                                     <div class="col-lg-6">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" name="A_State" id="sel1">
                                             <option>Johor Darul Tazim</option>
                                             <option>Selangor Darul Ehsan</option>
                                             <option>Pahang Darul Makmur</option>
@@ -81,7 +81,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Town:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" type="text" value="">
+                                        <input class="form-control" name="A_City" type="text" value="">
                                     </div>
                                 </div>
 
@@ -92,7 +92,7 @@
                                     <div class="col-lg-6">
 
                                         <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" />
+                                            <input type='text' name="C_DOB" class="form-control" />
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
@@ -100,7 +100,8 @@
                                             <script type="text/javascript">
                                                 $(function () {
                                                 $('#datetimepicker1').datetimepicker();
-                                                });											</script>
+                                                });	
+                                                </script>
                                         </div>
                                     </div>
                                 </div>
@@ -110,14 +111,14 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Phone Number:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" type="text" value="">
+                                        <input class="form-control" name="C_HP" type="text" value="">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Email:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" type="text" value="">
+                                        <input class="form-control" name="L_Email" type="text" value="">
                                     </div>
                                 </div>
 
@@ -128,11 +129,11 @@
                                         <div class="controls-row">
 
                                             <label class="radio inline">
-                                                <input type="radio" value="1"/>
+                                                <input type="radio" name="C_Sex" value="1"/>
                                                 Male
                                             </label>
                                             <label class="radio inline">
-                                                <input type="radio" value="2"/>
+                                                <input type="radio" name="C_Sex" value="2"/>
                                                 Female
                                             </label>
                                         </div>
@@ -142,7 +143,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Religion:</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="sel1">
+                                            <select name="C_Religion" class="form-control" id="sel1">
                                                 <option>Islam</option>
                                                 <option>Kristian</option>
                                                 <option>Hindu</option>
@@ -155,7 +156,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Race:</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="sel1">
+                                            <select name="C_Race" class="form-control" id="sel1">
                                                 <option>Melayu</option>
                                                 <option>Cina</option>
                                                 <option>India</option>
@@ -171,7 +172,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Age:</label>
                                         <div class="col-lg-3">
-                                            <input class="form-control" type="text" value="">
+                                            <input class="form-control" name="C_Age" type="text" value="">
                                         </div>
                                     </div>
                                     <div>
@@ -184,11 +185,11 @@
                                                 <div class="controls-row">
 
                                                     <label class="radio inline">
-                                                        <input type="radio" value="1"/>
+                                                        <input name="C_Nationality" type="radio" value="1"/>
                                                         Yes
                                                     </label>
                                                     <label class="radio inline">
-                                                        <input type="radio" value="2"/>
+                                                        <input name="C_Nationality" type="radio" value="2"/>
                                                         No
                                                     </label>
                                                 </div>
@@ -199,7 +200,7 @@
                                                 <label class="col-lg-3 control-label">
                                                     Marriage:</label>
                                                 <div class="col-lg-6">
-                                                    <select class="form-control" id="sel1">
+                                                    <select name="C_MarritalStat" class="form-control" id="sel1">
                                                         <option>Single</option>
                                                         <option>Married</option>
                                                     </select>
@@ -218,60 +219,60 @@
                                                         <div class="controls-row">
 
                                                             <label class="radio inline">
-                                                                <input type="radio" value="1"/>
+                                                                <input name="C_License" type="radio" value="1"/>
                                                                 A
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="2"/>
+                                                                <input name="C_License" type="radio" value="2"/>
                                                                 B
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="3"/>
+                                                                <input name="C_License" type="radio" value="3"/>
                                                                 B1
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="4"/>
+                                                                <input name="C_License" type="radio" value="4"/>
                                                                 B2
                                                             </label>
 
                                                             <label class="radio inline">
-                                                                <input type="radio" value="5"/>
+                                                                <input name="C_License" type="radio" value="5"/>
                                                                 C
                                                             </label>      			<label class="radio inline">
-                                                                <input type="radio" value="6"/>
+                                                                <input name="C_License" type="radio" value="6"/>
                                                                 D
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="7"/>
+                                                                <input name="C_License" type="radio" value="7"/>
                                                                 E
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="8"/>
+                                                                <input name="C_License" type="radio" value="8"/>
                                                                 E1
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="9"/>
+                                                                <input name="C_License" type="radio" value="9"/>
                                                                 E2
                                                             </label>
 
                                                             <label class="radio inline">
-                                                                <input type="radio" value="10"/>
+                                                                <input name="C_License" type="radio" value="10"/>
                                                                 F
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="11"/>
+                                                                <input name="C_License" type="radio" value="11"/>
                                                                 G
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="12"/>
+                                                                <input name="C_License" type="radio" value="12"/>
                                                                 H
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="13"/>
+                                                                <input name="C_License" type="radio" value="13"/>
                                                                 I
                                                             </label>
                                                             <label class="radio inline">
-                                                                <input type="radio" value="14"/>
+                                                                <input name="C_License" type="radio" value="14"/>
                                                                 P
                                                             </label>
 
