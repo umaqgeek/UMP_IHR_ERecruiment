@@ -12,6 +12,7 @@
         
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/main.css" />
+		<!---<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap.css" />-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 
@@ -38,7 +39,7 @@
 	<script src="<%=Config.getBase_url(request) %>assets/js/bootstrap.min.js"></script>
 	<script src="<%=Config.getBase_url(request) %>assets/js/highcharts.js"></script>
 	<script src="<%=Config.getBase_url(request) %>assets/js/exporting.js"></script>
-        
+     <script src="<%=Config.getBase_url(request) %>assets/js/accordion.js"></script>   
 	<script src="<%=Config.getBase_url(request) %>assets/ckeditor/ckeditor.js"></script>
         
 <!--        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
@@ -46,6 +47,9 @@
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
+		
+		
+ 
         
         <%
         String msgINFO = "-";
