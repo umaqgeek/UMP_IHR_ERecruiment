@@ -1,58 +1,68 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%@page import="models.DBConn"%>
+<%@page import="controller.Session"%>
+
+<%  
+    String sql = "SELECT "
+            + "PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME "
+            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F "
+            + "WHERE C.C_REFID=L.C_REFID "
+            + "AND C.C_REFID=PA.C_REFID "
+            + "AND PPH.PPH_REFID=PA.PPH_REFID "
+            + "AND PA.PA_REFID=F.PA_REFID "
+            + "AND F.F_STATUS='pass'";
+    
+    String params[] = {};
+
+    MainClient mc = new MainClient(DBConn.getHost());
+    ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
+%>
+
 <div class="row">
     <div class="well">
         <div class="row">
-            <div class="col-sm-12"> Setup e-Offer (Candidate)</div>
+            <div class="col-sm-12"><h1>OFFER LIST</h1></div>
         </div>
         <!-- /.row -->
         <div class="row">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th style="text-align:center;width:5%">Bil</th>
-                        <th style="text-align:center;width:65%">Tawaran</th>
-                        <th colspan="3" style="text-align:center;width:15%">Borang</th>
-                        <th style="text-align:center;width:10%">Sambutan</th>
-                        <th style="text-align:center;width:5%">Tarikh</th>
-                    </tr>
-                    <tr>
-                        <th style="text-align:center;width:5%">&nbsp;</th>
-                        <th style="text-align:center;width:65%">&nbsp;</th>
-                        <th style="text-align:center;width:5%">A</th>
-                        <th style="text-align:center;width:5%">B</th>
-                        <th style="text-align:center;width:5%">C</th>
-                        <th style="text-align:center;width:10%">&nbsp;</th>
-                        <th style="text-align:center;width:5%">&nbsp;</th>
+                        <th style="text-align:center; vertical-align: middle; width:5%">No.</th>
+                        <th style="text-align:center; vertical-align: middle; width:40%">Candidate Name</th>
+                        <th style="text-align:center; vertical-align: middle; width:40%">Offered Position</th>
+                        <th style="text-align:center; vertical-align: middle; width:15%">Offer Status</th>
+                        <th style="text-align:center; vertical-align: middle; width:10%">Offered Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!--Data from DB. Below rows to be remarked upon DB connection.-->
+                <!--Data from DB. Below rows to be remarked upon DB connection.-->
+                <%
+                if(data.size()>0)
+                {
+                    for(int row=0; row<data.size(); row++)
+                    {
+                        %>
+                        <tr>
+                        <td style="vertical-align: middle; text-align: center"><%= row+1 %></td>
+                        <td style="vertical-align: middle"><%=data.get(row).get(2) %></td>
+                        <td style="vertical-align: middle"><%=data.get(row).get(0) %></td>
+                        <td style="vertical-align: middle; text-align: center">Pending</td>
+                        <td style="vertical-align: middle; text-align: center"><%=data.get(row).get(1) %></td>
+                        </tr>
+                        <%
+                    }
+                }
+                else
+                {
+                    %>
                     <tr>
-                        <td>1.</td>
-                        <td>Job A</td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Terima</a>&nbsp;&nbsp;<a href="#">Tolak</a></td>
-                        <td>01/01/2015</td>
+                        <td colspan="7" style="font-weight: bold; vertical-align: middle; text-align: center; color: red">No Offer</td>
                     </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>Job B</td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Terima</a>&nbsp;&nbsp;<a href="#">Tolak</a></td>
-                        <td>02/01/2015</td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td>Job C</td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Download</a></td>
-                        <td><a href="#">Terima</a>&nbsp;&nbsp;<a href="#">Tolak</a></td>
-                        <td>04/01/2015</td>
-                    </tr>
+                    <%
+                }
+                %>
                 </tbody>
             </table>
         </div>
