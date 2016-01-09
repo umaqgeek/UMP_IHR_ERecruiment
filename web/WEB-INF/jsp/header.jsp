@@ -91,7 +91,7 @@
         </script>
     </head>
     <body>
-<!--        <br/><%=session.getAttribute(Session.SESSION_KEY) %>
-        <br />-->
+        <br/><%=session.getAttribute(Session.SESSION_KEY) %>
+        <br />
 
         <div id="wrapper">

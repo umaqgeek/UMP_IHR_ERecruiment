@@ -162,7 +162,7 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
     $(document).ready(function() {
         $("#btn_save").click(function() {
             $("#button_type").val("SAVE");
-            //$("#form_eads1").submit();
+            $("#form_eads1").submit();
         });
         $("#btn_hr").click(function() {
             $("#button_type").val("HR");

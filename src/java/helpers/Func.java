@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  * @author End User
  */
 public class Func {
+    
     /**
      * Get today's date format yyyy-MM-dd HH:mm:ss
      * @return 
@@ -35,6 +36,34 @@ public class Func {
         Calendar today = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(today.getTime());
+    }
+    
+    /**
+     * Get date in oracle date format.
+     * @param date
+     * @return 
+     */
+    public static String getOracleDate(String date) {
+        try {
+            String inputTimeStamp = date;
+            final String inputFormat = "yyyy-MM-dd";
+            final String outputFormat = "dd-MMM-yyyy";
+            return Func.timeStampConverter(inputFormat, inputTimeStamp,
+                    outputFormat);
+        } catch (ParseException ex) {
+            return ex.getMessage();
+        }
+    }
+    
+    /**
+     * Get date in user defined format.
+     * @return 
+     */
+    public static String timeStampConverter(final String inputFormat,
+            String inputTimeStamp, final String outputFormat)
+            throws ParseException {
+        return new SimpleDateFormat(outputFormat).format(new SimpleDateFormat(
+                inputFormat).parse(inputTimeStamp));
     }
     
     /**

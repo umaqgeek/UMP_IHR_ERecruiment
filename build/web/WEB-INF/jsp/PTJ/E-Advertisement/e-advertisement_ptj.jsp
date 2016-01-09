@@ -6,7 +6,6 @@ String sql = "SELECT w.w_grade, w.w_position, w.w_ptj, w.w_total, w.w_refid "
       + "FROM warrant w "
       + "WHERE w.w_status = 1 ";
 String params[] = {};
-
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
 
@@ -56,6 +55,8 @@ ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
                 <th>Grade</th>
                 <th>Position</th>
                 <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -65,6 +66,12 @@ ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
                 <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_detail.jsp&w_refid=<%=pph.get(i).get(5)%>"><%=pph.get(i).get(1)%></a></td>
                 <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_detail.jsp&w_refid=<%=pph.get(i).get(5)%>"><%=pph.get(i).get(2)%></a></td>
                 <td><%=pph.get(i).get(3)%></td>
+                <td><%=pph.get(i).get(4)%></td>
+                <td>
+                    <% if (pph.get(i).get(4).toUpperCase().equals("SAVE".toUpperCase())) { %>
+                    <a href="process/ptj/eAds/eAdsSavedDelete.jsp?pph=<%=pph.get(i).get(0) %>"> X </a>
+                    <% } %>
+                </td>
             </tr>
             <% }%>
         </tbody>
