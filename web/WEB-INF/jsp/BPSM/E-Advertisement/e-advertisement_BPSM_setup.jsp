@@ -1,3 +1,4 @@
+<%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
@@ -32,6 +33,23 @@ String query_grade_bmbi = "SELECT * "
 String params_qgb[] = {"1451791447.1"};
 MainClient mc_qgb = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params_qgb);
+
+String sql_pph = "SELECT "
+        + "pph.pph_startdate, " //0
+        + "pph.pph_enddate, " //1
+        + "pph.pph_spm_bm, " //2
+        + "pph.pph_spm_bi, " //3
+        + "pph.pph_cgpa, " //4
+        + "pph.pph_muet, " //5
+        + "pph.pph_term_app, " //6
+        + "pph.pph_salary_min, " //7
+        + "pph.pph_salary_max, " //8
+        + "pph.pph_status " //9
+        + "FROM position_ptj_hr pph "
+        + "WHERE pph.pph_refid = ? ";
+String param_pph[] = { pph_refid };
+MainClient mc_pph = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 %>
 
 <ul>
@@ -152,9 +170,9 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
     
     <div class="row">
         Start Date : <br />
-        <input type='date' class="form-control" name="pph_startdate" /> <br /><br />
+        <input type="date" class="form-control" name="pph_startdate" value="<%=(data_pph.size()>0)?(Func.sqlToDate2(data_pph.get(0).get(0))):(Func.getTodayDate3()) %>" /> <br /><br />
         End Date : <br />
-        <input type='date' class="form-control" name="pph_enddate" />
+        <input type="date" class="form-control" name="pph_enddate" value="<%=(data_pph.size()>0)?(Func.sqlToDate2(data_pph.get(0).get(1))):(Func.getTodayDate3()) %>" />
     </div>
     <hr />
     <div class="row">
@@ -162,24 +180,34 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
         SPM BM : <br />
         <select name="pph_spm_bm">
             <% for (int i = 0; i < data_qgb.size(); i++) { %>
-            <option value="<%=data_qgb.get(i).get(1) %>"><%=data_qgb.get(i).get(1) %></option>
+            <option value="<%=data_qgb.get(i).get(1) %>" <% 
+            String pph_spm_bm = (data_pph.size()>0)?(data_pph.get(0).get(2)):("0");
+            if (pph_spm_bm.equals(data_qgb.get(i).get(1))) {
+                out.print("selected");
+            }
+            %>><%=data_qgb.get(i).get(1) %></option>
             <% } %>
         </select> <br />
         SPM BI : <br />
         <select name="pph_spm_bi">
             <% for (int i = 0; i < data_qgb.size(); i++) { %>
-            <option value="<%=data_qgb.get(i).get(1) %>"><%=data_qgb.get(i).get(1) %></option>
+            <option value="<%=data_qgb.get(i).get(1) %>" <% 
+            String pph_spm_bi = (data_pph.size()>0)?(data_pph.get(0).get(3)):("0");
+            if (pph_spm_bi.equals(data_qgb.get(i).get(1))) {
+                out.print("selected");
+            }
+            %>><%=data_qgb.get(i).get(1) %></option>
             <% } %>
         </select> <br />
         CGPA : <br />
-        <input type="text" name="pph_cgpa" /> <br />
+        <input type="text" name="pph_cgpa" value="<%=(data_pph.size()>0 && data_pph.get(0).get(4)!=null)?(data_pph.get(0).get(4)):("") %>" /> <br />
         MUET : <br />
-        <input type="text" name="pph_muet" /> <br />
+        <input type="text" name="pph_muet" value="<%=(data_pph.size()>0 && data_pph.get(0).get(5)!=null)?(data_pph.get(0).get(5)):("") %>" /> <br />
     </div>
     <hr />
     <div class="row">
         Terms of Appointment : <br />
-        <textarea name="pph_term_app" id="editor3" rows="10" cols="80"></textarea>
+        <textarea name="pph_term_app" id="editor3" rows="10" cols="80"><%=(data_pph.size()>0 && data_pph.get(0).get(6)!=null)?(data_pph.get(0).get(6)):("") %></textarea>
         <script>
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
@@ -189,8 +217,10 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
     <hr />
     <div class="row">
         Salary Schedule : <br />
-        <input type="text" class="form-control" id="pph_salary_min" name="pph_salary_min" placeholder="Minimum salary. Example: 1200.">
-        <input type="text" class="form-control" id="pph_salary_max" name="pph_salary_max" placeholder="Maximum salary. Example: 5000.">
+        <input type="text" class="form-control" id="pph_salary_min" name="pph_salary_min" 
+               value="<%=(data_pph.size()>0 && data_pph.get(0).get(7)!=null)?(data_pph.get(0).get(7)):("") %>" placeholder="Minimum salary. Example: 1200.">
+        <input type="text" class="form-control" id="pph_salary_max" name="pph_salary_max" 
+               value="<%=(data_pph.size()>0 && data_pph.get(0).get(8)!=null)?(data_pph.get(0).get(8)):("") %>" placeholder="Maximum salary. Example: 5000.">
     </div>
     <hr />
     <div class="row">
@@ -208,7 +238,7 @@ ArrayList<ArrayList<String>> data_qgb = mc_qgb.getQuery(query_grade_bmbi, params
     $(document).ready(function() {
         $("#btn_bpsm_save").click(function() {
             $("#button_type").val("HR");
-            //$("#form_bpsm_eads1").submit();
+            $("#form_bpsm_eads1").submit();
         });
         $("#btn_bpsm_publish").click(function() {
             $("#button_type").val("PUBLISH");

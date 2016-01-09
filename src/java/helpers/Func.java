@@ -39,6 +39,16 @@ public class Func {
     }
     
     /**
+     * Get today's date format yyyy-MM-dd
+     * @return 
+     */
+    public static String getTodayDate3() {
+        Calendar today = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(today.getTime());
+    }
+    
+    /**
      * Get date in oracle date format.
      * @param date
      * @return 
@@ -98,5 +108,15 @@ public class Func {
     public static String sqlToDate(String date) {
         String str[] = date.split("-");
         return str[2]+"/"+str[1]+"/"+str[0];
+    }
+    
+    /**
+     * Get date format yyyy-MM-dd
+     * @return 
+     */
+    public static String sqlToDate2(String date) {
+        String str[] = date.split(" ");
+        String str2[] = str[0].split("-");
+        return str2[0] + "-" + str2[1] + "-" + str2[2];
     }
 }

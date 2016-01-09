@@ -63,8 +63,8 @@ ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
             <% for (int i = 0; i < pph.size(); i++) {%>
             <tr>
                 <td><%=i + 1%></td>
-                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_detail.jsp&w_refid=<%=pph.get(i).get(5)%>"><%=pph.get(i).get(1)%></a></td>
-                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_detail.jsp&w_refid=<%=pph.get(i).get(5)%>"><%=pph.get(i).get(2)%></a></td>
+                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_detail.jsp&pph=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(1)%></a></td>
+                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_detail.jsp&pph=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(2)%></a></td>
                 <td><%=pph.get(i).get(3)%></td>
                 <td><%=pph.get(i).get(4)%></td>
                 <td>

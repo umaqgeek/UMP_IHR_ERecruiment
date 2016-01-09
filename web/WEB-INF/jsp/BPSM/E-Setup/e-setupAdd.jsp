@@ -10,11 +10,26 @@ String params[] = {};
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> spm = mc.getQuery(sql, params);
 
-String sql2 = "SELECT * FROM area_expertise ORDER BY ae_desc ASC ";
+String sql2 = "SELECT * "
+        + "FROM area_expertise "
+        + "ORDER BY ae_desc ASC ";
 String params2[] = {};
 MainClient mc2 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> ae = mc2.getQuery(sql2, params2);
+
+String sql3 = "SELECT ld.ld_desc "
+        + "FROM lookup_detail ld, lookup_master lm "
+        + "WHERE ld.lm_refid = lm.lm_refid "
+        + "AND lm.lm_desc = 'Education Level' "
+        + "ORDER BY ld.ld_refid ASC ";
+String params3[] = {};
+MainClient mc3 = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> level = mc3.getQuery(sql3, params3);
 %>
+
+<button type="button" onClick="location.href='process.jsp?p=BPSM/E-Setup/e-setup.jsp';"> &lt;&lt; Back </button>
+<br />
+
 <form method="post" action="process/bpsm/eSetup/eSetupAddProcess.jsp">
     <table class="table">
         <tr>
@@ -64,6 +79,17 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(sql2, params2);
                     <%=ae.get(i).get(1) %> <br />
                 <% } %>
                 <input type="hidden" name="num_ae_refid" value="<%=num_ae_refid %>" />
+            </th>
+        </tr>
+        <tr>
+            <th>Level of Education</th>
+            <th>:</th>
+            <th>
+                <% for (int i = 0; i < level.size(); i++) { %>
+                    <input type="radio" name="g_level" value="<%=level.get(i).get(0) %>" 
+                           <% if (i==0) { out.print("checked"); } %> />
+                    <%=level.get(i).get(0) %> <br />
+                <% } %>
             </th>
         </tr>
         <tr>

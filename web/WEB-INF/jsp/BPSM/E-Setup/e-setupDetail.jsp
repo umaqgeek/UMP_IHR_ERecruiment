@@ -10,14 +10,18 @@ String params[] = {};
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> spm = mc.getQuery(sql, params);
 
-String sql2 = "SELECT * FROM area_expertise ORDER BY ae_desc ASC ";
+String sql2 = "SELECT * "
+        + "FROM area_expertise "
+        + "ORDER BY ae_desc ASC ";
 String params2[] = {};
 MainClient mc2 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> ae = mc2.getQuery(sql2, params2);
 
 String g_refid = session.getAttribute("g_refid").toString();
 
-String sql_g = "SELECT * FROM grade g WHERE g.g_refid = ? ";
+String sql_g = "SELECT * "
+        + "FROM grade g "
+        + "WHERE g.g_refid = ? ";
 String params_g[] = {g_refid};
 MainClient mc_g = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> g = mc_g.getQuery(sql_g, params_g);
@@ -29,7 +33,20 @@ String sql_gae = "SELECT ae.ae_refid "
 String params_gae[] = {g_refid};
 MainClient mc_gae = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> gae = mc_gae.getQuery(sql_gae, params_gae);
+
+String sql3 = "SELECT ld.ld_desc "
+        + "FROM lookup_detail ld, lookup_master lm "
+        + "WHERE ld.lm_refid = lm.lm_refid "
+        + "AND lm.lm_desc = 'Education Level' "
+        + "ORDER BY ld.ld_refid ASC ";
+String params3[] = {};
+MainClient mc3 = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> level = mc3.getQuery(sql3, params3);
 %>
+
+<button type="button" onClick="location.href='process.jsp?p=BPSM/E-Setup/e-setup.jsp';"> &lt;&lt; Back </button>
+<br />
+
 <form method="post" action="process/bpsm/eSetup/eSetupDetailProcess.jsp">
     <input type="hidden" name="g_refid" value="<%=g_refid %>" />
     <table class="table">
@@ -97,6 +114,21 @@ ArrayList<ArrayList<String>> gae = mc_gae.getQuery(sql_gae, params_gae);
                     <%=ae.get(i).get(1) %> <br />
                 <% } %>
                 <input type="hidden" name="num_ae_refid" value="<%=num_ae_refid %>" />
+            </th>
+        </tr>
+        <tr>
+            <th>Level of Education</th>
+            <th>:</th>
+            <th>
+                <% for (int i = 0; i < level.size(); i++) { %>
+                    <input type="radio" name="g_level" value="<%=level.get(i).get(0) %>" 
+                           <% 
+                           if (g.get(0).get(6) != null && g.get(0).get(6).toUpperCase().equals(level.get(i).get(0).toUpperCase())) {
+                               out.print("checked"); 
+                           } 
+                           %> />
+                    <%=level.get(i).get(0) %> <br />
+                <% } %>
             </th>
         </tr>
         <tr>

@@ -38,6 +38,7 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <th>Grade</th>
                 <th>Position</th>
                 <th>Total</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +48,9 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(1)%></a></td>
                 <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(2)%></a></td>
                 <td><%=pph.get(i).get(3)%></td>
+                <td>
+                    <a href="process/bpsm/eAds/eAds2ReturnToPtj.jsp?pph=<%=pph.get(i).get(0)%>"> Return to PTJ </a>
+                </td>
             </tr>
             <% }%>
         </tbody>
@@ -77,10 +81,10 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
         <tbody>
             <% for (int i = 0; i < pph5.size(); i++) { String pph_refid = pph5.get(i).get(0); %>
             <tr>
-                <td rowspan="2"><%=i + 1%></td>
-                <td rowspan="2"><a href="process.jsp?p=BPSM/E-Advertisement/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>"><%=pph5.get(i).get(2)%></a></td>
-                <td rowspan="2"><a href="process.jsp?p=BPSM/E-Advertisement/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>"><%=pph5.get(i).get(1)%></a></td>
-                <td rowspan="2"><%=pph5.get(i).get(3)%></td>
+                <td rowspan="3"><%=i + 1%></td>
+                <td rowspan="3"><a href="process.jsp?p=BPSM/E-Advertisement/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>"><%=pph5.get(i).get(2)%></a></td>
+                <td rowspan="3"><a href="process.jsp?p=BPSM/E-Advertisement/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>"><%=pph5.get(i).get(1)%></a></td>
+                <td rowspan="3"><%=pph5.get(i).get(3)%></td>
                 <td><% 
                 String sql_t1 = "SELECT vp.vp_campus, vpp.vpp_total "
                         + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
@@ -99,18 +103,32 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 String params_t2[] = {pph_refid};
                 MainClient mc_t2 = new MainClient(DBConn.getHost());
                 ArrayList<ArrayList<String>> d_t2 = mc_t2.getQuery(sql_t2, params_t2);
+                
+                String sql_t3 = "SELECT vp.vp_campus, vpp.vpp_total "
+                        + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
+                        + "WHERE vpp.vp_refid = vp.vp_refid "
+                        + "AND vpp.pph_refid = ? "
+                        + "AND vp.vp_job_status = 'FELLOWSHIP' ";
+                String params_t3[] = {pph_refid};
+                MainClient mc_t3 = new MainClient(DBConn.getHost());
+                ArrayList<ArrayList<String>> d_t3 = mc_t3.getQuery(sql_t3, params_t3);
                 %>
                 <% if (d_t1.size() > 0) { out.print(d_t1.get(0).get(0)); } else { out.print("-"); } %>
                 </td>
                 <td>Permanent</td>
                 <td><% if (d_t1.size() > 0) { out.print(d_t1.get(0).get(1)); } else { out.print("0"); } %></td>
-                <td rowspan="2"><%=pph5.get(i).get(8)%></td>
-                <td rowspan="2"><%=pph5.get(i).get(9)%></td>
+                <td rowspan="3"><%=pph5.get(i).get(8)%></td>
+                <td rowspan="3"><%=pph5.get(i).get(9)%></td>
             </tr>
             <tr>
                 <td><% if (d_t2.size() > 0) { out.print(d_t2.get(0).get(0)); } else { out.print("-"); } %></td>
                 <td>Contract</td>
                 <td><% if (d_t2.size() > 0) { out.print(d_t2.get(0).get(1)); } else { out.print("0"); } %></td>
+            </tr>
+            <tr>
+                <td><% if (d_t3.size() > 0) { out.print(d_t3.get(0).get(0)); } else { out.print("-"); } %></td>
+                <td>Fellowship</td>
+                <td><% if (d_t3.size() > 0) { out.print(d_t3.get(0).get(1)); } else { out.print("0"); } %></td>
             </tr>
             <% }%>
         </tbody>

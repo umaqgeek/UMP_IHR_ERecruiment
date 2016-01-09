@@ -16,7 +16,8 @@ String params_req[][] = {
     {"g_spm_bm", request.getParameter("g_spm_bm")},
     {"g_spm_bi", request.getParameter("g_spm_bi")},
     {"g_cgpa", request.getParameter("g_cgpa")},
-    {"g_muet", request.getParameter("g_muet")}
+    {"g_muet", request.getParameter("g_muet")},
+    {"g_level", request.getParameter("g_level")}
 };
 String g_refid = request.getParameter("g_refid");
 

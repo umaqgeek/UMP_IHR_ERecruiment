@@ -13,7 +13,7 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, params1);
 </div>
 <br /><br />
 <div class="row">
-    <table class="table" id="dataTables-example">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>#</th>
