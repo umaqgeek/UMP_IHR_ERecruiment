@@ -3,10 +3,16 @@
 <%
     if(!request.getParameter("reject_confirm").isEmpty() && !request.getParameter("pa_refid").isEmpty())
     {
+        String stat_accepted = "Accepted";
+        String stat_rejected = "Rejected";
+        String stat_pending= "Pending";
+        
         String sPa_refid = request.getParameter("pa_refid");
         
-        String params[] = {};
-        String sql = "UPDATE POS_APPLIED SET PA_STATUS='Rejected' WHERE PA_REFID='"+sPa_refid+"'";
+        String params[] = {stat_rejected, sPa_refid};
+        String sql = "UPDATE POS_APPLIED "
+                + "SET PA_STATUS = ? "
+                + "WHERE PA_REFID = ? ";
         
         MainClient mc = new MainClient(DBConn.getHost());
         mc.setQuery(sql, params);
