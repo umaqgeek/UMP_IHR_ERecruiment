@@ -2,17 +2,24 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="models.DBConn"%>
 <%
+    
+    
     if(!request.getParameter("accept_confirm").isEmpty() && !request.getParameter("pa_refid").isEmpty() && !request.getParameter("c_refid").isEmpty())
     {
+        String stat_accepted = "Accepted";
+        String stat_rejected = "Rejected";
+        String stat_pending= "Pending";
+        
         String sPa_refid = request.getParameter("pa_refid");
         String sC_refid = request.getParameter("c_refid");
         
-        String params[] = { sPa_refid };
+        MainClient mc = new MainClient(DBConn.getHost());
+        
+        String params[] = { stat_accepted, sPa_refid };
         String sql = "UPDATE POS_APPLIED "
-                + "SET PA_STATUS='Accepted' "
+                + "SET PA_STATUS = ? "
                 + "WHERE PA_REFID = ? ";
         
-        MainClient mc = new MainClient(DBConn.getHost());
         mc.setQuery(sql, params);
         
         String params2[] = { sPa_refid, sC_refid };
@@ -25,9 +32,9 @@
         /* If more than one offer for one candidate */
         if(data.size() > 0)
         {
-            String params3[] = { sPa_refid, sC_refid };
+            String params3[] = { stat_rejected, sPa_refid, sC_refid };
             String sql3 = "UPDATE POS_APPLIED "
-                    + "SET PA_STATUS='Rejected' "
+                    + "SET PA_STATUS = ? "
                     + "WHERE PA_REFID != ? "
                     + "AND C_REFID = ? ";
             mc.setQuery(sql3, params3);

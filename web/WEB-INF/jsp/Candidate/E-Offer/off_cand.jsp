@@ -5,6 +5,11 @@
 <%@page import="config.Config"%>
 
 <%
+    String stat_accepted = "Accepted";
+    String stat_rejected = "Rejected";
+    String stat_pending= "Pending";
+    String filter_stat_pass = "pass";
+    
     String sC_refid = "";
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
     String sql = "SELECT "
@@ -14,15 +19,14 @@
             + "AND C.C_REFID=PA.C_REFID "
             + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
-            + "AND F.F_STATUS='pass' "
+            + "AND F.F_STATUS = ? "
             + "AND L.L_REFID = ? ";
     
-    String params[] = { l_refid };
+    String params[] = { filter_stat_pass, l_refid };
 
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
     
-    boolean accepted = false;
     String display_btn = "";
     String display_action = "";
     String display_title = "";
@@ -57,17 +61,17 @@
                 {
                     for(int row=0; row<data.size(); row++)
                     {
-                        if(data.get(row).get(2).equalsIgnoreCase("Accepted"))
+                        if(data.get(row).get(2).equalsIgnoreCase(stat_accepted))
                         {
                             display_action = "disabled";
                             display_btn = "display";
                         }
-                        else if(data.get(row).get(2).equalsIgnoreCase("Rejected"))
+                        else if(data.get(row).get(2).equalsIgnoreCase(stat_rejected))
                         {
                             display_action = "disabled";
                             display_btn = "disabled";
                         }
-                        else if(data.get(row).get(2).equalsIgnoreCase("Pending"))
+                        else if(data.get(row).get(2).equalsIgnoreCase(stat_pending))
                         {
                             display_action = "display";
                             display_btn = "disabled";
@@ -81,20 +85,20 @@
                         <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%=display_btn %>">Download</a></td>
                         <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%=display_btn %>">Download</a></td>
                         <%
-                        if(data.get(row).get(2).equalsIgnoreCase("Pending"))
+                        if(data.get(row).get(2).equalsIgnoreCase(stat_pending))
                         {
                             %>
                             <td rowspan="2" style="vertical-align: middle"><a title="Accept Offer" data-toggle="modal" href="#acceptModal" data-pa_refid="<%=data.get(row).get(3) %>" data-c_refid="<%=data.get(row).get(4) %>" class="open-acceptModal btn btn-sm <%=display_action %>">Accept</a></td>
                             <td rowspan="2" style="vertical-align: middle"><a title="Reject Offer" data-toggle="modal" href="#rejectModal" data-id="<%=data.get(row).get(3) %>" class="open-rejectModal btn btn-sm <%=display_action %>">Reject</a></td>
                             <%
                         }
-                        else if(data.get(row).get(2).equalsIgnoreCase("Accepted"))
+                        else if(data.get(row).get(2).equalsIgnoreCase(stat_accepted))
                         {
                             %>
                             <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #5b9909; font-weight: bold">Offer <%=data.get(row).get(2) %></td>
                             <%
                         }
-                        else if(data.get(row).get(2).equalsIgnoreCase("Rejected"))
+                        else if(data.get(row).get(2).equalsIgnoreCase(stat_rejected))
                         {
                             %>
                             <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #F00; font-weight: bold">Offer <%=data.get(row).get(2) %></td>
