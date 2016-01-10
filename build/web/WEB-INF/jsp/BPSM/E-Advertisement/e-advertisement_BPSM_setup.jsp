@@ -50,6 +50,9 @@ String sql_pph = "SELECT "
 String param_pph[] = { pph_refid };
 MainClient mc_pph = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
+
+//out.print(data_pph);
+//if (true) { return; }
 %>
 
 <ul>
@@ -170,9 +173,9 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
     
     <div class="row">
         Start Date : <br />
-        <input type="date" class="form-control" name="pph_startdate" value="<%=(data_pph.size()>0)?(Func.sqlToDate2(data_pph.get(0).get(0))):(Func.getTodayDate3()) %>" /> <br /><br />
+        <input type="date" class="form-control" name="pph_startdate" value="<%=(data_pph.size()>0 && data_pph.get(0).get(0)!=null)?(Func.sqlToDate2(data_pph.get(0).get(0))):(Func.getTodayDate3()) %>" /> <br /><br />
         End Date : <br />
-        <input type="date" class="form-control" name="pph_enddate" value="<%=(data_pph.size()>0)?(Func.sqlToDate2(data_pph.get(0).get(1))):(Func.getTodayDate3()) %>" />
+        <input type="date" class="form-control" name="pph_enddate" value="<%=(data_pph.size()>0 && data_pph.get(0).get(0)!=null)?(Func.sqlToDate2(data_pph.get(0).get(1))):(Func.getTodayDate3()) %>" />
     </div>
     <hr />
     <div class="row">
@@ -181,7 +184,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
         <select name="pph_spm_bm">
             <% for (int i = 0; i < data_qgb.size(); i++) { %>
             <option value="<%=data_qgb.get(i).get(1) %>" <% 
-            String pph_spm_bm = (data_pph.size()>0)?(data_pph.get(0).get(2)):("0");
+            String pph_spm_bm = (data_pph.size()>0 && data_pph.get(0).get(2)!=null)?(data_pph.get(0).get(2)):("0");
             if (pph_spm_bm.equals(data_qgb.get(i).get(1))) {
                 out.print("selected");
             }
@@ -192,7 +195,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
         <select name="pph_spm_bi">
             <% for (int i = 0; i < data_qgb.size(); i++) { %>
             <option value="<%=data_qgb.get(i).get(1) %>" <% 
-            String pph_spm_bi = (data_pph.size()>0)?(data_pph.get(0).get(3)):("0");
+            String pph_spm_bi = (data_pph.size()>0 && data_pph.get(0).get(3)!=null)?(data_pph.get(0).get(3)):("0");
             if (pph_spm_bi.equals(data_qgb.get(i).get(1))) {
                 out.print("selected");
             }
