@@ -19,6 +19,8 @@
   String graphData = "";
   graphData += "{ name: \"Not Published\", y: "+data.get(0).get(0)+" },";
   graphData += "{ name: \"Published\", y: "+data2.get(0).get(0)+" }";
+  
+  String sql3 = "";
 %>
 <div class="row">
 <div id="container" style="min-width:100%; height: 400px; max-width:100%; margin: 0 auto">

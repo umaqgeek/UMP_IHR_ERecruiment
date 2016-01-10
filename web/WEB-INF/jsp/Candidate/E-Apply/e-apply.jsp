@@ -2130,73 +2130,8 @@
                 <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
                     <div class="panel-body">
 
-                    <table class="table table-condensed" style="border-collapse:collapse;">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Grade</th>
-                                <th>Position</th>
-                                <th>Start date</th>
-                                <th>Close Date</th>
-                                <th>Status</th>
-                                <th>Delete</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>FT41</td>
-                                <td><a href="#" data-toggle="modal" data-target="#myModal">Pegawai Teknologi Maklumat</a></td>
-                                <td>1/12/2015</td>
-                                <td>31/12/2015</td>
-                                <td></td>
-                                <td><a href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content--->
-                            <div class="modal-content">
-                                <div class="well">
-
-
-                                    <div class="modal-body">
-                                        <h2>Pegawai Teknologi Maklumat</h2>
-                                        <p>Start Date: 1/12/2015
-                                            Close Date: 31/12/2015
-
-                                            Syarat-Syarat:
-                                            1.
-                                            2.
-                                            3.
-                                            4.
-
-                                            Penerangan Tugas
-
-                                            seprti yg di maklumkan.
-
-                                        </p>
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Apply</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
+                        <jsp:include page="e-apply_job.jsp"></jsp:include>
                     </div>
-                </div>
                 </div>
             </div>
 

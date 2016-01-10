@@ -53,10 +53,10 @@ public class Func {
      * @param date
      * @return 
      */
-    public static String getOracleDate(String date) {
+    public static String getOracleDate(String date, String format) {
         try {
             String inputTimeStamp = date;
-            final String inputFormat = "yyyy-MM-dd";
+            final String inputFormat = format;
             final String outputFormat = "dd-MMM-yyyy";
             return Func.timeStampConverter(inputFormat, inputTimeStamp,
                     outputFormat);
