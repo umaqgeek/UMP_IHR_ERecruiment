@@ -15,9 +15,9 @@
             + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
             + "AND F.F_STATUS='pass' "
-            + "AND L.L_REFID='"+l_refid+"'";
+            + "AND L.L_REFID = ? ";
     
-    String params[] = {};
+    String params[] = { l_refid };
 
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
@@ -224,8 +224,11 @@
                                 if(data.size() > 1)
                                 {
                                     sC_refid = data.get(0).get(4);
-                                    String sql2 = "SELECT * FROM POS_APPLIED WHERE PA_STATUS='Pending' AND C_REFID='"+sC_refid+"'";
-                                    String params2[] = {};
+                                    String sql2 = "SELECT * "
+                                            + "FROM POS_APPLIED "
+                                            + "WHERE PA_STATUS='Pending' "
+                                            + "AND C_REFID = ? ";
+                                    String params2[] = { sC_refid };
                                     ArrayList<ArrayList<String>> data2 = mc.getQuery(sql2, params2);
                                     /* If Candidate Having more than one PENDING offer */
                                     if(data2.size() > 1)
