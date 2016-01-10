@@ -281,7 +281,7 @@
                                                 </div>
 
                                                 <div class="col-md-7">
-                                                    <input type="button" class="btn btn-primary" value="Save Changes">
+                                                    <input type="submit" name="form_personal" class="btn btn-primary" value="Save Changes">
                                                     <span></span>
                                                     <input type="reset" class="btn btn-default" value="Cancel">
                                                 </div>
@@ -1759,7 +1759,7 @@
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                     <div class="panel-body">
-
+                        <form action="process/candidate/eApply/eApply.jsp">
                         <div class="row">
 
                             <div class="col-sm-3">
@@ -1776,8 +1776,7 @@
                             </div>
                             <div class="col-sm-2"> </div>
                         </div>
-
-
+                  
                         <div class="row">
 
                             <div class="col-sm-12">
@@ -1797,9 +1796,10 @@
                             <div class="col-sm-4"></div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <input type="button" value="SAVE" >
+                                    <input type="submit" name="form_achievement"  value="SAVE" >
                                 </div>
                             </div>
+                             </form>
                             <div class="col-sm-1"></div>
 
                         </div>
