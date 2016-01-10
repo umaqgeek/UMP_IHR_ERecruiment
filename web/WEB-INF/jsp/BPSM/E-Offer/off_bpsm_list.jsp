@@ -5,7 +5,7 @@
 
 <%  
     String sql = "SELECT "
-            + "PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME "
+            + "PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS "
             + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
@@ -48,7 +48,28 @@
                         <td style="vertical-align: middle; text-align: center"><%= row+1 %></td>
                         <td style="vertical-align: middle"><%=data.get(row).get(2) %></td>
                         <td style="vertical-align: middle"><%=data.get(row).get(0) %></td>
-                        <td style="vertical-align: middle; text-align: center">Pending</td>
+                        <%
+                        if(data.get(row).get(3).equalsIgnoreCase("Accepted"))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: green">Offer <%=data.get(row).get(3) %></td>
+                            <%
+                        }
+                        else if(data.get(row).get(3).equalsIgnoreCase("Rejected"))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: red">Offer <%=data.get(row).get(3) %></td>
+                            <%
+                        }
+                        else if(data.get(row).get(3).equalsIgnoreCase("Pending"))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;">Offer <%=data.get(row).get(3) %></td>
+                            <%
+                        }
+                        else 
+                        %>
+                        
                         <td style="vertical-align: middle; text-align: center"><%=data.get(row).get(1) %></td>
                         </tr>
                         <%
