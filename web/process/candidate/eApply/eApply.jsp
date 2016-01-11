@@ -122,16 +122,65 @@ while (en.hasMoreElements()) {
     }
 }
 
+  String l_refid = "";
+    Enumeration sess = session.getAttributeNames();
+    while (sess.hasMoreElements()) {
+        String nama = (String) sess.nextElement();
+        String isi = (String) session.getAttribute(nama);
+        if (nama.equalsIgnoreCase("L_REFID")) {
+            l_refid = isi;
+        }
+    }
 
 int sc = req_candidates.size();
-String sql_candidate = "UPDATE candidate SET ...."; // letak query update kau kt cni
-String param_candidate[] = new String[sc];
-for (int i = 0; i < sc; i++) {
-    param_candidate[i] = req_candidates.get(i).get(1);
-}
-// execute query
-MainClient mc_candidate = new MainClient(DBConn.getHost());
-// isUpdate_candidate.equals("0") return true if success
-String isUpdate_candidate = mc_candidate.setQuery(sql_candidate, param_candidate);
+int sa = req_addresses.size();
+int sl = req_logins.size();
+    
+    String param_candidate[] = new String[sc];
+    String param_addresses[] = new String[sa];
+    String param_logins[] = new String[sl];
+    
+    for (int i = 0; i < sc; i++) {
+        param_candidate[i] = req_candidates.get(i).get(1);
+    }
+     for (int i = 0; i < sa; i++) {
+        param_addresses[i] = req_addresses.get(i).get(1);
+    }
+      for (int i = 0; i < sl; i++) {
+        param_logins[i] = req_logins.get(i).get(1);
+    }
+    
+    String sql_candidate = "UPDATE candidate SET ";
+    String sql_address = "UPDATE address SET ";
+    String sql_login = "UPDATE login SET ";
+
+    for (int i = 0; i < sc - 1; i++) {
+        sql_candidate += req_candidates.get(i).get(0) + "=?, ";
+        sql_address += req_addresses.get(i).get(0) + "=?, ";
+        sql_login += req_logins.get(i).get(0) + "=?, ";
+    }
+    if (sc > 0) {
+        sql_candidate += req_candidates.get(sc - 1).get(0) + "=? WHERE l_refid=?";
+         sql_address += req_candidates.get(sc - 1).get(0) + "=? WHERE l_refid=?";
+          sql_login += req_candidates.get(sc - 1).get(0) + "=? WHERE l_refid=?";
+    }
+    
+        //execute query candidate
+        MainClient mc_candidate = new MainClient(DBConn.getHost());
+        String isUpdate_candidate = mc_candidate.setQuery(sql_candidate, param_candidate);
+        
+        //execute query address
+        MainClient mc_address = new MainClient(DBConn.getHost());
+        String isUpdate_address = mc_address.setQuery(sql_address, param_addresses);
+        
+        //execute query login
+        MainClient mc_login = new MainClient(DBConn.getHost());
+        String isUpdate_login = mc_login.setQuery(sql_login, param_logins);
+
+        if (isUpdate_candidate.equals("0") != true) {
+            //error in saving to candidate table
+        } else {
+
+        }
 
 %>

@@ -42,6 +42,7 @@ for (int i = 0; i < s; i++) {
 }
 
 String query = "UPDATE position_ptj_hr SET ";
+
 for (int i = 0; i < s-1; i++) {
     query += params_req.get(i).get(0) + "=?, ";
 }
