@@ -122,16 +122,38 @@ while (en.hasMoreElements()) {
     }
 }
 
+  String l_refid = "";
+    Enumeration sess = session.getAttributeNames();
+    while (sess.hasMoreElements()) {
+        String nama = (String) sess.nextElement();
+        String isi = (String) session.getAttribute(nama);
+        if (nama.equalsIgnoreCase("L_REFID")) {
+            l_refid = isi;
+        }
+    }
 
 int sc = req_candidates.size();
-String sql_candidate = "UPDATE candidate SET ...."; // letak query update kau kt cni
-String param_candidate[] = new String[sc];
-for (int i = 0; i < sc; i++) {
-    param_candidate[i] = req_candidates.get(i).get(1);
-}
+    
+    String param_candidate[] = new String[sc];
+    for (int i = 0; i < sc; i++) {
+        param_candidate[i] = req_candidates.get(i).get(1);
+    }
+    
+    String sql_candidate = "UPDATE candidate SET ";
+
+    for (int i = 0; i < sc - 1; i++) {
+        sql_candidate += req_candidates.get(i).get(0) + "=?, ";
+    }
+    if (sc > 0) {
+        sql_candidate += req_candidates.get(sc - 1).get(0) + "=? WHERE l_refid=?";
+    }
+    
+
+
 // execute query
-MainClient mc_candidate = new MainClient(DBConn.getHost());
-// isUpdate_candidate.equals("0") return true if success
-String isUpdate_candidate = mc_candidate.setQuery(sql_candidate, param_candidate);
+    MainClient mc_candidate = new MainClient(DBConn.getHost());
+    //isUpdate_candidate.equals("0") return true if success
+    String isUpdate_candidate = mc_candidate.setQuery(sql_candidate, param_candidate);
+    out.print(isUpdate_candidate);
 
 %>
