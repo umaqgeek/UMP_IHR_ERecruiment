@@ -3,9 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Enumeration"%>
 <%
-
     ArrayList<ArrayList<String>> params_req = new ArrayList<ArrayList<String>>();
-
     ArrayList<ArrayList<String>> req_candidates = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_addresses = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_logins = new ArrayList<ArrayList<String>>();
@@ -111,7 +109,7 @@
             + "FROM ADDRESS "
             + "WHERE C_REFID =?";
     MainClient mc4 = new MainClient(DBConn.getHost());
-    String params4[] = {};
+    String params4[] = {c_refid};
     ArrayList<ArrayList<String>> pph4 = mc4.getQuery(query4, params4);
    
     if (pph4.isEmpty() != true) { //ada isi, update
@@ -143,8 +141,7 @@
         }
         param_addresses[sa]=c_refid;
         sql_address += ") VALUES(" + q2 + ") ";
-        out.println(sql_address);
-      
+       
         for(int i = 0 ; i < param_addresses.length; i++)
         {
             out.println(param_addresses[i]);
@@ -174,5 +171,4 @@
     } else {
         out.println("tidak ada error");
     }
-
 %>
