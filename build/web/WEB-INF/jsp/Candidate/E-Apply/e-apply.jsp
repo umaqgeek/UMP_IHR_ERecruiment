@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postcode:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="A_Poscode" type="text" value="">
+                                        <input class="form-control" name="A_Postcode" type="text" value="">
                                     </div>
                                 </div>
 
@@ -200,7 +200,7 @@
                                                 <label class="col-lg-3 control-label">
                                                     Marriage:</label>
                                                 <div class="col-lg-6">
-                                                    <select name="C_MarritalStat" class="form-control" id="sel1">
+                                                    <select name="C_Maritalstat" class="form-control" id="sel1">
                                                         <option>Single</option>
                                                         <option>Married</option>
                                                     </select>
