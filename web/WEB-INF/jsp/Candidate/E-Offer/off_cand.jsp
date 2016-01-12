@@ -14,10 +14,11 @@
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
     String sql = "SELECT "
             + "PPH.PPH_POSITION, F.F_INTUNI, PA.PA_STATUS, PA.PA_REFID, C.C_REFID "
-            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F "
+            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F, VACANCY_POS_PTJ VPP "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
-            + "AND PPH.PPH_REFID=PA.PPH_REFID "
+            + "AND PPH.PPH_REFID=VPP.PPH_REFID "
+            + "AND VPP.VPP_REFID=PA.VPP_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
             + "AND F.F_STATUS = ? "
             + "AND L.L_REFID = ? ";
@@ -89,7 +90,7 @@
                         {
                             %>
                             <td rowspan="2" style="vertical-align: middle"><a title="Accept Offer" data-toggle="modal" href="#acceptModal" data-pa_refid="<%=data.get(row).get(3) %>" data-c_refid="<%=data.get(row).get(4) %>" class="open-acceptModal btn btn-sm <%=display_action %>">Accept</a></td>
-                            <td rowspan="2" style="vertical-align: middle"><a title="Reject Offer" data-toggle="modal" href="#rejectModal" data-id="<%=data.get(row).get(3) %>" class="open-rejectModal btn btn-sm <%=display_action %>">Reject</a></td>
+                            <td rowspan="2" style="vertical-align: middle"><a title="Reject Offer" data-toggle="modal" href="#rejectModal" data-pa_refid="<%=data.get(row).get(3) %>" class="open-rejectModal btn btn-sm <%=display_action %>">Reject</a></td>
                             <%
                         }
                         else if(data.get(row).get(2).equalsIgnoreCase(stat_accepted))
@@ -108,9 +109,9 @@
                         <td rowspan="2" style="vertical-align: middle; text-align: center"><%=data.get(row).get(1) %></td>
                         </tr>
                         <tr>
-                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a href="#!" data-toggle="modal" data-target="#myModal1" class="btn btn-sm <%=display_btn %>">Upload</a></td>
-                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a href="#!" data-toggle="modal" data-target="#myModal2" class="btn btn-sm <%=display_btn %>">Upload</a></td>
-                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a href="#!" data-toggle="modal" data-target="#myModal3" class="btn btn-sm <%=display_btn %>">Upload</a></td>
+                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#myModal1" data-pa_refid="<%=data.get(row).get(3) %>" class="open-myModal1 btn btn-sm <%=display_btn %>">Upload</a></td>
+                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#myModal2" data-pa_refid="<%=data.get(row).get(3) %>" class="open-myModal2 btn btn-sm <%=display_btn %>">Upload</a></td>
+                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#myModal3" data-pa_refid="<%=data.get(row).get(3) %>" class="open-myModal3 btn btn-sm <%=display_btn %>">Upload</a></td>
                         </tr>
                         <%
                     }
@@ -137,7 +138,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <!--<form method="post" action="Register">-->
-            <form method="post" action="">
+            <form method="post" action="UploadOfferDocServlet" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h4 class="modal-title">Upload Form</h4>
                 </div>
@@ -145,7 +146,8 @@
                     <fieldset>
                         <legend>Form A:</legend>
                         <label for="id">Files</label>
-                        <input type="file" name="form_a_file" class="form-control" data-icon="true">
+                        <input type="hidden" name="pa_refid" id="pa_refid" value="">
+                        <input type="file" name="offer_doc" class="form-control" data-icon="true" required>
                         <!--<input type="text" id="c_icno" name="c_icno" class="form-control" placeholder="Identification Number &nbsp;/&nbsp; Passport Number">-->
                     </fieldset>
                 </div>
@@ -163,7 +165,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <!--<form method="post" action="Register">-->
-            <form method="post" action="">
+            <form method="post" action="UploadOfferDocServlet" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h4 class="modal-title">Upload Form</h4>
                 </div>
@@ -171,7 +173,8 @@
                     <fieldset>
                         <legend>Form B:</legend>
                         <label for="id">Files</label>
-                        <input type="file" name="form_a_file" class="form-control" data-icon="true">
+                        <input type="hidden" name="pa_refid" id="pa_refid" value="">
+                        <input type="file" name="offer_doc" class="form-control" data-icon="true" required>
                         <!--<input type="text" id="c_icno" name="c_icno" class="form-control" placeholder="Identification Number &nbsp;/&nbsp; Passport Number">-->
                     </fieldset>
                 </div>
@@ -188,8 +191,7 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <!--<form method="post" action="Register">-->
-            <form method="post" action="">
+            <form method="post" action="UploadOfferDocServlet" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h4 class="modal-title">Upload Form</h4>
                 </div>
@@ -197,7 +199,8 @@
                     <fieldset>
                         <legend>Form C:</legend>
                         <label for="id">Files</label>
-                        <input type="file" name="form_a_file" class="form-control" data-icon="true">
+                        <input type="hidden" name="pa_refid" id="pa_refid" value="">
+                        <input type="file" name="offer_doc" class="form-control" data-icon="true" required>
                         <!--<input type="text" id="c_icno" name="c_icno" class="form-control" placeholder="Identification Number &nbsp;/&nbsp; Passport Number">-->
                     </fieldset>
                 </div>
@@ -300,7 +303,25 @@ $(document).on("click", ".open-acceptModal", function ()
 
 $(document).on("click", ".open-rejectModal", function ()
 {
-    var pa_refid = $(this).data('id');
+    var pa_refid = $(this).data('pa_refid');
+    $(".modal-body #pa_refid").val( pa_refid );
+});
+
+$(document).on("click", ".open-myModal1", function ()
+{
+    var pa_refid = $(this).data('pa_refid');
+    $(".modal-body #pa_refid").val( pa_refid );
+});
+
+$(document).on("click", ".open-myModal2", function ()
+{
+    var pa_refid = $(this).data('pa_refid');
+    $(".modal-body #pa_refid").val( pa_refid );
+});
+
+$(document).on("click", ".open-myModal3", function ()
+{
+    var pa_refid = $(this).data('pa_refid');
     $(".modal-body #pa_refid").val( pa_refid );
 });
 </script>
