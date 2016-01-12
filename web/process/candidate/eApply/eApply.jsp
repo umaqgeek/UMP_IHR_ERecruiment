@@ -58,81 +58,113 @@
         }
     }
 
-        //get C_REFID from L_REFID
-        String query3 = "SELECT c_refid,rl_refid "
-                + "FROM login "
-                + "WHERE l_refid ="+l_refid;
-        
-        MainClient mc3 = new MainClient(DBConn.getHost());
-        String params3[] = {};
-        ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
-        String c_refid = pph.get(0).get(0);
-        String rl_refid = pph.get(0).get(1);
-        
-        
-        int sc = req_candidates.size();
-        int sa = req_addresses.size();
-        int sl = req_logins.size();
+    //get C_REFID from L_REFID
+    String query3 = "SELECT c_refid,rl_refid "
+            + "FROM login "
+            + "WHERE l_refid =" + l_refid;
 
-        String param_candidate[] = new String[sc+1];
-        String param_addresses[] = new String[sa];
-        String param_logins[] = new String[sl];
+    MainClient mc3 = new MainClient(DBConn.getHost());
+    String params3[] = {};
+    ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
+    
+    String c_refid = pph.get(0).get(0);
+    String rl_refid = pph.get(0).get(1);
 
-        for (int i = 0; i < sc; i++) {
-            param_candidate[i] = req_candidates.get(i).get(1);
-        }
-        for (int i = 0; i < sa; i++) {
-            param_addresses[i] = req_addresses.get(i).get(1);
-        }
-        for (int i = 0; i < sl; i++) {
-            param_logins[i] = req_logins.get(i).get(1);
-        }
+    int sc = req_candidates.size();
+    int sa = req_addresses.size();
+    int sl = req_logins.size();
 
-        String sql_candidate = "UPDATE candidate SET ";
+    String param_candidate[] = new String[sc + 1];
+    String param_addresses[] = new String[sa + 1];
+    String param_logins[] = new String[sl + 1];
+
+    for (int i = 0; i < sc; i++) {
+        param_candidate[i] = req_candidates.get(i).get(1);
+    }
+    for (int i = 0; i < sa; i++) {
+        param_addresses[i] = req_addresses.get(i).get(1);
+    }
+    for (int i = 0; i < sl; i++) {
+        param_logins[i] = req_logins.get(i).get(1);
+    }
+
+    String sql_candidate = "UPDATE CANDIDATE SET ";
+
+    String sql_login = "UPDATE login SET ";
+
+    for (int i = 0; i < sc - 1; i++) {
+        sql_candidate += req_candidates.get(i).get(0).toUpperCase() + "=?, ";
+    }
+
+    for (int i = 0; i < sl - 1; i++) {
+        sql_login += req_logins.get(i).get(0).toUpperCase() + "=?, ";
+    }
+
+    if (sc > 0) {
+        sql_candidate += req_candidates.get(sc - 1).get(0).toUpperCase() + "=? WHERE C_REFID=?";
+    }
+    param_candidate[sc] = c_refid;
+
+    //first, check if exist address based on existing C_REFID
+    //get C_REFID from L_REFID
+    String query4 = "SELECT A_REFID "
+            + "FROM ADDRESS "
+            + "WHERE C_REFID =?";
+    MainClient mc4 = new MainClient(DBConn.getHost());
+    String params4[] = {};
+    ArrayList<ArrayList<String>> pph4 = mc4.getQuery(query4, params4);
+    out.print(pph4);
+    if (pph4.isEmpty() != true) { //ada isi, update
+
         String sql_address = "UPDATE address SET ";
-        String sql_login = "UPDATE login SET ";
-
-        for (int i = 0; i < sc - 1; i++) {
-            sql_candidate += req_candidates.get(i).get(0) + "=?, ";
-        }
         for (int i = 0; i < sa - 1; i++) {
-            sql_address += req_addresses.get(i).get(0) + "=?, ";
+            sql_address += req_addresses.get(i).get(0).toUpperCase() + "=?, ";
         }
-        for (int i = 0; i < sl - 1; i++) {
-            sql_login += req_logins.get(i).get(0) + "=?, ";
-        }
-
-        if (sc > 0) {
-            sql_candidate += req_candidates.get(sc - 1).get(0) + "=? WHERE c_refid=?";
-        }
-        param_candidate[sc] = c_refid;
-
         if (sa > 0) {
-            sql_address += req_addresses.get(sa - 1).get(0) + "=? WHERE l_refid=?";
+            sql_address += req_addresses.get(sa - 1).get(0).toUpperCase() + "=? WHERE C_REFID=?";
         }
-
-        if (sl > 0) {
-            sql_login += req_logins.get(sl - 1).get(0) + "=? WHERE l_refid=?";
-        }
-
-        //execute query candidate
-        MainClient mc_candidate = new MainClient(DBConn.getHost());
-        String isUpdate_candidate = mc_candidate.setQuery(sql_candidate, param_candidate);
-
+        param_addresses[sa] = c_refid;
         //execute query address
         MainClient mc_address = new MainClient(DBConn.getHost());
         String isUpdate_address = mc_address.setQuery(sql_address, param_addresses);
 
-        //execute query login
-        MainClient mc_login = new MainClient(DBConn.getHost());
-        String isUpdate_login = mc_login.setQuery(sql_login, param_logins);
-
-        if (isUpdate_candidate.equals("0") != true) {
-            //error in saving to candidate table
-            out.println(sql_candidate);
-            out.println(param_candidate);
-        } else {
-
+    } else {
+        //insert baru
+        String sql_address = "INSERT INTO ADDRESS (";
+        String q2 = "";
+        for (int i = 0; i < sa - 1; i++) {
+            sql_address += req_addresses.get(i).get(0).toUpperCase() + ", ";
+            q2 += "?, ";
         }
+        if (sa > 0) {
+            sql_address += req_addresses.get(sa - 1).get(0).toUpperCase();
+            q2 += "?";
+        }
+        sql_address += ") VALUES(" + q2 + ") ";
+        out.println(sql_address);
+        MainClient mc_address = new MainClient(DBConn.getHost());
+        String a_refid = mc_address.setQuery(sql_address, param_addresses, "A_REFID");
+        out.println(a_refid);
+    }
+
+    if (sl > 0) {
+        sql_login += req_logins.get(sl - 1).get(0).toUpperCase() + "=? WHERE L_REFID=?";
+    }
+
+    //execute query candidate
+    MainClient mc_candidate = new MainClient(DBConn.getHost());
+    String isUpdate_candidate = mc_candidate.setQuery(sql_candidate, param_candidate);
+
+    //execute query login
+    MainClient mc_login = new MainClient(DBConn.getHost());
+    String isUpdate_login = mc_login.setQuery(sql_login, param_logins);
+
+    if (isUpdate_candidate.equals("0") != true) {
+        //error in saving to candidate table
+        out.println(sql_candidate);
+        out.println(param_candidate);
+    } else {
+        out.println("tidak ada error");
+    }
 
 %>
