@@ -74,7 +74,7 @@
         int sa = req_addresses.size();
         int sl = req_logins.size();
 
-        String param_candidate[] = new String[sc];
+        String param_candidate[] = new String[sc+1];
         String param_addresses[] = new String[sa];
         String param_logins[] = new String[sl];
 
@@ -103,8 +103,9 @@
         }
 
         if (sc > 0) {
-            sql_candidate += req_candidates.get(sc - 1).get(0) + "=? WHERE c_refid="+c_refid;
+            sql_candidate += req_candidates.get(sc - 1).get(0) + "=? WHERE c_refid=?";
         }
+        param_candidate[sc] = c_refid;
 
         if (sa > 0) {
             sql_address += req_addresses.get(sa - 1).get(0) + "=? WHERE l_refid=?";
@@ -129,6 +130,7 @@
         if (isUpdate_candidate.equals("0") != true) {
             //error in saving to candidate table
             out.println(sql_candidate);
+            out.println(param_candidate);
         } else {
 
         }
