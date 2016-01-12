@@ -1,3 +1,7 @@
+<%@page import="config.Config"%>
+<link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
+<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+
 <div id="cv" class="instaFade">
     <div class="mainDetails">
         <div id="headshot" class="quickFade">
