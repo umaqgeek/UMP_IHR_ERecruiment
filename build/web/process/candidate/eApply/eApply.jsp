@@ -3,9 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Enumeration"%>
 <%
-
     ArrayList<ArrayList<String>> params_req = new ArrayList<ArrayList<String>>();
-
     ArrayList<ArrayList<String>> req_candidates = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_addresses = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_logins = new ArrayList<ArrayList<String>>();
@@ -111,9 +109,9 @@
             + "FROM ADDRESS "
             + "WHERE C_REFID =?";
     MainClient mc4 = new MainClient(DBConn.getHost());
-    String params4[] = {};
+    String params4[] = {c_refid};
     ArrayList<ArrayList<String>> pph4 = mc4.getQuery(query4, params4);
-    out.print(pph4);
+   
     if (pph4.isEmpty() != true) { //ada isi, update
 
         String sql_address = "UPDATE address SET ";
@@ -133,18 +131,25 @@
         String sql_address = "INSERT INTO ADDRESS (";
         String q2 = "";
         for (int i = 0; i < sa - 1; i++) {
+          
             sql_address += req_addresses.get(i).get(0).toUpperCase() + ", ";
             q2 += "?, ";
         }
         if (sa > 0) {
-            sql_address += req_addresses.get(sa - 1).get(0).toUpperCase();
-            q2 += "?";
+            sql_address += req_addresses.get(sa - 1).get(0).toUpperCase() + ", C_REFID";
+            q2 += "?, ?";
         }
+        param_addresses[sa]=c_refid;
         sql_address += ") VALUES(" + q2 + ") ";
-        out.println(sql_address);
+       
+        for(int i = 0 ; i < param_addresses.length; i++)
+        {
+            out.println(param_addresses[i]);
+        }
         MainClient mc_address = new MainClient(DBConn.getHost());
         String a_refid = mc_address.setQuery(sql_address, param_addresses, "A_REFID");
-        out.println(a_refid);
+        out.println("a_refid "+a_refid);
+        
     }
 
     if (sl > 0) {
@@ -161,10 +166,9 @@
 
     if (isUpdate_candidate.equals("0") != true) {
         //error in saving to candidate table
-        out.println(sql_candidate);
-        out.println(param_candidate);
+        out.println("error "+isUpdate_candidate);
+        
     } else {
         out.println("tidak ada error");
     }
-
 %>
