@@ -155,6 +155,7 @@
     if (sl > 0) {
         sql_login += req_logins.get(sl - 1).get(0).toUpperCase() + "=? WHERE L_REFID=?";
     }
+     param_logins[sl] = l_refid;
 
     //execute query candidate
     MainClient mc_candidate = new MainClient(DBConn.getHost());
@@ -169,6 +170,16 @@
         out.println("error "+isUpdate_candidate);
         
     } else {
-        out.println("tidak ada error");
+        out.println("candidate tidak ada error");
     }
+    
+    if(isUpdate_login.equals("0")!=true)
+    {
+        out.println("error "+isUpdate_candidate);
+    }else{
+        out.println("login tidak ada error");
+        
+        response.sendRedirect("../../../process.jsp?p=Candidate/E-Apply/e-apply.jsp");
+    }
+    
 %>
