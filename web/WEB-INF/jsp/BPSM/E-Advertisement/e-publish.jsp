@@ -9,8 +9,9 @@ String sql = "SELECT * "
         + "FROM position_ptj_hr pph, vacancy_pos_ptj vpp, vacancy_pos vp "
         + "WHERE pph.pph_refid = vpp.pph_refid "
         + "AND vpp.vp_refid = vp.vp_refid "
-        + "AND pph.pph_status = 'PUBLISH' ";
-String param[] = {};
+        + "AND pph.pph_status = 'PUBLISH' "
+        + "AND pph.pph_refid = ? ";
+String param[] = { pph_refid };
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 %>
