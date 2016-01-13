@@ -1,4 +1,20 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
 <%@page import="config.Config"%>
+<% 
+String pph_refid = session.getAttribute("pph_refid").toString();
+
+String sql = "SELECT * "
+        + "FROM position_ptj_hr pph, vacancy_pos_ptj vpp, vacancy_pos vp "
+        + "WHERE pph.pph_refid = vpp.pph_refid "
+        + "AND vpp.vp_refid = vp.vp_refid "
+        + "AND pph.pph_status = 'PUBLISH' ";
+String param[] = {};
+MainClient mc = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+%>
+
 <link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
 <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
@@ -17,8 +33,8 @@
 </table>
 
         <p><strong><u>JAWATAN PENTADBIRAN (KUMPULAN PENGURUSAN & PROFESIONAL)</u></strong></p>
-        <p><strong>1. JURUTERA (AWAM) GRED J41/44 (TETAP : 1)</strong></p>
-        <p>Tangga Gaji	RM2,360.00 (Minimum)  -  RM8,743.00 (Maksimum)</p>
+        <p><strong>1. <%=d.get(0).get(2) %> GRED <%=d.get(0).get(1) %> (TETAP : 1)</strong></p>
+        <p>Tangga Gaji	RM<%=d.get(0).get(13) %> (Minimum)  -  RM<%=d.get(0).get(14) %> (Maksimum)</p>
         <p>Kelayakan: </p>
         <p>(a)	Ijazah Sarjana Muda Kejuruteraan (Awam) yang diiktiraf oleh kerajaan daripada institusi pengajian tinggi tempatan atau kelayakan yang diiktiraf setaraf dengannya.
             (Gaji permulaan: RM2,360.00) </p>
