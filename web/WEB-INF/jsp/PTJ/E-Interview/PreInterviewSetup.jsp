@@ -110,22 +110,7 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">VENUE</label>
                                 <div class="col-lg-6">
-                                    <select id="lst_VEN_REFID" name="lst_VEN_REFID" class="form-control">
-                                        <%
-                                            objData dVenue = new objData();
-                                            dVenue = new List().getVenueList();
-                                            if (dVenue.getFlag() == 1) {
-                                                System.out.println(dVenue.getErrorMessage());
-                                            } else {
-                                                for (int inc = 0; inc < dVenue.getTableData().size(); inc++) {
-                                                    ArrayList Row = dVenue.getTableData().get(inc);
-                                        %>
-                                        <option value="<%=Row.get(0)%>"><%=Row.get(1)%></option>
-                                        <%
-                                                }
-                                            }
-                                        %>
-                                    </select>
+                                    <input type="text" id="txt_PI_VENUE" name="txt_PI_VENUE" value=""/>
                                 </div>
                             </div>
                             <div class="form-group">
