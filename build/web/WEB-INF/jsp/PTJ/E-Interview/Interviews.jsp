@@ -32,7 +32,7 @@
                             <td style="width:10%">DATE & TIME</td>
                             <td style="width:15%">Grade</td>
                             <td style="width:15%">Position</td>
-                            <td style="width:25%">CANDIDATE</td>
+                            <td style="width:25%">Candidate</td>
                             <td style="width:10%">Pre Interview Status</td>
                             <td style="width:10%">&nbsp;</td>
                             <td style="width:10%">&nbsp;</td>
@@ -40,6 +40,7 @@
                     </thead>
                     <tbody>
                         <!--Html Test data-->
+                        <!--
                         <tr>
                             <td>1</td>
                             <td>30/12/2015 10:00AM</td>
@@ -50,8 +51,11 @@
                             <td><a href="#" target="_blank">CV</a><br/><a href="#" target="_blank">e-TEST</a><br/><a href="#" target="_blank">Pre Interview</a></td>
                             <td><a href="#" data-toggle="modal" data-target="#myMarks">Marks Entry</a></td>
                         </tr>
-                        <!--
+                        -->
                         <%
+                            /*
+                            * List of Interviews for panel after Pre Interview pass
+                            */
                             objData objdata = new objData();
                             List lq = new List();
                             objdata = lq.getJobListEnding();
@@ -73,7 +77,6 @@
                                 }
                             }
                         %>
-                        -->
                     </tbody>
                 </table>
             </div>
