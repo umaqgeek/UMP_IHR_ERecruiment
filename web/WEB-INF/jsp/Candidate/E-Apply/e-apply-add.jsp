@@ -86,7 +86,7 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                         num += (d_t2.size() > 0) ? (Integer.parseInt(d_t2.get(0).get(1))) : (0);
                         out.print(num);
                   %></td>
-                    <td>
+                    <td rowspan="2">
                         <% if (d_t1.size() > 0) { 
                         String vpp_refid = d_t1.get(0).get(2);
                         %>
@@ -100,13 +100,6 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                         } else {
                     out.print("-");
                 } %></td>
-                    <td>
-                        <% if (d_t2.size() > 0) { 
-                        String vpp_refid = d_t2.get(0).get(2);
-                        %>
-                        <a href="process/candidate/eApply/eApply_job.jsp?vpp=<%=vpp_refid %>">Apply</a>
-                        <% } %>
-                    </td>
                 </tr>
                 <tr>
                     <td><% if (d_t3.size() > 0) {
