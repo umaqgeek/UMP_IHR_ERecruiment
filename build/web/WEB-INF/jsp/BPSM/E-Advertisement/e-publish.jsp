@@ -19,6 +19,8 @@ ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 <link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
 <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
+<button onclick="location.href='process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM.jsp';"> Back </button>
+
 <div id="cv" class="instaFade"></div>
 
 <table>
@@ -35,7 +37,7 @@ ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 
         <p><strong><u>JAWATAN PENTADBIRAN (KUMPULAN PENGURUSAN & PROFESIONAL)</u></strong></p>
         <p><strong>1. <%=d.get(0).get(2) %> GRED <%=d.get(0).get(1) %> (TETAP : 1)</strong></p>
-        <p>Tangga Gaji	RM<%=d.get(0).get(13) %> (Minimum)  -  RM<%=d.get(0).get(14) %> (Maksimum)</p>
+        <p>Tangga Gaji	RM<%=d.get(0).get(15) %> (Minimum)  -  RM<%=d.get(0).get(16) %> (Maksimum)</p>
         <p>Kelayakan: </p>
         <p>(a)	Ijazah Sarjana Muda Kejuruteraan (Awam) yang diiktiraf oleh kerajaan daripada institusi pengajian tinggi tempatan atau kelayakan yang diiktiraf setaraf dengannya.
             (Gaji permulaan: RM2,360.00) </p>

@@ -4,20 +4,19 @@
 <%@page import="controller.Session"%>
 <%
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
-String status_new = "new";
+String status_new = "NEW";
 
 String sql1 = "SELECT pph.pph_grade, pph.pph_position, pph.pph_startdate, "
-        + "pph.pph_enddate, pa.pa_status, pa.pa_refid "
-        + "FROM vacancy_pos_ptj vpp, position_ptj_hr pph, login l, "
-        + "candidate c, pos_applied pa "
-        + "WHERE l.c_refid = c.c_refid "
-        + "AND pa.c_refid = c.c_refid "
-        + "AND pa.vpp_refid = vpp.vpp_refid "
-        + "AND vpp.pph_refid = pph.pph_refid "
+        + "pph.pph_enddate, pa.pa_status, pa.pa_refid, pph.pph_refid "
+        + "FROM position_ptj_hr pph, login l, pos_applied pa "
+        + "WHERE l.c_refid = pa.c_refid "
+        + "AND pa.pph_refid = pph.pph_refid "
         + "AND l.l_refid = ? ";
 String param1[] = { l_refid };
 MainClient mc1 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
+
+//out.print(l_refid);
 %>
 
 <button type="button" onclick="location.href='process.jsp?p=Candidate/E-Apply/e-apply-add.jsp';">Apply Job</button>
@@ -40,7 +39,8 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
         <tr>
             <td><%=i+1 %></td>
             <td><%=data1.get(i).get(0) %></td>
-            <td><a href="#" data-toggle="modal" data-target="#myModal_<%=i %>"><%=data1.get(i).get(1) %></a></td>
+            <!--<td><a href="#" data-toggle="modal" data-target="#myModal_<%=i %>"><%=data1.get(i).get(1) %></a></td>-->
+            <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=data1.get(i).get(6)%>&prev_url=Candidate/E-Apply/e-apply.jsp"><%=data1.get(i).get(1) %></a></td>
             <td><%=data1.get(i).get(2) %></td>
             <td><%=data1.get(i).get(3) %></td>
             <td><%=data1.get(i).get(4) %></td>

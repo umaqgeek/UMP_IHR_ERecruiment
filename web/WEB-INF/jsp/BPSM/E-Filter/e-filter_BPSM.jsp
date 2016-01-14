@@ -1,102 +1,57 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%
+String sql = "SELECT pph.pph_grade, pph.pph_position, c.c_name, c.c_icno, "
+        + "pa.pa_dateapplied, c.c_refid, pph.pph_refid, pa.pa_refid, f.f_ptj, "
+        + "pa.pa_status "
+        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, filter f "
+        + "WHERE pa.pph_refid = pph.pph_refid "
+        + "AND pa.c_refid = c.c_refid "
+        + "AND f.pa_refid = pa.pa_refid "; 
+String param[] = {};
+MainClient mc = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+%>
+
 <div class="row">
-
-    <div class="well">	
-
-        <form class="navbar-form" role="search">
-
-            <div style="float:left;" class="form-group">
-                <select class="form-control" id="view">
-                    <option>10</option>
-                    <option>25</option>
-                    <option>50</option>
-                    <option>100</option>
-                </select>
-
-                <div class="form-group">
-                    <select class="form-control" id="option">
-                        <option>Search Option</option>
-                        <option>Department</option>
-                        <option>Position</option>
-                    </select>
-                </div>
-
-
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-            </div>
-        </form>
-
-        <table class="table table-condensed" style="border-collapse:collapse;">
+    <div class="col-md-12">
+        
+        <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th style="vertical-align:middle;" rowspan=2>Department</th>
-                    <th style="vertical-align:middle;" rowspan=2>Grade</th>
-                    <th style="vertical-align:middle;" rowspan=2>Position</th>
-                    <th style="vertical-align:middle;" rowspan=2>Candidate</th>
-                    <th style="vertical-align:middle;" rowspan=2>IC/No Passport</th>
-                    <th style="vertical-align:middle;" rowspan=2>Filter Date</th>
-                    <th style="vertical-align:middle;text-align:center" colspan=2>Filter Level</th>
+                    <th rowspan="2">#</th>
+                    <th rowspan="2">Grade</th>
+                    <th rowspan="2">Position</th>
+                    <th rowspan="2">Candidate</th>
+                    <th rowspan="2">IC/No Passport</th>
+                    <th rowspan="2">Filter Date</th>
+                    <th colspan="2">Filter Level</th>
                 </tr>
                 <tr>
                     <th>System</th>
                     <th>PTJ</th>
-                    <!--<th>BPSM</th>-->
                 </tr>
             </thead>
             <tbody>
+                <% for (int i = 0; i < d.size(); i++) { %>
                 <tr>
-                    <td>Jabatan Pendaftar</td>
-                    <td>N47</td>
-                    <td>Pegawai Teknologi Maklumat</td>
-                    <td>Ali Bin Abu</td>
-                    <td><a href="e-filterperonal/e-filterinformation1.html">890218059645</a></td>
-                    <td>12/12/2015</td>
-                    <td>Pass</td>
-                    <td>Fail</td>
-                    <!--<td>Fail</td>-->
+                    <td><%=i+1 %></td>
+                    <td><%=d.get(i).get(0) %></td>
+                    <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=d.get(i).get(6)%>&prev_url=BPSM/E-Filter/e-filter_BPSM.jsp"><%=d.get(i).get(1) %></a></td>
+                    <td><%=d.get(i).get(2) %></td>
+                    <td><a href="process.jsp?p=Public/e-applypersonal/e-applyinformation1.jsp&c=<%=d.get(i).get(5) %>"><%=d.get(i).get(3) %></a></td>
+                    <td><%=d.get(i).get(4) %></td>
+                    <td>PASS</td>
+                    <td>
+                        <% if (d.get(i).get(8) == null || d.get(i).get(8) == "") { %>
+                        <em> .. Not Set Yet ..</em>
+                        <% } else { out.print(d.get(i).get(9)); } %>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Jabatan Pendaftar</td>
-                    <td>N46</td>
-                    <td>Pegawai Takbir</td>
-                    <td>Saripah Binti Kasim</td>
-                    <td><a href="e-filterperonal/e-filterinformation2.html">850218059645</a></td>
-                    <td>12/12/2015</td>
-                    <td>Pass</td>
-                    <td>Fail</td>
-                    <!--<td>Fail</td>-->
-                </tr>							
-
+                <% } %>
             </tbody>
         </table>
-
-        <nav>
-            <ul class="pagination pagination-sm pull-right">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-
-
-
-
-
-
+        
     </div>
 </div>

@@ -244,8 +244,8 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
             $("#form_bpsm_eads1").submit();
         });
         $("#btn_bpsm_publish").click(function() {
-            $("#button_type").val("PUBLISH");
-            $("#form_bpsm_eads1").submit();
+//            $("#button_type").val("PUBLISH");
+//            $("#form_bpsm_eads1").submit();
         });
     });
 </script>

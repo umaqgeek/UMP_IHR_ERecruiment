@@ -1,3 +1,4 @@
+<%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
@@ -38,7 +39,9 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <th>Grade</th>
                 <th>Position</th>
                 <th>Total</th>
-                <th>Action</th>
+                <th>Action <br />( <input type="checkbox" id="pph_refid_all" /> Tick All ) 
+                    <a href="#!" data-toggle="modal" data-target="#myModalAll" id="idsetupall">Setup All</a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -49,13 +52,67 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(2)%></a></td>
                 <td><%=pph.get(i).get(3)%></td>
                 <td>
-                    <a href="process/bpsm/eAds/eAds2ReturnToPtj.jsp?pph=<%=pph.get(i).get(0)%>"> Return to PTJ </a>
+                    <a href="process/bpsm/eAds/eAds2ReturnToPtj.jsp?pph=<%=pph.get(i).get(0)%>"> Return to PTJ </a> <br />
+                    <input type="checkbox" name="pph_refid_<%=i %>" id="pph_refid_<%=i %>" value="<%=pph.get(i).get(0)%>" />
+                    <a href="#!" data-toggle="modal" data-target="#myModal_<%=i %>"> Setup </a>
                 </td>
             </tr>
             <% }%>
         </tbody>
     </table>
 </div>
+        
+        <script>
+            $(document).ready(function() {
+                $("#idsetupall").hide();
+                $("#pph_refid_all").click(function() {
+                    var val = $(this).is(':checked');
+                    for (i=0; i<<%=pph.size() %>; i++) {
+                        $("#pph_refid_"+i).prop('checked', val);
+                    }
+                    if (val) {
+                        $("#idsetupall").show();
+                    } else {
+                        $("#idsetupall").hide();
+                    }
+                });
+            });
+        </script>
+        
+<% for (int i = 0; i < pph.size(); i++) {%>
+<!-- Modal -->
+<div id="myModal_<%=i %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            
+            <form method="post" action="process/bpsm/eAds/eAds3SetupAll.jsp">
+                <input type="hidden" name="pph_refid" value="<%=pph.get(i).get(0) %>" />
+                <input type="hidden" name="pph_status" value="PUBLISH" />
+                <div class="modal-header">
+                    <h4 class="modal-title">Setup All Positions</h4>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <label for="pph_startdate">Start Date</label>
+                        <input type="date" id="pph_startdate" name="pph_startdate" class="form-control" value="<%=Func.getTodayDate3() %>" />
+                        <label for="pph_enddate">End Date</label>
+                        <input type="date" id="pph_enddate" name="pph_enddate" class="form-control" value="<%=Func.getTodayDate3() %>" />
+                        <label for="pph_salary_min">Minimum Salary</label>
+                        <input type="text" class="form-control" id="pph_salary_min" name="pph_salary_min" placeholder="Example: 1500" />
+                        <label for="pph_salary_max">Maximum Salary</label>
+                        <input type="text" class="form-control" id="pph_salary_max" name="pph_salary_max" placeholder="Example: 5000" />
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Submit &amp; Publish</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<% } %>
         
 <hr />
 
@@ -68,7 +125,7 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <th rowspan="2">Position</th>
                 <th rowspan="2">Grade</th>
                 <th rowspan="2">PTJ</th>
-                <th rowspan="2">Campus</th>
+                <!--<th rowspan="2">Campus</th>-->
                 <th rowspan="2">Job Status</th>
                 <th rowspan="2">Number of Availability</th>
                 <th colspan="2">Advertisement Date</th>
@@ -84,8 +141,8 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <td rowspan="3"><%=i + 1%></td>
                 <td rowspan="3"><a href="process.jsp?p=BPSM/E-Advertisement/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>"><%=pph5.get(i).get(2)%></a></td>
                 <td rowspan="3"><a href="process.jsp?p=BPSM/E-Advertisement/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>"><%=pph5.get(i).get(1)%></a></td>
-                <td rowspan="3"><%=pph5.get(i).get(3)%></td>
-                <td><% 
+                <td rowspan="3"><%=pph5.get(i).get(3) %>
+                <% 
                 String sql_t1 = "SELECT vp.vp_campus, vpp.vpp_total "
                         + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
                         + "WHERE vpp.vp_refid = vp.vp_refid "
@@ -113,20 +170,24 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 MainClient mc_t3 = new MainClient(DBConn.getHost());
                 ArrayList<ArrayList<String>> d_t3 = mc_t3.getQuery(sql_t3, params_t3);
                 %>
-                <% if (d_t1.size() > 0) { out.print(d_t1.get(0).get(0)); } else { out.print("-"); } %>
                 </td>
-                <td>Permanent</td>
-                <td><% if (d_t1.size() > 0) { out.print(d_t1.get(0).get(1)); } else { out.print("0"); } %></td>
+                <td rowspan="2">Permanent &amp; Contract</td>
+                <td rowspan="2"><% 
+                int t1 = (d_t1.size() > 0) ? (Integer.parseInt(d_t1.get(0).get(1))) : (0);
+                int t2 = (d_t2.size() > 0) ? (Integer.parseInt(d_t2.get(0).get(1))) : (0);
+                int tt = t1 + t2;
+                out.print(tt);
+                if (d_t1.size() > 0) { 
+//                    out.print(d_t1.get(0).get(1)); 
+                } else { 
+//                    out.print("0"); 
+                } %></td>
                 <td rowspan="3"><%=pph5.get(i).get(8)%></td>
                 <td rowspan="3"><%=pph5.get(i).get(9)%></td>
             </tr>
             <tr>
-                <td><% if (d_t2.size() > 0) { out.print(d_t2.get(0).get(0)); } else { out.print("-"); } %></td>
-                <td>Contract</td>
-                <td><% if (d_t2.size() > 0) { out.print(d_t2.get(0).get(1)); } else { out.print("0"); } %></td>
             </tr>
             <tr>
-                <td><% if (d_t3.size() > 0) { out.print(d_t3.get(0).get(0)); } else { out.print("-"); } %></td>
                 <td>Fellowship</td>
                 <td><% if (d_t3.size() > 0) { out.print(d_t3.get(0).get(1)); } else { out.print("0"); } %></td>
             </tr>

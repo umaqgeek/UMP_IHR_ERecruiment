@@ -3,12 +3,10 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
     String sql = "SELECT pph.pph_grade, pph.pph_position, c.c_name, c.c_icno, "
-            + "pa.pa_dateapplied, c.c_refid "
-            + "FROM pos_applied pa, vacancy_pos_ptj vpp, position_ptj_hr pph, "
-            + "candidate c "
-            + "WHERE pa.vpp_refid = vpp.vpp_refid "
-            + "AND vpp.pph_refid = pph.pph_refid "
-            + "AND pa.c_refid = c.c_refid ";
+        + "pa.pa_dateapplied, c.c_refid, pph.pph_refid "
+        + "FROM pos_applied pa, position_ptj_hr pph, candidate c "
+        + "WHERE pa.pph_refid = pph.pph_refid "
+        + "AND pa.c_refid = c.c_refid "; 
     String param[] = {};
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
@@ -33,7 +31,7 @@
                 <tr>
                     <td><%=i + 1%></td>
                     <td><%=d.get(i).get(0)%></td>
-                    <td><%=d.get(i).get(1)%></td>
+                    <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=d.get(i).get(6)%>&prev_url=PTJ/E-Apply/e-apply_ptj.jsp"><%=d.get(i).get(1)%></a></td>
                     <td><%=d.get(i).get(2)%></td>
                     <td><a href="process.jsp?p=PTJ/E-Apply/e-applypersonal/e-applyinformation1.jsp&c=<%=d.get(i).get(5)%>"><%=d.get(i).get(3)%></a></td>
                     <td><%=d.get(i).get(4)%></td>

@@ -23,7 +23,6 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                     <th rowspan="2">Grade</th>
                     <th rowspan="2">PTJ</th>
                     <th colspan="2">Advertisement Date</th>
-                    <th rowspan="2">Campus</th>
                     <th rowspan="2">Job Status</th>
                     <th rowspan="2">Number of Availability</th>
                     <th rowspan="2">Action</th>
@@ -38,12 +37,12 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 String pph_refid = pph5.get(i).get(0);%>
                 <tr>
                     <td rowspan="3"><%=i + 1%></td>
-                    <td rowspan="3"><%=pph5.get(i).get(2)%></td>
+                    <td rowspan="3"><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>&prev_url=Candidate/E-Apply/e-apply-add.jsp"><%=pph5.get(i).get(2)%></a></td>
                     <td rowspan="3"><%=pph5.get(i).get(1)%></td>
                     <td rowspan="3"><%=pph5.get(i).get(3)%></td>
                     <td rowspan="3"><%=pph5.get(i).get(8)%></td>
-                    <td rowspan="3"><%=pph5.get(i).get(9)%></td>
-                    <td><%
+                    <td rowspan="3"><%=pph5.get(i).get(9)%>
+                    <%
                         String sql_t1 = "SELECT vp.vp_campus, vpp.vpp_total, "
                                 + "vpp.vpp_refid "
                                 + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
@@ -74,11 +73,6 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                         MainClient mc_t3 = new MainClient(DBConn.getHost());
                         ArrayList<ArrayList<String>> d_t3 = mc_t3.getQuery(sql_t3, params_t3);
                         %>
-                        <% if (d_t1.size() > 0) {
-                                out.print(d_t1.get(0).get(0));
-                            } else {
-                                out.print("-");
-                            } %>
                     </td>
                     <td rowspan="2">Permanent & Contract</td>
                     <td rowspan="2"><% 
@@ -87,26 +81,15 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                         out.print(num);
                   %></td>
                     <td rowspan="2">
-                        <% if (d_t1.size() > 0) { 
-                        String vpp_refid = d_t1.get(0).get(2);
+                        <% if (d_t1.size() > 0 || d_t2.size() > 0) { 
                         %>
-                        <a href="process/candidate/eApply/eApply_job.jsp?vpp=<%=vpp_refid %>">Apply</a>
+                        <a href="process/candidate/eApply/eApply_job.jsp?pph=<%=pph_refid %>">Apply</a>
                         <% } %>
                     </td>
                 </tr>
                 <tr>
-                    <td><% if (d_t2.size() > 0) {
-                            out.print(d_t2.get(0).get(0));
-                        } else {
-                    out.print("-");
-                } %></td>
                 </tr>
                 <tr>
-                    <td><% if (d_t3.size() > 0) {
-                            out.print(d_t3.get(0).get(0));
-                        } else {
-                    out.print("-");
-                } %></td>
                     <td>Fellowship</td>
                     <td><% if (d_t3.size() > 0) {
                             out.print(d_t3.get(0).get(1));
@@ -115,9 +98,8 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 } %></td>
                     <td>
                         <% if (d_t3.size() > 0) { 
-                        String vpp_refid = d_t3.get(0).get(2);
                         %>
-                        <a href="process/candidate/eApply/eApply_job.jsp?vpp=<%=vpp_refid %>">Apply</a>
+                        <a href="process/candidate/eApply/eApply_job.jsp?pph=<%=pph_refid %>">Apply</a>
                         <% } %>
                     </td>
                 </tr>

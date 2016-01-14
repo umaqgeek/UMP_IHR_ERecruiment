@@ -59,11 +59,11 @@
 %>
 <div class="row">
     <div class="col-lg-12">
-              <div class="alert alert-info alert-dismissable">
+<!--              <div class="alert alert-info alert-dismissable">
                                 <a class="panel-close close" data-dismiss="alert">×</a>
                                 <i class="fa fa-coffee"></i>
                                 This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                            </div>
+                            </div>-->
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
