@@ -13,25 +13,23 @@ String query = "SELECT pph.pph_refid, " //0
         + "pph.pph_knowledge, " //6
         + "pph.pph_add_cond_ptj, " //7
         + "vp.vp_refid, " //8
-        + "vp.vp_job_status, " //9
-        + "vp.vp_total, " //10
-        + "vp.vp_campus, " //11
-        + "vpp.vpp_total, " //12
+        + "vp.vp_total, " //9
+        + "vpp.vpp_job_status, " //10
+        + "vpp.vpp_total, " //11
+        + "vpp.vpp_campus, " //12
         + "vpp.vpp_refid, " //13
-        + "pph.w_refid, " //14
-        + "w.w_refid, " //15
-        + "w.w_total, " //16
-        + "pph.pph_status " //17
+        + "w.w_refid, " //14
+        + "pph.pph_status " //15
         + "FROM position_ptj_hr pph, vacancy_pos_ptj vpp, vacancy_pos vp, warrant w "
         + "WHERE pph.pph_refid = vpp.pph_refid "
         + "AND vpp.vp_refid = vp.vp_refid "
-        + "AND pph.w_refid = w.w_refid "
+        + "AND vp.w_refid = w.w_refid "
         + "AND pph.pph_refid = ? ";
 String params[] = {pph_refid};
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc.getQuery(query, params);
 
-//out.print(data1);
+//out.print(data1); if (true) { return; }
 
 String query2 = "SELECT * "
         + "FROM area_expertise ";
@@ -47,6 +45,16 @@ String params3[] = {pph_refid};
 MainClient mc3 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
 
+//out.print(data3); if (true) { return; }
+
+String sql_campus = "SELECT ld.ld_desc "
+        + "FROM lookup_detail ld, lookup_master lm "
+        + "WHERE ld.lm_refid = lm.lm_refid "
+        + "AND lm.lm_desc = 'Campus' ";
+String param_campus[] = {};
+MainClient mc_campus = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_campus);
+
 //out.print(data3);
 %>
 
@@ -54,7 +62,7 @@ ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
     <li><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj.jsp">&lt;&lt; Back to List Position from E-Warrant</a></li>
 </ul>
 
-<% if (data1.get(0).get(17).toUpperCase().equals("SAVE".toUpperCase())) { %>
+<% if (data1.get(0).get(15).toUpperCase().equals("SAVE".toUpperCase())) { %>
 <form action="process/ptj/eAds/eAds2Detail.jsp" method="post" id="form_eads1">
 <% } %>
     <div class="row">
@@ -81,16 +89,16 @@ ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
                 <% int num_vp_refid = 0; %>
                 <% for (int i = 0; i < data1.size(); i++) { num_vp_refid += 1; %>
                 <tr>
-                    <td><%=data1.get(i).get(9) %></td>
+                    <td><%=data1.get(i).get(10) %></td>
                     <td>
                         <input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(8) %>" />
                         <input type="hidden" name="vpp_refid_<%=i %>" value="<%=data1.get(i).get(13) %>" />
-                        <input type="hidden" name="vpp_total_<%=i %>" value="<%=data1.get(i).get(12) %>" />
-                        <input type="hidden" name="vp_total_<%=i %>" value="<%=data1.get(i).get(10) %>" />
+                        <input type="hidden" name="vpp_total_<%=i %>" value="<%=data1.get(i).get(11) %>" />
+                        <input type="hidden" name="vp_total_<%=i %>" value="<%=data1.get(i).get(9) %>" />
                         <select name="vpp_total_new_<%=i %>">
                             <% 
-                            int parent_total = Integer.parseInt(data1.get(i).get(10));
-                            int child_total = Integer.parseInt(data1.get(i).get(12));
+                            int parent_total = Integer.parseInt(data1.get(i).get(9));
+                            int child_total = Integer.parseInt(data1.get(i).get(11));
                             int parent_child_total = parent_total + child_total;
                             for (int j = 0; j <= parent_child_total; j++) { 
                             %>
@@ -98,7 +106,16 @@ ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
                             <% } %>
                         </select>
                     </td>
-                    <td><%=data1.get(i).get(11) %></td>
+                    <td>
+                        <select name="vpp_campus_<%=i %>">
+                            <% for (int j = 0; j < d_campus.size(); j++) { %>
+                            <option value="<%=d_campus.get(j).get(0) %>" 
+                                    <% if (d_campus.get(j).get(0).toUpperCase().equals(data1.get(i).get(12).toUpperCase())) { 
+                                        out.print("selected");
+                                    } %> ><%=d_campus.get(j).get(0) %></option>
+                            <% } %>
+                        </select>
+                    </td>
 <!--                    <td>
                         <button type="button">
                             <i class="glyphicon glyphicon-plus"></i> Add
@@ -189,7 +206,7 @@ ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
             CKEDITOR.replace('editor4');
         </script>
     </div>
-<% if (data1.get(0).get(17).toUpperCase().equals("SAVE".toUpperCase())) { %>
+<% if (data1.get(0).get(15).toUpperCase().equals("SAVE".toUpperCase())) { %>
     <hr />
     <div class="row">
         <input type="button" value="SAVE" id="btn_save" /> 
@@ -199,9 +216,7 @@ ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
     <hr />
     <input type="hidden" name="pph_status" id="button_type" value="-" />
     <input type="hidden" name="pph_refid" value="<%=pph_refid %>" />
-    <input type="hidden" name="w_refid" value="<%=data1.get(0).get(15) %>" />
-    <input type="hidden" name="w_total" value="<%=data1.get(0).get(16) %>" />
-<% if (data1.get(0).get(17).toUpperCase().equals("SAVE".toUpperCase())) { %>
+<% if (data1.get(0).get(15).toUpperCase().equals("SAVE".toUpperCase())) { %>
 </form>
     
 <script>

@@ -51,7 +51,7 @@ String param_pph[] = { pph_refid };
 MainClient mc_pph = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 
-//out.print(data_pph);
+//out.print(data_vpp);
 //if (true) { return; }
 %>
 
@@ -61,9 +61,9 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 
 <form method="post" action="process/bpsm/eAds/eAds1.jsp" id="form_bpsm_eads1">
     <!--<div class="row">
-        Grade: <%=data_vpp.get(0).get(11) %> <br />
-        Position: <%=data_vpp.get(0).get(12) %> <br />
-        PTJ: <%=data_vpp.get(0).get(13) %> <br />
+        Grade: <%=data_vpp.get(0).get(10) %> <br />
+        Position: <%=data_vpp.get(0).get(11) %> <br />
+        PTJ: <%=data_vpp.get(0).get(12) %> <br />
     </div>
     <hr />--->
   
@@ -71,10 +71,10 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 	<!-----------------start------------------->
 		<div class="accordion">
 		<div class="accordion-section ">
-				<a class="accordion-section-title " href="#accordion-5">PTJ: <%=data_vpp.get(0).get(13) %></a>
+				<a class="accordion-section-title " href="#accordion-5">PTJ: <%=data_vpp.get(0).get(14) %></a>
 				<div id="accordion-5" class="accordion-section-content">
-					Grade: <%=data_vpp.get(0).get(11) %> <br />
-					Position: <%=data_vpp.get(0).get(12) %> <br />
+					Grade: <%=data_vpp.get(0).get(12) %> <br />
+					Position: <%=data_vpp.get(0).get(13) %> <br />
 				</div><!--end .accordion-section-content-->
 			</div><!--end .accordion-section-->
 
@@ -94,9 +94,9 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 						<tbody>
 							<% for (int i = 0; i < data_vpp.size(); i++) { %>
 							<tr>
-								<td><%=data_vpp.get(i).get(5) %></td>
+								<td><%=data_vpp.get(i).get(4) %></td>
+								<td><%=data_vpp.get(i).get(2) %></td>
 								<td><%=data_vpp.get(i).get(3) %></td>
-								<td><%=data_vpp.get(i).get(7) %></td>
 			<!--                    <td>
 									<button type="button">
 										<i class="glyphicon glyphicon-plus"></i> Add
@@ -123,15 +123,15 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="set1">
-								<%=data_vpp.get(0).get(14) %>
-							</div>
-
-							<div class="tab-pane fade" id="set2">
 								<%=data_vpp.get(0).get(15) %>
 							</div>
 
-							<div class="tab-pane fade" id="set3">
+							<div class="tab-pane fade" id="set2">
 								<%=data_vpp.get(0).get(16) %>
+							</div>
+
+							<div class="tab-pane fade" id="set3">
+								<%=data_vpp.get(0).get(17) %>
 							</div>
 						</div>
 					</div>
@@ -157,7 +157,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 			<div class="accordion-section">
 				<a class="accordion-section-title" href="#accordion-4"> Additional conditions (if any) (PTJ)</a>
 				<div id="accordion-4" class="accordion-section-content">
-					 <%=data_vpp.get(0).get(17) %>
+					 <%=data_vpp.get(0).get(18) %>
 				</div><!--end .accordion-section-content-->
 			</div><!--end .accordion-section-->
 		</div><!--end .accordion-->
@@ -165,20 +165,20 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 	<!------------------------end---------------->
     <input type="hidden" name="pph_refid" value="<%=pph_refid %>" />
 	<br/>
-	<hr/>
+<!--	<hr/>
 	<br/>
 
 
-    <!-- data for BPSM -->
+     data for BPSM 
     
     <div class="row">
         Start Date : <br />
         <input type="date" class="form-control" name="pph_startdate" value="<%=(data_pph.size()>0 && data_pph.get(0).get(0)!=null)?(Func.sqlToDate2(data_pph.get(0).get(0))):(Func.getTodayDate3()) %>" /> <br /><br />
         End Date : <br />
         <input type="date" class="form-control" name="pph_enddate" value="<%=(data_pph.size()>0 && data_pph.get(0).get(0)!=null)?(Func.sqlToDate2(data_pph.get(0).get(1))):(Func.getTodayDate3()) %>" />
-    </div>
+    </div>-->
     <hr />
-    <div class="row">
+<!--    <div class="row">
         General competence : <br />
         SPM BM : <br />
         <select name="pph_spm_bm">
@@ -207,7 +207,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
         MUET : <br />
         <input type="text" name="pph_muet" value="<%=(data_pph.size()>0 && data_pph.get(0).get(5)!=null)?(data_pph.get(0).get(5)):("") %>" /> <br />
     </div>
-    <hr />
+    <hr />-->
     <div class="row">
         Terms of Appointment : <br />
         <textarea name="pph_term_app" id="editor3" rows="10" cols="80"><%=(data_pph.size()>0 && data_pph.get(0).get(6)!=null)?(data_pph.get(0).get(6)):("") %></textarea>
@@ -217,14 +217,14 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
             CKEDITOR.replace('editor3');
         </script>
     </div>
-    <hr />
+<!--    <hr />
     <div class="row">
         Salary Schedule : <br />
         <input type="text" class="form-control" id="pph_salary_min" name="pph_salary_min" 
                value="<%=(data_pph.size()>0 && data_pph.get(0).get(7)!=null)?(data_pph.get(0).get(7)):("") %>" placeholder="Minimum salary. Example: 1200.">
         <input type="text" class="form-control" id="pph_salary_max" name="pph_salary_max" 
                value="<%=(data_pph.size()>0 && data_pph.get(0).get(8)!=null)?(data_pph.get(0).get(8)):("") %>" placeholder="Maximum salary. Example: 5000.">
-    </div>
+    </div>-->
     <hr />
     <div class="row">
         <input type="button" value="SAVE" id="btn_bpsm_save" />

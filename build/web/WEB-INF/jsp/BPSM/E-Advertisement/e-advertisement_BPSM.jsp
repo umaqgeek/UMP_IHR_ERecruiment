@@ -3,20 +3,20 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
 String query3 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, "
-        + "SUM(vpp.vpp_total), pph.pph_status, pph.w_refid "
+        + "SUM(vpp.vpp_total), pph.pph_status "
         + "FROM vacancy_pos_ptj vpp, position_ptj_hr pph "
         + "WHERE pph.pph_refid = vpp.pph_refid "
         + "AND pph.pph_status = 'HR' "
-        + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status, pph.w_refid ";
+        + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status ";
 MainClient mc3 = new MainClient(DBConn.getHost());
 String params3[] = {};
 ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
 
-String query4 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, SUM(vpp.vpp_total), pph.pph_status, pph.w_refid "
+String query4 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, SUM(vpp.vpp_total), pph.pph_status "
         + "FROM vacancy_pos_ptj vpp, position_ptj_hr pph "
         + "WHERE pph.pph_refid = vpp.pph_refid "
         + "AND pph.pph_status = 'PUBLISH' "
-        + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status, pph.w_refid ";
+        + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status ";
 MainClient mc4 = new MainClient(DBConn.getHost());
 String params4[] = {};
 ArrayList<ArrayList<String>> pph_publish = mc4.getQuery(query4, params4);

@@ -27,7 +27,7 @@ while (en.hasMoreElements()) {
     params_req.add(pr1);
 }
 
-out.print(params_req);
+//out.print(params_req);
 
 //if (true) { return; }
 

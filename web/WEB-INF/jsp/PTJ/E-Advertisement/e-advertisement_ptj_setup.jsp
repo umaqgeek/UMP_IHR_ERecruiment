@@ -3,19 +3,37 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
 String w_refid = session.getAttribute("w_refid").toString();
+
 String query = "SELECT * "
-        + "FROM warrant w "
-        + "LEFT JOIN vacancy_pos vp ON vp.w_refid = w.w_refid "
-        + "WHERE w.w_refid = ? ";
-String params[] = {w_refid};
+        + "FROM warrant w, vacancy_pos vp "
+        + "WHERE vp.w_refid = w.w_refid "
+        + "AND w.w_refid = ? ";
+String params[] = { w_refid };
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc.getQuery(query, params);
+
+if (data1.size() == 0) {
+    %>
+<ul>
+    <li><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj.jsp">&lt;&lt; Back to List Position from E-Warrant</a></li>
+</ul>
+    <%
+    return;
+}
 
 String query2 = "SELECT * "
         + "FROM area_expertise ";
 MainClient mc2 = new MainClient(DBConn.getHost());
 String params2[] = {};
 ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
+
+String sql_campus = "SELECT ld.ld_desc "
+        + "FROM lookup_detail ld, lookup_master lm "
+        + "WHERE ld.lm_refid = lm.lm_refid "
+        + "AND lm.lm_desc = 'Campus' ";
+String param_campus[] = {};
+MainClient mc_campus = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_campus);
 %>
 
 <ul>
@@ -47,16 +65,23 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
                 <% int num_vp_refid = 0; %>
                 <% for (int i = 0; i < data1.size(); i++) { num_vp_refid += 1; %>
                 <tr>
-                    <td><%=data1.get(i).get(7) %></td>
+                    <td><%=data1.get(i).get(6) %></td>
                     <td>
-                        <input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(6) %>" />
+                        <input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(5) %>" />
+                        <input type="hidden" name="vpp_job_status_<%=i %>" value="<%=data1.get(i).get(6) %>" />
                         <select name="vpp_total_<%=i %>">
-                            <% for (int j = 0; j <= Integer.parseInt(data1.get(i).get(8)); j++) { %>
+                            <% for (int j = 0; j <= Integer.parseInt(data1.get(i).get(7)); j++) { %>
                             <option value="<%=j %>"><%=j %></option>
                             <% } %>
                         </select>
                     </td>
-                    <td><%=data1.get(i).get(9) %></td>
+                    <td>
+                        <select name="vpp_campus_<%=i %>">
+                            <% for (int j = 0; j < d_campus.size(); j++) { %>
+                            <option value="<%=d_campus.get(j).get(0) %>"><%=d_campus.get(j).get(0) %></option>
+                            <% } %>
+                        </select>
+                    </td>
 <!--                    <td>
                         <button type="button">
                             <i class="glyphicon glyphicon-plus"></i> Add
@@ -82,9 +107,7 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="set1">
-                    <textarea name="pph_skill" id="editor1" rows="10" cols="80">
-
-                    </textarea>
+                    <textarea name="pph_skill" id="editor1" rows="10" cols="80"></textarea>
                     <script>
                         // Replace the <textarea id="editor1"> with a CKEditor
                         // instance, using default configuration.
@@ -94,9 +117,7 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
                 </div>
 
                 <div class="tab-pane fade" id="set2">
-                    <textarea name="pph_attitude" id="editor2" rows="10" cols="80">
-
-                    </textarea>
+                    <textarea name="pph_attitude" id="editor2" rows="10" cols="80"></textarea>
                     <script>
                         // Replace the <textarea id="editor1"> with a CKEditor
                         // instance, using default configuration.
@@ -107,9 +128,7 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
 
                 <div class="tab-pane fade" id="set3">
 
-                    <textarea name="pph_knowledge" id="editor3" rows="10" cols="80">
-
-                    </textarea>
+                    <textarea name="pph_knowledge" id="editor3" rows="10" cols="80"></textarea>
                     <script>
                         // Replace the <textarea id="editor1"> with a CKEditor
                         // instance, using default configuration.
@@ -139,9 +158,7 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
     <hr />
     <div class="row">
         Additional conditions (if any) (PTJ):- <br />
-        <textarea name="pph_add_cond_ptj" id="editor4" rows="10" cols="80">
-
-        </textarea>
+        <textarea name="pph_add_cond_ptj" id="editor4" rows="10" cols="80"></textarea>
         <script>
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
@@ -155,7 +172,6 @@ ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
     </div>
     <hr />
     <input type="hidden" name="pph_status" id="button_type" value="-" />
-    <input type="hidden" name="w_refid" value="<%=w_refid %>" />
 </form>
     
 <script>
