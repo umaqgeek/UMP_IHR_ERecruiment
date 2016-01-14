@@ -10,8 +10,15 @@
     String l_email = request.getParameter("l_email");
     String l_username = request.getParameter("l_username");
     String l_password = request.getParameter("l_password");
+    String l_password2 = request.getParameter("l_password2");
     String l_safequest = request.getParameter("l_safequest");
     String l_safeans = request.getParameter("l_safeans");
+    
+    if (!l_password.equals(l_password2)) {
+        String error = "Mismatch with confirmation password!";
+        response.sendRedirect("../index.jsp?"+My_func.ERROR_KEY+"="+error);
+        return;
+    }
 
     // open connection.
     MainClient mc = new MainClient(DBConn.getHost());
@@ -88,5 +95,5 @@
     }
 
     // redirect to login page.
-    response.sendRedirect("index.jsp" + urlParam);
+    response.sendRedirect("../index.jsp" + urlParam);
 %>

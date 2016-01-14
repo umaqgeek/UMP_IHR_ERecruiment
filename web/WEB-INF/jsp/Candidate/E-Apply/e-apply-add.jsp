@@ -80,12 +80,12 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                                 out.print("-");
                             } %>
                     </td>
-                    <td>Permanent</td>
-                    <td><% if (d_t1.size() > 0) {
-                            out.print(d_t1.get(0).get(1));
-                        } else {
-                    out.print("0");
-                }%></td>
+                    <td rowspan="2">Permanent & Contract</td>
+                    <td rowspan="2"><% 
+                        int num = (d_t1.size() > 0) ? (Integer.parseInt(d_t1.get(0).get(1))) : (0);
+                        num += (d_t2.size() > 0) ? (Integer.parseInt(d_t2.get(0).get(1))) : (0);
+                        out.print(num);
+                  %></td>
                     <td>
                         <% if (d_t1.size() > 0) { 
                         String vpp_refid = d_t1.get(0).get(2);
@@ -99,12 +99,6 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                             out.print(d_t2.get(0).get(0));
                         } else {
                     out.print("-");
-                } %></td>
-                    <td>Contract</td>
-                    <td><% if (d_t2.size() > 0) {
-                            out.print(d_t2.get(0).get(1));
-                        } else {
-                    out.print("0");
                 } %></td>
                     <td>
                         <% if (d_t2.size() > 0) { 
