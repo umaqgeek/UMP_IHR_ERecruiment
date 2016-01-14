@@ -1,5 +1,69 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%@page import="java.util.Enumeration"%>
+<%
+    String l_refid = "";
+    Enumeration sess = session.getAttributeNames();
+    while (sess.hasMoreElements()) {
+        String nama = (String) sess.nextElement();
+        String isi = (String) session.getAttribute(nama);
+        
+         //out.print(nama + " | " + isi + "<br />");
+        
+        if (nama.equalsIgnoreCase("L_REFID")) {
+            l_refid = isi;
+        }
+    }
+    
+     //get C_REFID from L_REFID
+    String query3 = "SELECT c_refid,rl_refid "
+            + "FROM login "
+            + "WHERE l_refid =" + l_refid;
+
+    MainClient mc3 = new MainClient(DBConn.getHost());
+    String params3[] = {};
+    ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
+
+    String c_refid = pph.get(0).get(0);
+    String rl_refid = pph.get(0).get(1);
+    
+    String query_candidate = "SELECT * "
+            + "FROM candidate "
+            + "WHERE c_refid =" + c_refid;
+    
+     String query_address = "SELECT * "
+            + "FROM address "
+            + "WHERE c_refid =" + c_refid;
+     
+     String query_login = "SELECT * "
+            + "FROM login "
+            + "WHERE c_refid =" + c_refid;
+
+    MainClient mc_candidate = new MainClient(DBConn.getHost());
+    String params_candidate[] = {};
+    
+    MainClient mc_address = new MainClient(DBConn.getHost());
+    String params_address[] = {};
+    
+    MainClient mc_login = new MainClient(DBConn.getHost());
+    String params_login[] = {};
+    
+    ArrayList<ArrayList<String>> pph_candidate = mc_candidate.getQuery(query_candidate, params_candidate);
+    ArrayList<ArrayList<String>> pph_address = mc_address.getQuery(query_address, params_address);
+    ArrayList<ArrayList<String>> pph_login = mc_address.getQuery(query_login, params_login);
+    //out.println(pph_address);
+    //out.println(pph_candidate);
+    //out.println(params_login);
+    
+%>
 <div class="row">
     <div class="col-lg-12">
+              <div class="alert alert-info alert-dismissable">
+                                <a class="panel-close close" data-dismiss="alert">×</a>
+                                <i class="fa fa-coffee"></i>
+                                This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                            </div>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -26,32 +90,28 @@
 
                         <!-- edit form column -->
                         <div class="col-md-7 personal-info">
-                            <div class="alert alert-info alert-dismissable">
-                                <a class="panel-close close" data-dismiss="alert">×</a>
-                                <i class="fa fa-coffee"></i>
-                                This is an <strong>.alert</strong>. Use this to show important messages to the user.
-                            </div>
+                      
                             <h3>Personal info</h3>
 
                             <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Full Name:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="C_Name" type="text" value="Jane">
+                                        <input class="form-control" name="C_Name" type="text" value="<%=pph_candidate.get(0).get(2)%>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Address:</label>
                                     <div class="col-lg-6">
-                                        <textarea name="A_RoadNo" cols="45" rows="5"></textarea>
+                                        <textarea name="A_RoadNo" cols="45" rows="5"><%=pph_address.get(0).get(2)%></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postcode:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="A_Postcode" type="text" value="">
+                                        <input class="form-control" name="A_Postcode" type="text" value="<%=pph_address.get(0).get(4)%>">
                                     </div>
                                 </div>
 
@@ -81,25 +141,23 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Town:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="A_City" type="text" value="">
+                                        <input class="form-control" name="A_City" type="text" value="<%=pph_address.get(0).get(3)%>">
                                     </div>
                                 </div>
-
-
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Date Of Birth:</label>
                                     <div class="col-lg-6">
 
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' name="C_DOB" class="form-control" />
+                                        <div class='input-group date' id='datetimepickerx'>
+                                            <input type='text' name="C_DOB" value="<%=pph_candidate.get(0).get(3)%>" class="form-control" />
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
 
                                             <script type="text/javascript">
                                                 $(function () {
-                                                $('#datetimepicker1').datetimepicker();
+                                                $('#datetimepickerx').datetimepicker();
                                                 });	
                                                 </script>
                                         </div>
@@ -111,14 +169,14 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Phone Number:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="C_HP" type="text" value="">
+                                        <input class="form-control" name="C_HP" type="text" value="<%=pph_candidate.get(0).get(11)%>">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Email:</label>
                                     <div class="col-lg-6">
-                                        <input class="form-control" name="L_Email" type="text" value="">
+                                        <input class="form-control" name="L_Email" type="text" value="<%=pph_login.get(0).get(8)%>">
                                     </div>
                                 </div>
 
@@ -172,11 +230,10 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Age:</label>
                                         <div class="col-lg-3">
-                                            <input class="form-control" name="C_Age" type="text" value="">
+                                            <input class="form-control" name="C_Age" type="text" value="<%=pph_candidate.get(0).get(4)%>">
                                         </div>
                                     </div>
                                     <div>
-
 
 
                                         <div class="form-group">
@@ -206,10 +263,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-
-
-
 
                                             <div class="form-group">
                                                 <label class="col-lg-3 control-label">
