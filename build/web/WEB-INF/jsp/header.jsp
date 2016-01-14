@@ -89,8 +89,23 @@
                 //$("#txtEditor").Editor();
             });
         </script>
+		
+		<style>
+		#article{
+			
+		color:black;
+		background-color:rgba(46, 186, 174, 0.05);
+		}
+		
+		
+		
+		
+		</style>
+		
+		
+		
     </head>
-    <body>
+    <body  >
         <br/><%=session.getAttribute(Session.SESSION_KEY) %>
         <br />
 

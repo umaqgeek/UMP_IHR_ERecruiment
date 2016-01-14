@@ -1,10 +1,11 @@
 <%@page import="config.Config"%>
-<div class="container">
+<div style=" width:85%" class="container" >
 
-    <form class="form-signin" action="process/login_process.jsp" method="post">
+<div>
+    <form  class="form-signin" action="process/login_process.jsp" method="post">
         <h2 class="form-signin-heading">e-Recruitment</h2>
         <label for="id" class="sr-only">User ID</label>
-        <input type="text" id="userid" name='userid' class="form-control" placeholder="Identification Number" >
+        <input  type="text" id="userid" name='userid' class="form-control" placeholder="Identification Number" >
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="pwd" name='pwd' class="form-control" placeholder="Password">
         <div class="checkbox">
@@ -17,7 +18,7 @@
         <a style="float:right;" href="#!" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
     </form>
 
-
+</div>
 
 </div> <!-- /container -->
 
