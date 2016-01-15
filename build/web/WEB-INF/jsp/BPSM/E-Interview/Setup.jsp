@@ -11,6 +11,7 @@
         data.add(request.getParameter("hdn_I_REFID"));
         data.add(request.getParameter("txt_I_DATETIME"));
         data.add(request.getParameter("txt_I_VENUE"));
+        data.add(request.getParameter("hdn_PA_REFID"));
 
         Action a = new Action();
         a.saveInterview(data);
@@ -19,26 +20,6 @@
 <div id="wrapper">
     <div class="container-fluid">
         <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    e-Recruitment
-                    <small>BPSM</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i>  <a href="../../e-recruitment-home.html">Dashboard</a>
-                    </li>
-                                                <li class="active">
-                        <i class="fa fa-file"></i> System
-                    </li>
-                    <li class="active">
-                        <i class="fa fa-file"></i> e-Interview
-                    </li>
-                </ol>
-            </div>
-        </div>
-        <!-- /.row -->
         <div class="row">
             <div class="well">
                 <div class="row">
@@ -97,10 +78,18 @@
                                 <tr>
                                     <td><%=row+1%></td>
                                     <td><%=Row.get(0)%><br/><%=Row.get(1)%><br/><%=Row.get(2)%></td>
-                                    <td><%=Row.get(1)%><br/><%=Row.get(1)%><br/><%=Row.get(1)%></td>
+                                    <% if (Row.get(6)!=null){ 
+                                        objData objInterview = new objData();
+                                        objInterview = lq.getInterviewDetails(Row.get(6).toString());
+                                        ArrayList iRow = objInterview.getTableData().get(0);
+                                    %>
+                                    <td><%=iRow.get(1)%><br/><%=iRow.get(2)%><br/><%=iRow.get(3)%></td>
+                                    <% }else { %>
+                                    <td>-N/A-</td>
+                                    <% } %>
                                     <td><%=Row.get(3)%></td>
                                     <td><%=Row.get(4)%></td>
-                                    <td><a href="#" OnClick="javascript:document.getElementById('hdn_I_REFID').value='<%=Row.get(6)%>';document.getElementById('hdn_PA_REFID').value='<%=Row.get(5)%>';" data-toggle="modal" data-target="#myQ">Setup<br/>Interview</a></td>
+                                    <td><a href="#" OnClick="javascript:document.getElementById('hdn_I_REFID').value='<%=Row.get(6)%>';document.getElementById('hdn_PA_REFID').value='<%=Row.get(5)%>';" class="btn" data-toggle="modal" data-target="#myInt">Setup<br/>Interview</a></td>
                                 </tr>
                                 <%
                                         }
@@ -121,8 +110,8 @@
                                     <h4 class="modal-title">Interview Setup </h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" id="hdn_I_REFID" name="hdn_I_REFID" class="form-control" value=""/>
-                                    <input type="text" id="hdn_PA_REFID" name="hdn_PA_REFID" class="form-control" value=""/>
+                                    <input type="hidden" id="hdn_I_REFID" name="hdn_I_REFID" class="form-control" value=""/>
+                                    <input type="hidden" id="hdn_PA_REFID" name="hdn_PA_REFID" class="form-control" value=""/>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date & Time</label>
                                         <div class="col-lg-4">

@@ -2,20 +2,6 @@
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="controller.eRecruitment.eInterview.List"%>
-<%
-    /*
-    if (request.getParameter("txt_TDB_SET_NAME")!=null){
-        ArrayList<String> data = new ArrayList<String>();
-
-        data.add(request.getParameter("hdn_TSDB_REFID"));
-        data.add(request.getParameter("txt_TDB_SET_NAME"));
-        data.add(request.getParameter("lst_TST_REFID"));
-
-        Action a = new Action();
-        a.saveTest(data);
-    }
-    */
-%>    
 <div class="row">
     <div class="well">
         <div class="row">
@@ -61,7 +47,7 @@
                         <%
                             objData objdata = new objData();
                             List lq = new List();
-                            objdata = lq.getInterviewsForDept("DEPT");
+                            objdata = lq.getInterviewsOfDept("DEPT");
                             if (objdata.getFlag() == 1) {
                                 System.out.println(objdata.getErrorMessage());
                             } else {
