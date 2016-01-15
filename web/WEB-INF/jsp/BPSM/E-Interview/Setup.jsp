@@ -101,7 +101,7 @@
                 </div>
                 <!-- Add/Edit DIV-->
                 <div id="myInt" class="modal fade" role="dialog">
-                    <form id="frmQ" name="frmQ" method="GET" class="form-horizontal" action="#">
+                    <form id="frmQ" name="frmQ" method="POST" class="form-horizontal" action="#">
                         <div class="modal-dialog">
                             <!-- Modal content for Universiti-->
                             <div class="modal-content">
