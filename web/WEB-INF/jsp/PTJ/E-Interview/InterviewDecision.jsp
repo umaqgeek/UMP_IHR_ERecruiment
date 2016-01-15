@@ -2,24 +2,10 @@
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="controller.eRecruitment.eInterview.List"%>
-<%
-    /*
-    if (request.getParameter("txt_TDB_SET_NAME")!=null){
-        ArrayList<String> data = new ArrayList<String>();
-
-        data.add(request.getParameter("hdn_TSDB_REFID"));
-        data.add(request.getParameter("txt_TDB_SET_NAME"));
-        data.add(request.getParameter("lst_TST_REFID"));
-
-        Action a = new Action();
-        a.saveTest(data);
-    }
-    */
-%>    
 <div class="row">
     <div class="well">
         <div class="row">
-            <div class="col-sm-12"> List of Pre Interviews</div>
+            <div class="col-sm-12"> List of Interviews For Chairman Decision</div>
         </div>
         <!-- /.row -->
         <br/><br/>
@@ -38,6 +24,7 @@
                     </thead>
                     <tbody>
                         <!--Html Test data-->
+                        <!--
                         <tr>
                             <td>1</td>
                             <td>Grade</td>
@@ -46,11 +33,11 @@
                             <td>Marks A 10/20<br/>Marks B 20/20<br/>Marks C 16/20</td>
                             <td><a href="#">Pass</a><br/><a href="#">Fail</a></td>
                         </tr>
-                        <!--
+                        -->
                         <%
                             objData objdata = new objData();
                             List lq = new List();
-                            objdata = lq.getJobListEnding();
+                            objdata = lq.getInterviewListForDecision();
                             if (objdata.getFlag() == 1) {
                                 System.out.println(objdata.getErrorMessage());
                             } else {
@@ -61,15 +48,14 @@
                             <td><%=row + 1%></td>
                             <td><%=Row.get(0)%></td>
                             <td><%=Row.get(1)%></td>
-                            <td><%=Row.get(2)%></td>
-                            <td><%=Row.get(3)%></td>
-                            <td><%=Row.get(4)%></td>
+                            <td><%=Row.get(2)%><br/><%=Row.get(3)%></td>
+                            <td><a href="process.php?p=PTJ/E-Interview/IMarks.jsp&id=<%=Row.get(4)%>">Marks</a></td>
+                            <td><a href="#">PASS</a><br/><a href="#">FAIL</a><br/><a href="#">KIV</a></td>
                         </tr>
                         <%
                                 }
                             }
                         %>
-                        -->
                     </tbody>
                 </table>
             </div>
