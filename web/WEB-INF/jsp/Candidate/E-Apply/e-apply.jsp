@@ -9,7 +9,7 @@
         String nama = (String) sess.nextElement();
         String isi = (String) session.getAttribute(nama);
 
-         //out.print(nama + " | " + isi + "<br />");
+        //out.print(nama + " | " + isi + "<br />");
         if (nama.equalsIgnoreCase("L_REFID")) {
             l_refid = isi;
         }
@@ -118,30 +118,27 @@
                                                     + "FROM LOOKUP_DETAIL JOIN "
                                                     + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
                                                     + "WHERE LOOKUP_DETAIL.LM_REFID = 1452775307.151";
-                                            
+
                                             MainClient mc_master = new MainClient(DBConn.getHost());
                                             String params_master[] = {};
                                             ArrayList<ArrayList<String>> pph_master = mc_master.getQuery(query_master, params_master);
-                                         
+
                                         %>
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">State:</label>
                                             <div class="col-lg-6">
                                                 <select class="form-control" name="A_State" id="sel1">
+                                                    <%   for (int i = 1; i < pph_master.size(); i++) {
+                                                            if (pph_address.get(0).get(5).toString().toUpperCase().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
+                                                    %>
+                                                    <option value="<%pph_master.get(i).get(0).toString();%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
                                                     <%
-                                                    for(int i = 0; i < pph_master.size(); i++)
-                                                    {
-                                                        if(pph_address.get(0).get(5).toString().toUpperCase().equalsIgnoreCase(pph_master.get(i).get(0).toString()))
-                                                        {
-                                                            %>
-                                                            <option value="<%pph_master.get(i).get(0).toString();%>" selected="selected"><%out.print(pph_master.get(i).get(0).toString());%></option>
-                                                            <%
-                                                        }else{
-                                                        %>
-                                                         <option value="<%pph_master.get(i).get(0).toString();%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
-                                                   <%     
+                                                    } else {
+                                                    %>
+                                                    <option value="<%pph_master.get(i).get(0).toString();%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                    <%
+                                                            }
                                                         }
-                                                    }
                                                     %>
                                                 </select>
                                             </div>
@@ -171,8 +168,6 @@
                                             </div>
                                         </div>
 
-
-
                                         <div class="form-group">
                                             <label class="col-lg-3 control-label">Phone Number:</label>
                                             <div class="col-lg-6">
@@ -192,15 +187,43 @@
                                             <label class="col-lg-3 control-label">Gender:</label>
                                             <div class="form-inline">
                                                 <div class="controls-row">
+                                                    <%
+                                                        String query_gender = "SELECT LOOKUP_DETAIL.LD_DESC "
+                                                                + "FROM LOOKUP_DETAIL JOIN "
+                                                                + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
+                                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1451506908.362";
 
+                                                        MainClient mc_gender = new MainClient(DBConn.getHost());
+                                                        String params_gender[] = {};
+                                                        ArrayList<ArrayList<String>> pph_gender = mc_gender.getQuery(query_gender, params_gender);
+
+                                                        for (int i = 1; i < pph_gender.size(); i++) {
+                                                            if (pph_candidate.get(0).get(6).equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
+                                                    %>
                                                     <label class="radio inline">
                                                         <input type="radio" name="C_Sex" value="1"/>
+                                                        Male
+                                                    </label>
+                                                    <label class="radio inline">
+                                                        <input type="radio" name="C_Sex" value="2" checked="checked"/>
+                                                        Female
+                                                    </label>
+                                                    <%
+                                                    } else {
+                                                    %>
+                                                    <label class="radio inline">
+                                                        <input type="radio" name="C_Sex" value="1" checked="checked"/>
                                                         Male
                                                     </label>
                                                     <label class="radio inline">
                                                         <input type="radio" name="C_Sex" value="2"/>
                                                         Female
                                                     </label>
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+
                                                 </div>
                                             </div>
 
@@ -208,13 +231,33 @@
                                             <div class="form-group">
                                                 <label class="col-lg-3 control-label">Religion:</label>
                                                 <div class="col-lg-6">
-                                                    <select name="C_Religion" class="form-control" id="sel1">
-                                                        <option>Islam</option>
-                                                        <option>Kristian</option>
-                                                        <option>Hindu</option>
-                                                        <option>Buddha</option>
 
-                                                    </select>
+                                                    <%
+                                                        String query_religion = "SELECT LOOKUP_DETAIL.LD_DESC "
+                                                                + "FROM LOOKUP_DETAIL JOIN "
+                                                                + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
+                                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1452457867.568";
+
+                                                        MainClient mc_religon = new MainClient(DBConn.getHost());
+                                                        String params_religion[] = {};
+                                                        ArrayList<ArrayList<String>> pph_religion = mc_religon.getQuery(query_religion, params_religion);
+
+                                                    %>
+                                                    <select name="C_Religion" class="form-control" id="sel1">
+                                                        <%                                                                   for (int i = 0; i < pph_religion.size(); i++) {
+                                                                if (pph_candidate.get(0).get(7).equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
+                                                        %>
+                                                        <option selected value="<%pph_religion.get(i).get(0).toString();%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                        <%
+                                                        } else {
+                                                        %>
+                                                        <option value="<%pph_religion.get(i).get(0).toString();%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                        <%
+                                                                }
+                                                            }
+                                                        %>
+                                                    </select> 
+
                                                 </div>
                                             </div>
 
