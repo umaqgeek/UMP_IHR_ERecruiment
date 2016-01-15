@@ -55,7 +55,7 @@ public class List {
         try{
             MainClient mc = new MainClient(DBConn.getHost());
             
-            String query = "SELECT I_REFID, I_DATETIME, I_VENUE FROM INTERVIEW WHERE I_REFID = ?";
+            String query = "SELECT I_REFID, I_DATETIME, I_VENUE, '' AS I_PANEL FROM INTERVIEW WHERE I_REFID = ?";
             String data[] = {};
             data[0] = InterviewID;
             
@@ -121,12 +121,12 @@ public class List {
     /*
     * Method to display list of Interviews for PTJ to Accept/Reject
     */
-    public objData getInterviewsForDept(String DeptID) {
+    public objData getInterviewsOfDept(String DeptID) {
         objData objdata = new objData();
         try {
             MainClient mc = new MainClient(DBConn.getHost());
 
-            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, INT.I_DATETIME, INT.I_VENUE, POSITION_PTJ_HR, '' PPH JOIN VACANCY_POS_PTJ VPP ON VPP.PPH_REFID = PPH.PPH_REFID JOIN POS_APPLIED PA ON PA.VPP_REFID = VPP.VPP_REFID JOIN INTERVIEW INT ON INT.PA_REFID = PA.PA_REFID";
+            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, INT.I_DATETIME, INT.I_VENUE, POSITION_PTJ_HR, '' PPH JOIN VACANCY_POS_PTJ VPP ON VPP.PPH_REFID = PPH.PPH_REFID JOIN POS_APPLIED PA ON PA.VPP_REFID = VPP.VPP_REFID JOIN INTERVIEW INT ON INT.PA_REFID = PA.PA_REFID WHERE PPH.PPH_PTJ = '" + DeptID + "'";
             String data[] = {};
             data[0] = DeptID;
 
@@ -219,7 +219,7 @@ public class List {
         try {
             MainClient mc = new MainClient(DBConn.getHost());
 
-            String query = "SELECT PI.PI_REFID, PA.PA_REFID, PI.PI_DATETIME, PI.PI_VENUE, '', CND.C_NAME, CND.C_ICNO FROM PREINTERVIEW PI JOIN POS_APPLIED PA ON PA.PA_REFID = PI.PA_REFID JOIN CANDIDATE CND.C_REFID=PA.C_REFID";
+            String query = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, CND.C_NAME, CND.C_ICNO, INT.PI_REFID FROM POSITION_PTJ_HR PPH JOIN POS_APPLIED PA ON PPH.PPH_REFID = PA.PPH_REFID JOIN CANDIDATE CND.C_REFID=PA.C_REFID JOIN PREINTERVIEW INT ON INT.PA_REFID = PA.PA_REFID WHERE PPH.PPH_REFID IN (SELECT PPH_REFID FROM INTERVIEW WHERE I_CM_STATUS IS NULL)";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
@@ -237,12 +237,50 @@ public class List {
         try {
             MainClient mc = new MainClient(DBConn.getHost());
 
-            String query = "SELECT INT.I_REFID, PA.PA_REFID, INT.I_DATETIME, INT.I_VENUE, INT.IPANEL, CND.C_NAME, CND.C_ICNO FROM INTERVIEW INT JOIN POS_APPLIED PA ON PA.PA_REFID = INT.PA_REFID JOIN CANDIDATE CND.C_REFID=PA.C_REFID";
+            String query = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, CND.C_NAME, CND.C_ICNO, INT.I_REFID FROM POSITION_PTJ_HR PPH JOIN POS_APPLIED PA ON PPH.PPH_REFID = PA.PPH_REFID JOIN CANDIDATE CND.C_REFID=PA.C_REFID JOIN INTERVIEW INT ON INT.PA_REFID = PA.PA_REFID WHERE PPH.PPH_REFID IN (SELECT PPH_REFID FROM INTERVIEW WHERE I_CM_STATUS IS NULL)";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
         } catch (Exception e) {
             objdata.setErrorMessage(e.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+    /*
+    * Method to display the list of Interview Criteria
+    */
+    public objData getICriteria(){
+        objData objdata = new objData();
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            String query = "SELECT IQ_REFID, IQ_DESC FROM INTERVIEW_QUESTIONS";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+    /*
+    * Method to display the list of Interview Criteria
+    */
+    public objData getPCriteria(){
+        objData objdata = new objData();
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            String query = "SELECT PQ_REFID, PQ_DESC FROM PREINTERVIEW_QUESTIONS";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
             objdata.setFlag(1);
         }
         return objdata;

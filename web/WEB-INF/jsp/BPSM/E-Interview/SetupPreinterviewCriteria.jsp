@@ -5,16 +5,14 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="controller.eRecruitment.eInterview.Action"%>
 <%
-    if (request.getParameter("txt_I_DATETIME")!=null){
+    if (request.getParameter("hdn_PQ_REFID")!=null){
         ArrayList<String> data = new ArrayList<String>();
 
-        data.add(request.getParameter("hdn_I_REFID"));
-        data.add(request.getParameter("txt_I_DATETIME"));
-        data.add(request.getParameter("txt_I_VENUE"));
-        data.add(request.getParameter("hdn_PA_REFID"));
+        data.add(request.getParameter("hdn_PQ_REFID"));
+        data.add(request.getParameter("txt_PQ_DESC"));
 
         Action a = new Action();
-        a.saveInterview(data);
+        a.savePIQuestions(data);
     }
 %>    
 <div id="wrapper">
@@ -23,7 +21,7 @@
         <div class="row">
             <div class="well">
                 <div class="row">
-                    <div class="col-sm-12"> JOBS TO SETUP INTERVIEW</div>
+                    <div class="col-sm-12"> SETUP PRE-INTERVIEW CRITERIA</div>
                 </div>
                 <!-- /.row -->
                 <br/><br/>
@@ -33,11 +31,7 @@
                             <thead>
                                 <tr>
                                     <td style="width:10%">#</td>
-                                    <td style="width:35%">Grade<br/>Position<br/>Department</td>
-                                    <td style="width:35%">Interview Date&Time<br/>Venue<br/>Panel</td>
-                                    <!--<td style="width:25%">Candidate<br/>IC No.</td>-->
-                                    <td style="width:10%">Start Date</td>
-                                    <td style="width:10%">End Date</td>
+                                    <td style="width:80%">Description</td>
                                     <td style="width:10%">&nbsp;</td>
                                 </tr>
                             </thead>
@@ -67,7 +61,7 @@
                                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                                     objData objdata = new objData();
                                     List lq = new List();
-                                    objdata = lq.getJobListEnding();
+                                    objdata = lq.getPCriteria();
                                     if (objdata.getFlag()==1){
                                         System.out.println(objdata.getErrorMessage());
                                     }
@@ -77,19 +71,8 @@
                                 %>
                                 <tr>
                                     <td><%=row+1%></td>
-                                    <td><%=Row.get(0)%><br/><%=Row.get(1)%><br/><%=Row.get(2)%></td>
-                                    <% if (Row.get(6)!=null){ 
-                                        objData objInterview = new objData();
-                                        objInterview = lq.getInterviewDetails(Row.get(6).toString());
-                                        ArrayList iRow = objInterview.getTableData().get(0);
-                                    %>
-                                    <td><%=iRow.get(1)%><br/><%=iRow.get(2)%><br/><%=iRow.get(3)%></td>
-                                    <% }else { %>
-                                    <td>-N/A-</td>
-                                    <% } %>
-                                    <td><%=Row.get(3)%></td>
-                                    <td><%=Row.get(4)%></td>
-                                    <td><a href="#" OnClick="javascript:document.getElementById('hdn_I_REFID').value='<%=Row.get(6)%>';document.getElementById('hdn_PA_REFID').value='<%=Row.get(5)%>';" class="btn" data-toggle="modal" data-target="#myInt">Setup<br/>Interview</a></td>
+                                    <td><%=Row.get(1)%></td>
+                                    <td><a href="#" OnClick="javascript:document.getElementById('hdn_PQ_REFID').value='<%=Row.get(0)%>';" class="btn" data-toggle="modal" data-target="#myInt">Edit</a></td>
                                 </tr>
                                 <%
                                         }
@@ -99,6 +82,7 @@
                         </table>
                     </div>
                 </div>
+                <a href="#" OnClick="javascript:document.getElementById('hdn_PQ_REFID').value='0';" class="btn" data-toggle="modal" data-target="#myInt">Add New</a>
                 <!-- Add/Edit DIV-->
                 <div id="myInt" class="modal fade" role="dialog">
                     <form id="frmQ" name="frmQ" method="GET" class="form-horizontal" action="#">
@@ -110,42 +94,13 @@
                                     <h4 class="modal-title">Interview Setup </h4>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="hidden" id="hdn_I_REFID" name="hdn_I_REFID" class="form-control" value=""/>
-                                    <input type="hidden" id="hdn_PA_REFID" name="hdn_PA_REFID" class="form-control" value=""/>
+                                    <input type="hidden" id="hdn_PQ_REFID" name="hdn_PQ_REFID" class="form-control" value=""/>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Date & Time</label>
+                                        <label class="col-lg-3 control-label">Description</label>
                                         <div class="col-lg-4">
-                                            <input type="text" id="txt_I_DATETIME" name="txt_I_DATETIME" value=""/>
+                                            <input type="text" id="txt_PQ_DESC" name="txt_PQ_DESC" value=""/>
                                         </div>
                                     </div>    
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Venue</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" id="txt_I_VENUE" name="txt_I_VENUE" class="form-control" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Panel</label>
-                                        <div class="col-lg-6">
-                                            <select multiple="true" id="lst_IP_REFID" name="lst_IP_REFID" style="height:100px" class="form-control">
-                                                <% 
-                                                    objData dPanel = new objData();
-                                                    dPanel = new List().getPanelList();
-                                                    if (dPanel.getFlag()==1){
-                                                        System.out.println(dPanel.getErrorMessage());
-                                                    }
-                                                    else{
-                                                        for (int inc=0; inc < dPanel.getTableData().size(); inc++){
-                                                            ArrayList Row = dPanel.getTableData().get(inc);
-                                                %>
-                                                <option value="<%=Row.get(0)%>"><%=Row.get(1)%></option>
-                                                <%
-                                                        }
-                                                    }
-                                                %>
-                                            </select>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-default" data-dismiss="modal">Save</button>
