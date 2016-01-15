@@ -35,9 +35,7 @@ public class List {
         objData objdata = new objData();
         try {
             MainClient mc = new MainClient(DBConn.getHost());
-            //String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID FROM POS_APPLIED PA JOIN VACANCY_POS_PTJ VPP ON VPP.VPP_REFID = PA.VPP_REFID JOIN POSITION_PTJ_HR PPH ON PPH.PPH_REFID = VPP.PPH_REFID";
             String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, (SELECT I_REFID FROM INTERVIEW WHERE PA_REFID = (SELECT PA_REFID FROM VACANCY_POS_PTJ WHERE PPH_REFID=PPH.PPH_REFID)) FROM POSITION_PTJ_HR PPH WHERE PPH.PPH_REFID IN (SELECT VPP.PPH_REFID FROM VACANCY_POS_PTJ VPP)";
-            //String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, INT.I_REFID, INT.I_DATETIME, INT.I_VENUE, '' AS INT.I_PANEL FROM POSITION_PTJ_HR PPH JOIN VACANCY_POS_PTJ VPP ON VPP.PPH_REFID = PPH.PPH_REFID LEFT OUTER JOIN INTERVIEW ON INT.I_REFID=PA.PA_REFID";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
@@ -275,6 +273,26 @@ public class List {
             MainClient mc = new MainClient(DBConn.getHost());
             
             String query = "SELECT PQ_REFID, PQ_DESC FROM PREINTERVIEW_QUESTIONS";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+    /*
+    * Method to get list for Pre Interview Setup
+    */
+    public objData getListForPreInterviewSetup(){
+        objData objdata = new objData();
+        
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, INT.I_DATETIME, INT.I_VENUE, '' AS I_PANEL, CND.C_NAME, CND.C_ICNO, INT.I_C_STATUS, INT_I_C_REASON FROM POSITION_PTJ_HR PPH JOIN POS_APPLIED PA ON PA.PPH_REFID = PPH.PPH_REFID JOIN CANDIDATE CND ON CND.C_REFID = PA.C_REFID";
             String data[] = {};
             
             objdata.setTableData(mc.getQuery(query, data));

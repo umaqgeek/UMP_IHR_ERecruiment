@@ -58,7 +58,7 @@
                             */
                             objData objdata = new objData();
                             List lq = new List();
-                            objdata = lq.getJobListEnding();
+                            objdata = lq.getInterviewListForPanel();
                             if (objdata.getFlag() == 1) {
                                 System.out.println(objdata.getErrorMessage());
                             } else {
@@ -92,14 +92,34 @@
                             <h4 class="modal-title">Marks Entry </h4>
                         </div>
                         <div class="modal-body">
+                            <input type="hidden" id="hdn_PM_REFID" name="hdn_IM_REFID" class="form-control" value=""/>
                             <input type="hidden" id="hdn_I_REFID" name="hdn_I_REFID" class="form-control" value=""/>
-                            <input type="hidden" id="hdn_PA_REFID" name="hdn_PA_REFID" class="form-control" value=""/>
+                            <input type="hidden" id="hdn_C_REFID" name="hdn_C_REFID" class="form-control" value=""/>
+                            <input type="hidden" id="hdn_U_REFID" name="hdn_U_REFID" class="form-control" value=""/>
+                            <%
+                                objData objMarks = new objData();
+                                objMarks = lq.getICriteria();
+                                for (int mark = 0; mark < objMarks.getTableData().size(); mark++) {
+                            %>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">COMMUNICATION SKILL</label>
+                                <input type="hidden" id="hdn_IQ_REFID[]" name="hdn_IQ_REFID[]" class="form-control" value=""/>
+                                <label class="col-lg-3 control-label"><%=objMarks.getTableData().get(mark).get(0)%></label>
                                 <div class="col-lg-4">
-                                    <input type="text" id="txt_I_DATETIME" name="txt_I_DATETIME" value=""/>
+                                    <select id ="lst_IM_MARKS[]" name="lst_IM_MARKS[]">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
                                 </div>
-                            </div>    
+                            </div>
+                            <% } %>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-default" data-dismiss="modal">Save</button>
