@@ -6,7 +6,20 @@
 <%@page import="libraries.My_func"%>
 <!-- Header -->
 <header id="header" style="height:6.5em;padding:0px;">
-<nav class="main">
+
+	
+	
+
+    <h1 >
+        <img src="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" />
+        <a href="process.jsp?p=login.jsp">UMP IMS E-Recruitment</a>
+    </h1>
+    <!--                <nav class="links">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                        </ul>
+                    </nav>-->
+	<nav class="main">
         <ul>
 			<li class="menu">
                 <a class="fa-bars" href="#menu">Menu</a>
@@ -22,25 +35,6 @@
         </ul>
     </nav>
 	
-	
-
-    <h1 style="padding-left:0px;">
-        <img src="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" />
-        <a href="process.jsp?p=login.jsp">UMP IMS E-Recruitment</a>
-    </h1>
-    <!--                <nav class="links">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                        </ul>
-                    </nav>-->
-					
-	<nav class="main">
-        <ul>
-		
-           
-            
-        </ul>
-    </nav>
     
 </header>
 
