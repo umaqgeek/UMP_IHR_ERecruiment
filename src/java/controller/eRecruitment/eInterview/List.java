@@ -299,4 +299,24 @@ public class List {
         }
         return objdata;
     }
+    /*
+    * Method to get list for Pre Interview Setup
+    */
+    public objData getListForPreInterviewSetup(){
+        objData objdata = new objData();
+        
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, INT.I_DATETIME, INT.I_VENUE, '' AS I_PANEL, CND.C_NAME, CND.C_ICNO, INT.I_C_STATUS, INT_I_C_REASON FROM POSITION_PTJ_HR PPH JOIN POS_APPLIED PA ON PA.PPH_REFID = PPH.PPH_REFID JOIN CANDIDATE CND ON CND.C_REFID = PA.C_REFID";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
 }
