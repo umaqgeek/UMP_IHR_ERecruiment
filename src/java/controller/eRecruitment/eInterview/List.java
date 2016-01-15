@@ -36,7 +36,21 @@ public class List {
         try {
             MainClient mc = new MainClient(DBConn.getHost());
             //String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID FROM POS_APPLIED PA JOIN VACANCY_POS_PTJ VPP ON VPP.VPP_REFID = PA.VPP_REFID JOIN POSITION_PTJ_HR PPH ON PPH.PPH_REFID = VPP.PPH_REFID";
-            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, (SELECT I_REFID FROM INTERVIEW WHERE PA_REFID = (SELECT PA_REFID FROM VACANCY_POS_PTJ WHERE PPH_REFID=PPH.PPH_REFID)) FROM POSITION_PTJ_HR PPH WHERE PPH.PPH_REFID IN (SELECT VPP.PPH_REFID FROM VACANCY_POS_PTJ VPP)";
+            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, "
+                    + "(SELECT I_REFID "
+                    + "FROM INTERVIEW "
+                    + "WHERE PA_REFID = "
+                    + "(SELECT PA_REFID "
+                    + "FROM VACANCY_POS_PTJ "
+                    + "WHERE PPH_REFID=PPH.PPH_REFID)"
+                    + ") "
+                    + "FROM POSITION_PTJ_HR PPH, pos_applied pa, candidate c "
+                    + "WHERE PPH.PPH_REFID "
+                    + "IN (SELECT VPP.PPH_REFID "
+                    + "FROM VACANCY_POS_PTJ VPP) "
+                    + "AND pph.pph_status = 'PUBLISH' "
+                    + "AND pph.pph_refid = pa.pph_refid "
+                    + "AND pa.c_refid = c.c_refid ";
             //String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, INT.I_REFID, INT.I_DATETIME, INT.I_VENUE, '' AS INT.I_PANEL FROM POSITION_PTJ_HR PPH JOIN VACANCY_POS_PTJ VPP ON VPP.PPH_REFID = PPH.PPH_REFID LEFT OUTER JOIN INTERVIEW ON INT.I_REFID=PA.PA_REFID";
             String data[] = {};
 

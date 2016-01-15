@@ -20,19 +20,22 @@ public class Action {
         String msg = "";
         try{
             MainClient mc = new MainClient(DBConn.getHost());
-            if (rData.get(0)!=""){
-                query = "UPDATE INTERVIEW SET I_REFID = ?, I_DATETIME = ?, I_VENUE = ?, PA_REFID = ? WHERE I_REFID = '" + rData.get(0) + "'";
+            System.out.println("rData:"+rData.get(0));
+            if (rData.get(0) != null && rData.get(0) != "" && !rData.get(0).equals("null") && rData.get(0) != "null"){
+                System.out.println("update");
+                query = "UPDATE INTERVIEW SET I_DATETIME = ?, I_VENUE = ?, PA_REFID = ? WHERE I_REFID = '" + rData.get(0) + "'";
             }
             else{
-                query = "INSERT INTO INTERVIEW(I_REFID, I_DATETIME, I_VENUE, PA_REFID) VALUES(?,?,?,?)";
+                System.out.println("insert");
+                query = "INSERT INTO INTERVIEW(I_DATETIME, I_VENUE, PA_REFID) VALUES(?,?,?)";
             }
             
-            String data[] = new String[6];
+            String data[] = new String[3];
             
-            data[0] = rData.get(0);
-            data[1] = rData.get(1);
-            data[2] = rData.get(2);
-            data[3] = rData.get(3);
+//            data[0] = rData.get(0);
+            data[0] = rData.get(1);
+            data[1] = rData.get(2);
+            data[2] = rData.get(3);
             
             mc.setQuery(query, data);
         }

@@ -12,6 +12,8 @@
         data.add(request.getParameter("txt_I_DATETIME"));
         data.add(request.getParameter("txt_I_VENUE"));
         data.add(request.getParameter("hdn_PA_REFID"));
+        
+        out.print(data); if (true) { return; }
 
         Action a = new Action();
         a.saveInterview(data);
@@ -101,7 +103,7 @@
                 </div>
                 <!-- Add/Edit DIV-->
                 <div id="myInt" class="modal fade" role="dialog">
-                    <form id="frmQ" name="frmQ" method="GET" class="form-horizontal" action="#">
+                    <form id="frmQ" name="frmQ" method="POST" class="form-horizontal" action="">
                         <div class="modal-dialog">
                             <!-- Modal content for Universiti-->
                             <div class="modal-content">
@@ -115,7 +117,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date & Time</label>
                                         <div class="col-lg-4">
-                                            <input type="text" id="txt_I_DATETIME" name="txt_I_DATETIME" value=""/>
+                                            <input type="date" class="form-control" id="txt_I_DATETIME" name="txt_I_DATETIME" value=""/>
                                         </div>
                                     </div>    
                                     <div class="form-group">
@@ -148,7 +150,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default" data-dismiss="modal">Save</button>
+                                    <button type="submit" class="btn btn-default">Save</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
