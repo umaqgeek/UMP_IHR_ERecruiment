@@ -5,18 +5,16 @@
 
 <%  
     String filter_stat_pass = "pass";
-    String sql = "SELECT "
-            + "PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS "
-            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, FILTER F, VACANCY_POS_PTJ VPP "
+    String sql = "SELECT PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS "
+            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, "
+            + "FILTER F, VACANCY_POS_PTJ VPP "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
             + "AND PPH.PPH_REFID=VPP.PPH_REFID "
-            + "AND VPP.VPP_REFID=PA.VPP_REFID "
+            + "AND pph.pph_REFID=PA.pph_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
             + "AND F.F_STATUS= ? ";
-    
     String params[] = { filter_stat_pass };
-
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
 %>

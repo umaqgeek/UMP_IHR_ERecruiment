@@ -13,7 +13,7 @@
         data.add(request.getParameter("txt_I_VENUE"));
         data.add(request.getParameter("hdn_PA_REFID"));
         
-        out.print(data); if (true) { return; }
+//        out.print(data); if (true) { return; }
 
         Action a = new Action();
         a.saveInterview(data);
