@@ -164,7 +164,8 @@
                                                     <script type="text/javascript">
                                                         $(function () {
                                                         $('#datetimepickerx').datetimepicker();
-                                                        });</script>
+                                                        });
+                                                                                                            </script>
                                                 </div>
                                             </div>
                                         </div>

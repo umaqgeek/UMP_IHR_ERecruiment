@@ -33,6 +33,7 @@
         <script src="<%=Config.getBase_url(request) %>assets/js/skel.min.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/js/util.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/js/main.js"></script>
+        
         <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery-1.11.3.min.js"></script>
@@ -47,6 +48,7 @@
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
+         <script src="<%=Config.getBase_url(request) %>assets/css/bootstrap-datepicker.js"></script>
 		
 		
  
