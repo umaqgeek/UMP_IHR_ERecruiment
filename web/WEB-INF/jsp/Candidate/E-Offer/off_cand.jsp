@@ -14,11 +14,10 @@
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
     String sql = "SELECT "
             + "PPH.PPH_POSITION, F.F_INTUNI, PA.PA_STATUS, PA.PA_REFID, C.C_REFID "
-            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F, VACANCY_POS_PTJ VPP "
+            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
-            + "AND PPH.PPH_REFID=VPP.PPH_REFID "
-            + "AND VPP.VPP_REFID=PA.VPP_REFID "
+            + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
             + "AND F.F_STATUS = ? "
             + "AND L.L_REFID = ? ";
