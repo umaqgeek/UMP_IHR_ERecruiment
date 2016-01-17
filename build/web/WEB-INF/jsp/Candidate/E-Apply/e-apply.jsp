@@ -1,3 +1,4 @@
+<%@page import="config.Config"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
@@ -80,10 +81,31 @@
                                 <!-- left column -->
                                 <div class="col-md-4">
                                     <div class="text-center">
-                                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                                        <h6>Upload a different photo...</h6>
+                                        <form action="process/upload_file.jsp" method="post"
+                        enctype="multipart/form-data">
+                                            <%
+                                                    if(pph_candidate.get(0).get(18)!=null)
+                                                    {
+                                                        %>
+                                                        <img src="<%=Config.getBase_url(request) %>assets/uploads/images/<%=pph_candidate.get(0).get(18)%>" class="avatar img-circle" alt="avatar">
+                                                        <h6>Upload a different photo...</h6>
 
-                                        <input type="file" class="form-control">
+                                                        <input type="file" name="c_image" value="<%=pph_candidate.get(0).get(18)%>" class="form-control">
+                                                        <%
+                                                    }
+                                                    else
+                                                    {
+                                                       %>
+                                                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                                                        <h6>Upload a different photo...</h6>
+
+                                                        <input type="file" name="c_image" class="form-control">
+                                                       <%
+                                                    }
+                                            %>
+                                        
+                                        <input type="submit" value="upload" />
+                                        </form>
                                     </div>
                                 </div>
 

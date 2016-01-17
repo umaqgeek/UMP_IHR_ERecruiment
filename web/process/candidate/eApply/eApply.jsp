@@ -186,7 +186,7 @@
     } else {
         out.println("login tidak ada error");
 
-        response.sendRedirect("../../../process.jsp?p=Candidate/E-Apply/e-apply.jsp");
+        //response.sendRedirect("../../../process.jsp?p=Candidate/E-Apply/e-apply.jsp");
     }
 
 %>
