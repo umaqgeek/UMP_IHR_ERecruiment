@@ -26,7 +26,7 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap2.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap2.min.css" />
         <!-- Scripts -->
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.min.js"></script>
