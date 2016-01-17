@@ -75,182 +75,173 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
+
                         <div class="row">
-
-                            <div class="row">
-                                <!-- left column -->
-                                <div class="col-md-4">
-                                    <div class="text-center">
-                                        <form action="process/upload_file.jsp" method="post"
-                        enctype="multipart/form-data">
-                                            <%
-                                                    if(pph_candidate.get(0).get(18)!=null)
-                                                    {
-                                                        %>
-                                                        <img src="<%=Config.getBase_url(request) %>assets/uploads/images/<%=pph_candidate.get(0).get(18)%>" class="avatar img-circle" alt="avatar">
-                                                        <h6>Upload a different photo...</h6>
-
-                                                        <input type="file" name="c_image" value="<%=pph_candidate.get(0).get(18)%>" class="form-control">
-                                                        <%
-                                                    }
-                                                    else
-                                                    {
-                                                       %>
-                                                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                                                        <h6>Upload a different photo...</h6>
-
-                                                        <input type="file" name="c_image" class="form-control">
-                                                       <%
-                                                    }
-                                            %>
-                                        
-                                        <input type="submit" value="upload" />
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <!-- edit form column -->
-                                <div class="col-md-7 personal-info">
-
-                                    <h3>Personal info</h3>
-
-                                    <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Full Name:</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="C_Name" type="text" value="<%=pph_candidate.get(0).get(2)%>">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Address:</label>
-                                            <div class="col-lg-6">
-                                                <textarea name="A_RoadNo" cols="45" rows="5"><%=pph_address.get(0).get(2)%></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Postcode:</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="A_Postcode" type="text" value="<%=pph_address.get(0).get(4)%>">
-                                            </div>
-                                        </div>
-                                        <%
-                                            String query_master = "SELECT LOOKUP_DETAIL.LD_DESC "
-                                                    + "FROM LOOKUP_DETAIL JOIN "
-                                                    + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                    + "WHERE LOOKUP_DETAIL.LM_REFID = 1452775307.151";
-
-                                            MainClient mc_master = new MainClient(DBConn.getHost());
-                                            String params_master[] = {};
-                                            ArrayList<ArrayList<String>> pph_master = mc_master.getQuery(query_master, params_master);
-                                           
+                            <div class="col-lg-4 col-lg-offset-4">
+                                <div class="text-center">
+                                    <form action="process/upload_file.jsp" method="post"
+                                          enctype="multipart/form-data">
+                                        <%                                                if (pph_candidate.get(0).get(18) != null) {
                                         %>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">State:</label>
-                                            <div class="col-lg-6">
-                                                  <select class="form-control" name="A_STATE" id="sel1">
-                                                    <%   for (int i = 0; i < pph_master.size(); i++) {
-                                                       
-                                                         if (pph_address.get(0).get(5).toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
-                                                    %>
-                                                    <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
-                                                    <%
-                                                    } else {
-                                                    %>
-                                                    <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
-                                                    <%
-                                                            }
+                                        <img src="<%=Config.getBase_url(request)%>assets/uploads/images/<%=pph_candidate.get(0).get(18)%>" class="avatar img-circle" alt="avatar">
+                                        <h6>Upload a different photo...</h6>
+
+                                        <input type="file" name="c_name" value="<%=pph_candidate.get(0).get(18)%>" class="form-control">
+                                        <%
+                                        } else {
+                                        %>
+                                        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                                        <h6>Upload a different photo...</h6>
+
+                                        <input type="file" name="c_name" class="form-control">
+                                        <%
+                                            }
+                                        %>
+
+                                        <input type="submit" value="upload" />
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Full Name:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="C_Name" type="text" value="<%=pph_candidate.get(0).get(2)%>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Address:</label>
+                                        <div class="col-lg-6">
+                                            <textarea name="A_RoadNo" cols="45" rows="5"><%=pph_address.get(0).get(2)%></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Postcode:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="A_Postcode" type="text" value="<%=pph_address.get(0).get(4)%>">
+                                        </div>
+                                    </div>
+                                    <%
+                                        String query_master = "SELECT LOOKUP_DETAIL.LD_DESC "
+                                                + "FROM LOOKUP_DETAIL JOIN "
+                                                + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
+                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1452775307.151";
+
+                                        MainClient mc_master = new MainClient(DBConn.getHost());
+                                        String params_master[] = {};
+                                        ArrayList<ArrayList<String>> pph_master = mc_master.getQuery(query_master, params_master);
+
+                                    %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">State:</label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control" name="A_STATE" id="sel1">
+                                                <%   for (int i = 0; i < pph_master.size(); i++) {
+
+                                                        if (pph_address.get(0).get(5).toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
+                                                %>
+                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <%
+                                                } else {
+                                                %>
+                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <%
                                                         }
-                                                    %>
-                                                </select>
+                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Town:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="A_City" type="text" value="<%=pph_address.get(0).get(3)%>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Date Of Birth:</label>
+                                        <div class="col-lg-6">
+                                            <div class='input-group date' id='datetimepickerx'>
+                                                <input type='text' name="C_DOB" value="<%=pph_candidate.get(0).get(3)%>" class="form-control" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+
+                                                <script type="text/javascript">
+                                                    $(function () {
+                                                    $('#datetimepickerx').datetimepicker();
+                                                    });                                                </script>
                                             </div>
                                         </div>
+                                    </div>
 
-
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Town:</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="A_City" type="text" value="<%=pph_address.get(0).get(3)%>">
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Phone Number:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="C_HP" type="text" value="<%=pph_candidate.get(0).get(11)%>">
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Date Of Birth:</label>
-                                            <div class="col-lg-6">
-                                                <div class='input-group date' id='datetimepickerx'>
-                                                    <input type='text' name="C_DOB" value="<%=pph_candidate.get(0).get(3)%>" class="form-control" />
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-calendar"></span>
-                                                    </span>
+                                    </div>
 
-                                                    <script type="text/javascript">
-                                                        $(function () {
-                                                        $('#datetimepickerx').datetimepicker();
-                                                        });
-                                                                                                            </script>
-                                                </div>
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Email:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="L_Email" type="text" value="<%=pph_login.get(0).get(8)%>">
                                         </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <%
+                                    String query_gender = "SELECT LOOKUP_DETAIL.LD_DESC "
+                                            + "FROM LOOKUP_DETAIL JOIN "
+                                            + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
+                                            + "WHERE LOOKUP_DETAIL.LM_REFID = 1451506908.362";
 
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Phone Number:</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="C_HP" type="text" value="<%=pph_candidate.get(0).get(11)%>">
-                                            </div>
-                                        </div>
+                                    MainClient mc_gender = new MainClient(DBConn.getHost());
+                                    String params_gender[] = {};
+                                    ArrayList<ArrayList<String>> pph_gender = mc_gender.getQuery(query_gender, params_gender);
 
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Email:</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="L_Email" type="text" value="<%=pph_login.get(0).get(8)%>">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Gender:</label>
-                                            <div class="form-inline">
-                                                <div class="controls-row">
-                                                    <%
-                                                        String query_gender = "SELECT LOOKUP_DETAIL.LD_DESC "
-                                                                + "FROM LOOKUP_DETAIL JOIN "
-                                                                + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1451506908.362";
-
-                                                        MainClient mc_gender = new MainClient(DBConn.getHost());
-                                                        String params_gender[] = {};
-                                                        ArrayList<ArrayList<String>> pph_gender = mc_gender.getQuery(query_gender, params_gender);
-
-                                                        for (int i = 0; i < pph_gender.size(); i++) {
-                                                            if (pph_candidate.get(0).get(6).equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
-                                                    %>
-                                                    <label class="radio inline">
-                                                        <input type="radio" checked="checked" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>"/>
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
-                                                    </label>
-                                                  
-                                                    <%
-                                                    } else {
-                                                    %>
-                                              
-                                                    <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
-                                                    </label>
-                                                    <%
-                                                            }
+                                %>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Gender:</label>
+                                    <div class="col-lg-6">
+                                        <div class="form-inline">
+                                            <div class="controls-row">
+                                                <%     for (int i = 0; i < pph_gender.size(); i++) {
+                                                        if (pph_candidate.get(0).get(6).equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
+                                                %>
+                                                <label class="radio inline">
+                                                    <input type="radio" checked="checked" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>"/>
+                                                    <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                </label>
+                                                <%
+                                                } else {
+                                                %>
+                                                <label class="radio inline">
+                                                    <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
+                                                    <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                </label>
+                                                <%
                                                         }
-                                                    %>
+                                                    }
+                                                %>
 
-                                                </div>
                                             </div>
-
-
-                                            <div class="form-group">
-                                                <label class="col-lg-3 control-label">Religion:</label>
-                                                <div class="col-lg-6">
-
-                                                    <%
+                                        </div>
+                                    </div>
+                                </div><!-- end gender-->
+                                <br/>  <br/> 
+                                  <div class="form-group">
+                                        <label class="col-lg-3 control-label">Religion:</label>
+                                        <div class="col-lg-6">
+                                            <%
                                                         String query_religion = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                                 + "FROM LOOKUP_DETAIL JOIN "
                                                                 + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
@@ -275,11 +266,10 @@
                                                             }
                                                         %>
                                                     </select> 
-
-                                                </div>
-                                            </div>
-
-                                            <%
+                                        </div>
+                                    </div>
+                                                     <br/>  <br/> 
+                                                    <%
                                                 String query_race = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                         + "FROM LOOKUP_DETAIL JOIN "
                                                         + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
@@ -310,17 +300,15 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-
-                                            <div class="form-group">
-                                                <label class="col-lg-3 control-label">Age:</label>
-                                                <div class="col-lg-3">
-                                                    <input class="form-control" name="C_Age" type="text" value="<%=pph_candidate.get(0).get(4)%>">
-                                                </div>
-                                            </div>
-                                            <div>
-
-                                                 <%
+                                                        <br/><br/>
+                                                        <div class="form-group">
+                                                            <label class="col-lg-3 control-label">Age:</label>
+                                                            <div class="col-lg-3">
+                                                                <input class="form-control" name="C_Age" type="text" value="<%=pph_candidate.get(0).get(4)%>">
+                                                            </div>
+                                                        </div>
+                                                            <br/><br/>
+                                                              <%
                                                 String query_nationality = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                         + "FROM LOOKUP_DETAIL JOIN "
                                                         + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
@@ -357,10 +345,9 @@
                                                            
                                                         </div>
                                                     </div>
-
-                                                    
-                                                    
-                                                 <%
+                                                </div>
+                                                        <br/><br/>
+                                                         <%
                                                 String query_marriage = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                         + "FROM LOOKUP_DETAIL JOIN "
                                                         + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
@@ -392,7 +379,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+                                                        <br/><br/>
                                                          <%
                                                 String query_vehicle = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                         + "FROM LOOKUP_DETAIL JOIN "
@@ -433,21 +420,19 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-md-7">
-                                                            <input type="submit" name="form_personal" class="btn btn-primary" value="Save Changes">
-                                                            <span></span>
-                                                            <input type="reset" class="btn btn-default" value="Cancel">
-                                                        </div>
                                                     </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </div>
-                                </div>
-
+                                                      
+                                
                             </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="submit" name="form_personal" class="btn btn-primary" value="Save Changes">
+                                <span></span>
+                                <input type="reset" class="btn btn-default" value="Cancel">
+                            </div>
+
                         </div>
                     </div>
                 </div>
