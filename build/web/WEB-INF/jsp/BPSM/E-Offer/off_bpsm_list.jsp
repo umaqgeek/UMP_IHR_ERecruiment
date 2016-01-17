@@ -1,8 +1,8 @@
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="models.DBConn"%>
 <%@page import="controller.Session"%>
-
 <%  
     String filter_stat_pass = "pass";
     String sql = "SELECT PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS "
