@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,7 +16,8 @@
         String param = (String) objOri;
         String value = request.getParameter(param);
 
-        out.print(param + " | " + value + "<br />");
+         
+          out.print(param + " | " + value + "<br />");
 
         ArrayList<String> datax = new ArrayList<String>();
         datax.add(param);
@@ -26,6 +29,9 @@
             ArrayList<String> req_candidate = new ArrayList<String>();
             req_candidate.add(param);
             req_candidate.add(value);
+            
+           
+            
             req_candidates.add(req_candidate);
         }
 
@@ -78,6 +84,7 @@
 
     for (int i = 0; i < sc; i++) {
         param_candidate[i] = req_candidates.get(i).get(1);
+      
     }
     for (int i = 0; i < sa; i++) {
         param_addresses[i] = req_addresses.get(i).get(1);
@@ -102,7 +109,7 @@
         sql_candidate += req_candidates.get(sc - 1).get(0).toUpperCase() + "=? WHERE C_REFID=?";
     }
     param_candidate[sc] = c_refid;
-
+    
     //first, check if exist address based on existing C_REFID
     //get C_REFID from L_REFID
     String query4 = "SELECT A_REFID "
@@ -121,6 +128,7 @@
         if (sa > 0) {
             sql_address += req_addresses.get(sa - 1).get(0).toUpperCase() + "=? WHERE C_REFID=?";
         }
+       
         param_addresses[sa] = c_refid;
         //execute query address
         MainClient mc_address = new MainClient(DBConn.getHost());
@@ -147,8 +155,7 @@
         }
         MainClient mc_address = new MainClient(DBConn.getHost());
         String a_refid = mc_address.setQuery(sql_address, param_addresses, "A_REFID");
-        out.println("a_refid " + a_refid);
-
+       
     }
 
     if (sl > 0) {
@@ -166,11 +173,13 @@
 
     if (isUpdate_candidate.equals("0") != true) {
         //error in saving to candidate table
-        out.println("error " + isUpdate_candidate);
+        out.println("error candidate " + isUpdate_candidate);
 
     } else {
         out.println("candidate tidak ada error");
     }
+    
+    
 
     if (isUpdate_login.equals("0") != true) {
         out.println("error " + isUpdate_candidate);
