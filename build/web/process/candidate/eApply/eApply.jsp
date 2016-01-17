@@ -170,6 +170,12 @@
     //execute query login
     MainClient mc_login = new MainClient(DBConn.getHost());
     String isUpdate_login = mc_login.setQuery(sql_login, param_logins);
+    
+    out.print("<br />sql_candidate"+sql_candidate+"<br />");
+    for(int i = 0; i < param_candidate.length; i++) {
+        out.print("<br />"+param_candidate[i]);
+    }
+    out.print("<br />");
 
     if (isUpdate_candidate.equals("0") != true) {
         //error in saving to candidate table
