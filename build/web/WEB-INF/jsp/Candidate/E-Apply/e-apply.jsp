@@ -18,7 +18,7 @@
 
     //get C_REFID from L_REFID
     String query3 = "SELECT c_refid,rl_refid "
-            + "FROM login "
+            + "FROM login1 "
             + "WHERE l_refid =" + l_refid;
 
     MainClient mc3 = new MainClient(DBConn.getHost());
@@ -37,7 +37,7 @@
             + "WHERE c_refid =" + c_refid;
 
     String query_login = "SELECT * "
-            + "FROM login "
+            + "FROM login1 "
             + "WHERE c_refid =" + c_refid;
 
     MainClient mc_candidate = new MainClient(DBConn.getHost());

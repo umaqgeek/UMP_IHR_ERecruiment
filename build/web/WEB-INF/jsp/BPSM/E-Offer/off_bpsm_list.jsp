@@ -6,7 +6,7 @@
 <%  
     String filter_stat_pass = "pass";
     String sql = "SELECT PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS "
-            + "FROM LOGIN L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, "
+            + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, "
             + "FILTER F, VACANCY_POS_PTJ VPP "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "

@@ -5,10 +5,10 @@
 <%@page import="models.DBConn"%>
 <%
 // get variables from the form.
-    String c_icno = request.getParameter("c_icno");
+    String l_icno = request.getParameter("l_icno");
     String c_name = request.getParameter("c_name");
     String l_email = request.getParameter("l_email");
-    String l_username = request.getParameter("l_username");
+//    String l_username = request.getParameter("l_username");
     String l_password = request.getParameter("l_password");
     String l_password2 = request.getParameter("l_password2");
     String l_safequest = request.getParameter("l_safequest");
@@ -28,8 +28,8 @@
 //        {"c_icno", c_icno},
 //        {"c_name", c_name}
 //    };
-    String sql1 = "INSERT INTO candidate(c_icno, c_name) VALUES(?, ?) ";
-    String params1[] = {c_icno, c_name};
+    String sql1 = "INSERT INTO candidate(c_name) VALUES(?) ";
+    String params1[] = {c_name.toUpperCase()};
 //    String c_refid = mc.add("candidate", data1, "c_refid");
     String c_refid = mc.setQuery(sql1, params1, "c_refid");
     
@@ -46,14 +46,15 @@
         String data2[][] = {
             {"rl_refid", "1450630515.382"},
             {"c_refid", c_refid},
-            {"l_username", l_username},
+            {"l_username", l_icno},
             {"l_password", l_password},
             {"l_safequest", l_safequest},
             {"l_safeans", l_safeans},
             {"l_email", l_email},
-            {"l_verification", "UNVERIFIED"}
+            {"l_verification", "UNVERIFIED"},
+            {"l_icno", l_icno}
         };
-        String sql2 = "INSERT INTO login(";
+        String sql2 = "INSERT INTO login1(";
         String q2 = "";
         for (int i = 0; i < data2.length-1; i++) {
             sql2 += data2[i][0] + ", ";
@@ -76,7 +77,7 @@
 //        }
 //        if (true) { return; }
         
-//        l_refid = mc2.add("login", data2, "l_refid");
+//        l_refid = mc2.add("login1", data2, "l_refid");
         l_refid = mc2.setQuery(sql2, params2, "l_refid");
     }
 

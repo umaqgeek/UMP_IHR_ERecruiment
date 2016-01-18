@@ -64,7 +64,7 @@
 
     //get C_REFID from L_REFID
     String query3 = "SELECT c_refid,rl_refid "
-            + "FROM login "
+            + "FROM login1 "
             + "WHERE l_refid =" + l_refid;
 
     MainClient mc3 = new MainClient(DBConn.getHost());
@@ -95,7 +95,7 @@
 
     String sql_candidate = "UPDATE CANDIDATE SET ";
 
-    String sql_login = "UPDATE login SET ";
+    String sql_login = "UPDATE login1 SET ";
 
     for (int i = 0; i < sc - 1; i++) {
         sql_candidate += req_candidates.get(i).get(0).toUpperCase() + "=?, ";

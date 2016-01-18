@@ -4,8 +4,8 @@
 <div>
     <form  class="form-signin" action="process/login_process.jsp" method="post">
         <h2 class="form-signin-heading">e-Recruitment</h2>
-        <label for="id" class="sr-only">User ID</label>
-        <input  type="text" id="userid" name='userid' class="form-control" placeholder="Identification Number" >
+        <label for="id" class="sr-only">IC / Passport No.</label>
+        <input  type="text" id="userid" name='userid' class="form-control" placeholder="IC / Passport No." >
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="pwd" name='pwd' class="form-control" placeholder="Password">
         <div class="checkbox">
@@ -40,13 +40,13 @@
                     <fieldset>
                         <legend>Personal Information:</legend>
                         <label for="id">My IC No. / Passport No.</label>
-                        <input type="text" id="c_icno" name="c_icno" class="form-control" placeholder="Example: 891031065223">
+                        <input type="text" id="c_icno" name="l_icno" class="form-control" placeholder="Example: 891031065223">
                         <label for="name">Name</label>
                         <input type="text" id="c_name" name="c_name" class="form-control" placeholder="Full name as in IC / Passport No." >
                         <label for="phoneEmail">E-Mail Address</label>
                         <input type="text" id="l_email" name="l_email" class="form-control" placeholder="E-Mail Address. Example: umar_mukhtar@gmail.com" >
-                        <label for="inputUsername" >Username</label>
-                        <input type="text" id="l_username" name="l_username" class="form-control" placeholder="Username" >
+<!--                        <label for="inputUsername" >Username</label>
+                        <input type="text" id="l_username" name="l_username" class="form-control" placeholder="Username" >-->
                         <label for="inputPassword">Password</label>
                         <input type="password" id="l_password" name="l_password" class="form-control" placeholder="Password">
                         <label for="inputPassword2">Password Confirmation</label>

@@ -8,7 +8,7 @@ String pph_refid = request.getParameter("pph");
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 
 String sql1 = "SELECT c.c_refid "
-        + "FROM candidate c, login l "
+        + "FROM candidate c, login1 l "
         + "WHERE c.c_refid = l.c_refid "
         + "AND l.l_refid = ? ";
 String param1[] = { l_refid };

@@ -8,7 +8,7 @@ String status_new = "NEW";
 
 String sql1 = "SELECT pph.pph_grade, pph.pph_position, pph.pph_startdate, "
         + "pph.pph_enddate, pa.pa_status, pa.pa_refid, pph.pph_refid "
-        + "FROM position_ptj_hr pph, login l, pos_applied pa "
+        + "FROM position_ptj_hr pph, login1 l, pos_applied pa "
         + "WHERE l.c_refid = pa.c_refid "
         + "AND pa.pph_refid = pph.pph_refid "
         + "AND l.l_refid = ? ";

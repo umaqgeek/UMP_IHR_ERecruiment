@@ -9,14 +9,14 @@ String l_safequest = request.getParameter("l_safequest");
 String l_safeans = request.getParameter("l_safeans");
 
 String sql1 = "SELECT * "
-        + "FROM login l "
+        + "FROM login1 l "
         + "WHERE l.l_email = ? ";
 String params1[] = { l_email };
 MainClient mc1 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d1 = mc1.getQuery(sql1, params1);
 
 String sql11 = "SELECT * "
-        + "FROM login l "
+        + "FROM login1 l "
         + "WHERE l.l_safequest = ? "
         + "AND l.l_email = ? ";
 String param11[] = { l_safequest, l_email };
@@ -24,7 +24,7 @@ MainClient mc11 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d11 = mc11.getQuery(sql11, param11);
 
 String sql12 = "SELECT * "
-        + "FROM login l "
+        + "FROM login1 l "
         + "WHERE l.l_safeans = ? "
         + "AND l.l_email = ? ";
 String param12[] = { l_safeans, l_email };
@@ -40,9 +40,9 @@ if (d1.size() > 0) {
         if (d12.size() > 0) {
             // correct email, question, and answer
             
-            String user_id = d1.get(0).get(4);
+            String user_id = d1.get(0).get(10);
             String password = d1.get(0).get(5);
-            String msg = "Your detail as below:-\n\rUser ID: " + user_id
+            String msg = "Your detail as below:-\n\rIC / Passport No.: " + user_id
                     + "\n\rPassword: " + password;
 
             SendMail.send(l_email, msg);

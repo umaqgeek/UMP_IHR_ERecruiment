@@ -10,9 +10,9 @@
 
     // sql query
     String sql = "SELECT rl.rl_role, l.l_refid "
-            + "FROM role rl, login l "
+            + "FROM role rl, login1 l "
             + "WHERE rl.rl_refid = l.rl_refid "
-            + "AND l.l_username = ? "
+            + "AND l.l_icno = ? "
             + "AND l.l_password = ? "
             + "AND l.l_verification = 'VERIFIED' ";
     String params[] = {userid, pwd};
