@@ -3,7 +3,6 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.Enumeration"%>
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <%
@@ -341,9 +340,34 @@
                                                 <script type="text/javascript">
                                                             $(function() {
                                                                 var existing_date ="<%=pph2%>";
-                                                            $("#datepicker").datepicker();
+                                                                $( "#datepicker" ).datepicker({
+                                                                changeMonth: true,
+                                                                changeYear: true,
+                                                                onSelect: function(dateText, inst) 
+                                                                { 
+                                                                        $(document).ready(function() {
+                                                                        var date = $('#datepicker').val().split('-');
+
+                                                                        var year = date[2];
+                                                                        var now = new Date().getFullYear();
+                                                                        var age = now-year;
+                                                                         $('#age').val(age);
+                                                                      $("#datepicker").keyup(function() {
+
+                                                                        var date = $('#datepicker').val().split('-');
+                                                                        var year = date[2];
+                                                                        var now = new Date().getFullYear();
+                                                                        var age = now-year;
+
+                                                                     var age = now-year;
+                                                                    $('#age').val(age);
+                                                                });
+                                                                                    });
+    }
+                                                              });
                                                             $( "#datepicker" ).datepicker( "option", "dateFormat", "d-M-yy" );
                                                              $( "#datepicker" ).datepicker('setDate', new Date());
+                                                           
                                                             });                                                                                                  </script>
                                             </div>
                                         </div>
@@ -555,9 +579,29 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Age:</label>
                                     <div class="col-lg-3">
-                                        <input class="form-control" name="C_Age" type="text" value="<%=pph3%>">
+                                        <input class="form-control" name="C_Age" id="age" type="text" value="<%=pph3%>">
                                     </div>
                                 </div>
+                                    <script>
+                                          $(document).ready(function() {
+                                                var date = $('#datepicker').val().split('-');
+                                                
+                                                var year = date[2];
+                                                var now = new Date().getFullYear();
+                                                var age = now-year;
+                                                 $('#age').val(age);
+                                              $("#datepicker").keyup(function() {
+                                            
+                                                var date = $('#datepicker').val().split('-');
+                                                var year = date[2];
+                                                var now = new Date().getFullYear();
+                                                var age = now-year;
+                                          
+                                             var age = now-year;
+                                            $('#age').val(age);
+                                        });
+                                                            });
+                                        </script>
                                 
                             </div>
                             <div class="col-lg-6">
