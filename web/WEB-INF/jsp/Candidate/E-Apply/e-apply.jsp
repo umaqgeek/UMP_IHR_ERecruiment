@@ -678,526 +678,154 @@
                                 </div>
                                 <div id="academicCollapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="academicheadingOne">
                                     <div class="panel-body">
-                                        <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="pmrForm" name="pmrForm" action="pmr.html" method="post">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="alert alert-warning" role="alert">
+                                                                <p><b>Instruction : </b> For PMR certificate , please select grades A to E and the certificates SRP / LCE , please select grade 1 to 9</p>
+                                                                
+                                                            </div>   
+                                                                
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-2">
+                                                             <label>Year : </label>
+                                                                
+                                                        </div>
+                                                        
+                                                        <div class="col-lg-3">
+                                                           <select name="pmr_tahun" id="pmr_tahun" >
+                                                                <script>
+                                                                var i,yr,now = new Date();
+                                                                for (i=0; i<30; i++) {
+                                                                    yr = now.getFullYear()-i; // or whatever
+                                                                    $('#pmr_tahun').append($('<option/>').val(yr).text(yr));
+                                                                };
+                                                                </script>
 
-                                            <form id="pmrForm" name="pmrForm" action="pmr.html" method="post" onsubmit="return SendSearch( & #39; pmrForm & #39; );">
-
-                                                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" background="bground.png">
-
-                                                    <tbody><tr>
-                                                            <td>
-
-
-                                                                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td colspan="6" class="body_fnt1"><b>
-                                                                                    Instructions:</b><br>
-
-                                                                                For PMR certificate , please select grades A to E and the certificates SRP / LCE , please select grade 1 to 9															</td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td colspan="6"><hr></td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <!--bye 03/01/2013-->
-                                                                            <td class="dasds" colspan="6" align="center">&nbsp;</td>
-                                                                            <!--bye 03/01/2013-->
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td width="23%" align="right" class="body_fnt1">&nbsp;Year:&nbsp;</td>
-                                                                            <td width="77" colspan="2" class="body_fnt1"><select name="pmr_tahun" id="pmr_tahun" >
-
-                                                                                    <option value="">
-                                                                                        Please select</option>
-
-                                                                                    <option value="2014">2014</option>
-
-                                                                                    <option value="2013">2013</option>
-
-                                                                                    <option value="2012">2012</option>
-
-                                                                                    <option value="2011">2011</option>
-
-                                                                                    <option value="2010">2010</option>
-
-                                                                                    <option value="2009">2009</option>
-
-                                                                                    <option value="2008">2008</option>
-
-                                                                                    <option value="2007">2007</option>
-
-                                                                                    <option value="2006">2006</option>
-
-                                                                                    <option value="2005">2005</option>
-
-                                                                                    <option value="2004">2004</option>
-
-                                                                                    <option value="2003">2003</option>
-
-                                                                                    <option value="2002">2002</option>
-
-                                                                                    <option value="2001">2001</option>
-
-                                                                                    <option value="2000">2000</option>
-
-                                                                                    <option value="1999">1999</option>
-
-                                                                                    <option value="1998">1998</option>
-
-                                                                                    <option value="1997">1997</option>
-
-                                                                                    <option value="1996">1996</option>
-
-                                                                                    <option value="1995">1995</option>
-
-                                                                                    <option value="1994">1994</option>
-
-                                                                                    <option value="1993">1993</option>
-
-                                                                                    <option value="1992">1992</option>
-
-                                                                                    <option value="1991">1991</option>
-
-                                                                                    <option value="1990">1990</option>
-
-                                                                                    <option value="1989">1989</option>
-
-                                                                                    <option value="1988">1988</option>
-
-                                                                                    <option value="1987">1987</option>
-
-                                                                                    <option value="1986">1986</option>
-
-                                                                                    <option value="1985">1985</option>
-
-                                                                                    <option value="1984">1984</option>
-
-                                                                                    <option value="1983">1983</option>
-
-                                                                                    <option value="1982">1982</option>
-
-                                                                                    <option value="1981">1981</option>
-
-                                                                                    <option value="1980">1980</option>
-
-                                                                                    <option value="1979">1979</option>
-
-                                                                                    <option value="1978">1978</option>
-
-                                                                                    <option value="1977">1977</option>
-
-                                                                                    <option value="1976">1976</option>
-
-                                                                                    <option value="1975">1975</option>
-
-                                                                                    <option value="1974">1974</option>
-
-                                                                                    <option value="1973">1973</option>
-
-                                                                                </select>
-
-                                                                            </td>
-                                                                            <td align="right"></td>
-                                                                            <td align="right"></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1"> Type certificate:</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun3" id="pmr_tahun3" >
+                                                            </select>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                             <div class="col-lg-4">
+                                                                 <label>Certificate Type : </label>
+                                                                 </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun3" id="pmr_tahun3" >
                                                                                     <option value=""> Please select </option>
                                                                                     <option value="PMR">PMR</option>
                                                                                     <option value="SRP">SRP</option>
                                                                                     <option value="LCE">LCE</option>
                                                                                     <option value="Other">Other</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><div align="center">Rank:</div></td>
-                                                                            <td align="left"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                         <div class="col-lg-6">
+                                                             <div class="col-lg-4">
+                                                                 <label>Rank : </label>
+                                                                 </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
                                                                                         <option value=""> Please select </option>
                                                                                         <option value="A">A</option>
                                                                                         <option value="B">B</option>
                                                                                         <option value="C">C</option>
                                                                                         <option value="S">S</option>
                                                                                     </select>
-                                                                                </span></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="6"><hr></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1"><div align="right">Subject:</div></td>
-                                                                            <td colspan="2" class="body_fnt1"><div align="right"></div></td>
-                                                                            <td align="right"><div align="right"></div></td>
-                                                                            <td align="right"><div align="center">Grade:</div></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="6"><hr></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1">BAHASA MALAYSIA</td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun5" id="pmr_tahun5" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="6" align="right" class="body_fnt1">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun6" id="pmr_tahun6" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun4" id="pmr_tahun4" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun13" id="pmr_tahun13" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun7" id="pmr_tahun7" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun15" id="pmr_tahun15" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun8" id="pmr_tahun8" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun16" id="pmr_tahun16" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun9" id="pmr_tahun9" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun17" id="pmr_tahun17" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun10" id="pmr_tahun10" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun18" id="pmr_tahun18" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun11" id="pmr_tahun11" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun19" id="pmr_tahun19" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun12" id="pmr_tahun12" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun20" id="pmr_tahun20" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun14" id="pmr_tahun14" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                            <td colspan="2" class="body_fnt1"><select name="pmr_tahun21" id="pmr_tahun21" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                    <option value="English">English</option>
-                                                                                    <option value="Mathematics">Mathematics</option>
-                                                                                    <option value="Science">Science</option>
-                                                                                    <option value="Sejarah">Sejarah</option>
-                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
-                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
-                                                                                    <option value="Geografi">Geografi</option>
-                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
-                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
-                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
-                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
-                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                </select></td>
-                                                                            <td align="right">&nbsp;</td>
-                                                                            <td align="right"><span class="body_fnt1">
-                                                                                    <select name="pmr_tahun22" id="pmr_tahun22" >
-                                                                                        <option value=""> Please select </option>
-                                                                                        <option value="A">A</option>
-                                                                                        <option value="B">B</option>
-                                                                                        <option value="C">C</option>
-                                                                                        <option value="D">D</option>
-                                                                                        <option value="E">E</option>
-                                                                                    </select>
-                                                                                </span></td>
-                                                                            <td align="left">&nbsp;</td>
-                                                                        </tr>
-                                                                    <td colspan="6"><hr></td>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_pmr" class="table">
+                                                                <thead>
                                                                     <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><input type="submit" name="ADD" id="ADD" value="+ ADD"></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="left">&nbsp;</td>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
                                                                     </tr>
-                                                                    <td colspan="6"><hr></td>
+                                                                </thead>
+                                                                <tbody>
                                                                     <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><input type="submit" name="SAVE" id="SAVE" value="SAVE">&nbsp;&nbsp;
-                                                                            <input type="submit" name="CANCEL" id="CANCEL" value="CANCEL"></td>
-
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-
-                                                                    </tr></table><p>&nbsp;</p><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr>
-                                                                        <td align="left">&nbsp;</td>
+                                                                        <td>
+                                                                         <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                    <option value=""> Please select </option>
+                                                                                    <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                    <option value="English">English</option>
+                                                                                    <option value="Mathematics">Mathematics</option>
+                                                                                    <option value="Science">Science</option>
+                                                                                    <option value="Sejarah">Sejarah</option>
+                                                                                    <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                    <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                    <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                    <option value="Geografi">Geografi</option>
+                                                                                    <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                    <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                    <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                    <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                    <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                    <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                    <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                                </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                             <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                        <option value=""> Please select </option>
+                                                                                        <option value="A">A</option>
+                                                                                        <option value="B">B</option>
+                                                                                        <option value="C">C</option>
+                                                                                        <option value="D">D</option>
+                                                                                        <option value="E">E</option>
+                                                                                    </select>
+                                                                            
+                                                                        </td>
                                                                     </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <script>
+                                                                //Compose template string
+                                                                String.prototype.compose = (function (){
+                                                                    var re = /\{{(.+?)\}}/g;
+                                                                    return function (o){
+                                                                        return this.replace(re, function (_, k){
+                                                                            return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                        });
+                                                                    }
+                                                                }());
+                                                            var tbody = $('#academic_pmr').children('tbody');
+                                                            var table = tbody.length ? tbody : $('#academic_pmr');
+                                                            var row = '<tr>'+
+                                                                '<td>{{subject}}</td>'+
+                                                                '<td>{{grade}}</td>'+
+                                                            '</tr>';
 
-
-
-
-
-                                                                </table>
-                                                                </fieldset>
-                                                            </td>
-                                                        </tr>
-
-
-                                                    </tbody></table>
-                                            </form>
-
+                                                            $(document).ready(function() {
+                                                            $('#add_pmr').click(function(){
+                                                                //Add row
+                                                                table.append(row.compose({
+                                                                    'subject': "Please Select",
+                                                                    'grade': 'Please Select'
+                                                                }));
+                                                            });
+                                                            });
+                                                                </script>
+                                                                 
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                <button type="button" id="add_pmr" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                           
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
