@@ -8,6 +8,7 @@
     ArrayList<ArrayList<String>> params_req = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_candidates = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_addresses = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> req_addresses2 = new ArrayList<ArrayList<String>>();
     ArrayList<ArrayList<String>> req_logins = new ArrayList<ArrayList<String>>();
 
     Enumeration en = request.getParameterNames();
@@ -30,17 +31,30 @@
             req_candidate.add(param);
             req_candidate.add(value);
             
-           
-            
             req_candidates.add(req_candidate);
         }
 
         // capture address inputs
-        if (param.toUpperCase().contains("A_".toUpperCase())) {
+        if (param.toUpperCase().contains("A_".toUpperCase()) || param.toUpperCase().contains("AT_".toUpperCase()) ) {
             ArrayList<String> req_address = new ArrayList<String>();
-            req_address.add(param);
-            req_address.add(value);
-            req_addresses.add(req_address);
+            ArrayList<String> req_address2 = new ArrayList<String>();
+            if(param.contains("2"))
+            {
+                     String[] str2 = param.split("_");
+                     String paramnew = "";
+                     paramnew = str2[0] + "_" + str2[1];
+                     req_address2.add(paramnew);
+                     req_address2.add(value);
+                     req_addresses2.add(req_address2);
+                  
+            }
+            else
+            {
+                    req_address.add(param);
+                    req_address.add(value);
+                    req_addresses.add(req_address);
+            }
+            
         }
 
         // capture login inputs
@@ -51,7 +65,8 @@
             req_logins.add(req_login);
         }
     }
-
+      
+   
     String l_refid = "";
     Enumeration sess = session.getAttributeNames();
     while (sess.hasMoreElements()) {
@@ -76,10 +91,12 @@
 
     int sc = req_candidates.size();
     int sa = req_addresses.size();
+    int sa2 = req_addresses2.size();
     int sl = req_logins.size();
 
     String param_candidate[] = new String[sc + 1];
-    String param_addresses[] = new String[sa + 1];
+    String param_addresses[] = new String[sa + 2];
+     String param_addresses2[] = new String[sa2 + 2];
     String param_logins[] = new String[sl + 1];
 
     for (int i = 0; i < sc; i++) {
@@ -88,6 +105,10 @@
     }
     for (int i = 0; i < sa; i++) {
         param_addresses[i] = req_addresses.get(i).get(1);
+    }
+     for (int i = 0; i < sa2; i++) {
+        param_addresses2[i] = req_addresses2.get(i).get(1);
+      
     }
     for (int i = 0; i < sl; i++) {
         param_logins[i] = req_logins.get(i).get(1);
@@ -114,11 +135,19 @@
     //get C_REFID from L_REFID
     String query4 = "SELECT A_REFID "
             + "FROM ADDRESS "
-            + "WHERE C_REFID =?";
-    MainClient mc4 = new MainClient(DBConn.getHost());
-    String params4[] = {c_refid};
-    ArrayList<ArrayList<String>> pph4 = mc4.getQuery(query4, params4);
+            + "WHERE C_REFID =? AND AT_REFID=?";
 
+    MainClient mc4 = new MainClient(DBConn.getHost());
+    String params4[] = {c_refid,"1453324570.621"};
+    String params4_2[] = {c_refid,"1453324578.698"};
+    ArrayList<ArrayList<String>> pph4 = mc4.getQuery(query4, params4);
+    ArrayList<ArrayList<String>> pph4_2 = mc4.getQuery(query4, params4_2);
+    /*
+    out.println(pph4);
+    out.println(pph4_2);
+    if (true) { return; }
+            */
+    
     if (pph4.isEmpty() != true) { //ada isi, update
 
         String sql_address = "UPDATE address SET ";
@@ -126,10 +155,11 @@
             sql_address += req_addresses.get(i).get(0).toUpperCase() + "=?, ";
         }
         if (sa > 0) {
-            sql_address += req_addresses.get(sa - 1).get(0).toUpperCase() + "=? WHERE C_REFID=?";
+            sql_address += req_addresses.get(sa - 1).get(0).toUpperCase() + "=? WHERE C_REFID=? AND AT_REFID=?";
         }
        
         param_addresses[sa] = c_refid;
+        param_addresses[sa+1] = "1453324570.621";
         //execute query address
         MainClient mc_address = new MainClient(DBConn.getHost());
         String isUpdate_address = mc_address.setQuery(sql_address, param_addresses);
@@ -148,6 +178,7 @@
             q2 += "?, ?";
         }
         param_addresses[sa] = c_refid;
+        param_addresses[sa+1]=" 1453324570.621";
         sql_address += ") VALUES(" + q2 + ") ";
 
         for (int i = 0; i < param_addresses.length; i++) {
@@ -158,6 +189,47 @@
        
     }
 
+        if(pph4_2.isEmpty() != true)
+        {
+             
+                String sql_address = "UPDATE address SET ";
+           for (int i = 0; i < sa2 - 1; i++) {
+               sql_address += req_addresses2.get(i).get(0).toUpperCase() + "=?, ";
+           }
+           if (sa > 0) {
+               sql_address += req_addresses2.get(sa2 - 1).get(0).toUpperCase() + "=? WHERE C_REFID=? AND AT_REFID=?";
+           }
+                 
+           param_addresses2[sa2] = c_refid;
+           param_addresses2[sa2+1] = "1453324578.698";
+           
+           //execute query address
+           MainClient mc_address = new MainClient(DBConn.getHost());
+           String isUpdate_address = mc_address.setQuery(sql_address, param_addresses2);
+
+        }else{
+             //insert baru
+        String sql_address = "INSERT INTO ADDRESS (";
+        String q2 = "";
+        for (int i = 0; i < sa2 - 1; i++) {
+
+            sql_address += req_addresses2.get(i).get(0).toUpperCase() + ", ";
+            q2 += "?, ";
+        }
+        if (sa > 0) {
+            sql_address += req_addresses2.get(sa - 1).get(0).toUpperCase() + ", C_REFID";
+            q2 += "?, ?";
+        }
+        param_addresses2[sa2] = c_refid;
+        param_addresses2[sa2+1] = "1453324578.698";
+        sql_address += ") VALUES(" + q2 + ") ";
+
+           
+        MainClient mc_address = new MainClient(DBConn.getHost());
+        String a_refid = mc_address.setQuery(sql_address, param_addresses2, "A_REFID");
+         
+        }
+        
     if (sl > 0) {
         sql_login += req_logins.get(sl - 1).get(0).toUpperCase() + "=? WHERE L_REFID=?";
     }

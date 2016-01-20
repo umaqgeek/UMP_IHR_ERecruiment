@@ -37,7 +37,11 @@
 
     String query_address = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid;
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = 1453324570.621";
+    
+    String query_address2 = "SELECT * "
+            + "FROM address "
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = 1453324578.698";
 
     String query_login = "SELECT * "
             + "FROM login1 "
@@ -46,6 +50,9 @@
     String query_academic_info = "SELECT * "
             + "FROM ACADEMIC_INFO "
             + "WHERE c_refid =" + c_refid;
+    
+        String query_address_type = "SELECT * "
+            + "FROM ADDRESS_TYPE ";
 
     MainClient mc_candidate = new MainClient(DBConn.getHost());
     String params_candidate[] = {};
@@ -53,20 +60,29 @@
     MainClient mc_address = new MainClient(DBConn.getHost());
     String params_address[] = {};
 
+    MainClient mc_address2 = new MainClient(DBConn.getHost());
+    String params_address2[] = {};
+    
     MainClient mc_login = new MainClient(DBConn.getHost());
     String params_login[] = {};
 
      MainClient mc_academic_info = new MainClient(DBConn.getHost());
     String params_academic_info[] = {};
+
+     MainClient mc_address_type = new MainClient(DBConn.getHost());
+    String params_address_type[] = {};
     
     ArrayList<ArrayList<String>> pph_candidate = mc_candidate.getQuery(query_candidate, params_candidate);
     ArrayList<ArrayList<String>> pph_address = mc_address.getQuery(query_address, params_address);
+    ArrayList<ArrayList<String>> pph_address2 = mc_address2.getQuery(query_address2, params_address2);
     ArrayList<ArrayList<String>> pph_login = mc_login.getQuery(query_login, params_login);
     ArrayList<ArrayList<String>> pph_academic_info = mc_academic_info.getQuery(query_academic_info, params_academic_info);
-    //out.println(pph_address);
-    //out.println(pph_candidate);
-    //out.println(params_login);
+    ArrayList<ArrayList<String>> pph_address_type = mc_address_type.getQuery(query_address_type, params_address_type);
 
+    /*
+    out.println(query_address2);
+   if (true) { return; }
+            */
 %>
 <div class="row">
     <div class="col-lg-12">
@@ -128,17 +144,17 @@
                             <div class="col-lg-6">
                                 <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
                                     <%
-                                        String pph2 = "";
+                                        String pph1 = "";
                                         try {
-                                            pph2 = pph_candidate.get(0).get(2);
+                                            pph1 = pph_candidate.get(0).get(1);
                                         } catch (Exception e) {
-                                            pph2 = "";
+                                            pph1 = "";
                                         }       
                                      %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Full Name:</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="C_Name" type="text" value="<%=(pph2!=null && pph2!="" && pph2.equals("")) ?pph2 :""%>">
+                                            <input class="form-control" name="C_Name" type="text" value="<%=(pph1!=null && pph1!="" && !pph1.equals("")) ?pph1 :""%>">
                                         </div>
                                     </div>
                                      
@@ -151,7 +167,7 @@
                                            }       
                                             %>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Address:</label>
+                                        <label class="col-lg-3 control-label">Home Address:</label>
                                         <div class="col-lg-6">
                                             <textarea name="A_RoadNo" cols="45" rows="5"><%=ppha2%></textarea>
                                         </div>
@@ -166,7 +182,7 @@
                                            }       
                                             %>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Postcode:</label>
+                                        <label class="col-lg-3 control-label">Home Postcode:</label>
                                         <div class="col-lg-6">
                                             <input class="form-control" name="A_Postcode" type="text" value="<%=ppha4%>">
                                         </div>
@@ -191,7 +207,7 @@
                                     %>
                                     
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">State:</label>
+                                        <label class="col-lg-3 control-label">Home State:</label>
                                         <div class="col-lg-6">
                                             <select class="form-control" name="A_STATE" id="sel1">
                                                 <%   for (int i = 0; i < pph_master.size(); i++) {
@@ -233,11 +249,12 @@
                                                     }
                                                 %>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Town:</label>
+                                        <label class="col-lg-3 control-label">Home Town:</label>
                                         <div class="col-lg-6">
                                             <input class="form-control" name="A_City" type="text" value="<%=ppha3%>">
                                         </div>
                                     </div>
+                                        <input type="hidden" name="AT_REFID" value="<%=pph_address_type.get(0).get(0)%>"  />
                                         
                                      <%
                                                 String pph3 = "";
@@ -293,9 +310,7 @@
                                             <input class="form-control" name="L_Email" type="text" value="<%=pphl8%>">
                                         </div>
                                     </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <%
+                                        <%
                                     String query_gender = "SELECT LOOKUP_DETAIL.LD_DESC "
                                             + "FROM LOOKUP_DETAIL JOIN "
                                             + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
@@ -354,7 +369,6 @@
                                         </div>
                                     </div>
                                 </div><!-- end gender-->
-                                <br/>  <br/>
                                 <%
                                         String pph7 = "";
                                         try {
@@ -409,7 +423,6 @@
                                         </select> 
                                     </div>
                                 </div>
-                                <br/>  <br/> 
                                 <%
                                     String query_race = "SELECT LOOKUP_DETAIL.LD_DESC "
                                             + "FROM LOOKUP_DETAIL JOIN "
@@ -464,7 +477,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <br/><br/>
                                  <%                           
                                         String pph4 = "";
                                         try {
@@ -479,6 +491,100 @@
                                         <input class="form-control" name="C_Age" type="text" value="<%=pph4%>">
                                     </div>
                                 </div>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                    <%
+                                                String pphaa2 = "";
+                                           try {
+                                               pphaa2 = pph_address2.get(0).get(2);
+                                           } catch (Exception e) {
+                                               pphaa2 = "";
+                                           }       
+                                            %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Postage Address:</label>
+                                        <div class="col-lg-6">
+                                            <textarea name="A_RoadNo_2" cols="45" rows="5"><%=pphaa2%></textarea>
+                                        </div>
+                                    </div>
+
+                                         <%
+                                                String pphaa4 = "";
+                                           try {
+                                               pphaa4 = pph_address2.get(0).get(4);
+                                           } catch (Exception e) {
+                                               pphaa4 = "";
+                                           }       
+                                            %>
+                                            <br/><br/><br/><br/><br/><br/><br/><br/>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Postage Postcode:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="A_Postcode_2" type="text" value="<%=pphaa4%>">
+                                        </div>
+                                    </div>
+                                    <%
+                                       
+                                                    String pphaa5 = "";
+                                           try {
+                                               pphaa5 = pph_address2.get(0).get(5);
+                                           } catch (Exception e) {
+                                               pphaa5 = "";
+                                           }       
+                                    
+                                    %>
+                                    <br/><br/><br/>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Postage State:</label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control" name="A_STATE_2" id="sel1">
+                                                <%   for (int i = 0; i < pph_master.size(); i++) {
+                                                     if (pphaa5 != null && pphaa5 != "" && !pphaa5.equals("")) {
+                                                        if (pphaa5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
+                                                %>
+                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <%
+                                                } else {
+                                                %>
+                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <%
+                                                        }
+                                                     }
+                                                     else{
+                                                         
+                                                          if(i==0)
+                                                            {
+                                                                 %>
+                                                <option value="">Please Select</option>
+                                                <%
+                                                            }
+                                                          
+                                                %>
+                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <%
+                                                     }
+                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                                <%
+                                                String pphaa3 = "";
+                                                    try {
+                                                        pphaa3 = pph_address2.get(0).get(3);
+                                                    } catch (Exception e) {
+                                                        pphaa3 = "";
+                                                    }
+                                                %>
+                                                <br/><br/><br/>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Postage Town:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="A_City_2" type="text" value="<%=pphaa3%>">
+                                        </div>
+                                    </div>
+                                        <input type="hidden" name="AT_REFID_2" value="<%=pph_address_type.get(1).get(0)%>"  />
                                 <br/><br/>
                                 <%
                                     String query_nationality = "SELECT LOOKUP_DETAIL.LD_DESC "
@@ -489,9 +595,7 @@
                                     MainClient mc_nationality = new MainClient(DBConn.getHost());
                                     String params_nationality[] = {};
                                     ArrayList<ArrayList<String>> pph_nationality = mc_nationality.getQuery(query_nationality, params_nationality);
-
-                                %>
-                                <%                           
+  
                                         String pph9 = "";
                                         try {
                                             pph9 = pph_candidate.get(0).get(9);
