@@ -244,7 +244,7 @@
                                                     try {
                                                         pph3 = pph_candidate.get(0).get(3);
                                                     } catch (Exception e) {
-                                                        pph3 = "";
+                                                        pph3 = "31-August-1980";
                                                     }
                                                 %>
                                     <div class="form-group">
@@ -649,11 +649,42 @@
                                         </div>
                                     </div>
                                 </div>
-
-
+                                
                             </div>
 
                         </div>
+                         <div class="row">
+                             <div class="col-lg-12">
+                                 <%
+                                                String pph15="";
+                                        try {
+                                            pph15 = pph_candidate.get(0).get(15);
+                                        } catch (Exception e) {
+                                            pph15 = "";
+                                        }
+                                %>
+                                <div class="form-group">
+                                    <label class="col-lg-8 control-label">
+                                        Are you serving at services of civil / military / local goverment / statutory / police ? :</label>
+                                    <div class="col-md-4">
+                                        <div class="form-inline">
+                                            <div class="controls-row">
+                                                 <label class="radio inline">
+                                                    <input name="C_ServOfficer" type="radio" value="YES"/>
+                                                   YES
+                                                </label>
+                                                 <label class="radio inline">
+                                                    <input name="C_ServOfficer" type="radio" value="NO"/>
+                                                    NO
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                         </div>
+                                <br/><br/>
                         <div class="row">
                             <div class="col-lg-12">
                                 <input type="submit" name="form_personal" class="btn btn-primary" value="Save Changes">
