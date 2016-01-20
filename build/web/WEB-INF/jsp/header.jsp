@@ -48,7 +48,6 @@
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
-         <script src="<%=Config.getBase_url(request) %>assets/css/bootstrap-datepicker.js"></script>
 		
 		
  
