@@ -223,11 +223,13 @@
         param_addresses2[sa2] = c_refid;
         param_addresses2[sa2+1] = "1453324578.698";
         sql_address += ") VALUES(" + q2 + ") ";
-        
+
            
         MainClient mc_address = new MainClient(DBConn.getHost());
         String a_refid = mc_address.setQuery(sql_address, param_addresses2, "A_REFID");
-      
+         
+        }
+        
     if (sl > 0) {
         sql_login += req_logins.get(sl - 1).get(0).toUpperCase() + "=? WHERE L_REFID=?";
     }
