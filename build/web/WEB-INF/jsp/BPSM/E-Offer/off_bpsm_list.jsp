@@ -13,7 +13,7 @@
     String action_setup_btn = "active";
     
     String sql = "SELECT PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS, PA.PA_REFID, PPH.PPH_GRADE, PPH.PPH_PTJ, "
-            + "L.L_ICNO ,PA.PA_CAMPUS, PA.PA_SALARY "
+            + "L.L_ICNO ,PA.PA_CAMPUS, PA.PA_SALARY, PA.PA_JOB_STATUS "
             + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, FILTER F "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
@@ -53,6 +53,7 @@
                     for(int row=0; row<data.size(); row++)
                     {
                         action_send_btn = "disabled";
+                        action_setup_btn = "active";
                         %>
                         <tr>
                         <td style="vertical-align: middle; text-align: center"><%= row+1 %></td>
@@ -78,25 +79,39 @@
                         {
                             %>
                             <td style="vertical-align: middle; text-align: center; font-weight: bold;"><%=data.get(row).get(3) %></td>
+                            <%
+                        }
+                        else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_offerSent))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold; color: orange"><%=data.get(row).get(3) %></td>
+                            <%
+                        }
+                        
+                        if(!data.get(row).get(3).equalsIgnoreCase(pa_stat_pending))
+                        {
+                            %>
+                            <td colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>" class="open-modalSend_<%=row %> btn btn-primary <%=action_setup_btn %>">Preview Offer</a></td>
+                            <%
+                        }
+                        else
+                        {
+                            %>
                             <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
                             <%
                             if(data.get(row).get(9) != null)
                             {
                                 action_send_btn = "active";
                             }
+                            else
+                            {
+                                action_send_btn = "disabled";
+                            }
                             %>
                             <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
+                            </tr>
                             <%
                         }
-                        else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_offerSent))
-                        {
-                            %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><%=data.get(row).get(3) %></td>
-                            <%
-                        }
-                        %>
-                        </tr>
-                        <%
                     }
                 }
                 else
@@ -157,7 +172,49 @@ if(data.size()>0)
                                     <label class="col-md-2">IC Number</label><label class="col-md-1">:</label>
                                     <label class="col-md-9"><%=data.get(row3).get(7) %> </label>
                                 </div>
-                                 <div class="form-group">
+                                
+                                <div class="form-group">
+                                    <label class="col-md-2">Job Status</label><label class="col-md-1">:</label>
+                                    <div class="col-md-9">
+                                        <select name="pa_job_status" class="form-control">
+                                            <%
+                                            String lm_desc1 = "Job Status";
+                                            String sql_job_status = "SELECT LD.LD_DESC "
+                                                    + "FROM LOOKUP_DETAIL LD, LOOKUP_MASTER LM "
+                                                    + "WHERE LM.LM_REFID = LD.LM_REFID "
+                                                    + "AND LM.LM_DESC = ? ";
+                                            String param_job_status[] = { lm_desc1 };
+                                            ArrayList<ArrayList<String>> data_job_status = mc.getQuery(sql_job_status, param_job_status);
+                                            for(int row11=0; row11<data_job_status.size(); row11++)
+                                            {
+                                                if(data.get(row3).get(10) != null)
+                                                {
+                                                    if(data.get(row3).get(10).equalsIgnoreCase(data_job_status.get(row11).get(0)))
+                                                    {
+                                                        %>
+                                                        <option selected value="<%=data_job_status.get(row11).get(0) %>"><%=data_job_status.get(row11).get(0) %></option>
+                                                        <%
+                                                    }
+                                                    else
+                                                    {
+                                                        %>
+                                                        <option value="<%=data_job_status.get(row11).get(0) %>"><%=data_job_status.get(row11).get(0) %></option>
+                                                        <%
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    %>
+                                                    <option value="<%=data_job_status.get(row11).get(0) %>"><%=data_job_status.get(row11).get(0) %></option>
+                                                    <%
+                                                }
+                                            }
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
                                     <label class="col-md-2">Campus</label><label class="col-md-1">:</label>
                                     <div class="col-md-9">
                                         <select name="pa_campus" class="form-control">
@@ -225,22 +282,21 @@ if(data.size()>0)
                                 <%
                                 if(ap_data.size() > 0)
                                 {
-                                    for(int ap_row=0; ap_row<ap_data.size(); ap_row++)
-                                    {
-                                        %>
-                                        <div class="form-group">
-                                            <div class="col-xs-6">
-                                                <input value="<%=ap_data.get(ap_row).get(1) %>" type="text" name="ap_desc[]" class="form-control" placeholder="Example :" required>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <input value="<%=ap_data.get(ap_row).get(2) %>" type="text" name="ap_allowance[]" class="form-control" placeholder="Example :" required>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <button type="button" class="btn btn-default form-control addButton"><i class="fa fa-plus"></i></button>
-                                            </div>
+                                    int counter = ap_data.size() ;
+                                    %>
+                                    <div class="form-group" id="ap_group_<%=counter %>">
+                                        <div class="col-xs-6">
+                                            <input value="<%=ap_data.get(counter-1).get(1) %>" type="text" name="ap_desc_<%=counter %>" class="form-control" placeholder="Example : Travel Allowance" required>
                                         </div>
-                                        <%
-                                    }
+                                        <div class="col-xs-4">
+                                            <input value="<%=ap_data.get(counter-1).get(2) %>" type="text" name="ap_allowance_<%=counter %>" class="form-control" placeholder="Example : 120" required>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <button type="button" id="btn_ap_<%=counter %>" class="btn btn-default form-control addButton"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="ap_size" id="ap_size" value="<%=counter %>" />
+                                    <%
                                 }
                                 else
                                 {
@@ -251,7 +307,7 @@ if(data.size()>0)
                                             <input type="text" name="ap_desc_<%=counter %>" class="form-control" placeholder="Example : Travel Allowance" required>
                                         </div>
                                         <div class="col-xs-4">
-                                            <input type="text" name="ap_allowance_<%=counter %>" class="form-control" placeholder="Example : 1500" required>
+                                            <input type="text" name="ap_allowance_<%=counter %>" class="form-control" placeholder="Example : 120" required>
                                         </div>
                                         <div class="col-xs-2">
                                             <button type="button" id="btn_ap_<%=counter %>" class="btn btn-default form-control addButton"><i class="fa fa-plus"></i></button>
@@ -278,7 +334,110 @@ if(data.size()>0)
 }
 %>
                 
-
+<%
+String sql_ap1 = "SELECT AP.AP_REFID, AP.AP_DESC, AP.AP_ALLOWANCE "
+                + "FROM ALLOWANCE_POS AP "
+                + "WHERE AP.PA_REFID = ? ";
+String[] ap_params1 = new String[1];
+ArrayList<ArrayList<String>> ap_data1;
+if(data.size()>0)
+{
+    for(int row3 = 0; row3 < data.size() ; row3++)
+    {
+        ap_params1[0] = data.get(row3).get(4);
+        ap_data1 = mc.getQuery(sql_ap1, ap_params1);
+        %>
+        <div id="modalSend_<%=row3 %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Offer Detail</h4>
+                        </div>
+                    <form method="post" action="process/bpsm/eOffer/eOff_send_process.jsp" class="form-horizontal">
+                        <div class="modal-body">
+                            <fieldset>
+                                <input type="hidden" name="pa_refid" class="form-control" value="<%=data.get(row3).get(4) %>">
+                                <div class="form-group">
+                                    <label class="col-md-2">Grade</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(5) %> </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2">Position</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(0) %> </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2">PTJ</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(6) %> </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2">Candidate Name</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(2) %> </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-2">IC Number</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(7) %> </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-2">Job Status</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(10) %></label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-2">Campus</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(8) %></label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-md-2">Salary (RM)</label><label class="col-md-1">:</label>
+                                    <label class="col-md-9"><%=data.get(row3).get(9) %></label>
+                                </div>
+                                        <br>
+                                <div class="form-group">
+                                    <label class="col-md-2">Allowance List</label><label class="col-md-1">:</label>
+                                    <div class="col-md-9">
+                                    <table class="table table-bordered" width="100%">
+                                    <tr>
+                                        <th style="text-align:center; vertical-align: middle; width:60%">Allowance Name</th>
+                                        <th style="text-align:center; vertical-align: middle; width:40%">Allowance</th>
+                                    </tr>
+                                    <%
+                                    for(int ap_row1 = 0; ap_row1 < ap_data1.size(); ap_row1++)
+                                    {
+                                        %>
+                                        <tr>
+                                        <td style="vertical-align: middle;"><%=ap_data1.get(ap_row1).get(1) %></td>
+                                        <td style="vertical-align: middle; text-align: center"> RM <%=ap_data1.get(ap_row1).get(2) %></td>
+                                        </tr>
+                                        <%
+                                    }
+                                    %>
+                                    </table>
+                                    </div>
+                                </div>
+                                
+                            </fieldset>
+                        </div>
+                        <%
+                        if(data.get(row3).get(3).equalsIgnoreCase(pa_stat_pending))
+                        {
+                            %>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success form-control" style="font-weight: bold">Send Offer</button>
+                            </div>
+                            <%
+                        }
+                        %>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <%
+    }
+}
+%>
                 
 <script type="text/javascript">
 $(document).on("click", ".open-sendModal", function ()
