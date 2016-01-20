@@ -14,7 +14,7 @@
 //    out.print(l_refid);
 //    if (true) { return; }
 
-    String sql1 = "UPDATE login "
+    String sql1 = "UPDATE login1 "
             + "SET l_verification = ? "
             + "WHERE l_refid = ? ";
     String params1[] = {"VERIFIED", l_refid};

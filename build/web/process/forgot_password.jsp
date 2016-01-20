@@ -7,7 +7,7 @@
 String l_email = request.getParameter("l_email");
 
 String sql1 = "SELECT * "
-        + "FROM login l "
+        + "FROM login1 l "
         + "WHERE l.l_email = ? ";
 String params1[] = {l_email};
 

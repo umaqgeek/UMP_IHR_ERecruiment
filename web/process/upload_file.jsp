@@ -25,7 +25,7 @@
    
     //get C_REFID from L_REFID
     String query3 = "SELECT c_refid,rl_refid "
-            + "FROM login "
+            + "FROM login1 "
             + "WHERE L_REFID =" + l_refid;
  
     MainClient mc3 = new MainClient(DBConn.getHost());

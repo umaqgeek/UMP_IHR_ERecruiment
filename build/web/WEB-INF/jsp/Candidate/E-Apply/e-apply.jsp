@@ -21,7 +21,7 @@
 
     //get C_REFID from L_REFID
     String query3 = "SELECT c_refid,rl_refid "
-            + "FROM login "
+            + "FROM login1 "
             + "WHERE l_refid =" + l_refid;
 
     MainClient mc3 = new MainClient(DBConn.getHost());
@@ -40,7 +40,7 @@
             + "WHERE c_refid =" + c_refid;
 
     String query_login = "SELECT * "
-            + "FROM login "
+            + "FROM login1 "
             + "WHERE c_refid =" + c_refid;
 
     MainClient mc_candidate = new MainClient(DBConn.getHost());
@@ -187,7 +187,7 @@
                                         <div class="col-lg-6">
                                             <select class="form-control" name="A_STATE" id="sel1">
                                                 <%   for (int i = 0; i < pph_master.size(); i++) {
-
+                                                     if (ppha5 != null && ppha5 != "" && !ppha5.equals("")) {
                                                         if (ppha5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                                 %>
                                                 <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
@@ -197,16 +197,29 @@
                                                 <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
                                                 <%
                                                         }
+                                                     }
+                                                     else{
+                                                         
+                                                          if(i==0)
+                                                            {
+                                                                 %>
+                                                <option value="">Please Select</option>
+                                                <%
+                                                            }
+                                                          
+                                                %>
+                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <%
+                                                     }
                                                     }
                                                 %>
                                             </select>
                                         </div>
                                     </div>
-
                                                 <%
                                                 String ppha3 = "";
                                                     try {
-                                                        ppha5 = pph_address.get(0).get(3);
+                                                        ppha3 = pph_address.get(0).get(3);
                                                     } catch (Exception e) {
                                                         ppha3 = "";
                                                     }
@@ -218,11 +231,19 @@
                                         </div>
                                     </div>
                                         
+                                     <%
+                                                String pph3 = "";
+                                                    try {
+                                                        pph3 = pph_candidate.get(0).get(3);
+                                                    } catch (Exception e) {
+                                                        pph3 = "";
+                                                    }
+                                                %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date Of Birth:</label>
                                         <div class="col-lg-6">
                                             <div class='input-group date'>
-                                                <input type='text' name="C_DOB" id="datepicker" value="<%=pph_candidate.get(0).get(3)%>" class="form-control" />
+                                                <input type='text' name="C_DOB" id="datepicker" value="<%=pph3%>" class="form-control" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -234,18 +255,33 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                                 <%
+                                        String pph11 = "";
+                                        try {
+                                            pph11 = pph_candidate.get(0).get(11);
+                                        } catch (Exception e) {
+                                            pph11 = "";
+                                        }       
+                                     %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Phone Number:</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="C_HP" type="text" value="<%=pph_candidate.get(0).get(11)%>">
+                                            <input class="form-control" name="C_HP" type="text" value="<%=pph11%>">
                                         </div>
                                     </div>
-
+                                        
+                                                 <%
+                                        String pphl8 = "";
+                                        try {
+                                            pphl8 = pph_login.get(0).get(8);
+                                        } catch (Exception e) {
+                                            pphl8 = "";
+                                        }       
+                                     %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Email:</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" name="L_Email" type="text" value="<%=pph_login.get(0).get(8)%>">
+                                            <input class="form-control" name="L_Email" type="text" value="<%=pphl8%>">
                                         </div>
                                     </div>
                             </div>
@@ -261,13 +297,23 @@
                                     ArrayList<ArrayList<String>> pph_gender = mc_gender.getQuery(query_gender, params_gender);
 
                                 %>
+                                
+                                <%
+                                        String pph6 = "";
+                                        try {
+                                            pph6 = pph_candidate.get(0).get(6);
+                                        } catch (Exception e) {
+                                            pph6 = "";
+                                        }       
+                                     %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Gender:</label>
                                     <div class="col-lg-6">
                                         <div class="form-inline">
                                             <div class="controls-row">
                                                 <%     for (int i = 0; i < pph_gender.size(); i++) {
-                                                        if (pph_candidate.get(0).get(6).equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
+                                                     if (pph6 != null && pph6 != "" && !pph6.equals("")) {    
+                                                    if (pph6.equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
                                                 %>
                                                 <label class="radio inline">
                                                     <input type="radio" checked="checked" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>"/>
@@ -283,13 +329,31 @@
                                                 <%
                                                         }
                                                     }
+                                                     else
+                                                     {
+                                                         %>
+                                                         <label class="radio inline">
+                                                    <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
+                                                    <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                </label>
+                                                         <%
+                                                     }
+                                                }
                                                 %>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div><!-- end gender-->
-                                <br/>  <br/> 
+                                <br/>  <br/>
+                                <%
+                                        String pph7 = "";
+                                        try {
+                                            pph7 = pph_candidate.get(0).get(7);
+                                        } catch (Exception e) {
+                                            pph7 = "";
+                                        }       
+                                     %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Religion:</label>
                                     <div class="col-lg-6">
@@ -306,7 +370,8 @@
                                         %>
                                         <select name="C_Religion" class="form-control" id="sel1">
                                             <%     for (int i = 0; i < pph_religion.size(); i++) {
-                                                    if (pph_candidate.get(0).get(7).equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
+                                                if (pph7 != null && pph7 != "" && !pph7.equals("")) {  
+                                                    if (pph7.equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
                                             %>
                                             <option selected value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
                                             <%
@@ -316,6 +381,21 @@
                                             <%
                                                     }
                                                 }
+                                                 else{
+                                                         
+                                                          if(i==0)
+                                                            {
+                                                                 %>
+                                                <option selected value="">Please Select</option>
+                                                <%
+                                                            }
+                                                          
+                                                %>
+                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <%
+                                                     }
+                                                
+                                            }
                                             %>
                                         </select> 
                                     </div>
@@ -332,12 +412,21 @@
                                     ArrayList<ArrayList<String>> pph_race = mc_race.getQuery(query_race, params_race);
 
                                 %>
+                                  <%
+                                        String pph8 = "";
+                                        try {
+                                            pph8 = pph_candidate.get(0).get(8);
+                                        } catch (Exception e) {
+                                            pph8 = "";
+                                        }       
+                                     %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Race:</label>
                                     <div class="col-lg-6">
                                         <select name="C_Race" class="form-control" id="sel1">
                                             <%   for (int i = 0; i < pph_race.size(); i++) {
-                                                    if (pph_candidate.get(0).get(8).equalsIgnoreCase(pph_race.get(i).get(0).toString())) {
+                                                 if (pph8 != null && pph8 != "" && !pph8.equals("")) {
+                                                    if (pph8.equalsIgnoreCase(pph_race.get(i).get(0).toString())) {
                                             %>
                                             <option selected value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
                                             <%
@@ -346,6 +435,20 @@
                                             <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
                                             <%
                                                     }
+                                                 }
+                                                 else{
+                                                         
+                                                          if(i==0)
+                                                            {
+                                                                 %>
+                                                <option selected value="">Please Select</option>
+                                                <%
+                                                            }
+                                                          
+                                                %>
+                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <%
+                                                     }
                                                 }
                                             %>
 
@@ -353,10 +456,18 @@
                                     </div>
                                 </div>
                                 <br/><br/>
+                                 <%                           
+                                        String pph4 = "";
+                                        try {
+                                            pph4 = pph_candidate.get(0).get(4);
+                                        } catch (Exception e) {
+                                            pph4 = "";
+                                        }
+                                        %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Age:</label>
                                     <div class="col-lg-3">
-                                        <input class="form-control" name="C_Age" type="text" value="<%=pph_candidate.get(0).get(4)%>">
+                                        <input class="form-control" name="C_Age" type="text" value="<%=pph4%>">
                                     </div>
                                 </div>
                                 <br/><br/>
@@ -371,12 +482,21 @@
                                     ArrayList<ArrayList<String>> pph_nationality = mc_nationality.getQuery(query_nationality, params_nationality);
 
                                 %>
+                                <%                           
+                                        String pph9 = "";
+                                        try {
+                                            pph9 = pph_candidate.get(0).get(9);
+                                        } catch (Exception e) {
+                                            pph9 = "";
+                                        }
+                                        %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Nationality status:</label>
                                     <div class="form-inline">
                                         <div class="controls-row">
                                             <%   for (int i = 0; i < pph_nationality.size(); i++) {
-                                                    if (pph_candidate.get(0).get(9).equalsIgnoreCase(pph_nationality.get(i).get(0).toString())) {
+                                                 if (pph9 != null && pph9 != "" && !pph9.equals("")) {
+                                                    if (pph9.equalsIgnoreCase(pph_nationality.get(i).get(0).toString())) {
                                             %>
                                             <label class="radio inline">
                                                 <input name="C_Nationality" checked="checked" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString());%>"/>
@@ -392,6 +512,15 @@
                                             </label>
                                             <%
                                                     }
+                                                 }else
+                                                 {
+                                                      %>
+                                            <label class="radio inline">
+                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
+                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                            </label>
+                                            <%
+                                                 }
                                                 }
                                             %>
 
@@ -408,6 +537,13 @@
                                     MainClient mc_marriage = new MainClient(DBConn.getHost());
                                     String params_marriage[] = {};
                                     ArrayList<ArrayList<String>> pph_marriage = mc_marriage.getQuery(query_marriage, params_marriage);
+                                    
+                                     String pph12 = "";
+                                        try {
+                                            pph12 = pph_candidate.get(0).get(12);
+                                        } catch (Exception e) {
+                                            pph12 = "";
+                                        }
 
                                 %>
                                 <div class="form-group">
@@ -416,7 +552,8 @@
                                     <div class="col-lg-6">
                                         <select name="C_Maritalstat" class="form-control" id="sel1">
                                             <%   for (int i = 0; i < pph_marriage.size(); i++) {
-                                                    if (pph_candidate.get(0).get(12).equalsIgnoreCase(pph_marriage.get(i).get(0).toString())) {
+                                                if (pph12 != null && pph12 != "" && !pph12.equals("")) {
+                                                    if (pph12.equalsIgnoreCase(pph_marriage.get(i).get(0).toString())) {
                                             %>
                                             <option selected value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
                                             <%
@@ -425,6 +562,20 @@
                                             <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
                                             <%
                                                     }
+                                                }
+                                                 else{
+                                                         
+                                                          if(i==0)
+                                                            {
+                                                                 %>
+                                                <option value="" selected>Please Select</option>
+                                                <%
+                                                            }
+                                                          
+                                                %>
+                                                <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                                <%
+                                                     }
                                                 }
                                             %>
 
@@ -441,7 +592,13 @@
                                     MainClient mc_vehicle = new MainClient(DBConn.getHost());
                                     String params_vehicle[] = {};
                                     ArrayList<ArrayList<String>> pph_vehicle = mc_vehicle.getQuery(query_vehicle, params_vehicle);
-
+                                    
+                                     String pph13 = "";
+                                        try {
+                                            pph13 = pph_candidate.get(0).get(13);
+                                        } catch (Exception e) {
+                                            pph13 = "";
+                                        }
                                 %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">
@@ -450,7 +607,8 @@
                                         <div class="form-inline">
                                             <div class="controls-row">
                                                 <%   for (int i = 0; i < pph_vehicle.size(); i++) {
-                                                        if (pph_candidate.get(0).get(13).equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
+                                                     if (pph13 != null && pph13 != "" && !pph13.equals("")) {
+                                                        if (pph13.equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
                                                 %>
                                                 <label class="radio inline">
                                                     <input name="C_LICENSE" checked="checked" type="radio" value="<%out.print(pph_vehicle.get(i).get(0).toString()); %>"/>
@@ -466,6 +624,15 @@
                                                 </label>
                                                 <%
                                                         }
+                                                     }else
+                                                     {
+                                                          %>
+                                                <label class="radio inline">
+                                                    <input name="C_LICENSE" type="radio" value="<%out.print(pph_vehicle.get(i).get(0).toString()); %>"/>
+                                                    <%out.print(pph_vehicle.get(i).get(0).toString());%>
+                                                </label>
+                                                <%
+                                                     }
                                                     }
                                                 %>
 
