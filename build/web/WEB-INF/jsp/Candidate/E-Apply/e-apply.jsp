@@ -579,7 +579,7 @@
                                           <%
                                                 String pphc14 = "";
                                            try {
-                                               pphc14 = pph_candidate.get(0).get(13);
+                                               pphc14 = pph_candidate.get(0).get(14);
                                            } catch (Exception e) {
                                                pphc14 = "";
                                            }       
