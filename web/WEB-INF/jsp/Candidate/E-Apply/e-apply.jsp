@@ -252,6 +252,7 @@
                                                 <script type="text/javascript">
                                                             $(function() {
                                                             $("#datepicker").datepicker();
+                                                            $( "#datepicker" ).datepicker( "option", "dateFormat", "d-M-yy" );
                                                             });                                                                                                  </script>
                                             </div>
                                         </div>
