@@ -4,8 +4,20 @@
     String pa_refid = request.getParameter("pa_refid");
     String pa_campus = request.getParameter("pa_campus");
     String pa_salary = request.getParameter("pa_salary");
-    String ap_desc[] = request.getParameterValues("ap_desc");
-    String ap_allowance[] = request.getParameterValues("ap_allowance");
+    
+    int ap_size = Integer.parseInt(request.getParameter("ap_size"));
+    String ap_desc[] = new String[ap_size];
+    String ap_allowance[] = new String[ap_size];
+    
+    for (int i = 0; i < ap_size; i++) {
+        ap_desc[i] = request.getParameter("ap_desc_"+(i+1));
+        ap_allowance[i] = request.getParameter("ap_allowance_"+(i+1));
+        if (ap_desc[i] != null) {
+            out.print(ap_desc[i] + " | " + ap_allowance[i] + "<br />");
+        }
+    }
+    if (true) { return; }
+    
     String mc_ap_result = "";
     String mc_pa_result = "";
     

@@ -244,24 +244,21 @@ if(data.size()>0)
                                 }
                                 else
                                 {
-                                    int counter = 0 ;
-                                    while(counter < 5)
-                                    {
+                                    int counter = 1 ;
                                     %>
-                                    <div class="form-group">
+                                    <div class="form-group" id="ap_group_<%=counter %>">
                                         <div class="col-xs-6">
-                                            <input type="text" name="ap_desc[]" class="form-control" placeholder="Example : Travel Allowance" required>
+                                            <input type="text" name="ap_desc_<%=counter %>" class="form-control" placeholder="Example : Travel Allowance" required>
                                         </div>
                                         <div class="col-xs-4">
-                                            <input type="text" name="ap_allowance[]" class="form-control" placeholder="Example : 1500" required>
+                                            <input type="text" name="ap_allowance_<%=counter %>" class="form-control" placeholder="Example : 1500" required>
                                         </div>
                                         <div class="col-xs-2">
-                                            <button type="button" class="btn btn-default form-control addButton"><i class="fa fa-plus"></i></button>
+                                            <button type="button" id="btn_ap_<%=counter %>" class="btn btn-default form-control addButton"><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="ap_size" id="ap_size" value="<%=counter %>" />
                                     <%
-                                        counter++;
-                                    }
                                 }
                                 %>
                                 <!--<input type="text" id="c_icno" name="c_icno" class="form-control" placeholder="Identification Number &nbsp;/&nbsp; Passport Number">-->
@@ -288,5 +285,19 @@ $(document).on("click", ".open-sendModal", function ()
 {
     var pa_refid = $(this).data('pa_refid');
     $(".modal-body #pa_refid").val( pa_refid );
+});
+
+$(document).ready(function() {
+    $(".addButton").click(function() {
+        var ap_size = $("#ap_size").val();
+        ap_size = parseInt(ap_size) + 1;
+        $("#ap_group_"+(ap_size-1)).after("<div class=\"form-group\" id=\"ap_group_"+ap_size+"\"><div class=\"col-xs-6\">\n\
+<input type=\"text\" name=\"ap_desc_"+ap_size+"\" class=\"form-control\" placeholder=\"Example : Travel Allowance\" \n\
+required></div><div class=\"col-xs-4\"><input type=\"text\" name=\"ap_allowance_"+ap_size+"\" class=\"form-control\" \n\
+placeholder=\"Example : 1500\" required></div><div class=\"col-xs-2\"><button type=\"button\" id=\"btn_ap_"+ap_size+"\" \n\
+class=\"btn btn-default form-control\"><i class=\"fa fa-minus\"></i></button></div></div>\n\
+<script>$(\"#btn_ap_"+ap_size+"\").click(function() { $(\"#ap_group_"+ap_size+"\").remove(); });</script\>");
+        $("#ap_size").val(ap_size);
+    });
 });
 </script>
