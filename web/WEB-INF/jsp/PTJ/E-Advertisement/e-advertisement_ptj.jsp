@@ -35,7 +35,7 @@ String param_test[] = {};
 MainClient mc_test = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
 
-out.print(d_test); if (true) { return; };
+//out.print(d_test); if (true) { return; };
 %>
 
 <div class="row">
