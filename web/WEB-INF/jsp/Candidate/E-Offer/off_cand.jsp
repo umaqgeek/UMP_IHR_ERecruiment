@@ -119,7 +119,7 @@
                 {
                     %>
                     <tr>
-                        <td colspan="7" style="font-weight: bold; vertical-align: middle; text-align: center; color: red">No Offer</td>
+                        <td colspan="8" style="font-weight: bold; vertical-align: middle; text-align: center; color: red">No Offer</td>
                     </tr>
                     <%
                 }
