@@ -81,7 +81,14 @@
                                 <div class="text-center">
                                     <form action="process/upload_file.jsp" method="post"
                                           enctype="multipart/form-data">
-                                        <%                                                if (pph_candidate.get(0).get(18) != null) {
+                                        <%                           
+                                        String pph18 = "";
+                                        try {
+                                            pph18 = pph_candidate.get(0).get(18);
+                                        } catch (Exception e) {
+                                            pph18 = "";
+                                        }
+                                        if (pph18 != null && pph18 != "" && !pph18.equals("")) {
                                         %>
                                         <img src="<%=Config.getBase_url(request)%>assets/uploads/images/<%=pph_candidate.get(0).get(18)%>" class="avatar img-circle" alt="avatar">
                                         <h6>Upload a different photo...</h6>

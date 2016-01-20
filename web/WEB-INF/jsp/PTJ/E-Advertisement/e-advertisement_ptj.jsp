@@ -18,6 +18,24 @@ String query3 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, SUM(vpp.
 MainClient mc3 = new MainClient(DBConn.getHost());
 String params3[] = {};
 ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
+
+String sql_test = "SELECT WMH_JOB_CODE,WO_DEPT_CODE,NVL(DM_DEPT_DESC,WO_ORGANIZATION_DESC) DM_DEPT_DESC, count(1) "
+        + "FROM WARRANT_MAIN_HEAD,WARRANT_MAIN_DETL,SERVICE_SCHEME,"
+        + "WARRANT_SKP_NO,WARRANT_ORGANIZATION,DEPARTMENT_MAIN "
+        + "WHERE WMH_WARRANT_REF = WMD_WARRANT_REF "
+        + "AND WMH_JOB_CODE = SS_SERVICE_CODE "
+        + "AND WMD_SKP_REF = WSN_SKP_REF "
+        + "AND WMD_ORGANIZATION_REF_BU = WO_ORGANIZATION_REF "
+        + "AND WO_DEPT_CODE = DM_DEPT_CODE(+) "
+        + "AND WMD_WARRANT_POST_STATUS <> 'MANSUH' "
+        + "AND WMD_WARRANT_POST_STATUS = 'BELUM SANDANG' "
+        + "GROUP BY WMH_JOB_CODE,WO_DEPT_CODE,DM_DEPT_DESC,WO_ORGANIZATION_DESC "
+        + "ORDER BY DM_DEPT_DESC ";
+String param_test[] = {};
+MainClient mc_test = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
+
+out.print(d_test); if (true) { return; };
 %>
 
 <div class="row">
