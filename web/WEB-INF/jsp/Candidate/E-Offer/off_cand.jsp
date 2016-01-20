@@ -5,10 +5,10 @@
 <%@page import="config.Config"%>
 
 <%
-    String stat_accepted = "Accepted";
-    String stat_rejected = "Rejected";
-    String stat_pending= "Pending";
-    String filter_stat_pass = "pass";
+    String stat_accepted = "OFFER ACCEPTED";
+    String stat_rejected = "OFFER REJECTED";
+    String stat_pending= "OFFER PENDING";
+    String filter_stat_pass = "PASS ALL";
     
     String sC_refid = "";
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();

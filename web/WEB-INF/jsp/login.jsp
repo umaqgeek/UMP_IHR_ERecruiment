@@ -66,8 +66,8 @@
     String sql4 ="SELECT f.f_refid, f.f_status "
             + "FROM filter f ";
     
-    ArrayList<ArrayList<String>> data = mc.getQuery(sql3, params); 
-    //out.print(data);
+    ArrayList<ArrayList<String>> data = mc.getQuery(sql1, params); 
+    out.print(data);
     
     if(data.size() >0)
     {
