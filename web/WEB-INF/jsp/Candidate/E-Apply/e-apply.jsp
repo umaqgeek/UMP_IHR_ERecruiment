@@ -42,6 +42,10 @@
     String query_login = "SELECT * "
             + "FROM login1 "
             + "WHERE c_refid =" + c_refid;
+    
+    String query_academic_info = "SELECT * "
+            + "FROM ACADEMIC_INFO "
+            + "WHERE c_refid =" + c_refid;
 
     MainClient mc_candidate = new MainClient(DBConn.getHost());
     String params_candidate[] = {};
@@ -52,9 +56,13 @@
     MainClient mc_login = new MainClient(DBConn.getHost());
     String params_login[] = {};
 
+     MainClient mc_academic_info = new MainClient(DBConn.getHost());
+    String params_academic_info[] = {};
+    
     ArrayList<ArrayList<String>> pph_candidate = mc_candidate.getQuery(query_candidate, params_candidate);
     ArrayList<ArrayList<String>> pph_address = mc_address.getQuery(query_address, params_address);
     ArrayList<ArrayList<String>> pph_login = mc_login.getQuery(query_login, params_login);
+    ArrayList<ArrayList<String>> pph_academic_info = mc_academic_info.getQuery(query_academic_info, params_academic_info);
     //out.println(pph_address);
     //out.println(pph_candidate);
     //out.println(params_login);
@@ -716,13 +724,51 @@
                                                              <div class="col-lg-4">
                                                                  <label>Certificate Type : </label>
                                                                  </div>
+                                                              <%
+                                    String query_type_academic_info = "SELECT * "
+                                            + "FROM TYPE_ACADEMIC_INFO ";
+                                            
+                                    MainClient mc_type_academic_info = new MainClient(DBConn.getHost());
+                                    String params_type_academic_info[] = {};
+                                    ArrayList<ArrayList<String>> pph_type_academic_info = mc_type_academic_info.getQuery(query_type_academic_info, params_type_academic_info);
+                                    
+                                     String pph_aci6 = "";
+                                        try {
+                                            pph_aci6 = pph_academic_info.get(0).get(6);
+                                        } catch (Exception e) {
+                                            pph_aci6 = "";
+                                        }
+                                %>
                                                             <div class="col-lg-6">
-                                                                <select name="pmr_tahun3" id="pmr_tahun3" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="PMR">PMR</option>
-                                                                                    <option value="SRP">SRP</option>
-                                                                                    <option value="LCE">LCE</option>
-                                                                                    <option value="Other">Other</option>
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                      <%   
+                                                                        for (int i = 0; i < pph_type_academic_info.size(); i++) {
+                                                                                if (pph_aci6 != null && pph_aci6 != "" && !pph_aci6.equals("")) {
+                                                                                    if (pph_aci6.equalsIgnoreCase(pph_type_academic_info.get(i).get(0).toString())) {
+                                                                                          %>
+                                                                                            <option selected value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                                            <%
+                                                                                            } else {
+                                                                                            %>
+                                                                                            <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                                            <%
+                                                                                                    }
+                                                                                                }
+                                                                                                 else{
+
+                                                                                                          if(i==0)
+                                                                                                            {
+                                                                                                                 %>
+                                                                                                <option value="" selected>Please Select</option>
+                                                                                                <%
+                                                                                                            }
+
+                                                                                                %>
+                                                                                                <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                                                <%
+                                                                                                     }
+                                                                                                }
+                                                                                            %>
                                                                                 </select>
                                                             </div>
                                                         </div>
@@ -788,6 +834,9 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
+                                                            <%
+                                                String test ="<select><option>tes</option></select>";
+                                                %>
                                                             <script>
                                                                 //Compose template string
                                                                 String.prototype.compose = (function (){
@@ -809,8 +858,8 @@
                                                             $('#add_pmr').click(function(){
                                                                 //Add row
                                                                 table.append(row.compose({
-                                                                    'subject': "Please Select",
-                                                                    'grade': 'Please Select'
+                                                                    'subject': "<%=test%>",
+                                                                    'grade': "<%=test%>"
                                                                 }));
                                                             });
                                                             });
