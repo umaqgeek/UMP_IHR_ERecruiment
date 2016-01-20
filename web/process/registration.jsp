@@ -46,7 +46,7 @@
             {"l_email", l_email},
             {"l_verification", "UNVERIFIED"}
         };
-        String sql2 = "INSERT INTO login(";
+        String sql2 = "INSERT INTO login1(";
         String q2 = "";
         for (int i = 0; i < data2.length-1; i++) {
             sql2 += data2[i][0] + ", ";
