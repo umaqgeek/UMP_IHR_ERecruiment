@@ -9,7 +9,7 @@
     String selected_ic = "";
     String selected_username = "";
     String display_textfield = "";
-    String pa_stat_accepted = "Accepted";
+    String pa_stat_accepted = "OFFER ACCEPTED";
     
     if(request.getParameter("search_button") != null )
     {
@@ -33,7 +33,7 @@
             + "AND C.C_REFID = L.C_REFID "
             + "AND PPH.PPH_REFID = PA.PPH_REFID "
             + "AND PA.PA_STATUS= ? "
-            + "AND ( L.L_USERNAME = ? OR C.C_ICNO = ? ) "
+            + "AND ( L.L_USERNAME = ? OR L.C_ICNO = ? ) "
             + "ORDER BY C.C_NAME";
     
     String params[] = { pa_stat_accepted, search_username, search_icno };
