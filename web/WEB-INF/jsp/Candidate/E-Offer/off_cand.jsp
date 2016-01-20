@@ -8,21 +8,23 @@
     String stat_accepted = "OFFER ACCEPTED";
     String stat_rejected = "OFFER REJECTED";
     String stat_pending= "OFFER PENDING";
+    String stat_sent= "OFFER SENT";
     String filter_stat_pass = "PASS ALL";
     
     String sC_refid = "";
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
     String sql = "SELECT "
-            + "PPH.PPH_POSITION, F.F_INTUNI, PA.PA_STATUS, PA.PA_REFID, C.C_REFID "
+            + "PPH.PPH_POSITION, F.F_INTUNI, PA.PA_STATUS, PA.PA_REFID, C.C_REFID, PPH.PPH_GRADE "
             + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA,POSITION_PTJ_HR PPH,FILTER F "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
             + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
             + "AND F.F_STATUS = ? "
-            + "AND L.L_REFID = ? ";
+            + "AND L.L_REFID = ? "
+            + "AND PA.PA_STATUS != ? ";
     
-    String params[] = { filter_stat_pass, l_refid };
+    String params[] = { filter_stat_pass, l_refid, stat_pending };
 
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
@@ -43,10 +45,11 @@
                 <thead>
                     <tr>
                         <th rowspan="2" style="text-align:center; vertical-align: middle; width:5%">No.</th>
-                        <th rowspan="2" style="text-align:center; vertical-align: middle; width:70%">Offered Position</th>
+                        <th rowspan="2" style="text-align:center; vertical-align: middle; width:5%">Grade</th>
+                        <th rowspan="2" style="text-align:center; vertical-align: middle; width:50%">Offered Position</th>
                         <th colspan="3" style="text-align:center;width:15%">Form</th>
+                        <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%">Offer Letter</th>
                         <th rowspan="2" colspan="2" style="text-align:center; vertical-align: middle; width:10%">Action</th>
-                        <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%">Offered Date</th>
                     </tr>
                     <tr>
                         <th style="text-align:center;width:5%">A</th>
@@ -71,7 +74,7 @@
                             display_action = "disabled";
                             display_btn = "disabled";
                         }
-                        else if(data.get(row).get(2).equalsIgnoreCase(stat_pending))
+                        else if(data.get(row).get(2).equalsIgnoreCase(stat_sent))
                         {
                             display_action = "display";
                             display_btn = "disabled";
@@ -80,32 +83,33 @@
                         %>
                         <tr>
                         <td rowspan="2" style="vertical-align: middle; text-align: center"><%= row+1 %></td>
+                        <td rowspan="2" style="vertical-align: middle"><%=data.get(row).get(5) %></td>
                         <td rowspan="2" style="vertical-align: middle"><%=data.get(row).get(0) %></td>
                         <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%=display_btn %>">Download</a></td>
                         <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%=display_btn %>">Download</a></td>
                         <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%=display_btn %>">Download</a></td>
+                        <td rowspan="2" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#modalOffer_<%=row %>" class="form-control open-modalOffer_<%=row %> btn btn-primary">Preview Offer</a></td>
                         <%
-                        if(data.get(row).get(2).equalsIgnoreCase(stat_pending))
+                        if(data.get(row).get(2).equalsIgnoreCase(stat_sent))
                         {
                             %>
-                            <td rowspan="2" style="vertical-align: middle"><a title="Accept Offer" data-toggle="modal" href="#acceptModal" data-pa_refid="<%=data.get(row).get(3) %>" data-c_refid="<%=data.get(row).get(4) %>" class="open-acceptModal btn btn-sm <%=display_action %>">Accept</a></td>
-                            <td rowspan="2" style="vertical-align: middle"><a title="Reject Offer" data-toggle="modal" href="#rejectModal" data-pa_refid="<%=data.get(row).get(3) %>" class="open-rejectModal btn btn-sm <%=display_action %>">Reject</a></td>
+                            <td rowspan="2" style="vertical-align: middle"><a title="Accept Offer" data-toggle="modal" href="#acceptModal" data-pa_refid="<%=data.get(row).get(3) %>" data-c_refid="<%=data.get(row).get(4) %>" class="form-control open-acceptModal btn btn-success <%=display_action %>">Accept</a></td>
+                            <td rowspan="2" style="vertical-align: middle"><a title="Reject Offer" data-toggle="modal" href="#rejectModal" data-pa_refid="<%=data.get(row).get(3) %>" class="form-control open-rejectModal btn btn-danger <%=display_action %>">Reject</a></td>
                             <%
                         }
                         else if(data.get(row).get(2).equalsIgnoreCase(stat_accepted))
                         {
                             %>
-                            <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #5b9909; font-weight: bold">Offer <%=data.get(row).get(2) %></td>
+                            <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #5b9909; font-weight: bold"><%=data.get(row).get(2) %></td>
                             <%
                         }
                         else if(data.get(row).get(2).equalsIgnoreCase(stat_rejected))
                         {
                             %>
-                            <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #F00; font-weight: bold">Offer <%=data.get(row).get(2) %></td>
+                            <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #F00; font-weight: bold"><%=data.get(row).get(2) %></td>
                             <%
                         }
                         %>
-                        <td rowspan="2" style="vertical-align: middle; text-align: center"><%=data.get(row).get(1) %></td>
                         </tr>
                         <tr>
                         <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#myModal1" data-pa_refid="<%=data.get(row).get(3) %>" class="open-myModal1 btn btn-sm <%=display_btn %>">Upload</a></td>
