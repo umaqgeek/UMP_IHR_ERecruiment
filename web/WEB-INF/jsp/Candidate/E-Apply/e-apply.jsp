@@ -572,7 +572,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Height:</label>
                                         <div class="col-lg-6">
-                                           <input class="form-control" name="C_HEIGHT" type="text" value="<%=pphc13%>">
+                                           <input class="form-control height" name="C_HEIGHT" type="text" value="<%=pphc13%>">
                                         </div>
                                     </div>
                                         <br/><br/>
@@ -587,9 +587,43 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Weight :</label>
                                         <div class="col-lg-6">
-                                           <input class="form-control" name="C_WEIGHT" type="text" value="<%=pphc14%>">
+                                           <input class="form-control weight" name="C_WEIGHT" type="text" value="<%=pphc14%>">
                                         </div>
                                     </div>
+<br/><br/>
+                                          <%
+                                                String pphc15 = "";
+                                           try {
+                                               pphc15 = pph_candidate.get(0).get(15);
+                                           } catch (Exception e) {
+                                               pphc15 = "";
+                                           }       
+                                            %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">BMI :</label>
+                                        <div class="col-lg-6">
+                                           <input class="form-control" id="bmi" name="C_BMI" type="text" value="<%=pphc15%>">
+                                        </div>
+                                    </div>
+                                        <script>
+                                            $(document).ready(function() {
+                                                
+                                                var weight = parseInt($('.weight').val(), 10);
+                                            var height = parseInt($('.height').val(), 10);
+                                            var bmi = weight / (height / 100 * height / 100);
+                                            $('#bmi').val(bmi.toFixed(2));
+                                            
+                                                              $(".weight, .height").keyup(function() {
+                                           
+                                            var weight = parseInt($('.weight').val(), 10);
+                                            var height = parseInt($('.height').val(), 10);
+                                            var bmi = weight / (height / 100 * height / 100);
+                                            $('#bmi').val(bmi.toFixed(2));
+                                        });
+                                                            });
+                                                          
+                                         
+                                        </script>
 <br/><br/>
                                     <%
                                                 String pphaa2 = "";
