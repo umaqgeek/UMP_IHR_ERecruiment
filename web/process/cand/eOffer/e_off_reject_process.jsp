@@ -3,9 +3,9 @@
 <%
     if(!request.getParameter("reject_confirm").isEmpty() && !request.getParameter("pa_refid").isEmpty())
     {
-        String stat_accepted = "Accepted";
-        String stat_rejected = "Rejected";
-        String stat_pending= "Pending";
+        String stat_accepted = "OFFER ACCEPTED";
+        String stat_rejected = "OFFER REJECTED";
+        String stat_sent= "OFFER SENT";
         
         String sPa_refid = request.getParameter("pa_refid");
         

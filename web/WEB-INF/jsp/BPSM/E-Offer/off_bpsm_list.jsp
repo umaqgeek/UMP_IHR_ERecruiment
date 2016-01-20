@@ -91,13 +91,13 @@
                         if(!data.get(row).get(3).equalsIgnoreCase(pa_stat_pending))
                         {
                             %>
-                            <td colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>" class="open-modalSend_<%=row %> btn btn-primary <%=action_setup_btn %>">Preview Offer</a></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>" class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_setup_btn %>">Preview Offer</a></td>
                             <%
                         }
                         else
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="form-control open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
                             <%
                             if(data.get(row).get(9) != null)
                             {
@@ -108,7 +108,7 @@
                                 action_send_btn = "disabled";
                             }
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
                             </tr>
                             <%
                         }
@@ -391,8 +391,8 @@ if(data.size()>0)
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="col-md-2">Salary (RM)</label><label class="col-md-1">:</label>
-                                    <label class="col-md-9"><%=data.get(row3).get(9) %></label>
+                                    <label class="col-md-2">Salary </label><label class="col-md-1">:</label>
+                                    <label class="col-md-9">RM <%=data.get(row3).get(9) %></label>
                                 </div>
                                         <br>
                                 <div class="form-group">
