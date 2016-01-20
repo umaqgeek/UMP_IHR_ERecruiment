@@ -34,6 +34,7 @@
     String query_candidate = "SELECT * "
             + "FROM candidate "
             + "WHERE c_refid =" + c_refid;
+    
 
     String query_address = "SELECT * "
             + "FROM address "
@@ -143,6 +144,68 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
+                                    
+                                     <%
+                                        String pphl = "";
+                                        try {
+                                            pphl = pph_login.get(0).get(5);
+                                        } catch (Exception e) {
+                                            pphl = "";
+                                        }       
+                                     %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Password:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="L_Password" type="text" value="<%=(pphl!=null && pphl!="" && !pphl.equals("")) ?pphl :""%>">
+                                        </div>
+                                    </div>
+                                        <%
+                                        String pphl6 = "";
+                                        try {
+                                            pphl6 = pph_login.get(0).get(6);
+                                        } catch (Exception e) {
+                                            pphl6 = "";
+                                        }       
+                                     %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Safe Question</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="L_SAFEQUEST" type="text" value="<%=(pphl6!=null && pphl6!="" && !pphl6.equals("")) ?pphl6 :""%>">
+                                        </div>
+                                    </div>
+                                        
+                                        <%
+                                        String pphl7= "";
+                                        try {
+                                            pphl7 = pph_login.get(0).get(7);
+                                        } catch (Exception e) {
+                                            pphl7 = "";
+                                        }       
+                                     %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Safe Answer</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="L_SAFEANS" type="text" value="<%=(pphl7!=null && pphl7!="" && !pphl7.equals("")) ?pphl7 :""%>">
+                                        </div>
+                                    </div>
+                                        
+                                        
+                                           <%
+                                        String pphlog10= "";
+                                        try {
+                                            pphlog10 = pph_login.get(0).get(10);
+                                        } catch (Exception e) {
+                                            pphlog10 = "";
+                                        }       
+                                     %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">IC No</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="L_ICNO" type="text" value="<%=(pphlog10!=null && pphlog10!="" && !pphlog10.equals("")) ?pphlog10 :""%>">
+                                        </div>
+                                    </div>
+                                        
+                                    
                                     <%
                                         String pph1 = "";
                                         try {
@@ -257,26 +320,30 @@
                                         <input type="hidden" name="AT_REFID" value="<%=pph_address_type.get(0).get(0)%>"  />
                                         
                                      <%
-                                                String pph3 = "";
+                                                String pph2 = "";
                                                     try {
-                                                        pph3 = pph_candidate.get(0).get(3);
+                                                        pph2 = pph_candidate.get(0).get(2);
                                                     } catch (Exception e) {
-                                                        pph3 = "31-August-1980";
+                                                        pph2 = "31-August-1980";
                                                     }
+                                                    
+                                                    
                                                 %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date Of Birth:</label>
                                         <div class="col-lg-6">
                                             <div class='input-group date'>
-                                                <input type='text' name="C_DOB" id="datepicker" value="<%=pph3%>" class="form-control" />
+                                                <input type='text' name="C_DOB" id="datepicker" value="<%=pph2%>" class="form-control" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
 
                                                 <script type="text/javascript">
                                                             $(function() {
+                                                                var existing_date ="<%=pph2%>";
                                                             $("#datepicker").datepicker();
                                                             $( "#datepicker" ).datepicker( "option", "dateFormat", "d-M-yy" );
+                                                             $( "#datepicker" ).datepicker('setDate', new Date());
                                                             });                                                                                                  </script>
                                             </div>
                                         </div>
@@ -478,22 +545,86 @@
                                     </div>
                                 </div>
                                  <%                           
-                                        String pph4 = "";
+                                        String pph3 = "";
                                         try {
-                                            pph4 = pph_candidate.get(0).get(4);
+                                            pph3 = pph_candidate.get(0).get(3);
                                         } catch (Exception e) {
-                                            pph4 = "";
+                                            pph3 = "";
                                         }
                                         %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Age:</label>
                                     <div class="col-lg-3">
-                                        <input class="form-control" name="C_Age" type="text" value="<%=pph4%>">
+                                        <input class="form-control" name="C_Age" type="text" value="<%=pph3%>">
                                     </div>
                                 </div>
                                 
                             </div>
                             <div class="col-lg-6">
+                                 <%
+                                                String pphc13 = "";
+                                           try {
+                                               pphc13 = pph_candidate.get(0).get(13);
+                                           } catch (Exception e) {
+                                               pphc13 = "";
+                                           }       
+                                            %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Height:</label>
+                                        <div class="col-lg-6">
+                                           <input class="form-control height" name="C_HEIGHT" type="text" value="<%=pphc13%>">
+                                        </div>
+                                    </div>
+                                        <br/><br/>
+                                          <%
+                                                String pphc14 = "";
+                                           try {
+                                               pphc14 = pph_candidate.get(0).get(14);
+                                           } catch (Exception e) {
+                                               pphc14 = "";
+                                           }       
+                                            %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Weight :</label>
+                                        <div class="col-lg-6">
+                                           <input class="form-control weight" name="C_WEIGHT" type="text" value="<%=pphc14%>">
+                                        </div>
+                                    </div>
+<br/><br/>
+                                          <%
+                                                String pphc15 = "";
+                                           try {
+                                               pphc15 = pph_candidate.get(0).get(15);
+                                           } catch (Exception e) {
+                                               pphc15 = "";
+                                           }       
+                                            %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">BMI :</label>
+                                        <div class="col-lg-6">
+                                           <input class="form-control" id="bmi" name="C_BMI" type="text" value="<%=pphc15%>">
+                                        </div>
+                                    </div>
+                                        <script>
+                                            $(document).ready(function() {
+                                                
+                                                var weight = parseInt($('.weight').val(), 10);
+                                            var height = parseInt($('.height').val(), 10);
+                                            var bmi = weight / (height / 100 * height / 100);
+                                            $('#bmi').val(bmi.toFixed(2));
+                                            
+                                                              $(".weight, .height").keyup(function() {
+                                           
+                                            var weight = parseInt($('.weight').val(), 10);
+                                            var height = parseInt($('.height').val(), 10);
+                                            var bmi = weight / (height / 100 * height / 100);
+                                            $('#bmi').val(bmi.toFixed(2));
+                                        });
+                                                            });
+                                                          
+                                         
+                                        </script>
+<br/><br/>
                                     <%
                                                 String pphaa2 = "";
                                            try {

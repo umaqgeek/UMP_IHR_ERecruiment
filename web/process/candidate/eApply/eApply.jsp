@@ -260,7 +260,7 @@
     
 
     if (isUpdate_login.equals("0") != true) {
-        out.println("error " + isUpdate_candidate);
+        out.println("error login " + isUpdate_login);
     } else {
         out.println("login tidak ada error");
 
