@@ -57,7 +57,7 @@
             out.println("no file uploaded");
         } else {
             //update the db
-            String sql_image = "UPDATE CANDIDATE SET " + parameter_file_name.toUpperCase() + " =? WHERE C_REFID=?";
+            String sql_image = "UPDATE CANDIDATE SET C_IMAGE =? WHERE C_REFID=?";
             out.println(sql_image);
             String param_image[] = new String[2];
             param_image[0] = file_name;
