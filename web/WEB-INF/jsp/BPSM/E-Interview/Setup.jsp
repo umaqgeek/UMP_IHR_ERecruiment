@@ -8,7 +8,6 @@
     if (request.getParameter("txt_IC_INTERVIEW_DATETIME")!=null){
         ArrayList<String> data = new ArrayList<String>();
 
-
         data.add(request.getParameter("hdn_IC_REFID"));
         data.add(request.getParameter("txt_IC_INTERVIEW_DATETIME"));
         data.add(request.getParameter("txt_IC_VENUE"));
@@ -88,7 +87,6 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date & Time</label>
                                         <div class="col-lg-4">
-
                                             <input type="text" id="txt_IC_INTERVIEW_DATETIME" name="txt_IC_INTERVIEW_DATETIME" value=""/>
                                         </div>
                                     </div>    

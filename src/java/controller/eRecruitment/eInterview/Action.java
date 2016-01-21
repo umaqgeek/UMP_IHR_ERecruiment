@@ -33,7 +33,6 @@ public class Action {
             }
             String data[] = new String[2];
             
-
             data[0] = rData.get(1);
             data[1] = rData.get(2);
 

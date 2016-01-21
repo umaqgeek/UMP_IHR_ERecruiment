@@ -11,7 +11,6 @@ import java.util.HashSet;
  * @author Vijay
  */
 public class List {
-
     /*
     * Method to get list of Chirmans to Dropdown
     */
