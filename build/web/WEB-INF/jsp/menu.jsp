@@ -13,6 +13,7 @@
 			<li class="search">
 			  <a class="fa-bars sb-toggle-left" >Menu</a>
 
+
 			 </li>
 			 
 			 
@@ -43,7 +44,6 @@
 	</div>
 	
 	
-
     <h1 >
         <img src="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" />
         <a href="process.jsp?p=login.jsp">UMP IMS E-Recruitment</a>
