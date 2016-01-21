@@ -1,3 +1,4 @@
+<%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
@@ -13,30 +14,56 @@
     
     if(request.getParameter("search_button") != null )
     {
-        if(request.getParameter("select").equals("icno"))
-        {
-            search_icno = request.getParameter("search");
-            display_textfield = search_icno;
-            selected_ic = "selected";
-        }else
-        if(request.getParameter("select").equals("username"))
-        {
-            search_username = request.getParameter("search");
-            display_textfield = search_username;
-            selected_username = "selected";
-        }
+        search_icno = request.getParameter("search");
+        display_textfield = search_icno;
     }
-    
-    String sql = "SELECT C.C_NAME, C.C_ICNO, PPH.PPH_POSITION, C.C_REFID, PA.PA_REFID, L.L_USERNAME "
-            + "FROM POS_APPLIED PA, CANDIDATE C, POSITION_PTJ_HR PPH, LOGIN1 L "
+    /*Selected Column     Index
+     * C.C_NAME             0 
+     * L.L_ICNO             1 
+     * PPH.PPH_POSITION     2 
+     * C.C_REFID            3 
+     * PA.PA_REFID          4 
+     * L.L_USERNAME         5
+     * C.C_HP               6
+     * A.A_ROADNO           7
+     * A.A_CITY             8
+     * A.A_POSTCODE         9
+     * A.A_STATE            10
+     * A.A_COUNTRY          11
+     * PPH.PPH_GRADE        12
+     * PPH.PPH_PTJ          13
+     * PA.PA_SALARY         14
+     * PA.PA_JOB_STATUS     15
+     * PA.PA_CAMPUS         16
+     * C.C_DOB              17
+     * C.C_AGE              18
+     * C.C_BIRTHSTATE       19
+     * C.C_SEX              20
+     * C.C_RELEGION         21
+     * C.C_RACE             22
+     * C.C_NATIONALITY      23
+     * C.C_HOMETEL          24
+     * C.C_MARITALSTAT      25
+     * C.C_LICENCE          26
+     * C.C_HEIGHT           27
+     * C.C_WEIGHT           28
+     * C.C_BMI              29
+     * C.C_IMAGE            30
+     */
+    String sql = "SELECT C.C_NAME, L.L_ICNO, PPH.PPH_POSITION, C.C_REFID, PA.PA_REFID, L.L_USERNAME, C.C_HP, "
+            + "A.A_ROADNO, A.A_CITY, A.A_POSTCODE, A.A_STATE, A.A_COUNTRY, PPH.PPH_GRADE, PPH.PPH_PTJ, PA.PA_SALARY, PA.PA_JOB_STATUS, "
+            + "PA.PA_CAMPUS, C.C_DOB, C.C_AGE, C.C_BIRTHSTATE, C.C_SEX, C.C_RELIGION, C.C_RACE, C.C_NATIONALITY, C.C_HOMETEL, "
+            + "C.C_MARITALSTAT, C.C_LICENSE, C.C_HEIGHT, C.C_WEIGHT, C.C_BMI, C.C_IMAGE "
+            + "FROM POS_APPLIED PA, CANDIDATE C, POSITION_PTJ_HR PPH, LOGIN1 L, ADDRESS A "
             + "WHERE C.C_REFID = PA.C_REFID "
             + "AND C.C_REFID = L.C_REFID "
             + "AND PPH.PPH_REFID = PA.PPH_REFID "
+            + "AND C.C_REFID = A.C_REFID "
             + "AND PA.PA_STATUS= ? "
-            + "AND ( L.L_USERNAME = ? OR L.C_ICNO = ? ) "
+            + "AND L.L_ICNO = ? "
             + "ORDER BY C.C_NAME";
     
-    String params[] = { pa_stat_accepted, search_username, search_icno };
+    String params[] = { pa_stat_accepted, search_icno };
     ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
     
 %>
@@ -47,66 +74,421 @@
         <br>
         <form class="navbar-form" role="search" name="search_form" method="post">
             <div style="float:left;" class="form-group">
-                <input type="text" name="search" class="form-control" placeholder="" value="<%=display_textfield %>">
-            </div>
-
-            <div style="float" class="form-group">
-                <select class="form-control" id="sel1" name="select">
-                    <option value="icno" <%=selected_ic %>>IC</option>
-                    <option value="username" <%=selected_username %>>Username</option>
-                </select>
+                <input type="text" name="search" class="form-control" placeholder="Example: 880101087765" autocomplete="off" value="<%=display_textfield %>">
             </div>
             <div class="form-group">
                 <input type="submit" name="search_button" class="btn btn-primary" value="SEARCH">
             </div>
         </form>
 
-
-        <table width="150%" class="table table-bordered" style="border-collapse: collapse; color: #000;">
-            <thead>
-                <tr>
-                    <th width="1%" style="text-align: center">No</th>
-                    <th width="20%" style="text-align: center">Name</th>
-                    <th width="5%" style="text-align: center">IC Number</th>
-                    <th width="20%" style="text-align: center">Position</th>
-                    <th width="10%" style="text-align: center">Status</th>
-                </tr>
-            </thead>
+        <form method="post" action="process/bpsm/eReg/e_reg_activate_process.jsp">
+        <table width="100%" class="table table-condensed" style="border-collapse: collapse; color: #000;">
             <tbody>
             <%
             if(data.size() > 0)
             {
-                String sql2 = "SELECT R.R_STAFFID "
+                %>
+                
+                <%
+                String sql2 = "SELECT R.R_STAFFID, R.R_STAFFNAME, R.R_TELNO, R.R_ADDRESS "
                     + "FROM REGISTRATION R "
                     + "WHERE R.PA_REFID = ? ";
                 ArrayList<ArrayList<String>> r_data;
+                
                 for(int row = 0; row < data.size(); row++)
                 {
+                    String r_param[] = { data.get(row).get(3) };
+                    r_data = mc.getQuery(sql2, r_param);
                     %>
+                    <input type="hidden" name="pa_refid" value="<%=data.get(row).get(4) %>">
+                    <input type="hidden" name="l_icno" value="<%=data.get(row).get(1) %>">
                     <tr>
-                    <td style="text-align: center; vertical-align: middle"><%=row+1 %></td>
-                    <td style="vertical-align: middle"><%=data.get(row).get(0) %></td>
-                    <td style="text-align: center; vertical-align: middle"><a href="process.jsp?p=BPSM/E-Register/e-registerperonal/e-registerinformation.jsp&c_refid=<%=data.get(row).get(3) %>&pa_refid=<%=data.get(row).get(4) %>&wrong_username=&activated="><%=data.get(row).get(1) %></a></td>
-                    <td style="vertical-align: middle"><%=data.get(row).get(2) %></td>
+                    <td width="15%" style="vertical-align: middle; font-weight: bold">Registration Status</td>
+                    <td width="1%" style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
                     <%
-                    String params2[] = { data.get(row).get(4) };
-                    r_data = mc.getQuery(sql2, params2);
                     if(r_data.size() > 0)
                     {
                         %>
-                        <td style="text-align: center; font-weight: bold; color: limegreen; vertical-align: middle">Activated</td>
+                        <td colspan="2" width="80%" style="vertical-align: middle; color: limegreen; font-weight: bold">ACTIVATED</td>
                         <%
                     }
                     else
                     {
                         %>
-                        <td style="text-align: center; font-weight: bold; color: red; vertical-align: middle">Not Activated</td>
+                        <td colspan="2" width="80%" style="vertical-align: middle;color: orange; font-weight: bold">OFFER ACCEPTED</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Staff ID</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(r_data.size() > 0)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle; font-weight: bold"><%=r_data.get(row).get(0) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle; font-weight: bold">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Grade</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(12) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Position</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(2) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">PTJ</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(13) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Job Status</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(15) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Campus</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(16) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Salary</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;">RM <%=data.get(row).get(14) %></td>
+                    </tr>
+                    <%
+                    String sql_ap = "SELECT AP.AP_DESC, AP.AP_ALLOWANCE "
+                            + "FROM ALLOWANCE_POS AP, POS_APPLIED PA "
+                            + "WHERE AP.PA_REFID = ? "
+                            + "AND PA.PA_STATUS = ? ";
+                    String params_ap[] = { data.get(row).get(4), pa_stat_accepted };
+                    ArrayList<ArrayList<String>> data_ap = mc.getQuery(sql_ap, params_ap);
+                    for(int row_ap = 0; row_ap<data_ap.size(); row_ap++)
+                    {
+                        %>
+                        <tr>
+                        <%
+                        if(row_ap == 0)
+                        {
+                            %>
+                            <td rowspan="<%=data_ap.size() %>" style="vertical-align: middle; font-weight: bold">Allowance</td>
+                            <td rowspan="<%=data_ap.size() %>" style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                            <%
+                        }
+                        %>
+                        <td width="25%" style="vertical-align: middle;"><%=data_ap.get(row_ap).get(0) %></td>
+                        <td style="vertical-align: middle;">RM <%=data_ap.get(row_ap).get(1) %></td>
+                        </tr>
+                        <%
+                    }
+                    %>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">IC Number</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(1) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Name</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;">
+                    <%
+                    if(r_data.size() > 0)
+                    {
+                        %>
+                        <%=r_data.get(row).get(1) %>
+                        <%
+                    }
+                    else
+                    {
+                        %>  
+                        <input value="<%=data.get(row).get(0) %>" type="text" name="r_staffname" class="form-control" placeholder="Example: Mamat" autocomplete="off">
+                        <%
+                    }
+                    %>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Phone Number</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;">
+                    <%
+                    if(r_data.size() > 0)
+                    {
+                        %>
+                        <%=r_data.get(row).get(2) %>
+                        <%
+                    }
+                    else
+                    {
+                        %>  
+                        <input value="<%=data.get(row).get(6) %>" type="text" name="r_telno" class="form-control" placeholder="Example: Mamat" autocomplete="off"></td>
+                    <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Address</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;">
+                    <%
+                    if(r_data.size() > 0)
+                    {
+                        %>
+                        <%=r_data.get(row).get(2) %>
+                        <%
+                    }
+                    else
+                    {
+                        %>  
+                        <textarea type="text" name="r_address" class="form-control" placeholder="Example: Mamat" autocomplete="off"><%=data.get(row).get(7)+", "+data.get(row).get(8)+", "+data.get(row).get(9)+", "+data.get(row).get(10)+"." %></textarea></td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Date Of Birth</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=Func.getDate(data.get(row).get(17)) %></td>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Age</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(18) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(18) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Birth State</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(19) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(19) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Sex</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(20) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(20) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Religion</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(21) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(21) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Race</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(22) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(22) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Nationality</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(23) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(23) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Home Tel.</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(24) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(24) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Marital Status</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(25) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(25) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Driving License</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(26) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(26) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Height</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(27) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(27) %> cm</td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Weight</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(28) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(28) %> kg</td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
+                        <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">BMI</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <%
+                    if(data.get(row).get(29) != null)
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(29) %></td>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <td colspan="2" style="vertical-align: middle;">-</td>
                         <%
                     }
                     %>
                     </tr>
                     <%
-                }          
+                    if(r_data.size() == 0)
+                    {
+                        %>
+                        <tr>
+                            <td colspan="4" style="vertical-align: middle;"><button type="submit" style="font-weight: bold" class="btn btn-success form-control">Activate</button></td>
+                        </tr>
+                        <%
+                    }
+                }
             }
             else
             {
@@ -119,7 +501,7 @@
                     <%
                 }
                 else
-                    {
+                {
                     %>
                     <tr>
                         <td colspan="5" style="color: blue; font-weight: bold; text-align: center">Please Search</td>
@@ -127,8 +509,9 @@
                     <%
                 }
             }
-            %>            
-            </tbody>
+            %>      
+            
         </table>
+        </form>
     </div>
 </div>

@@ -13,7 +13,7 @@
     
     MainClient mc = new MainClient(DBConn.getHost());
     
-    String sql = "SELECT C.C_NAME, C.C_ICNO, A.A_ROADNO, A.A_CITY, A.A_POSTCODE, A.A_STATE, A.A_COUNTRY, "
+    String sql = "SELECT C.C_NAME, L.L_ICNO, A.A_ROADNO, A.A_CITY, A.A_POSTCODE, A.A_STATE, A.A_COUNTRY, "
             + "C.C_SEX, C.C_DOB, C.C_AGE, C.C_NATIONALITY, L.L_USERNAME, PA.PA_REFID, C.C_HP, PA.PA_REFID "
             + "FROM CANDIDATE C, ADDRESS A, LOGIN1 L, POS_APPLIED PA, POSITION_PTJ_HR PPH "
             + "WHERE C.C_REFID = A.C_REFID "
