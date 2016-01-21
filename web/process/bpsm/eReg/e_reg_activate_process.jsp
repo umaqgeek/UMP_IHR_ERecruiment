@@ -5,7 +5,7 @@
 <%
     MainClient mc = new MainClient(DBConn.getHost());
     StaffActivation reg = new StaffActivation();
-    
+    String stat_activated = "ACTIVATED";
     String l_icno = request.getParameter("l_icno");
     String pa_refid = request.getParameter("pa_refid");
     String r_staffname = request.getParameter("r_staffname");
@@ -42,5 +42,11 @@
 
     mc.setQuery(sql2, params2);
     
+    String params_pa_update[] = { stat_activated, pa_refid };
+    String sql_pa_update = "UPDATE POS_APPLIED "
+            + "SET PA_STATUS = ? "
+            + "WHERE PA_REFID = ? ";
+    
+    mc.setQuery(sql_pa_update, params_pa_update);
     response.sendRedirect("../../../process.jsp?p=BPSM/E-Register/e-register.jsp");
 %>
