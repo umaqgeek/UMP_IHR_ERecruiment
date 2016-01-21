@@ -10,11 +10,9 @@
         <meta name="description" content="">
         <meta name="author" content="">
         
-        
+		<!-------->
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/main.css" />
-		<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/slidebars.css" />
-		<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap.css" />
 		<!---<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap.css" />-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -29,14 +27,13 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap2.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <!-- Scripts -->
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.min.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/js/skel.min.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/js/util.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/js/main.js"></script>
-        
         <link href="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery-1.11.3.min.js"></script>
@@ -52,7 +49,6 @@
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
 		
-		<script src="<%=Config.getBase_url(request) %>assets/js/slidebars.js"></script>
 		
  
         
@@ -107,13 +103,7 @@
 		
 		</style>
 		
-		<script>
-			(function($) {
-				$(document).ready(function() {
-					$.slidebars();
-				});
-			}) (jQuery);
-		</script>
+		
 		
     </head>
     <body  >
