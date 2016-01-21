@@ -97,7 +97,7 @@
                 
                 for(int row = 0; row < data.size(); row++)
                 {
-                    String r_param[] = { data.get(row).get(3) };
+                    String r_param[] = { data.get(row).get(4) };
                     r_data = mc.getQuery(sql2, r_param);
                     %>
                     <input type="hidden" name="pa_refid" value="<%=data.get(row).get(4) %>">
