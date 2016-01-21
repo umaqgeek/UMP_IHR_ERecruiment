@@ -109,7 +109,6 @@
                                 <div class="text-center">
                                     <form action="process/upload_file.jsp" method="post"
                                           enctype="multipart/form-data">
-
                                         <%                                            String pph18 = "";
                                             try {
                                                 pph18 = pph_candidate.get(0).get(18);
@@ -177,6 +176,7 @@
                                         String pphl7 = "";
                                         try {
                                             pphl7 = pph_login.get(0).get(7);
+
                                         } catch (Exception e) {
                                             pphl7 = "";
                                         }
@@ -673,6 +673,7 @@
                                     }
                                 %>
                                 <br/><br/><br/><br/><br/><br/><br/><br/>
+
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postage Postcode:</label>
                                     <div class="col-lg-6">
