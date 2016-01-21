@@ -235,7 +235,7 @@
                     {
                         %>  
                         <input value="<%=data.get(row).get(6) %>" type="text" name="r_telno" class="form-control" placeholder="Example: Mamat" autocomplete="off"></td>
-                    <%
+                        <%
                     }
                     %>
                     </tr>
@@ -247,7 +247,7 @@
                     if(r_data.size() > 0)
                     {
                         %>
-                        <%=r_data.get(row).get(2) %>
+                        <%=r_data.get(row).get(3) %>
                         <%
                     }
                     else
