@@ -9,6 +9,7 @@
     String pa_stat_accepted = "OFFER ACCEPTED";
     String pa_stat_rejected = "OFFER REJECTED";
     String pa_stat_offerSent = "OFFER SENT";
+    String pa_stat_activated = "ACTIVATED";
     String action_send_btn = "disabled";
     String action_setup_btn = "active";
     
@@ -19,7 +20,8 @@
             + "AND C.C_REFID=PA.C_REFID "
             + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
-            + "AND F.F_STATUS= ? ";
+            + "AND F.F_STATUS= ? "
+            + "ORDER BY L.L_ICNO ASC";
     String params[] = { filter_stat_pass };
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
@@ -63,7 +65,13 @@
                         <td style="vertical-align: middle"><%=data.get(row).get(2) %></td>
                         <td style="vertical-align: middle; text-align: center"><%=data.get(row).get(7) %></td>
                         <%
-                        if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted))
+                        if(data.get(row).get(3).equalsIgnoreCase(pa_stat_activated))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: palevioletred"><%=data.get(row).get(3) %></td>
+                            <%
+                        }
+                        else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted))
                         {
                             %>
                             <td style="vertical-align: middle; text-align: center;font-weight: bold; color: green"><%=data.get(row).get(3) %></td>

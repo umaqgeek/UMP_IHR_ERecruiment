@@ -9,6 +9,7 @@
     String stat_rejected = "OFFER REJECTED";
     String stat_pending= "OFFER PENDING";
     String stat_sent= "OFFER SENT";
+    String stat_activated = "ACTIVATED";
     String filter_stat_pass = "PASS ALL";
     
     String sC_refid = "";
@@ -107,6 +108,12 @@
                         {
                             %>
                             <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: #F00; font-weight: bold"><%=data.get(row).get(2) %></td>
+                            <%
+                        }
+                        else if(data.get(row).get(2).equalsIgnoreCase(stat_activated))
+                        {
+                            %>
+                            <td rowspan="2" colspan="2" style="vertical-align: middle; text-align: center; color: palevioletred; font-weight: bold"><%=data.get(row).get(2) %></td>
                             <%
                         }
                         %>
