@@ -7,9 +7,6 @@
 <!-- Header -->
 <header id="header" style="height:6.5em;padding:0px;">
 
-	
-	
-
     <h1 >
         <img src="<%=Config.getBase_url(request) %>assets/img/ump-logo.png" />
         <a href="process.jsp?p=login.jsp">UMP IMS E-Recruitment</a>
