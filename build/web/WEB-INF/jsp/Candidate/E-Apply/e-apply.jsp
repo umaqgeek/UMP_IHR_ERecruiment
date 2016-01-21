@@ -876,7 +876,7 @@
                                     String license_list = "";
                                     //provide dropdown list
                                     if (!pph_vehicle.isEmpty()) {
-                                        license_list = "<select name='DL_CODE'>";
+                                        license_list = "<select>";
                                         for (int i = 0; i < pph_vehicle.size(); i++) {
                                             String x = pph_vehicle.get(i).get(0);
 
@@ -906,7 +906,7 @@
                                                         %>
                                                         <tr>
                                                             <td>
-                                                                <select name="dl_code" class="form-control"  name="DL_CODE">
+                                                                <select class="form-control" >
                                                                     <%   for (int i = 0; i < pph_vehicle.size(); i++) {
                                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                                 if (pphcv.equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
