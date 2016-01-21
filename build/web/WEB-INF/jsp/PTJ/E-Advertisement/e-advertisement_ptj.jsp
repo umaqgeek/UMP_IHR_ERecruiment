@@ -38,9 +38,16 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
 //out.print(d_test); if (true) { return; };
 %>
 
+<script>
+    $(document).ready(function () {
+        $('#myTable1').DataTable();
+    });
+</script>
+
 <div class="row">
+    <div class="col-md-12">
     <h2>E-Warrant</h2>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="myTable1">
         <thead>
             <tr>
                 <th>#</th>
@@ -62,13 +69,21 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
             <% } %>
         </tbody>
     </table>
+    </div>
 </div>
 
 <hr />
         
+<script>
+    $(document).ready(function () {
+        $('#myTable2').DataTable();
+    });
+</script>
+
 <div class="row">
+    <div class="col-md-12">
     <h2>Saved Position</h2>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="myTable2">
         <thead>
             <tr>
                 <th>#</th>
@@ -88,7 +103,7 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
                 <td><%=pph.get(i).get(3)%></td>
                 <td><%=pph.get(i).get(4)%></td>
                 <td>
-                    <% if (pph.get(i).get(4).toUpperCase().equals("SAVE".toUpperCase())) { %>
+                    <% if (pph.get(i).get(4).toUpperCase().equals("ENTRY".toUpperCase())) { %>
                     <a href="process/ptj/eAds/eAdsSavedDelete.jsp?pph=<%=pph.get(i).get(0) %>"> X </a>
                     <% } %>
                 </td>
@@ -96,4 +111,5 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
             <% }%>
         </tbody>
     </table>
+    </div>
 </div>

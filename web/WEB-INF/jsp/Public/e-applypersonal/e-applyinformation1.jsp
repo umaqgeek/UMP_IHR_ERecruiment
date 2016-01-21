@@ -1,16 +1,39 @@
+<%@page import="helpers.Func"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
 <%@page import="config.Config"%>
-<link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
-<div id="cv" class="instaFade">
+<%
+    String c_refid = session.getAttribute("c").toString();
+
+    String sql = "SELECT * "
+            + "FROM candidate c, login1 l "
+            + "WHERE c.c_refid = l.c_refid "
+            + "AND c.c_refid = ? ";
+    String param[] = {c_refid};
+    MainClient mc = new MainClient(DBConn.getHost());
+    ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+%>
+
+<link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request)%>assets/css1/style.css">
+<link href='<%=Config.getBase_url(request)%>assets/fonts/font.css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+
+<!--<div id="cv" class="instaFade">-->
     <div class="mainDetails">
         <div id="headshot" class="quickFade">
-            <img src="headshot.jpg" alt="Alan Smith" />
+            <img src="#" alt="Profile Image" height="200px" width="200px" class="img-polaroid" />
         </div>
         <div class="clear"></div>
     </div>
 
-    <div id="mainArea" class="quickFade delayFive">
+<style>
+    #mainArea {
+        background-color: #fff;
+    }
+</style>
+
+    <div id="mainArea" class="quickFade delayOne">
         <section>
             <article>
                 <div class="sectionTitle">
@@ -19,13 +42,13 @@
 
                 <div class="sectionContent">
 
-                    <p>Name: Ali bin Abu</p>
-                    <p>IC : 860521065246</p>
-                    <p>Address: Jalan Ampang Jaya</p>
-                    <p>Gender : Male</p>
-                    <p>Date of birth: 18/2/1998</p>
-                    <p>Age:13</p>
-                    <p>Nationality: Malaysia</p>
+                    <p>Name: <%=d.get(0).get(1)%></p>
+                    <p>IC : <%=d.get(0).get(28)%></p>
+                    <p>Address: -</p>
+                    <p>Gender : <%=d.get(0).get(5)%></p>
+                    <p>Date of birth: <%=Func.getDate(d.get(0).get(2))%></p>
+                    <p>Age: -</p>
+                    <p>Nationality: <%=d.get(0).get(8)%></p>
                     <p>&nbsp; </p>
                 </div>
             </article>
@@ -154,7 +177,7 @@
             <div class="sectionTitle">
                 <h1>
 
-                    <input type="submit" class="styled-button-1" value="Close" onclick="location.href = '../e-apply_BPSM.html'" />
+                    <input type="button" class="styled-button-1" value="Close" />
 
                 </h1>
 

@@ -17,8 +17,14 @@ MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 %>
 
+<style>
+    #article {
+        background-color: #fff;
+    }
+</style>
+
 <link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+<link href='<%=Config.getBase_url(request) %>assets/fonts/font.css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
 <button onclick="location.href='process.jsp?p=<%=prev_url %>';"> Back </button>
 

@@ -86,7 +86,7 @@ public class Func {
             String str2[] = str[0].split("-");
             return str2[2]+"/"+str2[1]+"/"+str2[0];
         } catch (Exception e) {
-            return "00/00/0000";
+            return "";
         }
     }
     

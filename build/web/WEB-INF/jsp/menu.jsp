@@ -6,7 +6,41 @@
 <%@page import="libraries.My_func"%>
 <!-- Header -->
 <header id="header" style="height:6.5em;padding:0px;">
+  
+	<nav class="main">
+        <ul>
+			
+			<li class="search">
+			  <a class="fa-bars sb-toggle-left" >Menu</a>
 
+			 </li>
+			 
+			 
+            <li>
+			</li>
+        </ul>
+    </nav>
+	<div  style="color:white;"class="sb-slidebar sb-left">
+			<!-- Your left Slidebar content. -->
+			
+			
+			
+        <ul>
+            <li>
+                <a href="process.jsp?p=login.jsp">
+                    <h3>Log In</h3>
+                </a>
+            </li>
+            <li>
+                <a href="process.jsp?p=registration.jsp">
+                    <h3>Registration</h3>
+                </a>
+            </li>
+        </ul>
+		
+		<button type="button" style="color:white;" class="sb-toggle-left">Close Menu</button>
+    
+	</div>
 	
 	
 
@@ -19,11 +53,24 @@
                             <li><a href="#">Home</a></li>
                         </ul>
                     </nav>-->
-	<nav class="main">
+	<!---<nav class="main">
         <ul>
 			<li class="menu">
                 <a class="fa-bars" href="#menu">Menu</a>
             </li>
+			 <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="#">
+                    <input type="text" name="query" placeholder="Search" />
+                </form>
+            </li>
+            <li>
+			</li>
+        </ul>
+    </nav>--->
+	
+	<nav class="main">
+        <ul>
 			 <li class="search">
                 <a class="fa-search" href="#search">Search</a>
                 <form id="search" method="get" action="#">

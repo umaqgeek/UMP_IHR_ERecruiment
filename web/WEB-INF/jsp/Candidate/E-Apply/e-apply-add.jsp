@@ -15,7 +15,14 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
         <button type="button" onclick="location.href='process.jsp?p=Candidate/E-Apply/e-apply.jsp';"> Back </button>
 
         <h2>List of Published Positions</h2>
-        <table class="table-bordered">
+        
+        <script>
+            $(document).ready(function(){
+                $('#myTable1').DataTable();
+            });
+        </script>
+        
+        <table class="table-bordered" id="myTable1">
             <thead>
                 <tr>
                     <th rowspan="2">#</th>

@@ -177,11 +177,11 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
 <script>
     $(document).ready(function() {
         $("#btn_save").click(function() {
-            $("#button_type").val("SAVE");
+            $("#button_type").val("ENTRY");
             $("#form_eads1").submit();
         });
         $("#btn_hr").click(function() {
-            $("#button_type").val("HR");
+            $("#button_type").val("SUBMIT");
             $("#form_eads1").submit();
         });
     });

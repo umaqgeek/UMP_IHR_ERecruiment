@@ -62,7 +62,7 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
     <li><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj.jsp">&lt;&lt; Back to List Position from E-Warrant</a></li>
 </ul>
 
-<% if (data1.get(0).get(15).toUpperCase().equals("SAVE".toUpperCase())) { %>
+<% if (data1.get(0).get(15).toUpperCase().equals("ENTRY".toUpperCase())) { %>
 <form action="process/ptj/eAds/eAds2Detail.jsp" method="post" id="form_eads1">
 <% } %>
     <div class="row">
@@ -206,7 +206,7 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
             CKEDITOR.replace('editor4');
         </script>
     </div>
-<% if (data1.get(0).get(15).toUpperCase().equals("SAVE".toUpperCase())) { %>
+<% if (data1.get(0).get(15).toUpperCase().equals("ENTRY".toUpperCase())) { %>
     <hr />
     <div class="row">
         <input type="button" value="SAVE" id="btn_save" /> 
@@ -216,17 +216,17 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
     <hr />
     <input type="hidden" name="pph_status" id="button_type" value="-" />
     <input type="hidden" name="pph_refid" value="<%=pph_refid %>" />
-<% if (data1.get(0).get(15).toUpperCase().equals("SAVE".toUpperCase())) { %>
+<% if (data1.get(0).get(15).toUpperCase().equals("ENTRY".toUpperCase())) { %>
 </form>
     
 <script>
     $(document).ready(function() {
         $("#btn_save").click(function() {
-            $("#button_type").val("SAVE");
+            $("#button_type").val("ENTRY");
             $("#form_eads1").submit();
         });
         $("#btn_hr").click(function() {
-            $("#button_type").val("HR");
+            $("#button_type").val("SUBMIT");
             $("#form_eads1").submit();
         });
     });

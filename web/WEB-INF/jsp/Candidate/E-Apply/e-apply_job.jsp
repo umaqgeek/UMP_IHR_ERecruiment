@@ -1,3 +1,4 @@
+<%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
@@ -19,9 +20,14 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
 //out.print(l_refid);
 %>
 
-<button type="button" onclick="location.href='process.jsp?p=Candidate/E-Apply/e-apply-add.jsp';">Apply Job</button>
-<br /><br />
-<table class="table table-bordered">
+
+
+<script>
+    $(document).ready(function(){
+        $('#myTable2').DataTable();
+    });
+</script>
+<table class="table table-bordered" id="myTable2">
     <thead>
         <tr>
             <th>#</th>
@@ -41,8 +47,8 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
             <td><%=data1.get(i).get(0) %></td>
             <!--<td><a href="#" data-toggle="modal" data-target="#myModal_<%=i %>"><%=data1.get(i).get(1) %></a></td>-->
             <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=data1.get(i).get(6)%>&prev_url=Candidate/E-Apply/e-apply.jsp"><%=data1.get(i).get(1) %></a></td>
-            <td><%=data1.get(i).get(2) %></td>
-            <td><%=data1.get(i).get(3) %></td>
+            <td><%=Func.getDate(data1.get(i).get(2)) %></td>
+            <td><%=Func.getDate(data1.get(i).get(3)) %></td>
             <td><%=data1.get(i).get(4) %></td>
             <td>
                 <% if (data1.get(i).get(4).toUpperCase().equals(status_new.toUpperCase())) { %>

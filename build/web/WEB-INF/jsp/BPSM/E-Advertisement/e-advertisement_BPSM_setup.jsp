@@ -217,20 +217,20 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
             CKEDITOR.replace('editor3');
         </script>
     </div>
-<!--    <hr />
+    <hr />
     <div class="row">
         Salary Schedule : <br />
         <input type="text" class="form-control" id="pph_salary_min" name="pph_salary_min" 
                value="<%=(data_pph.size()>0 && data_pph.get(0).get(7)!=null)?(data_pph.get(0).get(7)):("") %>" placeholder="Minimum salary. Example: 1200.">
         <input type="text" class="form-control" id="pph_salary_max" name="pph_salary_max" 
                value="<%=(data_pph.size()>0 && data_pph.get(0).get(8)!=null)?(data_pph.get(0).get(8)):("") %>" placeholder="Maximum salary. Example: 5000.">
-    </div>-->
+    </div>
     <hr />
     <div class="row">
         <input type="button" value="SAVE" id="btn_bpsm_save" />
-        <input type="button" value="PREVIEW" id="btn_bpsm_preview" />
+        <!--<input type="button" value="PREVIEW" id="btn_bpsm_preview" />
         <input type="button" value="REPORT" id="btn_bpsm_report" />
-        <input type="button" value="PUBLISH" id="btn_bpsm_publish" />
+        <input type="button" value="PUBLISH" id="btn_bpsm_publish" />-->
     </div>
     
     <input type="hidden" name="pph_status" id="button_type" value="-" />
@@ -240,7 +240,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 <script>
     $(document).ready(function() {
         $("#btn_bpsm_save").click(function() {
-            $("#button_type").val("HR");
+            $("#button_type").val("SUBMIT");
             $("#form_bpsm_eads1").submit();
         });
         $("#btn_bpsm_publish").click(function() {

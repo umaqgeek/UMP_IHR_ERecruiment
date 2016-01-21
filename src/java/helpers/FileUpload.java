@@ -13,8 +13,33 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItemStream;
 
 public class FileUpload {
+    
+    public static boolean processFile(String path, FileItemStream item) {
+        try {
+            
+            File f = new File(path + File.separator + "assets" + File.separator + "uploads");
+            if (!f.exists()) {
+                f.mkdir();
+            }
+            File savedFile = new File(f.getAbsolutePath() + File.separator + item.getName());
+            FileOutputStream fos = new FileOutputStream(savedFile);
+            InputStream is = item.openStream();
+            int x = 0;
+            byte[] b = new byte[1024];
+            while ((x = is.read(b)) != -1) {
+                fos.write(b, 0, x);
+            }
+            fos.flush();
+            fos.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("FileUpload 35: " + e.getMessage());
+        }
+        return false;
+    }
 
     public boolean doPost(HttpServletRequest request) {
         String directory = request.getRequestURL().toString()+"assets/uploads";

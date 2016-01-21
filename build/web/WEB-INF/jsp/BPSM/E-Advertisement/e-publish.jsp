@@ -17,7 +17,13 @@ ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 %>
 
 <link type="text/css" rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css1/style.css">
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+<link href='<%=Config.getBase_url(request) %>assets/fonts/font.css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+
+<style>
+    #article {
+        background-color: #fff;
+    }
+</style>
 
 <button onclick="location.href='process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM.jsp';"> Back </button>
 

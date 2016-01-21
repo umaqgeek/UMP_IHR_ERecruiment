@@ -12,6 +12,8 @@
         
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/main.css" />
+		<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/slidebars.css" />
+		<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap.css" />
 		<!---<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap.css" />-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -49,6 +51,7 @@
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
 		
+		<script src="<%=Config.getBase_url(request) %>assets/js/slidebars.js"></script>
 		
  
         
@@ -103,7 +106,13 @@
 		
 		</style>
 		
-		
+		<script>
+			(function($) {
+				$(document).ready(function() {
+					$.slidebars();
+				});
+			}) (jQuery);
+		</script>
 		
     </head>
     <body  >
