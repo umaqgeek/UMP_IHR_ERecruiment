@@ -10,6 +10,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         
+		<!-------->
         <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/main.css" />
 		<!---<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/bootstrap.css" />-->
