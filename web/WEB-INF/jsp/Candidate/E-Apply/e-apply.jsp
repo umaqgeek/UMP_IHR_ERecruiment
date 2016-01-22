@@ -3,6 +3,7 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.Enumeration"%>
+<%@page import="helpers.Func"%>
 
 <link rel="stylesheet" href="<%=Config.getBase_url(request)%>assets/css/jquery-ui.css">
 <script src="<%=Config.getBase_url(request)%>assets/js/jquery-ui.js"></script>
@@ -265,7 +266,9 @@
                                         } catch (Exception e) {
                                             ppha5 = "";
                                         }
-
+                                        
+                                        out.print(pph_master);
+                                         if (true) { return; }
                                     %>
 
                                     <div class="form-group">
@@ -853,13 +856,15 @@
                                             + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
                                             + "WHERE LOOKUP_DETAIL.LM_REFID = '1452458173.385' ";
 
-                                    String query_cvehicle = "SELECT * "
+                                  /*  String query_cvehicle = "SELECT * "
                                             + "FROM DRIVER_LICENSE "
-                                            + "WHERE C_REFID = " + c_refid;
+                                            + "WHERE C_REFID = ?";
+                                          */
+                                    String query_cvehicle="SELECT * FROM DRIVER_LICENSE";
 
                                     MainClient mc_vehicle = new MainClient(DBConn.getHost());
                                     String params_vehicle[] = {};
-                                    String params_cvehicle[] = {};
+                                    String params_cvehicle[] = {c_refid.toString()};
                                     ArrayList<ArrayList<String>> pph_vehicle = mc_vehicle.getQuery(query_vehicle, params_vehicle);
                                     ArrayList<ArrayList<String>> pph_cvehicle = mc_vehicle.getQuery(query_cvehicle, params_cvehicle);
 
@@ -878,9 +883,11 @@
                                     }
 
                                     String license_list = "";
+                                    
                                     //provide dropdown list
                                     if (!pph_vehicle.isEmpty()) {
-                                        license_list = "<select>";
+                                        
+                                        license_list = "<select id='dl_code' class='vehicle' name='dl_code'>";
                                         for (int i = 0; i < pph_vehicle.size(); i++) {
                                             String x = pph_vehicle.get(i).get(0);
 
@@ -888,8 +895,8 @@
                                         }
                                         license_list += "</select>";
                                     }
+                                            
                                 %>
-
                                 <div class="form-group">
                                     <label class="col-lg-5 control-label">
                                         Vehicle license:</label>
@@ -905,13 +912,16 @@
                                                     </thead>
                                                     <tbody>
                                                         <%
+                                                            int license_counter=1;
+                                                           
                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                 for (int x = 0; x < pph_cvehicle.size(); x++) {
                                                         %>
                                                         <tr>
                                                             <td>
-                                                                <select class="form-control" >
-                                                                    <%   for (int i = 0; i < pph_vehicle.size(); i++) {
+                                                                <select id="dl_code_<%out.print(license_counter);%>" name="dl_code_<%out.print(license_counter);%>" class="form-control vehicle_license" >
+                                                                    <%  
+                                                                        for (int i = 0; i < pph_vehicle.size(); i++) {
                                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                                 if (pphcv.equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
                                                                     %>
@@ -940,14 +950,19 @@
                                                             <td>x</td>
                                                         </tr>
                                                         <%
-                                                                }
-
-                                                            } else {
+                                                                        license_counter++;
                                                             }
+                                                      
+                                                        } else {
+                                                        }
+                                                            String how_many_selects="<scipt>$('select.vehicle_license').length;</script>";
+                                                            //int haha=(int) how_many_selects;
                                                         %>
                                                     </tbody>
                                                 </table>
                                                 <script>
+                                                       
+                                                    var how_many_selects = $('select.vehicle_license').length;
                                                             var tbody2 = $('#tbl_license').children('tbody');
                                                             var table2 = tbody2.length ? tbody2 : $('#tbl_license');
                                                             var row2 = '<tr>' +
@@ -956,6 +971,23 @@
                                                             '</tr>';
                                                             $(document).ready(function() {
                                                     $('#add_license').click(function(){
+                                                        
+                                                         $.ajax({
+                                                               url: 'process/generateHtml.jsp',
+                                                               type: 'POST',
+                                                               data: {
+                                                                   how_many_selects: how_many_selects
+                               
+                                                               },
+                                                               success: function(data) {
+                                                                   alert('Update Success' + data);
+                                                               },
+                                                               failure: function(data) {
+                                                                   alert('Update Failed');
+                                                               }
+                                                           });
+                                                
+                                                
                                                     //Add row
                                                     table2.append(row2.compose({
                                                     'grade': "<%=license_list%>",
