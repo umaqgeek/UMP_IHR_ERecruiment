@@ -118,7 +118,7 @@ public class Register extends HttpServlet {
                 {"l_email", l_email}, 
                 {"l_verification", "UNVERIFIED"}
             };
-            l_refid = mc2.add("login", data2, "l_refid");
+            l_refid = mc2.add("login1", data2, "l_refid");
         }
         
         String urlParam = "";
