@@ -11,6 +11,7 @@
     String selected_username = "";
     String display_textfield = "";
     String pa_stat_accepted = "OFFER ACCEPTED";
+    String pa_stat_activated = "ACTIVATED";
     
     if(request.getParameter("search_button") != null )
     {
@@ -59,7 +60,7 @@
             + "AND C.C_REFID = L.C_REFID "
             + "AND PPH.PPH_REFID = PA.PPH_REFID "
             + "AND C.C_REFID = A.C_REFID "
-            + "AND PA.PA_STATUS= ? "
+            + "AND PA.PA_STATUS = ? "
             + "AND L.L_ICNO = ? "
             + "ORDER BY C.C_NAME";
     
