@@ -63,8 +63,10 @@
                 <%
                 if(data.size()>0)
                 {
+                    
                     for(int row=0; row<data.size(); row++)
                     {
+                        
                         if(data.get(row).get(2).equalsIgnoreCase(stat_accepted))
                         {
                             display_action = "disabled";
@@ -243,9 +245,9 @@
                                     sC_refid = data.get(0).get(4);
                                     String sql2 = "SELECT * "
                                             + "FROM POS_APPLIED "
-                                            + "WHERE PA_STATUS='Pending' "
+                                            + "WHERE PA_STATUS = ? "
                                             + "AND C_REFID = ? ";
-                                    String params2[] = { sC_refid };
+                                    String params2[] = { stat_pending, sC_refid };
                                     ArrayList<ArrayList<String>> data2 = mc.getQuery(sql2, params2);
                                     /* If Candidate Having more than one PENDING offer */
                                     if(data2.size() > 1)

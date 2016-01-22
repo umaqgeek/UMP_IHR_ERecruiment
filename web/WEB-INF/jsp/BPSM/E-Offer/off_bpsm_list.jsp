@@ -7,6 +7,7 @@
     String filter_stat_pass = "PASS ALL";
     String pa_stat_pending = "OFFER PENDING";
     String pa_stat_accepted = "OFFER ACCEPTED";
+    String pa_stat_accepted_another = "ANOTHER OFFER ACCEPTED";
     String pa_stat_rejected = "OFFER REJECTED";
     String pa_stat_offerSent = "OFFER SENT";
     String pa_stat_activated = "ACTIVATED";
@@ -20,7 +21,7 @@
             + "AND C.C_REFID=PA.C_REFID "
             + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
-            + "AND F.F_STATUS= ? "
+            + "AND F.F_STATUS = ? "
             + "ORDER BY L.L_ICNO ASC";
     String params[] = { filter_stat_pass };
     MainClient mc = new MainClient(DBConn.getHost());
@@ -95,14 +96,20 @@
                             <td style="vertical-align: middle; text-align: center; font-weight: bold; color: orange"><%=data.get(row).get(3) %></td>
                             <%
                         }
+                        else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted_another))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold; color: orange"><%=data.get(row).get(3) %></td>
+                            <%
+                        }
                         
-                        if(!data.get(row).get(3).equalsIgnoreCase(pa_stat_pending))
+                        if(!data.get(row).get(3).equalsIgnoreCase(pa_stat_pending) && !data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted_another))
                         {
                             %>
                             <td colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>" class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_setup_btn %>">Preview Offer</a></td>
                             <%
                         }
-                        else
+                        else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_pending))
                         {
                             %>
                             <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="form-control open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
@@ -116,6 +123,16 @@
                                 action_send_btn = "disabled";
                             }
                             %>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
+                            </tr>
+                            <%
+                        }
+                        else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted_another))
+                        {
+                            action_send_btn = "disabled";
+                            action_setup_btn = "disabled";
+                            %>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="form-control open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
                             <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
                             </tr>
                             <%
