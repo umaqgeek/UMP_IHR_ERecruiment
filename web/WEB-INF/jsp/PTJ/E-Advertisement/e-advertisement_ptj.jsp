@@ -20,11 +20,13 @@ String params3[] = {};
 ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
 
 String sql_test = "SELECT "
+        
         + "WMH_JOB_CODE, "
         + "WO_DEPT_CODE, "
         + "SS_SERVICE_DESC, "
-        + "NVL(DM_DEPT_DESC,WO_ORGANIZATION_DESC) DM_DEPT_DESC, "
+        + "NVL(DM_DEPT_DESC, WO_ORGANIZATION_DESC) DM_DEPT_DESC, "
         + "count(1) "
+        
         + "FROM WARRANT_MAIN_HEAD,WARRANT_MAIN_DETL,SERVICE_SCHEME,"
         + "WARRANT_SKP_NO,WARRANT_ORGANIZATION,DEPARTMENT_MAIN "
         + "WHERE WMH_WARRANT_REF = WMD_WARRANT_REF "
@@ -34,7 +36,7 @@ String sql_test = "SELECT "
         + "AND WO_DEPT_CODE = DM_DEPT_CODE(+) "
         + "AND WMD_WARRANT_POST_STATUS <> 'MANSUH' "
         + "AND WMD_WARRANT_POST_STATUS = 'BELUM SANDANG' "
-        + "GROUP BY WMH_JOB_CODE,WO_DEPT_CODE,SS_SERVICE_DESC,DM_DEPT_DESC,WO_ORGANIZATION_DESC "
+        + "GROUP BY WMH_JOB_CODE, WO_DEPT_CODE, SS_SERVICE_DESC, DM_DEPT_DESC, WO_ORGANIZATION_DESC "
         + "ORDER BY DM_DEPT_DESC ";
 String param_test[] = {};
 MainClient mc_test = new MainClient(DBConn.getHost());
