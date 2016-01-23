@@ -15,11 +15,13 @@ String param1[] = { l_refid };
 MainClient mc1 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d1 = mc1.getQuery(sql1, param1);
 
+//out.print(d1); if (true) { return; }
+
 if (d1.size() > 0) {
     
     String c_refid = d1.get(0).get(0);
     String pa_dateApplied = Func.getOracleDate(Func.getTodayDate3(), "yyyy-MM-dd");
-    String new_status = "PASS SYSTEM";
+    String new_status = "PASS_SYSTEM";
     
     String sql2 = "INSERT INTO pos_applied(pph_refid, c_refid, pa_dateapplied, pa_status) "
             + "VALUES(?, ?, ?, ?) ";
@@ -27,9 +29,11 @@ if (d1.size() > 0) {
     MainClient mc2 = new MainClient(DBConn.getHost());
     String pa_refid = mc2.setQuery(sql2, param2, "pa_refid");
     
+//    out.print(pa_refid); if (true) { return; }
+    
     if (!pa_refid.equals("-1") && !pa_refid.equals("0")) {
         
-        String sql3 = "INSERT INTO filter(pa_refid, f_status, f_system) "
+        String sql3 = "INSERT INTO filter(pa_refid, fs_code, f_system) "
                 + "VALUES(?, ?, ?) ";
         String param3[] = { pa_refid, new_status, Func.getOracleDate(Func.getTodayDate3(), "yyyy-MM-dd") };
         MainClient mc3 = new MainClient(DBConn.getHost());

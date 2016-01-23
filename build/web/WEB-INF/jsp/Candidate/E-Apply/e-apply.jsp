@@ -267,8 +267,8 @@
                                             ppha5 = "";
                                         }
                                         
-                                        out.print(pph_master);
-                                         if (true) { return; }
+//                                        out.print(pph_master);
+//                                         if (true) { return; }
                                     %>
 
                                     <div class="form-group">
@@ -279,11 +279,11 @@
                                                         if (ppha5 != null && ppha5 != "" && !ppha5.equals("")) {
                                                             if (ppha5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>" selected><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -295,7 +295,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
                                                     }
@@ -428,23 +428,23 @@
                                                                 if (pph6.equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" checked="checked" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>"/>
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" checked="checked" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>"/>
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                     } else {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>" />
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                         }
                                                     } else {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>" />
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                             }
@@ -482,11 +482,11 @@
                                                         if (pph7 != null && pph7 != "" && !pph7.equals("")) {
                                                             if (pph7.equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
                                                 %>
-                                                <option selected value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option selected value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -498,7 +498,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
 
@@ -533,11 +533,11 @@
                                                         if (pph8 != null && pph8 != "" && !pph8.equals("")) {
                                                             if (pph8.equalsIgnoreCase(pph_race.get(i).get(0).toString())) {
                                                 %>
-                                                <option selected value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option selected value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -549,7 +549,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
                                                     }
@@ -702,11 +702,11 @@
                                                     if (pphaa5 != null && pphaa5 != "" && !pphaa5.equals("")) {
                                                         if (pphaa5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>" selected><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                             } else {
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                                 }
                                             } else {
@@ -718,7 +718,7 @@
                                                 }
 
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                                     }
                                                 }
@@ -769,24 +769,24 @@
                                                         if (pph9.equalsIgnoreCase(pph_nationality.get(i).get(0).toString())) {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" checked="checked" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString());%>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" checked="checked" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
 
                                             <%
                                             } else {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
                                             <%
                                                 }
                                             } else {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
                                             <%
                                                     }
@@ -824,11 +824,11 @@
                                                     if (pph12 != null && pph12 != "" && !pph12.equals("")) {
                                                         if (pph12.equalsIgnoreCase(pph_marriage.get(i).get(0).toString())) {
                                             %>
-                                            <option selected value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option selected value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                             } else {
                                             %>
-                                            <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                                 }
                                             } else {
@@ -840,7 +840,7 @@
                                                 }
 
                                             %>
-                                            <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                                     }
                                                 }
@@ -919,17 +919,17 @@
                                                         %>
                                                         <tr>
                                                             <td>
-                                                                <select id="dl_code_<%out.print(license_counter);%>" name="dl_code_<%out.print(license_counter);%>" class="form-control vehicle_license" >
+                                                                <select id="dl_code_<%=license_counter %>" name="dl_code_<%=license_counter %>" class="form-control vehicle_license" >
                                                                     <%  
                                                                         for (int i = 0; i < pph_vehicle.size(); i++) {
                                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                                 if (pphcv.equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
                                                                     %>
-                                                                    <option selected value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option selected value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                     } else {
                                                                     %>
-                                                                    <option value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                         }
                                                                     } else {
@@ -940,7 +940,7 @@
                                                                         }
 
                                                                     %>
-                                                                    <option value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                             }
                                                                         }
@@ -988,11 +988,11 @@
                                                            });
                                                 
                                                 
-                                                    //Add row
-                                                    table2.append(row2.compose({
-                                                    'grade': "<%=license_list%>",
-                                                            'action': "X"
-                                                    }));
+                                                        //Add row
+                                                        table2.append(row2.compose({
+                                                        'grade': "<%=license_list%>",
+                                                                'action': "X"
+                                                        }));
                                                     });
                                                     });</script>
 
@@ -1027,11 +1027,11 @@
                                         <div class="form-inline">
                                             <div class="controls-row">
                                                 <label class="radio inline">
-                                                    <input name="C_ServOfficer" type="radio" value="YES"/>
+                                                    <input name="C_ServOfficer" type="radio" value="YES" />
                                                     YES
                                                 </label>
                                                 <label class="radio inline">
-                                                    <input name="C_ServOfficer" type="radio" value="NO"/>
+                                                    <input name="C_ServOfficer" type="radio" value="NO" checked />
                                                     NO
                                                 </label>
 
@@ -1093,15 +1093,17 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
+                                                            
                                                             <select name="pmr_tahun" id="pmr_tahun" >
-                                                                <script>
+                                                                
+
+                                                            </select>
+                                                            <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
                                                                             $('#pmr_tahun').append($('<option/>').val(yr).text(yr));
                                                                     };</script>
-
-                                                            </select>
                                                         </div>
 
                                                     </div>
@@ -1133,11 +1135,11 @@
                                                                             if (pph_aci6 != null && pph_aci6 != "" && !pph_aci6.equals("")) {
                                                                                 if (pph_aci6.equalsIgnoreCase(pph_type_academic_info.get(i).get(0).toString())) {
                                                                     %>
-                                                                    <option selected value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option selected value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                     } else {
                                                                     %>
-                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                         }
                                                                     } else {
@@ -1149,7 +1151,7 @@
                                                                         }
 
                                                                     %>
-                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                             }
                                                                         }
@@ -1974,7 +1976,7 @@
 
 
                                                             </table>
-                                                            </fieldset>
+                                                            
                                                         </td>
                                                     </tr>
 

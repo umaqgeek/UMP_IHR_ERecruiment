@@ -50,32 +50,29 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                     <td rowspan="3"><%=pph5.get(i).get(8)%></td>
                     <td rowspan="3"><%=pph5.get(i).get(9)%>
                     <%
-                        String sql_t1 = "SELECT vp.vp_campus, vpp.vpp_total, "
+                        String sql_t1 = "SELECT vpp.vpp_campus, vpp.vpp_total, "
                                 + "vpp.vpp_refid "
-                                + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
-                                + "WHERE vpp.vp_refid = vp.vp_refid "
-                                + "AND vpp.pph_refid = ? "
-                                + "AND vp.vp_job_status = 'PERMANENT' ";
+                                + "FROM vacancy_pos_ptj vpp "
+                                + "WHERE vpp.pph_refid = ? "
+                                + "AND vpp.vpp_job_status = 'PERMANENT' ";
                         String params_t1[] = {pph_refid};
                         MainClient mc_t1 = new MainClient(DBConn.getHost());
                         ArrayList<ArrayList<String>> d_t1 = mc_t1.getQuery(sql_t1, params_t1);
 
-                        String sql_t2 = "SELECT vp.vp_campus, vpp.vpp_total, "
+                        String sql_t2 = "SELECT vpp.vpp_campus, vpp.vpp_total, "
                                 + "vpp.vpp_refid "
-                                + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
-                                + "WHERE vpp.vp_refid = vp.vp_refid "
-                                + "AND vpp.pph_refid = ? "
-                                + "AND vp.vp_job_status = 'CONTRACT' ";
+                                + "FROM vacancy_pos_ptj vpp "
+                                + "WHERE vpp.pph_refid = ? "
+                                + "AND vpp.vpp_job_status = 'CONTRACT' ";
                         String params_t2[] = {pph_refid};
                         MainClient mc_t2 = new MainClient(DBConn.getHost());
                         ArrayList<ArrayList<String>> d_t2 = mc_t2.getQuery(sql_t2, params_t2);
 
-                        String sql_t3 = "SELECT vp.vp_campus, vpp.vpp_total, "
+                        String sql_t3 = "SELECT vpp.vpp_campus, vpp.vpp_total, "
                                 + "vpp.vpp_refid "
-                                + "FROM vacancy_pos_ptj vpp, vacancy_pos vp "
-                                + "WHERE vpp.vp_refid = vp.vp_refid "
-                                + "AND vpp.pph_refid = ? "
-                                + "AND vp.vp_job_status = 'FELLOWSHIP' ";
+                                + "FROM vacancy_pos_ptj vpp "
+                                + "WHERE vpp.pph_refid = ? "
+                                + "AND vpp.vpp_job_status = 'FELLOWSHIP' ";
                         String params_t3[] = {pph_refid};
                         MainClient mc_t3 = new MainClient(DBConn.getHost());
                         ArrayList<ArrayList<String>> d_t3 = mc_t3.getQuery(sql_t3, params_t3);

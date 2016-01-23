@@ -2,14 +2,17 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%
-    String sql = "SELECT pph.pph_grade, pph.pph_position, c.c_name, c.c_icno, "
+    String sql = "SELECT pph.pph_grade, pph.pph_position, c.c_name, l.l_icno, "
         + "pa.pa_dateapplied, c.c_refid, pph.pph_refid "
-        + "FROM pos_applied pa, position_ptj_hr pph, candidate c "
+        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
         + "WHERE pa.pph_refid = pph.pph_refid "
+            + "AND l.c_refid = c.c_refid "
         + "AND pa.c_refid = c.c_refid "; 
     String param[] = {};
     MainClient mc = new MainClient(DBConn.getHost());
     ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+    
+//    out.print(d); if (true) { return; }
 %>
 
 <div class="row">

@@ -59,9 +59,9 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
             <tr>
                 <th>#</th>
                 <th>Grade</th>
-                <th>Department</th>
+                <!--<th>Department</th>-->
                 <th>Position</th>
-                <th>Placement</th>
+                <th>PTJ</th>
                 <th>Total</th>
                 <th>Setup</th>
             </tr>
@@ -71,11 +71,11 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
             <tr>
                 <td><%=i+1 %></td>
                 <td><%=d_test.get(i).get(0) %></td>
-                <td><%=d_test.get(i).get(1) %></td>
+                <!--<td><%=d_test.get(i).get(1) %></td>-->
                 <td><%=d_test.get(i).get(2) %></td>
                 <td><%=d_test.get(i).get(3) %></td>
                 <td><span class="badge"><%=d_test.get(i).get(4) %></span></td>
-                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_setup.jsp&w_refid=<%=d_test.get(i).get(0) %>" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
+                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_setup2.jsp&wjc=<%=d_test.get(i).get(0) %>&wdc=<%=d_test.get(i).get(1) %>" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
             </tr>
             <% } %>
         </tbody>

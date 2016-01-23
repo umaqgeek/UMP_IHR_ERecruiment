@@ -18,6 +18,22 @@ import java.util.logging.Logger;
  */
 public class Func {
     
+    public static boolean isMatchString(String str, String[] words) {
+        boolean status = false;
+        try {
+            for (int i = 0; i < words.length; i++) {
+                if (str.toUpperCase().equals(words[i].toUpperCase())) {
+                    status = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error isMatchString: "+e.getMessage());
+            status = false;
+        }
+        return status;
+    }
+    
     /**
      * Get today's date format yyyy-MM-dd HH:mm:ss
      * @return 

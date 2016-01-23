@@ -1,3 +1,4 @@
+<%@page import="helpers.Func"%>
 <%@page import="controller.Session"%>
 <%@page import="libraries.My_func"%>
 <%@page import="config.Config"%>
@@ -82,6 +83,32 @@
             msgSUCCESS = "-";
             request.removeAttribute(My_func.SUCCESS_KEY);
         } catch (Exception e) {
+        }
+        %>
+        
+        <%
+        // session only allow pages that allowed to be logged in
+        String allowPages[] = {
+            "WEB-INF/jsp/login.jsp", 
+            "WEB-INF/jsp/registration.jsp",
+            "WEB-INF/jsp/forgot_password.jsp",
+        };
+        try {
+            String pageURL = session.getAttribute(Session.SESSION_KEY).toString();
+            boolean isMatch = Func.isMatchString(pageURL, allowPages);
+            if (!session.getAttribute(Session.KEY_IS_LOGGED_IN).equals("true") && !isMatch) {
+                pageURL = allowPages[0];
+                session.setAttribute(Session.SESSION_KEY, pageURL);
+                response.sendRedirect(Config.getBase_url(request) + "process.jsp?p=" + pageURL);
+            }
+        } catch (Exception e) {
+            String pageURL = My_func.LOGIN_URL;
+            boolean isMatch = Func.isMatchString(pageURL, allowPages);
+            if (!isMatch) {
+                pageURL = allowPages[0];
+                session.setAttribute(Session.SESSION_KEY, pageURL);
+                response.sendRedirect(Config.getBase_url(request) + "process.jsp?p=" + pageURL);
+            }
         }
         %>
 

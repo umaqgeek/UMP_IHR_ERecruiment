@@ -2,13 +2,35 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%
-String w_refid = session.getAttribute("w_refid").toString();
+String wjc = session.getAttribute("wjc").toString();
+String wdc = session.getAttribute("wdc").toString();
 
-String query = "SELECT * "
-        + "FROM warrant w, vacancy_pos vp "
-        + "WHERE vp.w_refid = w.w_refid "
-        + "AND w.w_refid = ? ";
-String params[] = { w_refid };
+//String query = "SELECT * "
+//        + "FROM warrant w, vacancy_pos vp "
+//        + "WHERE vp.w_refid = w.w_refid "
+//        + "AND w.w_refid = ? ";
+String query = "SELECT "
+        
+        + "WMH_JOB_CODE, "
+        + "WO_DEPT_CODE, "
+        + "SS_SERVICE_DESC, "
+        + "NVL(DM_DEPT_DESC, WO_ORGANIZATION_DESC) DM_DEPT_DESC, "
+        + "count(1) "
+        
+        + "FROM WARRANT_MAIN_HEAD,WARRANT_MAIN_DETL,SERVICE_SCHEME,"
+        + "WARRANT_SKP_NO,WARRANT_ORGANIZATION,DEPARTMENT_MAIN "
+        + "WHERE WMH_WARRANT_REF = WMD_WARRANT_REF "
+        + "AND WMH_JOB_CODE = SS_SERVICE_CODE "
+        + "AND WMD_SKP_REF = WSN_SKP_REF "
+        + "AND WMD_ORGANIZATION_REF_BU = WO_ORGANIZATION_REF "
+        + "AND WO_DEPT_CODE = DM_DEPT_CODE(+) "
+        + "AND WMD_WARRANT_POST_STATUS <> 'MANSUH' "
+        + "AND WMD_WARRANT_POST_STATUS = 'BELUM SANDANG' "
+        + "AND WMH_JOB_CODE = ? "
+        + "AND WO_DEPT_CODE = ? "
+        + "GROUP BY WMH_JOB_CODE, WO_DEPT_CODE, SS_SERVICE_DESC, DM_DEPT_DESC, WO_ORGANIZATION_DESC "
+        + "ORDER BY DM_DEPT_DESC ";
+String params[] = { wjc, wdc };
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc.getQuery(query, params);
 
