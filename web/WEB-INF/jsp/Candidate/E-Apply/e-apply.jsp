@@ -4,8 +4,8 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.Enumeration"%>
 
-<link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/css/jquery-ui.css">
-<script src="<%=Config.getBase_url(request) %>assets/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="<%=Config.getBase_url(request)%>assets/css/jquery-ui.css">
+<script src="<%=Config.getBase_url(request)%>assets/js/jquery-ui.js"></script>
 
 <%
     String l_refid = "";
@@ -38,11 +38,11 @@
 
     String query_address = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid + " AND AT_REFID = 1453324570.621";
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324570.621'";
 
     String query_address2 = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid + " AND AT_REFID = 1453324578.698";
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324578.698'";
 
     String query_login = "SELECT * "
             + "FROM login1 "
@@ -87,11 +87,11 @@
 %>
 <div class="row">
     <div class="col-lg-12">
-<!--        <div class="alert alert-info alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a>
-            <i class="fa fa-coffee"></i>
-            This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>-->
+        <!--        <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    <i class="fa fa-coffee"></i>
+                    This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                </div>-->
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -253,7 +253,7 @@
                                         String query_master = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                 + "FROM LOOKUP_DETAIL JOIN "
                                                 + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1452775307.151";
+                                                + "WHERE LOOKUP_DETAIL.LM_REFID = '1452775307.151' ";
 
                                         MainClient mc_master = new MainClient(DBConn.getHost());
                                         String params_master[] = {};
@@ -400,7 +400,7 @@
                                         String query_gender = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                 + "FROM LOOKUP_DETAIL JOIN "
                                                 + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1451506908.362";
+                                                + "WHERE LOOKUP_DETAIL.LM_REFID = '1451506908.362' ";
 
                                         MainClient mc_gender = new MainClient(DBConn.getHost());
                                         String params_gender[] = {};
@@ -467,7 +467,7 @@
                                                 String query_religion = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                         + "FROM LOOKUP_DETAIL JOIN "
                                                         + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                        + "WHERE LOOKUP_DETAIL.LM_REFID = 1452457867.568";
+                                                        + "WHERE LOOKUP_DETAIL.LM_REFID = '1452457867.568' ";
 
                                                 MainClient mc_religon = new MainClient(DBConn.getHost());
                                                 String params_religion[] = {};
@@ -508,7 +508,7 @@
                                         String query_race = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                 + "FROM LOOKUP_DETAIL JOIN "
                                                 + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                + "WHERE LOOKUP_DETAIL.LM_REFID = 1451506916.065";
+                                                + "WHERE LOOKUP_DETAIL.LM_REFID = '1451506916.065' ";
 
                                         MainClient mc_race = new MainClient(DBConn.getHost());
                                         String params_race[] = {};
@@ -585,7 +585,7 @@
                                                 var age = now - year;
                                                 $('#age').val(age);
                                         });
-                                        });                                    </script>
+                                        });</script>
 
                             </div>
                             <div class="col-lg-6">
@@ -647,7 +647,7 @@
                                             var bmi = weight / (height / 100 * height / 100);
                                             $('#bmi').val(bmi.toFixed(2));
                                     });
-                                    });                                </script>
+                                    });</script>
                                 <br/><br/>
                                 <%
                                     String pphaa2 = "";
@@ -744,7 +744,7 @@
                                     String query_nationality = "SELECT LOOKUP_DETAIL.LD_DESC "
                                             + "FROM LOOKUP_DETAIL JOIN "
                                             + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                            + "WHERE LOOKUP_DETAIL.LM_REFID = 1452458057.875";
+                                            + "WHERE LOOKUP_DETAIL.LM_REFID = '1452458057.875' ";
 
                                     MainClient mc_nationality = new MainClient(DBConn.getHost());
                                     String params_nationality[] = {};
@@ -798,7 +798,7 @@
                                     String query_marriage = "SELECT LOOKUP_DETAIL.LD_DESC "
                                             + "FROM LOOKUP_DETAIL JOIN "
                                             + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                            + "WHERE LOOKUP_DETAIL.LM_REFID = 1452458118.171";
+                                            + "WHERE LOOKUP_DETAIL.LM_REFID = '1452458118.171' ";
 
                                     MainClient mc_marriage = new MainClient(DBConn.getHost());
                                     String params_marriage[] = {};
@@ -851,7 +851,7 @@
                                     String query_vehicle = "SELECT LOOKUP_DETAIL.LD_DESC "
                                             + "FROM LOOKUP_DETAIL JOIN "
                                             + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                            + "WHERE LOOKUP_DETAIL.LM_REFID = 1452458173.385";
+                                            + "WHERE LOOKUP_DETAIL.LM_REFID = '1452458173.385' ";
 
                                     String query_cvehicle = "SELECT * "
                                             + "FROM DRIVER_LICENSE "
@@ -876,7 +876,7 @@
                                     } catch (Exception e) {
                                         pph13 = "";
                                     }
-                                    
+
                                     String license_list = "";
                                     //provide dropdown list
                                     if (!pph_vehicle.isEmpty()) {
@@ -906,7 +906,7 @@
                                                     <tbody>
                                                         <%
                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
-                                                        for (int x = 0; x < pph_cvehicle.size(); x++) {
+                                                                for (int x = 0; x < pph_cvehicle.size(); x++) {
                                                         %>
                                                         <tr>
                                                             <td>
@@ -940,11 +940,11 @@
                                                             <td>x</td>
                                                         </tr>
                                                         <%
+                                                                }
+
+                                                            } else {
                                                             }
-                                                      
-                                                        } else {
-                                                        }
-                                                    %>
+                                                        %>
                                                     </tbody>
                                                 </table>
                                                 <script>
@@ -962,7 +962,7 @@
                                                             'action': "X"
                                                     }));
                                                     });
-                                                    });                                                </script>
+                                                    });</script>
 
                                                 <div class="row">
                                                     <div class="col-lg-5">
@@ -1067,7 +1067,7 @@
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
                                                                             $('#pmr_tahun').append($('<option/>').val(yr).text(yr));
-                                                                    };                                                                </script>
+                                                                    };</script>
 
                                                             </select>
                                                         </div>
@@ -1214,7 +1214,7 @@
                                                                         'grade': "<%=test%>"
                                                                 }));
                                                                 });
-                                                                });                                                            </script>
+                                                                });</script>
 
                                                             <div class="row">
                                                                 <div class="col-lg-5">
@@ -2516,15 +2516,15 @@
             <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
                 <div class="panel-body">
 
-                        <button type="button" onclick="location.href='process.jsp?p=Candidate/E-Apply/e-apply-add.jsp';">Apply Job</button>
-                        <br /><br />
-                        <jsp:include page="e-apply_job.jsp"></jsp:include>
+                    <button type="button" onclick="location.href = 'process.jsp?p=Candidate/E-Apply/e-apply-add.jsp';">Apply Job</button>
+                    <br /><br />
+                    <jsp:include page="e-apply_job.jsp"></jsp:include>
 
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 </div>
 </div>

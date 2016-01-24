@@ -19,7 +19,7 @@ public class List {
         try{
             MainClient mc = new MainClient(DBConn.getHost());
             
-            String query = "SELECT U_REFID, U_NAME FROM USERS";
+            String query = "SELECT U_REFID, U_NAME FROM USERS1";
             String data[] = {};
             
             objdata.setTableData(mc.getQuery(query, data));
@@ -56,7 +56,7 @@ public class List {
         try {
             MainClient mc = new MainClient(DBConn.getHost());
 
-            String query = "SELECT U_REFID, U_NAME FROM USERS";
+            String query = "SELECT U_REFID, U_NAME FROM USERS1";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
