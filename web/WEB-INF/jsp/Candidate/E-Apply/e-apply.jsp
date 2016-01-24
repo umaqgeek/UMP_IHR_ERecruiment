@@ -1691,13 +1691,670 @@
                                 <div class="panel-heading" role="tab" id="academicheadingThree">
                                     <h4 class="panel-title">
                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            IPTA/IPTS
+                                            Additional Exams
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="academicCollapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingThree">
                                     <div class="panel-body">
-                                        IPTA/IPTS
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    <p><b>Instruction : </b> Malay language exam , math , english for paper July / SAP / SPM / STPM / University or Equivalent.</p>
+
+                                                </div>   
+
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-1">
+                                                    <label>Year : </label>
+
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select name="addexam_tahun" id="addexam_tahun" >
+                                                        <script>
+                                                                    var i, yr, now = new Date();
+                                                                    for (i = 0; i < 30; i++) {
+                                                            yr = now.getFullYear() - i; // or whatever
+                                                                    $('#addexam_tahun').append($('<option/>').val(yr).text(yr));
+                                                            };                                                                </script>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <label>Subject:</label>
+
+                                                </div>
+                                                    <div class="col-lg-2">
+                                                        <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                            <option value=""> Please select </option>
+                                                            <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                            <option value="English">English</option>
+                                                            <option value="Mathematics">Mathematics</option>
+                                                            <option value="Science">Science</option>
+                                                            <option value="Sejarah">Sejarah</option>
+                                                            <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                            <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                            <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                            <option value="Geografi">Geografi</option>
+                                                            <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                            <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                            <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                            <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                            <option value="Bahasa Arab">Bahasa Arab</option>
+                                                            <option value="Bahasa Cina">Bahasa Cina</option>
+                                                            <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                        </select> 
+                                                    </div>
+                                                
+                                                <div class="col-lg-1 col-lg-offset-1">
+                                                    <label>Grade :</label>
+                                                </div>
+                                                <div class="col-lg-2 col-lg-offset-1">
+                                                    <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                         <div class="row">
+                                             <div class="col-lg-12">
+                                                 <!-- table of additional exam -->
+                                                 <table id="academic_additional_exam" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Type</th>
+                                                                        <th>Oral Test</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <%
+                                                                String test4 = "<select><option>tes</option></select>";
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_add_exam = $('#academic_additional_exam').children('tbody');
+                                                                        var table_add_exam = tbody_add_exam.length ? tbody_add_exam : $('#academic_additional_exam');
+                                                                        var row_add_exam = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_additional_exam').click(function(){
+                                                                //Add row
+                                                                table_add_exam.append(row_add_exam.compose({
+                                                                'subject': "<%=test3%>",
+                                                                        'grade': "<%=test3%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
+                                             </div>
+                                         </div>
+                                         <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_additional_exam" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                              <!--muet-->
+                              <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingFour">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                            MUET
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingFour">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    <p><b>Instruction : </b> Malay language exam , math , english for paper July / SAP / SPM / STPM / University or Equivalent.</p>
+
+                                                </div>   
+
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-1">
+                                                    <label>Year : </label>
+
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <select name="addexam_tahun" id="addexam_tahun" >
+                                                        <script>
+                                                                    var i, yr, now = new Date();
+                                                                    for (i = 0; i < 30; i++) {
+                                                            yr = now.getFullYear() - i; // or whatever
+                                                                    $('#addexam_tahun').append($('<option/>').val(yr).text(yr));
+                                                            };                                                                </script>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <label>Subject:</label>
+
+                                                </div>
+                                                    <div class="col-lg-2">
+                                                        <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                            <option value=""> Please select </option>
+                                                            <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                            <option value="English">English</option>
+                                                            <option value="Mathematics">Mathematics</option>
+                                                            <option value="Science">Science</option>
+                                                            <option value="Sejarah">Sejarah</option>
+                                                            <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                            <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                            <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                            <option value="Geografi">Geografi</option>
+                                                            <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                            <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                            <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                            <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                            <option value="Bahasa Arab">Bahasa Arab</option>
+                                                            <option value="Bahasa Cina">Bahasa Cina</option>
+                                                            <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                        </select> 
+                                                    </div>
+                                                
+                                                <div class="col-lg-1 col-lg-offset-1">
+                                                    <label>Grade :</label>
+                                                </div>
+                                                <div class="col-lg-2 col-lg-offset-1">
+                                                    <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                         
+                                    </div>
+                                </div>
+                            </div>
+                                                                <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingFive">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                            STPM / STP / HSC
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingSix">
+                                    <div class="panel-body">
+                                        <ul id="stpmTabs" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#stpm_first_exam" id="stpm_first_exam-tab" role="tab" data-toggle="tab" aria-controls="stpm_first_exam" aria-expanded="true">First Exam</a>
+                                            </li>
+                                            <li role="presentation"><a href="#stpm_second_exam" role="tab" id="stpm_second_exam-tab" data-toggle="tab" aria-controls="stpm_second_exam">Second Exam</a>
+                                            </li>
+                                           
+                                        </ul>
+
+                                        <div id="stpmTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="stpm_first_exam" aria-labelledby="stpm_first_exam-tab">
+                                                <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="psmForm_1" name="psmForm_1" action="pmr.html" method="post">
+                                                
+                                                    <div class="row">
+                                                      <div class="col-lg-12">
+                                                            <div class="col-lg-2">
+                                                            <label>Year : </label>
+
+                                                        </div>
+
+                                                        <div class="col-lg-3">
+                                                            <select name="psm_tahun" id="psm_tahun" >
+                                                                <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('#psm_tahun').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+
+                                                            </select>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Certificate Type : </label>
+                                                            </div>
+                                                            <%
+                                                                String query_type_academic_info2_stpm = "SELECT * "
+                                                                        + "FROM TYPE_ACADEMIC_INFO ";
+
+                                                                MainClient mc_type_academic_info2_stpm = new MainClient(DBConn.getHost());
+                                                                String params_type_academic_info2_stpm[] = {};
+                                                                ArrayList<ArrayList<String>> pph_type_academic_info2_stpm = mc_type_academic_info2_stpm.getQuery(query_type_academic_info2_stpm, params_type_academic_info2_stpm);
+
+                                                                String pph_aci6_2_stpm = "";
+                                                                try {
+                                                                    pph_aci6_2_stpm = pph_academic_info.get(0).get(6);
+                                                                } catch (Exception e) {
+                                                                    pph_aci6_2 = "";
+                                                                }
+                                                            %>
+                                                            <div class="col-lg-6">
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                    <%
+                                                                        for (int i = 0; i < pph_type_academic_info2.size(); i++) {
+                                                                            if (pph_aci6_2 != null && pph_aci6_2 != "" && !pph_aci6_2.equals("")) {
+                                                                                if (pph_aci6_2.equalsIgnoreCase(pph_type_academic_info2.get(i).get(0).toString())) {
+                                                                    %>
+                                                                    <option selected value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                    } else {
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+
+                                                                        if (i == 0) {
+                                                                    %>
+                                                                    <option value="" selected>Please Select</option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Rank : </label>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                    <option value=""> Please select </option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="S">S</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6"><p>Oral Test of Bahasa Melayu / Bahasa Malaysia</p></div>
+                                                                            
+                                                                            <div class="col-lg-3 col-lg-offset-2">
+                                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                                    <option value=""> Please select </option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="B">B</option>
+                                                                                    <option value="C">C</option>
+                                                                                    <option value="S">S</option>
+                                                                                </select>
+                                                                            </div>
+                                                                      
+                                                      
+                                                                    </div>
+
+                                                                </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_stpm" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <%
+                                                                String test_stpm = "<select><option>tes</option></select>";
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_stpm = $('#academic_stpm').children('tbody');
+                                                                        var table_stpm = tbody_stpm.length ? tbody_stpm : $('#academic_stpm');
+                                                                        var row_stpm = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_stpm').click(function(){
+                                                                //Add row
+                                                                table_stpm.append(row_stpm.compose({
+                                                                'subject': "<%=test2%>",
+                                                                        'grade': "<%=test2%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
+
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_stpm" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="stpm_second_exam" aria-labelledby="stpm_second_exam-tab">
+                                             <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="psmForm_2" name="psmForm_2" action="pmr.html" method="post">
+                                                
+                                                    <div class="row">
+                                                      <div class="col-lg-12">
+                                                            <div class="col-lg-2">
+                                                            <label>Year : </label>
+
+                                                        </div>
+
+                                                        <div class="col-lg-3">
+                                                            <select name="psm_tahun_2" id="psm_tahun_2" >
+                                                                <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('#psm_tahun_2').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+
+                                                            </select>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Certificate Type : </label>
+                                                            </div>
+                                                            <%
+                                                                String query_type_academic_info2_2_stpm_2 = "SELECT * "
+                                                                        + "FROM TYPE_ACADEMIC_INFO ";
+
+                                                                MainClient mc_type_academic_info2_2_stpm_2 = new MainClient(DBConn.getHost());
+                                                                String params_type_academic_info2_2_stpm_2[] = {};
+                                                                ArrayList<ArrayList<String>> pph_type_academic_info2_2_stpm_2 = mc_type_academic_info2_2.getQuery(query_type_academic_info2_2_stpm_2, params_type_academic_info2_2_stpm_2);
+
+                                                                String pph_aci6_2_2_stpm_2 = "";
+                                                                try {
+                                                                    pph_aci6_2_2_stpm_2 = pph_academic_info.get(0).get(6);
+                                                                } catch (Exception e) {
+                                                                    pph_aci6_2_2_stpm_2 = "";
+                                                                }
+                                                            %>
+                                                            <div class="col-lg-6">
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                    <%
+                                                                        for (int i = 0; i < pph_type_academic_info2.size(); i++) {
+                                                                            if (pph_aci6_2 != null && pph_aci6_2 != "" && !pph_aci6_2.equals("")) {
+                                                                                if (pph_aci6_2.equalsIgnoreCase(pph_type_academic_info2.get(i).get(0).toString())) {
+                                                                    %>
+                                                                    <option selected value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                    } else {
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+
+                                                                        if (i == 0) {
+                                                                    %>
+                                                                    <option value="" selected>Please Select</option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Rank : </label>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                    <option value=""> Please select </option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="S">S</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6"><p>Oral Test of Bahasa Melayu / Bahasa Malaysia</p></div>
+                                                                            
+                                                                            <div class="col-lg-3 col-lg-offset-2">
+                                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                                    <option value=""> Please select </option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="B">B</option>
+                                                                                    <option value="C">C</option>
+                                                                                    <option value="S">S</option>
+                                                                                </select>
+                                                                            </div>
+                                                                      
+                                                      
+                                                                    </div>
+
+                                                                </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_stpm_2" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <%
+                                                                String test_stpm_2 = "<select><option>tes</option></select>";
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_stpm_2 = $('#academic_stpm_2').children('tbody');
+                                                                        var table_stpm_2 = tbody_stpm_2.length ? tbody_stpm_2 : $('#academic_stpm_2');
+                                                                        var row_stpm_2 = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_stpm_2').click(function(){
+                                                                //Add row
+                                                                table_stpm_2.append(row_stpm_2.compose({
+                                                                'subject': "<%=test3%>",
+                                                                        'grade': "<%=test3%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
+
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_stpm_2" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                            </div>
+                                           
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
