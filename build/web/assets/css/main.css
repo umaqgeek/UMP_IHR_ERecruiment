@@ -1717,7 +1717,7 @@
 		font-family: "Raleway", Helvetica, sans-serif;
 		font-size: 0.6em;
 		font-weight: 800;
-		height: 4.8125em;
+		height: 4.0em;
 		letter-spacing: 0.25em;
 		line-height: 4.8125em;
 		padding: 0 2.5em;
@@ -1960,7 +1960,7 @@
 		padding: 0.75em 1em;
 	}
 
-	input[type="checkbox"],
+/*	input[type="checkbox"],
 	input[type="radio"] {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -1972,7 +1972,7 @@
 		opacity: 0;
 		width: 1em;
 		z-index: -1;
-	}
+	}*/
 
 		input[type="checkbox"] + label,
 		input[type="radio"] + label {

@@ -19,7 +19,14 @@ MainClient mc3 = new MainClient(DBConn.getHost());
 String params3[] = {};
 ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
 
-String sql_test = "SELECT WMH_JOB_CODE,WO_DEPT_CODE,NVL(DM_DEPT_DESC,WO_ORGANIZATION_DESC) DM_DEPT_DESC, count(1) "
+String sql_test = "SELECT "
+        
+        + "WMH_JOB_CODE, "
+        + "WO_DEPT_CODE, "
+        + "SS_SERVICE_DESC, "
+        + "NVL(DM_DEPT_DESC, WO_ORGANIZATION_DESC) DM_DEPT_DESC, "
+        + "count(1) "
+        
         + "FROM WARRANT_MAIN_HEAD,WARRANT_MAIN_DETL,SERVICE_SCHEME,"
         + "WARRANT_SKP_NO,WARRANT_ORGANIZATION,DEPARTMENT_MAIN "
         + "WHERE WMH_WARRANT_REF = WMD_WARRANT_REF "
@@ -29,13 +36,13 @@ String sql_test = "SELECT WMH_JOB_CODE,WO_DEPT_CODE,NVL(DM_DEPT_DESC,WO_ORGANIZA
         + "AND WO_DEPT_CODE = DM_DEPT_CODE(+) "
         + "AND WMD_WARRANT_POST_STATUS <> 'MANSUH' "
         + "AND WMD_WARRANT_POST_STATUS = 'BELUM SANDANG' "
-        + "GROUP BY WMH_JOB_CODE,WO_DEPT_CODE,DM_DEPT_DESC,WO_ORGANIZATION_DESC "
+        + "GROUP BY WMH_JOB_CODE, WO_DEPT_CODE, SS_SERVICE_DESC, DM_DEPT_DESC, WO_ORGANIZATION_DESC "
         + "ORDER BY DM_DEPT_DESC ";
 String param_test[] = {};
 MainClient mc_test = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
 
-//out.print(d_test); if (true) { return; };
+out.print(sql_test); if (true) { return; };
 %>
 
 <script>
@@ -52,19 +59,23 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
             <tr>
                 <th>#</th>
                 <th>Grade</th>
-                <th>Position </th>
+                <!--<th>Department</th>-->
+                <th>Position</th>
+                <th>PTJ</th>
                 <th>Total</th>
                 <th>Setup</th>
             </tr>
         </thead>
         <tbody>
-            <% for (int i = 0; i < data.size(); i++) { %>
+            <% for (int i = 0; i < d_test.size(); i++) { %>
             <tr>
                 <td><%=i+1 %></td>
-                <td><%=data.get(i).get(0) %></td>
-                <td><%=data.get(i).get(1) %></td>
-                <td><span class="badge"><%=data.get(i).get(4) %></span></td>
-                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_setup.jsp&w_refid=<%=data.get(i).get(3) %>" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
+                <td><%=d_test.get(i).get(0) %></td>
+                <!--<td><%=d_test.get(i).get(1) %></td>-->
+                <td><%=d_test.get(i).get(2) %></td>
+                <td><%=d_test.get(i).get(3) %></td>
+                <td><span class="badge"><%=d_test.get(i).get(4) %></span></td>
+                <td><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj_setup2.jsp&wjc=<%=d_test.get(i).get(0) %>&wdc=<%=d_test.get(i).get(1) %>" class="btn btn-info btn-sm" role="button"><i class="fa fa-file-text-o"></i></a></td>
             </tr>
             <% } %>
         </tbody>

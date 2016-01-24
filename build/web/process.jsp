@@ -1,3 +1,4 @@
+<%@page import="helpers.Func"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="controller.Session"%>
 <%@page import="libraries.My_func"%>
@@ -11,7 +12,9 @@ try {
 } catch (Exception e) {
     pageURL = pageURLTemp;
 }
+
 session.setAttribute(Session.SESSION_KEY, pageURL);
+
 
 Enumeration en = request.getParameterNames();
 while (en.hasMoreElements()) {

@@ -1,62 +1,133 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%
+String sql = "SELECT tsd.tsdb_refid, tsd.tsdb_set_name, tst.tst_type "
+        + "FROM test_set_db tsd, test_set_type tst "
+        + "WHERE tsd.tst_refid = tst.tst_refid ";  
+String param[] = {};
+MainClient mc = new MainClient(DBConn.getHost());
+ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+
+//out.print(d); if (true) { return; }
+%>
+
+<script>
+$(document).ready(function(){
+    $('#myTable1').DataTable();
+});
+</script>
+
+<button type="button" data-toggle="modal" data-target="#myModal1"> Add </button>
+
 <div class="row">
-    <div class="well">
-        <div class="row">
-            <div class="col-sm-12"> Setup E-Test</div>
-        </div>
-        <!-- /.row -->
-        <br/><br/>
-        <div class="row">
-            <form class="form-horizontal" id="frm" name="frm" action="#" method="POST" role="form">
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Set Soalan</label>
-                    <div class="col-lg-2">
-                        <input type="text" id="txtSet" name="txtSet" class="form-control" Placeholder="1" Required />
-                    </div>
+    <div class="col-md-12">
+        
+        <table class="table table-bordered" id="myTable1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Set Name</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (int i = 0; i < d.size(); i++) { %>
+                <tr>
+                    <td><%=i+1 %></td>
+                    <td><%=d.get(i).get(1) %></td>
+                    <td><%=d.get(i).get(2) %></td>
+                    <td>
+                        <a href="#!" data-toggle="modal" data-target="#myModal_<%=i %>"><span class="glyphicon glyphicon-edit"></span></a>
+                        <a href="#!"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+            
+<!-- Modal -->
+<div id="myModal1" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <!--<form method="post" action="Register">-->
+            <form method="post" action="process/bpsm/eTest/setSetup.jsp">
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Test Setup</h4>
                 </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">No Soalan</label>
-                    <div class="col-lg-2">
-                        <input type="text" id="txtNo" name="txtNo" class="form-control" Placeholder="#1" Required="true"/>
-                    </div>
+                <div class="modal-body">
+
+                    <fieldset>
+                        <label for="id">Test Set Name</label>
+                        <input type="text" id="tsdb_set_name" name="tsdb_set_name" class="form-control" placeholder="Example: Math 1">
+                        <label for="name">Category</label>
+                        <%
+                        String sql2 = "SELECT tst.tst_refid, tst.tst_type "
+                                + "FROM test_set_type tst ";
+                        String param2[] = {};
+                        MainClient mc2 = new MainClient(DBConn.getHost());
+                        ArrayList<ArrayList<String>> d2 = mc2.getQuery(sql2, param2);
+                        %>
+                        <select name="tst_refid">
+                            <% for (int i = 0; i < d2.size(); i++) { %>
+                            <option value="<%=d2.get(i).get(0) %>"><%=d2.get(i).get(1).toUpperCase() %></option>
+                            <% } %>
+                        </select>
+                    </fieldset>
                 </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Soalan</label>
-                    <div class="col-lg-8">
-                        <textarea id="txtSoalan" name="txtSoalan" class="form-control" Placeholder="Soalan" Rows="3" Required="true"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">Jawapan</label>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">A</label>
-                    <div class="col-lg-4">
-                        <input type="text" id="txtJA" name="txtJA" class="form-control" Placeholder="Option A" Required="true"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">B</label>
-                    <div class="col-lg-4">
-                        <input type="text" id="txtJB" name="txtJB" class="form-control" Placeholder="Option B" Required="true"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">C</label>
-                    <div class="col-lg-4">
-                        <input type="text" id="txtJC" name="txtJC" class="form-control" Placeholder="Option C" Required="true"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-2 control-label">D</label>
-                    <div class="col-lg-4">
-                        <input type="text" id="txtJD" name="txtJD" class="form-control" Placeholder="Option D" Required="true"/>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-success">Save</button>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Submit</button>
                 </div>
             </form>
         </div>
     </div>
-
 </div>
+              
+<% out.print(d.size()); for (int i = 0; i < d.size(); i++) { %>
+<!-- Modal -->
+<div id="myModal_<%=i %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <!--<form method="post" action="Register">-->
+            <form method="post" action="process/bpsm/eTest/setSetupUpdate.jsp">
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Test Setup</h4>
+                </div>
+                <div class="modal-body">
+
+                    <fieldset>
+                        <label for="id">Test Set Name</label>
+                        <input type="text" id="tsdb_set_name" name="tsdb_set_name" class="form-control" placeholder="Example: Math 1" value="<%=d.get(i).get(1) %>">
+                        <label for="name">Category</label>
+                        <%
+                        String sql3 = "SELECT tst.tst_refid, tst.tst_type "
+                                + "FROM test_set_type tst ";
+                        String param3[] = {};
+                        MainClient mc3 = new MainClient(DBConn.getHost());
+                        ArrayList<ArrayList<String>> d3 = mc3.getQuery(sql3, param3);
+                        %>
+                        <select name="tst_refid">
+                            <% for (int j = 0; i < d3.size(); i++) { %>
+                            <option value="<%=d3.get(i).get(0) %>"><%=d3.get(i).get(1).toUpperCase() %></option>
+                            <% } %>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<% } %>
