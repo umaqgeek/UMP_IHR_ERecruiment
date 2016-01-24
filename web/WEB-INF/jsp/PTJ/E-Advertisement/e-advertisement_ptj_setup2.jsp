@@ -1,3 +1,4 @@
+<%@page import="config.Config"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
@@ -43,16 +44,20 @@ if (data1.size() == 0) {
     return;
 }
 
+//String query2 = "SELECT * "
+//        + "FROM area_expertise ";
 String query2 = "SELECT * "
-        + "FROM area_expertise ";
+        + "FROM expertise_area ";
 MainClient mc2 = new MainClient(DBConn.getHost());
 String params2[] = {};
 ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
 
-String sql_campus = "SELECT ld.ld_desc "
-        + "FROM lookup_detail ld, lookup_master lm "
-        + "WHERE ld.lm_refid = lm.lm_refid "
-        + "AND lm.lm_desc = 'Campus' ";
+//String sql_campus = "SELECT ld.ld_desc "
+//        + "FROM lookup_detail ld, lookup_master lm "
+//        + "WHERE ld.lm_refid = lm.lm_refid "
+//        + "AND lm.lm_desc = 'Campus' ";
+String sql_campus = "SELECT cm.cm_code, cm.cm_description "
+        + "FROM campus_main cm ";
 String param_campus[] = {};
 MainClient mc_campus = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_campus);
@@ -64,10 +69,10 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
 
 <form action="process/ptj/eAds/eAds1.jsp" method="post" id="form_eads1">
     <div class="row">
-        Grade: <%=data1.get(0).get(1) %> <br />
+        Grade: <%=data1.get(0).get(0) %> <br />
         Position: <%=data1.get(0).get(2) %> <br />
         PTJ: <%=data1.get(0).get(3) %> <br />
-        <input type="hidden" name="pph_grade" value="<%=data1.get(0).get(1) %>" />
+        <input type="hidden" name="pph_grade" value="<%=data1.get(0).get(0) %>" />
         <input type="hidden" name="pph_position" value="<%=data1.get(0).get(2) %>" />
         <input type="hidden" name="pph_ptj" value="<%=data1.get(0).get(3) %>" />
     </div>
@@ -86,13 +91,25 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
             <tbody>
                 <% int num_vp_refid = 0; %>
                 <% for (int i = 0; i < data1.size(); i++) { num_vp_refid += 1; %>
-                <tr>
-                    <td><%=data1.get(i).get(6) %></td>
+                <tr id="oriAdd">
+                    <td><%
+                    String sql_job_status = "SELECT JSM.JSM_JOB_CODE, JSM.JSM_JOD_DESC "
+                            + "FROM JOB_STATUS_MAIN JSM "
+                            + "ORDER BY JSM.JSM_JOD_DESC ASC ";
+                    String param_job_status[] = {};
+                    MainClient mc_job_status = new MainClient(DBConn.getHost());
+                    ArrayList<ArrayList<String>> d_job_status = mc_job_status.getQuery(sql_job_status, param_job_status);
+//                    out.print(d_job_status); if (true) { return; }
+                    %>
+                    <select name="vpp_job_status_<%=i %>">
+                        <% for (int j = 0; j < d_job_status.size(); j++) { %>
+                        <option value="<%=d_job_status.get(j).get(0) %>"><%=d_job_status.get(j).get(1) %></option>
+                        <% } %>
+                    </select>
+                    </td>
                     <td>
-                        <input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(5) %>" />
-                        <input type="hidden" name="vpp_job_status_<%=i %>" value="<%=data1.get(i).get(6) %>" />
                         <select name="vpp_total_<%=i %>">
-                            <% for (int j = 0; j <= Integer.parseInt(data1.get(i).get(7)); j++) { %>
+                            <% for (int j = 0; j <= 50; j++) { %>
                             <option value="<%=j %>"><%=j %></option>
                             <% } %>
                         </select>
@@ -100,21 +117,34 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
                     <td>
                         <select name="vpp_campus_<%=i %>">
                             <% for (int j = 0; j < d_campus.size(); j++) { %>
-                            <option value="<%=d_campus.get(j).get(0) %>"><%=d_campus.get(j).get(0) %></option>
+                            <option value="<%=d_campus.get(j).get(1) %>"><%=d_campus.get(j).get(1) %></option>
                             <% } %>
                         </select>
                     </td>
-<!--                    <td>
-                        <button type="button">
-                            <i class="glyphicon glyphicon-plus"></i> Add
+                    <td>
+                        <button type="button" class="addRow1">
+                            <i class="glyphicon glyphicon-plus"></i>
                         </button>
-                    </td>-->
+                    </td>
                 </tr>
                 <% } %>
             </tbody>
         </table>
-            <input type="hidden" name="num_vp_refid" value="<%=num_vp_refid %>" />
+            <input type="hidden" name="num_vp_refid" id="num_vp_refid" value="<%=num_vp_refid %>" />
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".addRow1").click(function() {
+                var i = $("#num_vp_refid").val();
+                $.post("<%=Config.getBase_url(request) %>process/ptj/eAds/ajax/vacancy_setup.jsp", {i:i}).done(function(data) {
+                    $("#oriAdd").after(data);
+                    $("#num_vp_refid").val(parseInt(i)+1);
+                });
+            });
+        });
+    </script>
+
     <hr />
     <div class="row">            
         Special Competence (PTJ):- <br />
@@ -172,10 +202,16 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
     <div class="row">
         Area of Expertise  (PTJ):- <br />
         <% int num_ae_refid = 0; %>
+        <!--<select multiple name="ea_expert_code">-->
         <% for (int i = 0; i < ae.size(); i++) { num_ae_refid += 1; %>
-        <input type="checkbox" value="<%=ae.get(i).get(0) %>" name="ae_refid_<%=i %>" /> <%=ae.get(i).get(1) %> <br />
+        <!--<option value="<%=ae.get(i).get(0) %>"><%=ae.get(i).get(1) %></option>-->
+        <!--<label><input type="checkbox" value="<%=ae.get(i).get(0) %>" name="ae_refid_<%=i %>" /> <%=ae.get(i).get(1) %></label> <br />-->
+        <label><input type="checkbox" value="<%=ae.get(i).get(0) %>" name="ea_expert_code_<%=i %>" /> <%=ae.get(i).get(1) %></label> <br />
         <% } %>
-        <input type="hidden" name="num_ae_refid" value="<%=num_ae_refid %>" />
+        <!--</select>-->
+        <!-- textarea multi list -->
+        <!--<input type="hidden" name="num_ae_refid" value="<%=num_ae_refid %>" />-->
+        <input type="hidden" name="num_ea_expert_code" value="<%=num_ae_refid %>" />
     </div>
     <hr />
     <div class="row">

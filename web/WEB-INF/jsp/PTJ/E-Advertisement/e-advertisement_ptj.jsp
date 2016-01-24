@@ -42,7 +42,8 @@ String param_test[] = {};
 MainClient mc_test = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
 
-out.print(sql_test); if (true) { return; };
+//out.print(d_test); if (true) { return; };
+//out.print(sql_test); if (true) { return; };
 %>
 
 <script>
@@ -103,6 +104,7 @@ out.print(sql_test); if (true) { return; };
                 <th>Total</th>
                 <th>Status</th>
                 <th>Action</th>
+                <th><a href="process/ptj/eAds/ePublishAll.jsp">Publish All</a></th>
             </tr>
         </thead>
         <tbody>
@@ -116,6 +118,12 @@ out.print(sql_test); if (true) { return; };
                 <td>
                     <% if (pph.get(i).get(4).toUpperCase().equals("ENTRY".toUpperCase())) { %>
                     <a href="process/ptj/eAds/eAdsSavedDelete.jsp?pph=<%=pph.get(i).get(0) %>"> X </a>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (pph.get(i).get(4).toUpperCase().equals("ENTRY".toUpperCase())) { %>
+                    <!--<input type="checkbox" id="publish_<%=i %>" />--> 
+                    <a href="process/ptj/eAds/ePublish1.jsp?pph=<%=pph.get(i).get(0)%>">Publish</a>
                     <% } %>
                 </td>
             </tr>

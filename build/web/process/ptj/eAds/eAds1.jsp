@@ -43,47 +43,49 @@ if (pph_refid != "0" && pph_refid != null && pph_refid != "-1") {
     
     for (int i = 0; i < Integer.parseInt(request.getParameter("num_vp_refid")); i++) {
         String query_VPP = "INSERT INTO vacancy_pos_ptj(pph_refid, vpp_total, "
-                + "vpp_campus, vpp_job_status, vp_refid) VALUES(?, ?, ?, ?, ?)";
+                + "vpp_campus, vpp_job_status) VALUES(?, ?, ?, ?)";
         String vpp_total = request.getParameter("vpp_total_"+i);
-        String vp_refid = request.getParameter("vp_refid_"+i);
+//        String vp_refid = request.getParameter("vp_refid_"+i);
         String vpp_campus = request.getParameter("vpp_campus_"+i);
         String vpp_job_status = request.getParameter("vpp_job_status_"+i);
         String params_vpp[] = {
             pph_refid,
             vpp_total,
             vpp_campus,
-            vpp_job_status,
-            vp_refid
+            vpp_job_status
+//            vp_refid
         };
 //        if (Integer.parseInt(vpp_total) > 0) {
             MainClient mc_vpp = new MainClient(DBConn.getHost());
             mc_vpp.setQuery(query_VPP, params_vpp);
             
-            String query_vp1 = "SELECT vp.vp_total FROM vacancy_pos vp WHERE vp.vp_refid = ? ";
-            String params_vp1[] = { vp_refid };
-            MainClient mc_vp1 = new MainClient(DBConn.getHost());
-            ArrayList<ArrayList<String>> data_vp1 = mc_vp1.getQuery(query_vp1, params_vp1);
-            
-            int vp_total_old = (data_vp1.size() > 0) ? (Integer.parseInt(data_vp1.get(0).get(0))) : (0);
-            int vpp_total_new = Integer.parseInt(vpp_total);
-            int vp_total_new = (vp_total_old - vpp_total_new <= 0) ? (0) : (vp_total_old - vpp_total_new);
-            String vp_total = String.valueOf(vp_total_new);
-            
-            String query_vp2 = "UPDATE vacancy_pos SET vp_total = ? WHERE vp_refid = ? ";
-            String params_vp2[] = {vp_total, vp_refid};
-            MainClient mc_vp2 = new MainClient(DBConn.getHost());
-            mc_vp2.setQuery(query_vp2, params_vp2);
+//            String query_vp1 = "SELECT vp.vp_total FROM vacancy_pos vp WHERE vp.vp_refid = ? ";
+//            String params_vp1[] = { vp_refid };
+//            MainClient mc_vp1 = new MainClient(DBConn.getHost());
+//            ArrayList<ArrayList<String>> data_vp1 = mc_vp1.getQuery(query_vp1, params_vp1);
+//            
+//            int vp_total_old = (data_vp1.size() > 0) ? (Integer.parseInt(data_vp1.get(0).get(0))) : (0);
+//            int vpp_total_new = Integer.parseInt(vpp_total);
+//            int vp_total_new = (vp_total_old - vpp_total_new <= 0) ? (0) : (vp_total_old - vpp_total_new);
+//            String vp_total = String.valueOf(vp_total_new);
+//            
+//            String query_vp2 = "UPDATE vacancy_pos SET vp_total = ? WHERE vp_refid = ? ";
+//            String params_vp2[] = {vp_total, vp_refid};
+//            MainClient mc_vp2 = new MainClient(DBConn.getHost());
+//            mc_vp2.setQuery(query_vp2, params_vp2);
 //        }
     }
     
-    for (int i = 0; i < Integer.parseInt(request.getParameter("num_ae_refid")); i++) {
-        String query_AE = "INSERT INTO area_expertise_ptj(ae_refid, pph_refid) VALUES(?, ?)";
-        String ae_refid = request.getParameter("ae_refid_"+i);
+    for (int i = 0; i < Integer.parseInt(request.getParameter("num_ea_expert_code")); i++) {
+        String query_AE = "INSERT INTO area_expertise_ptj(ea_expert_code, pph_refid) VALUES(?, ?)";
+//        String ae_refid = request.getParameter("ae_refid_"+i);
+        String ea_expert_code = request.getParameter("ea_expert_code_"+i);
         String params_AE[] = {
-            ae_refid,
+//            ae_refid,
+            ea_expert_code,
             pph_refid
         };
-        if (ae_refid != "" && ae_refid != null) {
+        if (ea_expert_code != "" && ea_expert_code != null) {
             MainClient mc_ae = new MainClient(DBConn.getHost());
             mc_ae.setQuery(query_AE, params_AE);
         }

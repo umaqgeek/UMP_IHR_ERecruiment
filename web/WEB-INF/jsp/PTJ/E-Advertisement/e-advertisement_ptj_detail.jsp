@@ -31,13 +31,15 @@ ArrayList<ArrayList<String>> data1 = mc.getQuery(query, params);
 
 //out.print(data1); if (true) { return; }
 
+//String query2 = "SELECT * "
+//        + "FROM area_expertise ";
 String query2 = "SELECT * "
-        + "FROM area_expertise ";
+        + "FROM expertise_area ";
 MainClient mc2 = new MainClient(DBConn.getHost());
 String params2[] = {};
 ArrayList<ArrayList<String>> ae = mc2.getQuery(query2, params2);
 
-String query3 = "SELECT aep.ae_refid "
+String query3 = "SELECT aep.ea_expert_code "
         + "FROM position_ptj_hr pph, area_expertise_ptj aep "
         + "WHERE pph.pph_refid = aep.pph_refid "
         + "AND pph.pph_refid = ? ";
@@ -47,15 +49,17 @@ ArrayList<ArrayList<String>> data3 = mc3.getQuery(query3, params3);
 
 //out.print(data3); if (true) { return; }
 
-String sql_campus = "SELECT ld.ld_desc "
-        + "FROM lookup_detail ld, lookup_master lm "
-        + "WHERE ld.lm_refid = lm.lm_refid "
-        + "AND lm.lm_desc = 'Campus' ";
+//String sql_campus = "SELECT ld.ld_desc "
+//        + "FROM lookup_detail ld, lookup_master lm "
+//        + "WHERE ld.lm_refid = lm.lm_refid "
+//        + "AND lm.lm_desc = 'Campus' ";
+String sql_campus = "SELECT cm.cm_code, cm.cm_description "
+        + "FROM campus_main cm ";
 String param_campus[] = {};
 MainClient mc_campus = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_campus);
 
-//out.print(data3);
+//out.print(d_campus); if (true) { return; }
 %>
 
 <ul>
@@ -86,10 +90,10 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
                 </tr>
             </thead>
             <tbody>
-                <% int num_vp_refid = 0; %>
-                <% for (int i = 0; i < data1.size(); i++) { num_vp_refid += 1; %>
+                <% int num_vpp_refid = 0; %>
+                <% for (int i = 0; i < data1.size(); i++) { num_vpp_refid += 1; %>
                 <tr>
-                    <td><%=data1.get(i).get(10) %></td>
+                    <td><%=data1.get(i).get(8) %></td>
                     <td>
                         <!--<input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(8) %>" />-->
                         <input type="hidden" name="vpp_refid_<%=i %>" value="<%=data1.get(i).get(11) %>" />
@@ -98,23 +102,22 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
                         <select name="vpp_total_new_<%=i %>">
                             <% 
 //                            int parent_total = Integer.parseInt(data1.get(i).get(9));
-//                            int child_total = Integer.parseInt(data1.get(i).get(11));
+                            int child_total = Integer.parseInt(data1.get(i).get(9));
 //                            int parent_child_total = parent_total + child_total;
                             int parent_child_total = 20;
                             for (int j = 0; j <= parent_child_total; j++) { 
                             %>
-                            <!--<option value="<%=j %>" <% // if (j==child_total) { out.print("selected"); } %>><%=j %></option>-->
-                            <option value="<%=j %>" <% // if (j==child_total) { out.print("selected"); } %>><%=j %></option>
+                            <option value="<%=j %>" <% if (j==child_total) { out.print("selected"); } %>><%=j %></option>
                             <% } %>
                         </select>
                     </td>
                     <td>
                         <select name="vpp_campus_<%=i %>">
                             <% for (int j = 0; j < d_campus.size(); j++) { %>
-                            <option value="<%=d_campus.get(j).get(0) %>" 
-                                    <% if (d_campus.get(j).get(0).toUpperCase().equals(data1.get(i).get(12).toUpperCase())) { 
+                            <option value="<%=d_campus.get(j).get(1) %>" 
+                                    <% if (d_campus.get(j).get(1).toUpperCase().equals(data1.get(i).get(10).toUpperCase())) { 
                                         out.print("selected");
-                                    } %> ><%=d_campus.get(j).get(0) %></option>
+                                    } %> ><%=d_campus.get(j).get(1) %></option>
                             <% } %>
                         </select>
                     </td>
@@ -127,7 +130,7 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
                 <% } %>
             </tbody>
         </table>
-            <input type="hidden" name="num_vp_refid" value="<%=num_vp_refid %>" />
+            <input type="hidden" name="num_vp_refid" value="<%=num_vpp_refid %>" />
     </div>
     <hr />
     <div class="row">            
@@ -187,16 +190,19 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
         Area of Expertise  (PTJ):- <br />
         <% int num_ae_refid = 0; %>
         <% for (int i = 0; i < ae.size(); i++) { num_ae_refid += 1; %>
-        <input type="checkbox" value="<%=ae.get(i).get(0) %>" name="ae_refid_<%=i %>" <% 
+        
+        <label><input type="checkbox" value="<%=ae.get(i).get(0) %>" name="ea_expert_code_<%=i %>" <% 
         for (int j = 0; j < data3.size(); j++) {
             if (data3.get(j).get(0).equals(ae.get(i).get(0))) {
                 out.print("checked");
                 break;
             }
         }
-        %> /> <%=ae.get(i).get(1) %> <br />
+        %> /> <%=ae.get(i).get(1) %></label> <br />
+        
         <% } %>
-        <input type="hidden" name="num_ae_refid" value="<%=num_ae_refid %>" />
+        <!--<input type="hidden" name="num_ae_refid" value="<%=num_ae_refid %>" />-->
+        <input type="hidden" name="num_ea_expert_code" value="<%=num_ae_refid %>" />
     </div>
     <hr />
     <div class="row">
@@ -208,7 +214,7 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
             CKEDITOR.replace('editor4');
         </script>
     </div>
-<% if (data1.get(0).get(15).toUpperCase().equals("ENTRY".toUpperCase())) { %>
+<% if (data1.get(0).get(12).toUpperCase().equals("ENTRY".toUpperCase())) { %>
     <hr />
     <div class="row">
         <input type="button" value="SAVE" id="btn_save" /> 
@@ -218,7 +224,7 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
     <hr />
     <input type="hidden" name="pph_status" id="button_type" value="-" />
     <input type="hidden" name="pph_refid" value="<%=pph_refid %>" />
-<% if (data1.get(0).get(15).toUpperCase().equals("ENTRY".toUpperCase())) { %>
+<% if (data1.get(0).get(12).toUpperCase().equals("ENTRY".toUpperCase())) { %>
 </form>
     
 <script>
