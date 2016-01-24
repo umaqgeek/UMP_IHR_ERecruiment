@@ -1,27 +1,30 @@
 
+<%@page import="eOffer.E_Offer_Function"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="models.DBConn"%>
 <%@page import="controller.Session"%>
 <%  
-    String filter_stat_pass = "PASS ALL";
-    String pa_stat_pending = "OFFER PENDING";
-    String pa_stat_accepted = "OFFER ACCEPTED";
-    String pa_stat_accepted_another = "ANOTHER OFFER ACCEPTED";
-    String pa_stat_rejected = "OFFER REJECTED";
-    String pa_stat_offerSent = "OFFER SENT";
+    E_Offer_Function eliminate = new E_Offer_Function();
+    String filter_stat_pass = "PASS_ALL";
+    String pa_stat_pending = "OFFER_PENDING";
+    String pa_stat_accepted = "OFFER_ACCEPTED";
+    String pa_stat_accepted_another = "ANOTHER_OFFER_ACCEPTED";
+    String pa_stat_rejected = "OFFER_REJECTED";
+    String pa_stat_offerSent = "OFFER_SENT";
     String pa_stat_activated = "ACTIVATED";
     String action_send_btn = "disabled";
     String action_setup_btn = "active";
     
     String sql = "SELECT PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS, PA.PA_REFID, PPH.PPH_GRADE, PPH.PPH_PTJ, "
-            + "L.L_ICNO ,PA.PA_CAMPUS, PA.PA_SALARY, PA.PA_JOB_STATUS "
-            + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, FILTER F "
+            + "L.L_ICNO ,PA.PA_CAMPUS, PA.PA_SALARY, PA.PA_JOB_STATUS, FS.FS_DESC, PPH.PPH_SALARY_MIN, PPH.PPH_SALARY_MAX "
+            + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, FILTER F, FILTER_STATUS FS "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
             + "AND PPH.PPH_REFID=PA.PPH_REFID "
             + "AND PA.PA_REFID=F.PA_REFID "
-            + "AND F.F_STATUS = ? "
+            + "AND PA.PA_STATUS=FS.FS_CODE "
+            + "AND F.FS_CODE = ? "
             + "ORDER BY L.L_ICNO ASC";
     String params[] = { filter_stat_pass };
     MainClient mc = new MainClient(DBConn.getHost());
@@ -38,13 +41,13 @@
             <table class="table table-bordered" width="100%">
                 <thead>
                     <tr>
-                        <th style="text-align:center; vertical-align: middle; width:1%">No.</th>
+                        <th style="text-align:center; vertical-align: middle; width:1%">#</th>
                         <th style="text-align:center; vertical-align: middle; width:5%">Grade</th>
-                        <th style="text-align:center; vertical-align: middle; width:25%">Position</th>
+                        <th style="text-align:center; vertical-align: middle; width:15%">Position</th>
                         <th style="text-align:center; vertical-align: middle; width:5%">PTJ</th>
-                        <th style="text-align:center; vertical-align: middle; width:25%">Candidate Name</th>
+                        <th style="text-align:center; vertical-align: middle; width:15%">Candidate Name</th>
                         <th style="text-align:center; vertical-align: middle; width:10%">IC Number</th>
-                        <th style="text-align:center; vertical-align: middle; width:10%">Offer Status</th>
+                        <th style="text-align:center; vertical-align: middle; width:15%">Offer Status</th>
                         <th style="text-align:center; vertical-align: middle; width:10%" colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -69,37 +72,37 @@
                         if(data.get(row).get(3).equalsIgnoreCase(pa_stat_activated))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: palevioletred"><%=data.get(row).get(3) %></td>
+                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: palevioletred" title="<%=data.get(row).get(11) %>"><%=eliminate.eliminateUnderscore(data.get(row).get(3)) %></td>
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: green"><%=data.get(row).get(3) %></td>
+                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: green" title="<%=data.get(row).get(11) %>"><%=eliminate.eliminateUnderscore(data.get(row).get(3)) %></td>
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_rejected))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: red"><%=data.get(row).get(3) %></td>
+                            <td style="vertical-align: middle; text-align: center;font-weight: bold; color: red" title="<%=data.get(row).get(11) %>"><%=eliminate.eliminateUnderscore(data.get(row).get(3)) %></td>
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_pending))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><%=data.get(row).get(3) %></td>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;" title="<%=data.get(row).get(11) %>"><%=eliminate.eliminateUnderscore(data.get(row).get(3)) %></td>
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_offerSent))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold; color: orange"><%=data.get(row).get(3) %></td>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold; color: orange" title="<%=data.get(row).get(11) %>"><%=eliminate.eliminateUnderscore(data.get(row).get(3)) %></td>
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted_another))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold; color: orange"><%=data.get(row).get(3) %></td>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold; color: tomato" title="<%=data.get(row).get(11) %>"><%=eliminate.eliminateUnderscore(data.get(row).get(3)) %></td>
                             <%
                         }
                         
@@ -143,7 +146,7 @@
                 {
                     %>
                     <tr>
-                        <td colspan="7" style="font-weight: bold; vertical-align: middle; text-align: center; color: red">No Offer</td>
+                        <td colspan="8" style="font-weight: bold; vertical-align: middle; text-align: center; color: red">No Offer</td>
                     </tr>
                     <%
                 }
@@ -179,7 +182,7 @@ if(data.size()>0)
                                 <input type="hidden" name="pa_refid" class="form-control" value="<%=data.get(row3).get(4) %>">
                                 <div class="form-group">
                                     <label class="col-md-2">Grade</label><label class="col-md-1">:</label>
-                                    <label class="col-md-9"><%=data.get(row3).get(5) %> </label>
+                                    <label class="col-md-9"><%=data.get(row3).get(5) %> (Expected Salary : RM <%=data.get(row3).get(12) %> - RM <%=data.get(row3).get(13) %>) </label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2">Position</label><label class="col-md-1">:</label>

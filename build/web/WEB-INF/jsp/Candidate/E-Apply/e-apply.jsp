@@ -3,6 +3,7 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.Enumeration"%>
+<%@page import="helpers.Func"%>
 
 <link rel="stylesheet" href="<%=Config.getBase_url(request)%>assets/css/jquery-ui.css">
 <script src="<%=Config.getBase_url(request)%>assets/js/jquery-ui.js"></script>
@@ -38,11 +39,11 @@
 
     String query_address = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324570.621'";
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324570.621' ";
 
     String query_address2 = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324578.698'";
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324578.698' ";
 
     String query_login = "SELECT * "
             + "FROM login1 "
@@ -276,11 +277,11 @@
                                                         if (ppha5 != null && ppha5 != "" && !ppha5.equals("")) {
                                                             if (ppha5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>" selected><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -292,7 +293,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
                                                     }
@@ -400,7 +401,7 @@
                                         String query_gender = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                 + "FROM LOOKUP_DETAIL JOIN "
                                                 + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                + "WHERE LOOKUP_DETAIL.LM_REFID = '1451506908.362' ";
+                                                + "WHERE LOOKUP_DETAIL.LM_REFID = '1451506908.362'";
 
                                         MainClient mc_gender = new MainClient(DBConn.getHost());
                                         String params_gender[] = {};
@@ -425,23 +426,23 @@
                                                                 if (pph6.equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" checked="checked" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>"/>
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" checked="checked" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>"/>
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                     } else {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>" />
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                         }
                                                     } else {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>" />
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                             }
@@ -479,11 +480,11 @@
                                                         if (pph7 != null && pph7 != "" && !pph7.equals("")) {
                                                             if (pph7.equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
                                                 %>
-                                                <option selected value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option selected value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -495,7 +496,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
 
@@ -530,11 +531,11 @@
                                                         if (pph8 != null && pph8 != "" && !pph8.equals("")) {
                                                             if (pph8.equalsIgnoreCase(pph_race.get(i).get(0).toString())) {
                                                 %>
-                                                <option selected value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option selected value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -546,7 +547,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
                                                     }
@@ -699,11 +700,11 @@
                                                     if (pphaa5 != null && pphaa5 != "" && !pphaa5.equals("")) {
                                                         if (pphaa5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>" selected><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                             } else {
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                                 }
                                             } else {
@@ -715,7 +716,7 @@
                                                 }
 
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                                     }
                                                 }
@@ -766,24 +767,24 @@
                                                         if (pph9.equalsIgnoreCase(pph_nationality.get(i).get(0).toString())) {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" checked="checked" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString());%>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" checked="checked" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
 
                                             <%
                                             } else {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
                                             <%
                                                 }
                                             } else {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
                                             <%
                                                     }
@@ -821,11 +822,11 @@
                                                     if (pph12 != null && pph12 != "" && !pph12.equals("")) {
                                                         if (pph12.equalsIgnoreCase(pph_marriage.get(i).get(0).toString())) {
                                             %>
-                                            <option selected value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option selected value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                             } else {
                                             %>
-                                            <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                                 }
                                             } else {
@@ -837,7 +838,7 @@
                                                 }
 
                                             %>
-                                            <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                                     }
                                                 }
@@ -855,14 +856,14 @@
 
                                     String query_cvehicle = "SELECT * "
                                             + "FROM DRIVER_LICENSE "
-                                            + "WHERE C_REFID = " + c_refid;
-
+                                            + "WHERE C_REFID = ?";
+                                  
                                     MainClient mc_vehicle = new MainClient(DBConn.getHost());
                                     String params_vehicle[] = {};
-                                    String params_cvehicle[] = {};
+                                    String params_cvehicle[] = {c_refid.toString()};
                                     ArrayList<ArrayList<String>> pph_vehicle = mc_vehicle.getQuery(query_vehicle, params_vehicle);
                                     ArrayList<ArrayList<String>> pph_cvehicle = mc_vehicle.getQuery(query_cvehicle, params_cvehicle);
-
+ 
                                     String pphcv = "";
                                     try {
                                         pphcv = pph_cvehicle.get(0).get(1);
@@ -878,9 +879,11 @@
                                     }
 
                                     String license_list = "";
+                                    
                                     //provide dropdown list
                                     if (!pph_vehicle.isEmpty()) {
-                                        license_list = "<select>";
+                                        
+                                        license_list = "<select id='dl_code' class='vehicle' name='dl_code'>";
                                         for (int i = 0; i < pph_vehicle.size(); i++) {
                                             String x = pph_vehicle.get(i).get(0);
 
@@ -888,8 +891,8 @@
                                         }
                                         license_list += "</select>";
                                     }
+                                            
                                 %>
-
                                 <div class="form-group">
                                     <label class="col-lg-5 control-label">
                                         Vehicle license:</label>
@@ -905,21 +908,24 @@
                                                     </thead>
                                                     <tbody>
                                                         <%
+                                                            int license_counter=1;
+                                                           
                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                 for (int x = 0; x < pph_cvehicle.size(); x++) {
                                                         %>
                                                         <tr>
                                                             <td>
-                                                                <select class="form-control" >
-                                                                    <%   for (int i = 0; i < pph_vehicle.size(); i++) {
+                                                                <select id="dl_code_<%=license_counter %>" name="dl_code_<%=license_counter %>" class="form-control vehicle_license" >
+                                                                    <%  
+                                                                        for (int i = 0; i < pph_vehicle.size(); i++) {
                                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                                 if (pphcv.equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
                                                                     %>
-                                                                    <option selected value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option selected value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                     } else {
                                                                     %>
-                                                                    <option value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                         }
                                                                     } else {
@@ -930,7 +936,7 @@
                                                                         }
 
                                                                     %>
-                                                                    <option value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                             }
                                                                         }
@@ -940,14 +946,19 @@
                                                             <td>x</td>
                                                         </tr>
                                                         <%
-                                                                }
-
-                                                            } else {
+                                                                        license_counter++;
                                                             }
+                                                      
+                                                        } else {
+                                                        }
+                                                            String how_many_selects="<scipt>$('select.vehicle_license').length;</script>";
+                                                            //int haha=(int) how_many_selects;
                                                         %>
                                                     </tbody>
                                                 </table>
                                                 <script>
+                                                       
+                                                    var how_many_selects = $('select.vehicle_license').length;
                                                             var tbody2 = $('#tbl_license').children('tbody');
                                                             var table2 = tbody2.length ? tbody2 : $('#tbl_license');
                                                             var row2 = '<tr>' +
@@ -956,13 +967,33 @@
                                                             '</tr>';
                                                             $(document).ready(function() {
                                                     $('#add_license').click(function(){
-                                                    //Add row
-                                                    table2.append(row2.compose({
-                                                    'grade': "<%=license_list%>",
-                                                            'action': "X"
-                                                    }));
+                                                        
+                                                         $.ajax({
+                                                               url: 'process/ajaxVehicle.jsp',
+                                                               type: 'POST',
+                                                               data: {
+                                                                   how_many_selects: how_many_selects
+                               
+                                                               },
+                                                               success: function(data) {
+                                                                  // alert('Update Success' + data);
+                                                               },
+                                                               failure: function(data) {
+                                                                   //alert('Update Failed');
+                                                               }
+                                                           });
+                                                
+                                                
+                                                        //Add row
+                                                        table2.append(row2.compose({
+                                                        'grade': "<%=license_list%>",
+                                                                'action': "X"
+                                                        }));
                                                     });
-                                                    });</script>
+
+                                                    });                                               
+                                                                                                         
+                                                </script>
 
                                                 <div class="row">
                                                     <div class="col-lg-5">
@@ -995,11 +1026,11 @@
                                         <div class="form-inline">
                                             <div class="controls-row">
                                                 <label class="radio inline">
-                                                    <input name="C_ServOfficer" type="radio" value="YES"/>
+                                                    <input name="C_ServOfficer" type="radio" value="YES" />
                                                     YES
                                                 </label>
                                                 <label class="radio inline">
-                                                    <input name="C_ServOfficer" type="radio" value="NO"/>
+                                                    <input name="C_ServOfficer" type="radio" value="NO" checked />
                                                     NO
                                                 </label>
 
@@ -1055,21 +1086,25 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-lg-2">
+                                                        <div class="col-lg-12">
+                                                             <div class="col-lg-2">
                                                             <label>Year : </label>
 
                                                         </div>
 
                                                         <div class="col-lg-3">
+                                                            
                                                             <select name="pmr_tahun" id="pmr_tahun" >
-                                                                <script>
+                                                                
+
+                                                            </select>
+                                                            <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
                                                                             $('#pmr_tahun').append($('<option/>').val(yr).text(yr));
                                                                     };</script>
-
-                                                            </select>
+                                                        </div>
                                                         </div>
 
                                                     </div>
@@ -1101,11 +1136,11 @@
                                                                             if (pph_aci6 != null && pph_aci6 != "" && !pph_aci6.equals("")) {
                                                                                 if (pph_aci6.equalsIgnoreCase(pph_type_academic_info.get(i).get(0).toString())) {
                                                                     %>
-                                                                    <option selected value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option selected value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                     } else {
                                                                     %>
-                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                         }
                                                                     } else {
@@ -1117,7 +1152,7 @@
                                                                         }
 
                                                                     %>
-                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                             }
                                                                         }
@@ -1200,16 +1235,16 @@
                                                                                 });
                                                                                 }
                                                                         }());
-                                                                        var tbody = $('#academic_pmr').children('tbody');
-                                                                        var table = tbody.length ? tbody : $('#academic_pmr');
-                                                                        var row = '<tr>' +
+                                                                        var tbody_pmr = $('#academic_pmr').children('tbody');
+                                                                        var table_pmr = tbody_pmr.length ? tbody_pmr : $('#academic_pmr');
+                                                                        var row_pmr = '<tr>' +
                                                                         '<td>{{subject}}</td>' +
                                                                         '<td>{{grade}}</td>' +
                                                                         '</tr>';
                                                                         $(document).ready(function() {
                                                                 $('#add_pmr').click(function(){
                                                                 //Add row
-                                                                table.append(row.compose({
+                                                                table_pmr.append(row_pmr.compose({
                                                                 'subject': "<%=test%>",
                                                                         'grade': "<%=test%>"
                                                                 }));
@@ -1240,715 +1275,415 @@
                                 </div>
                                 <div id="academicCollapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingTwo">
                                     <div class="panel-body">
-                                        <form id="pmrForm" name="pmrForm" action="pmr.html" method="post" onsubmit="return SendSearch( & #39; pmrForm & #39; );">
+                                        <ul id="psmTabs" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#first_exam" id="first_exam-tab" role="tab" data-toggle="tab" aria-controls="first_exam" aria-expanded="true">First Exam</a>
+                                            </li>
+                                            <li role="presentation"><a href="#second_exam" role="tab" id="second_exam-tab" data-toggle="tab" aria-controls="second_exam">Second Exam</a>
+                                            </li>
+                                           
+                                        </ul>
 
-                                            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" background="bground.png">
+                                        <div id="psmTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="first_exam" aria-labelledby="first_exam-tab">
+                                                <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="psmForm_1" name="psmForm_1" action="pmr.html" method="post">
+                                                
+                                                    <div class="row">
+                                                      <div class="col-lg-12">
+                                                            <div class="col-lg-2">
+                                                            <label>Year : </label>
 
-                                                <tbody><tr>
-                                                        <td>
+                                                        </div>
 
+                                                        <div class="col-lg-3">
+                                                            <select name="psm_tahun" id="psm_tahun" >
+                                                                <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('#psm_tahun').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
 
-                                                            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                                            </select>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Certificate Type : </label>
+                                                            </div>
+                                                            <%
+                                                                String query_type_academic_info2 = "SELECT * "
+                                                                        + "FROM TYPE_ACADEMIC_INFO ";
+
+                                                                MainClient mc_type_academic_info2 = new MainClient(DBConn.getHost());
+                                                                String params_type_academic_info2[] = {};
+                                                                ArrayList<ArrayList<String>> pph_type_academic_info2 = mc_type_academic_info2.getQuery(query_type_academic_info, params_type_academic_info);
+
+                                                                String pph_aci6_2 = "";
+                                                                try {
+                                                                    pph_aci6_2 = pph_academic_info.get(0).get(6);
+                                                                } catch (Exception e) {
+                                                                    pph_aci6_2 = "";
+                                                                }
+                                                            %>
+                                                            <div class="col-lg-6">
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                    <%
+                                                                        for (int i = 0; i < pph_type_academic_info2.size(); i++) {
+                                                                            if (pph_aci6_2 != null && pph_aci6_2 != "" && !pph_aci6_2.equals("")) {
+                                                                                if (pph_aci6_2.equalsIgnoreCase(pph_type_academic_info2.get(i).get(0).toString())) {
+                                                                    %>
+                                                                    <option selected value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                    } else {
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+
+                                                                        if (i == 0) {
+                                                                    %>
+                                                                    <option value="" selected>Please Select</option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Rank : </label>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                    <option value=""> Please select </option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="S">S</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6"><p>Oral Test of Bahasa Melayu / Bahasa Malaysia</p></div>
+                                                                            
+                                                                            <div class="col-lg-3 col-lg-offset-2">
+                                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                                    <option value=""> Please select </option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="B">B</option>
+                                                                                    <option value="C">C</option>
+                                                                                    <option value="S">S</option>
+                                                                                </select>
+                                                                            </div>
+                                                                      
+                                                      
+                                                                    </div>
+
+                                                                </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_psm" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                    </tr>
+                                                                </thead>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td colspan="6" class="body_fnt1"><b>
-                                                                                Instructions:</b><br>
-
-                                                                            For SPM</td>
-                                                                    </tr>
-
-                                                                    <tr>
-                                                                        <td colspan="6"><hr></td>
-                                                                    </tr>
-
-                                                                    <tr>
-                                                                        <!--bye 03/01/2013-->
-                                                                        <td class="dasds" colspan="6" align="center">&nbsp;</td>
-                                                                        <!--bye 03/01/2013-->
-                                                                    </tr>
-
-                                                                    <tr>
-                                                                        <td width="23%" align="right" class="body_fnt1">&nbsp;Year:&nbsp;</td>
-                                                                        <td width="77" colspan="2" class="body_fnt1"><select name="pmr_tahun" id="pmr_tahun" >
-
-                                                                                <option value="">
-                                                                                    Please select</option>
-
-                                                                                <option value="2014">2014</option>
-
-                                                                                <option value="2013">2013</option>
-
-                                                                                <option value="2012">2012</option>
-
-                                                                                <option value="2011">2011</option>
-
-                                                                                <option value="2010">2010</option>
-
-                                                                                <option value="2009">2009</option>
-
-                                                                                <option value="2008">2008</option>
-
-                                                                                <option value="2007">2007</option>
-
-                                                                                <option value="2006">2006</option>
-
-                                                                                <option value="2005">2005</option>
-
-                                                                                <option value="2004">2004</option>
-
-                                                                                <option value="2003">2003</option>
-
-                                                                                <option value="2002">2002</option>
-
-                                                                                <option value="2001">2001</option>
-
-                                                                                <option value="2000">2000</option>
-
-                                                                                <option value="1999">1999</option>
-
-                                                                                <option value="1998">1998</option>
-
-                                                                                <option value="1997">1997</option>
-
-                                                                                <option value="1996">1996</option>
-
-                                                                                <option value="1995">1995</option>
-
-                                                                                <option value="1994">1994</option>
-
-                                                                                <option value="1993">1993</option>
-
-                                                                                <option value="1992">1992</option>
-
-                                                                                <option value="1991">1991</option>
-
-                                                                                <option value="1990">1990</option>
-
-                                                                                <option value="1989">1989</option>
-
-                                                                                <option value="1988">1988</option>
-
-                                                                                <option value="1987">1987</option>
-
-                                                                                <option value="1986">1986</option>
-
-                                                                                <option value="1985">1985</option>
-
-                                                                                <option value="1984">1984</option>
-
-                                                                                <option value="1983">1983</option>
-
-                                                                                <option value="1982">1982</option>
-
-                                                                                <option value="1981">1981</option>
-
-                                                                                <option value="1980">1980</option>
-
-                                                                                <option value="1979">1979</option>
-
-                                                                                <option value="1978">1978</option>
-
-                                                                                <option value="1977">1977</option>
-
-                                                                                <option value="1976">1976</option>
-
-                                                                                <option value="1975">1975</option>
-
-                                                                                <option value="1974">1974</option>
-
-                                                                                <option value="1973">1973</option>
-
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
                                                                             </select>
 
                                                                         </td>
-                                                                        <td align="right"></td>
-                                                                        <td align="right"></td>
-                                                                        <td align="left">&nbsp;</td>
                                                                     </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <%
+                                                                String test2 = "<select><option>tes</option></select>";
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_psm = $('#academic_psm').children('tbody');
+                                                                        var table_psm = tbody_psm.length ? tbody_psm : $('#academic_psm');
+                                                                        var row_psm = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_psm').click(function(){
+                                                                //Add row
+                                                                table_psm.append(row_psm.compose({
+                                                                'subject': "<%=test2%>",
+                                                                        'grade': "<%=test2%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
 
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1"> Type certificate:</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun3" id="pmr_tahun3" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="SPM">SPM</option>
-                                                                                <option value="MCE">MCE</option>
-                                                                                <option value="SPM(V)">SPM(V)</option>
-                                                                                <option value="SPMV">SPMV</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><div align="center">Rank:</div></td>
-                                                                        <td align="left"><span class="body_fnt1">
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_psm" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="second_exam" aria-labelledby="second_exam-tab">
+                                             <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="psmForm_2" name="psmForm_2" action="pmr.html" method="post">
+                                                
+                                                    <div class="row">
+                                                      <div class="col-lg-12">
+                                                            <div class="col-lg-2">
+                                                            <label>Year : </label>
+
+                                                        </div>
+
+                                                        <div class="col-lg-3">
+                                                            <select name="psm_tahun_2" id="psm_tahun_2" >
+                                                                <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('#psm_tahun_2').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+
+                                                            </select>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Certificate Type : </label>
+                                                            </div>
+                                                            <%
+                                                                String query_type_academic_info2_2 = "SELECT * "
+                                                                        + "FROM TYPE_ACADEMIC_INFO ";
+
+                                                                MainClient mc_type_academic_info2_2 = new MainClient(DBConn.getHost());
+                                                                String params_type_academic_info2_2[] = {};
+                                                                ArrayList<ArrayList<String>> pph_type_academic_info2_2 = mc_type_academic_info2_2.getQuery(query_type_academic_info2_2, params_type_academic_info2_2);
+
+                                                                String pph_aci6_2_2 = "";
+                                                                try {
+                                                                    pph_aci6_2_2 = pph_academic_info.get(0).get(6);
+                                                                } catch (Exception e) {
+                                                                    pph_aci6_2_2 = "";
+                                                                }
+                                                            %>
+                                                            <div class="col-lg-6">
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                    <%
+                                                                        for (int i = 0; i < pph_type_academic_info2.size(); i++) {
+                                                                            if (pph_aci6_2 != null && pph_aci6_2 != "" && !pph_aci6_2.equals("")) {
+                                                                                if (pph_aci6_2.equalsIgnoreCase(pph_type_academic_info2.get(i).get(0).toString())) {
+                                                                    %>
+                                                                    <option selected value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                    } else {
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+
+                                                                        if (i == 0) {
+                                                                    %>
+                                                                    <option value="" selected>Please Select</option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Rank : </label>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                    <option value=""> Please select </option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="S">S</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6"><p>Oral Test of Bahasa Melayu / Bahasa Malaysia</p></div>
+                                                                            
+                                                                            <div class="col-lg-3 col-lg-offset-2">
                                                                                 <select name="pmr_tahun2" id="pmr_tahun2" >
                                                                                     <option value=""> Please select </option>
-                                                                                    <option value="1">1</option>
-                                                                                    <option value="2">2</option>
-                                                                                    <option value="3">3</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="6"><hr></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1"><div align="right">Subject:</div></td>
-                                                                        <td colspan="2" class="body_fnt1"><div align="right"></div></td>
-                                                                        <td align="right"><div align="right"></div></td>
-                                                                        <td align="right"><div align="center">Grade:</div></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="6"><hr></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1">BAHASA MALAYSIA</td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun5" id="pmr_tahun5" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
                                                                                     <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
                                                                                     <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
                                                                                     <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
+                                                                                    <option value="S">S</option>
                                                                                 </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="6" align="right" class="body_fnt1">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun6" id="pmr_tahun6" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH">	PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH">	PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun4" id="pmr_tahun4" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun13" id="pmr_tahun13" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun7" id="pmr_tahun7" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun15" id="pmr_tahun15" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun8" id="pmr_tahun8" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun16" id="pmr_tahun16" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun9" id="pmr_tahun9" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun17" id="pmr_tahun17" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun10" id="pmr_tahun10" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun18" id="pmr_tahun18" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun11" id="pmr_tahun11" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun19" id="pmr_tahun19" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun12" id="pmr_tahun12" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun20" id="pmr_tahun20" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun14" id="pmr_tahun14" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                        <td colspan="2" class="body_fnt1"><select name="pmr_tahun21" id="pmr_tahun21" >
-                                                                                <option value=""> Please select </option>
-                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
-                                                                                <option value="English">English</option>
-                                                                                <option value="Mathematics">Mathematics</option>
-                                                                                <option value="Science">Science</option>
-                                                                                <option value="Sejarah">Sejarah</option>
-                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
-                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
-                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
-                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
-                                                                                <option value="LITERATURE IN ENGLISH">LITERATURE IN ENGLISH</option>
-                                                                                <option value="KESUSASTERAAN MELAYU">KESUSASTERAAN MELAYU</option>
-                                                                                <option value="GEOGRAFI">GEOGRAFI</option>
-                                                                                <option value="ADDITIONAL MATHEMATICS">ADDITIONAL MATHEMATICS</option>
-                                                                                <option value="PERDAGANGAN">PERDAGANGAN</option>
-                                                                                <option value="PRINSIP PERAKAUNAN">PRINSIP PERAKAUNAN</option>
-                                                                                <option value="EKONOMI ASAS">EKONOMI ASAS</option>
-                                                                                <option value="PHYSICS">PHYSICS</option>
-                                                                                <option value="CHEMISTRY">CHEMISTRY</option>
-                                                                                <option value="BIOLOGY">BIOLOGY</option>
-                                                                                <option value="ADDITIONAL SCIENCE">ADDITIONAL SCIENCE</option>
-                                                                                <option value="TASAWWUR ISLAM">TASAWWUR ISLAM</option>
-                                                                                <option value="PENDIDIKAN AL-QURAN & AS-SUNNAH"> PENDIDIKAN AL-QURAN & AS-SUNNAH</option>
-                                                                                <option value="	PENDIDIKAN SYARIAH ISLAMIAH"> PENDIDIKAN SYARIAH ISLAMIAH</option>
-                                                                                <option value="ENGLISH FOR SCIENCE AND TECHNOLOGY">ENGLISH FOR SCIENCE AND TECHNOLOGY</option>
-                                                                                <option value="KESUSASTERAAN CINA">KESUSASTERAAN CINA</option>
-                                                                                <option value="KESUSASTERAAN TAMIL">KESUSASTERAAN TAMIL</option>
-                                                                                <option value="BAHASA PERANCIS">BAHASA PERANCIS</option>
-                                                                                <option value="BAHASA PUNJABI">BAHASA PUNJABI</option>
-                                                                                <option value="BAHASA IBAN">BAHASA IBAN</option>
-                                                                                <option value="BAHASA KADAZANDUSUN">BAHASA KADAZANDUSUN</option>
-                                                                            </select></td>
-                                                                        <td align="right">&nbsp;</td>
-                                                                        <td align="right"><span class="body_fnt1">
-                                                                                <select name="pmr_tahun22" id="pmr_tahun22" >
-                                                                                    <option value=""> Please select </option>
-                                                                                    <option value="A+">A+</option>
-                                                                                    <option value="A">A</option>
-                                                                                    <option value="A-">A-</option>
-                                                                                    <option value="B+">B+</option>
-                                                                                    <option value="B">B</option>
-                                                                                    <option value="B-">B-</option>
-                                                                                    <option value="C+">C+</option>
-                                                                                    <option value="C">C</option>
-                                                                                    <option value="C-">C</option>
-                                                                                    <option value="D">D</option>
-                                                                                    <option value="E">E</option>
-                                                                                    <option value="G">G</option>
-                                                                                </select>
-                                                                            </span></td>
-                                                                        <td align="left">&nbsp;</td>
-                                                                    </tr>
-                                                                <td colspan="6"><hr></td>
-                                                                <tr>
-                                                                    <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                    <td colspan="2" class="body_fnt1"><input type="submit" name="ADD" id="ADD" value="+ ADD"></td>
-                                                                    <td align="right">&nbsp;</td>
-                                                                    <td align="right">&nbsp;</td>
-                                                                    <td align="left">&nbsp;</td>
-                                                                </tr>
-                                                                <td colspan="6"><hr></td>
-                                                                <tr>
-                                                                    <td align="right" class="body_fnt1">&nbsp;</td>
-                                                                    <td colspan="2" class="body_fnt1"><input type="submit" name="SAVE" id="SAVE" value="SAVE">&nbsp;&nbsp;
-                                                                        <input type="submit" name="CANCEL" id="CANCEL" value="CANCEL"></td>
+                                                                            </div>
+                                                                      
+                                                      
+                                                                    </div>
 
-                                                                    <td align="right" class="body_fnt1">&nbsp;</td>
+                                                                </div>
 
-                                                                </tr></table><p>&nbsp;</p><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr>
-                                                                    <td align="left">&nbsp;</td>
-                                                                </tr>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_psm_2" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
 
-
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
                                                             </table>
-                                                            </fieldset>
-                                                        </td>
-                                                    </tr>
+                                                            <%
+                                                                String test3 = "<select><option>tes</option></select>";
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_psm_2 = $('#academic_psm_2').children('tbody');
+                                                                        var table_psm_2 = tbody_psm_2.length ? tbody_psm_2 : $('#academic_psm_2');
+                                                                        var row_psm_2 = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_psm_2').click(function(){
+                                                                //Add row
+                                                                table_psm_2.append(row_psm_2.compose({
+                                                                'subject': "<%=test3%>",
+                                                                        'grade': "<%=test3%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
 
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_psm_2" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                                                </tbody></table>
-                                        </form>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                            </div>
+                                           
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

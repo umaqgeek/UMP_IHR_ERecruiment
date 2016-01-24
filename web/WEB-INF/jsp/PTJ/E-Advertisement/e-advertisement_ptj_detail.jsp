@@ -12,18 +12,18 @@ String query = "SELECT pph.pph_refid, " //0
         + "pph.pph_attitude, " //5
         + "pph.pph_knowledge, " //6
         + "pph.pph_add_cond_ptj, " //7
-        + "vp.vp_refid, " //8
-        + "vp.vp_total, " //9
-        + "vpp.vpp_job_status, " //10
-        + "vpp.vpp_total, " //11
-        + "vpp.vpp_campus, " //12
-        + "vpp.vpp_refid, " //13
-        + "w.w_refid, " //14
-        + "pph.pph_status " //15
-        + "FROM position_ptj_hr pph, vacancy_pos_ptj vpp, vacancy_pos vp, warrant w "
+//        + "vp.vp_refid, " //8
+//        + "vp.vp_total, " //9
+        + "vpp.vpp_job_status, " //8
+        + "vpp.vpp_total, " //9
+        + "vpp.vpp_campus, " //10
+        + "vpp.vpp_refid, " //11
+//        + "w.w_refid, " //14
+        + "pph.pph_status " //12
+        + "FROM position_ptj_hr pph, vacancy_pos_ptj vpp "
         + "WHERE pph.pph_refid = vpp.pph_refid "
-        + "AND vpp.vp_refid = vp.vp_refid "
-        + "AND vp.w_refid = w.w_refid "
+//        + "AND vpp.vp_refid = vp.vp_refid "
+//        + "AND vp.w_refid = w.w_refid "
         + "AND pph.pph_refid = ? ";
 String params[] = {pph_refid};
 MainClient mc = new MainClient(DBConn.getHost());
@@ -62,7 +62,7 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
     <li><a href="process.jsp?p=PTJ/E-Advertisement/e-advertisement_ptj.jsp">&lt;&lt; Back to List Position from E-Warrant</a></li>
 </ul>
 
-<% if (data1.get(0).get(15).toUpperCase().equals("ENTRY".toUpperCase())) { %>
+<% if (data1.get(0).get(12).toUpperCase().equals("ENTRY".toUpperCase())) { %>
 <form action="process/ptj/eAds/eAds2Detail.jsp" method="post" id="form_eads1">
 <% } %>
     <div class="row">
@@ -91,18 +91,20 @@ ArrayList<ArrayList<String>> d_campus = mc_campus.getQuery(sql_campus, param_cam
                 <tr>
                     <td><%=data1.get(i).get(10) %></td>
                     <td>
-                        <input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(8) %>" />
-                        <input type="hidden" name="vpp_refid_<%=i %>" value="<%=data1.get(i).get(13) %>" />
-                        <input type="hidden" name="vpp_total_<%=i %>" value="<%=data1.get(i).get(11) %>" />
-                        <input type="hidden" name="vp_total_<%=i %>" value="<%=data1.get(i).get(9) %>" />
+                        <!--<input type="hidden" name="vp_refid_<%=i %>" value="<%=data1.get(i).get(8) %>" />-->
+                        <input type="hidden" name="vpp_refid_<%=i %>" value="<%=data1.get(i).get(11) %>" />
+                        <input type="hidden" name="vpp_total_<%=i %>" value="<%=data1.get(i).get(9) %>" />
+                        <!--<input type="hidden" name="vp_total_<%=i %>" value="<%=data1.get(i).get(9) %>" />-->
                         <select name="vpp_total_new_<%=i %>">
                             <% 
-                            int parent_total = Integer.parseInt(data1.get(i).get(9));
-                            int child_total = Integer.parseInt(data1.get(i).get(11));
-                            int parent_child_total = parent_total + child_total;
+//                            int parent_total = Integer.parseInt(data1.get(i).get(9));
+//                            int child_total = Integer.parseInt(data1.get(i).get(11));
+//                            int parent_child_total = parent_total + child_total;
+                            int parent_child_total = 20;
                             for (int j = 0; j <= parent_child_total; j++) { 
                             %>
-                            <option value="<%=j %>" <% if (j==child_total) { out.print("selected"); } %>><%=j %></option>
+                            <!--<option value="<%=j %>" <% // if (j==child_total) { out.print("selected"); } %>><%=j %></option>-->
+                            <option value="<%=j %>" <% // if (j==child_total) { out.print("selected"); } %>><%=j %></option>
                             <% } %>
                         </select>
                     </td>

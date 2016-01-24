@@ -4,7 +4,7 @@
 <%
     MainClient mc = new MainClient(DBConn.getHost());
     String pa_refid = request.getParameter("pa_refid");
-    String pa_status_sent = "OFFER SENT";
+    String pa_status_sent = "OFFER_SENT";
     
     String sql_pa_update = "UPDATE POS_APPLIED "
             + "SET PA_STATUS = ? "
