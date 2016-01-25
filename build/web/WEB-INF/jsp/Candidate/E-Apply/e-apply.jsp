@@ -1223,7 +1223,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <%
-                                                                String test = "<select><option>tes</option></select>";
+                                                                String test = helpers.Func.generateSubjectSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1443,7 +1443,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <%
-                                                                String test2 = "<select><option>tes</option></select>";
+                                                                String test2 = helpers.Func.generateSubjectSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1641,7 +1641,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <%
-                                                                String test3 = "<select><option>tes</option></select>";
+                                                                String test3 = helpers.Func.generateSubjectSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1814,7 +1814,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <%
-                                                                String test4 = "<select><option>tes</option></select>";
+                                                                String test4 = helpers.Func.generateSubjectSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -2113,7 +2113,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <%
-                                                                String test_stpm = "<select><option>tes</option></select>";
+                                                                String test_stpm = helpers.Func.generateSubjectSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -2312,7 +2312,7 @@
                                                                 </tbody>
                                                             </table>
                                                             <%
-                                                                String test_stpm_2 = "<select><option>tes</option></select>";
+                                                                String test_stpm_2 = helpers.Func.generateSubjectSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
