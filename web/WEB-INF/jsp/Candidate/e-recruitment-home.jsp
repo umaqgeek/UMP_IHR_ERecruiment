@@ -1,1 +1,1 @@
-Dashboard Candidate
+<jsp:include page="E-Apply/e-apply_job.jsp"></jsp:include>

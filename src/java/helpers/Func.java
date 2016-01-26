@@ -19,6 +19,22 @@ import java.util.logging.Logger;
  */
 public class Func {
     
+    public static boolean isMatchString(String str, String[] words) {
+        boolean status = false;
+        try {
+            for (int i = 0; i < words.length; i++) {
+                if (str.toUpperCase().equals(words[i].toUpperCase())) {
+                    status = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error isMatchString: "+e.getMessage());
+            status = false;
+        }
+        return status;
+    }
+    
     /**
      * Get today's date format yyyy-MM-dd HH:mm:ss
      * @return 
@@ -92,10 +108,10 @@ public class Func {
      * @param date
      * @return 
      */
-    public static String getOracleDate(String date) {
+    public static String getOracleDate(String date, String format) {
         try {
             String inputTimeStamp = date;
-            final String inputFormat = "yyyy-MM-dd";
+            final String inputFormat = format;
             final String outputFormat = "dd-MMM-yyyy";
             return Func.timeStampConverter(inputFormat, inputTimeStamp,
                     outputFormat);
@@ -125,7 +141,7 @@ public class Func {
             String str2[] = str[0].split("-");
             return str2[2]+"/"+str2[1]+"/"+str2[0];
         } catch (Exception e) {
-            return "00/00/0000";
+            return "";
         }
     }
     

@@ -1,4 +1,52 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%
+    String sql = "SELECT pph.pph_grade, pph.pph_position, c.c_name, l.l_icno, "
+        + "pa.pa_dateapplied, c.c_refid, pph.pph_refid "
+        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
+        + "WHERE pa.pph_refid = pph.pph_refid "
+            + "AND l.c_refid = c.c_refid "
+        + "AND pa.c_refid = c.c_refid "; 
+    String param[] = {};
+    MainClient mc = new MainClient(DBConn.getHost());
+    ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+    
+//    out.print(d); if (true) { return; }
+%>
+
 <div class="row">
+    <div class="col-md-12">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th >#</th>
+                    <th >Grade</th>
+                    <th >Position</th>
+                    <th >Candidate</th>
+                    <th >IC/No Passport</th>
+                    <th >Register Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (int i = 0; i < d.size(); i++) {%>
+                <tr>
+                    <td><%=i + 1%></td>
+                    <td><%=d.get(i).get(0)%></td>
+                    <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=d.get(i).get(6)%>&prev_url=PTJ/E-Apply/e-apply_ptj.jsp"><%=d.get(i).get(1)%></a></td>
+                    <td><%=d.get(i).get(2)%></td>
+                    <td><a href="process.jsp?p=PTJ/E-Apply/e-applypersonal/e-applyinformation1.jsp&c=<%=d.get(i).get(5)%>"><%=d.get(i).get(3)%></a></td>
+                    <td><%=d.get(i).get(4)%></td>
+                </tr>
+                <% }%>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!--<div class="row">
 
     <div class="well">	
 
@@ -49,7 +97,7 @@
                     <td><a href="e-applyperonal/e-applyinformation1.html">890218059645</a></td>
                     <td>12/12/2015</td>
 
-                    <!--<td>Fail</td>-->
+                    <td>Fail</td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -59,7 +107,7 @@
                     <td><a href="e-applyperonal/e-applyinformation2.html">850218059645</a></td>
                     <td>12/12/2015</td>
 
-                    <!--<td>Fail</td>-->
+                    <td>Fail</td>
                 </tr>							
 
             </tbody>
@@ -92,4 +140,4 @@
 
 
     </div>
-</div>
+</div>-->

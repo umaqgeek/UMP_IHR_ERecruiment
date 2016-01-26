@@ -81,7 +81,7 @@ public class Verify extends HttpServlet {
         String update1[][] = {
             {"l_refid", l_refid}
         };
-        String status = mc.update("login", data1, update1);
+        String status = mc.update("login1", data1, update1);
         
         System.out.println("status:"+status);
         System.out.println("asdasd:"+(status == "0"));
@@ -120,7 +120,7 @@ public class Verify extends HttpServlet {
         String update1[][] = {
             {"l_refid", l_refid}
         };
-        String status = mc.update("login", data1, update1);
+        String status = mc.update("login1", data1, update1);
 
         String urlParam = "";
         if (status == "0") {

@@ -18,7 +18,7 @@ while (en.hasMoreElements()) {
         String value_temp[] = value.split("-");
 //        value = value_temp[2] + "/" + value_temp[1] + "/" + value_temp[0];
 //        value = value_temp[2] + "-Jan-" + value_temp[0];
-        value = Func.getOracleDate(value);
+        value = Func.getOracleDate(value, "yyyy-MM-dd");
     }
     
     ArrayList<String> pr1 = new ArrayList<String>();
@@ -27,9 +27,7 @@ while (en.hasMoreElements()) {
     params_req.add(pr1);
 }
 
-out.print(params_req);
-
-//if (true) { return; }
+//out.print(params_req); if (true) { return; }
 
 int s = params_req.size();
 String pph_refid = "-1";

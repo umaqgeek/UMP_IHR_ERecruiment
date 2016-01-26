@@ -1,10 +1,15 @@
+<%@page import="helpers.Func"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="models.DBConn"%>
+<%@page import="oms.rmi.server.MainClient"%>
 <%@page import="config.Config"%>
-<div class="container">
+<div style=" width:85%" class="container" >
 
-    <form class="form-signin" action="process/login_process.jsp" method="post">
+<div>
+    <form  class="form-signin" action="process/login_process.jsp" method="post">
         <h2 class="form-signin-heading">e-Recruitment</h2>
-        <label for="id" class="sr-only">User ID</label>
-        <input type="text" id="userid" name='userid' class="form-control" placeholder="Identification Number" >
+        <label for="id" class="sr-only">IC / Passport No.</label>
+        <input  type="text" id="userid" name='userid' class="form-control" placeholder="IC / Passport No." >
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="pwd" name='pwd' class="form-control" placeholder="Password">
         <div class="checkbox">
@@ -17,7 +22,7 @@
         <a style="float:right;" href="#!" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
     </form>
 
-
+</div>
 
 </div> <!-- /container -->
 
@@ -38,16 +43,18 @@
 
                     <fieldset>
                         <legend>Personal Information:</legend>
-                        <label for="id">My ID</label>
-                        <input type="text" id="c_icno" name="c_icno" class="form-control" placeholder="Identification Number &nbsp;/&nbsp; Passport Number">
+                        <label for="id">My IC No. / Passport No.</label>
+                        <input type="text" id="c_icno" name="l_icno" class="form-control" placeholder="Example: 891031065223">
                         <label for="name">Name</label>
-                        <input type="text" id="c_name" name="c_name" class="form-control" placeholder="Name" >
+                        <input type="text" id="c_name" name="c_name" class="form-control" placeholder="Full name as in IC / Passport No." >
                         <label for="phoneEmail">E-Mail Address</label>
-                        <input type="text" id="l_email" name="l_email" class="form-control" placeholder="E-Mail Address" >
-                        <label for="inputUsername" >Username</label>
-                        <input type="text" id="l_username" name="l_username" class="form-control" placeholder="Username" >
+                        <input type="text" id="l_email" name="l_email" class="form-control" placeholder="E-Mail Address. Example: umar_mukhtar@gmail.com" >
+<!--                        <label for="inputUsername" >Username</label>
+                        <input type="text" id="l_username" name="l_username" class="form-control" placeholder="Username" >-->
                         <label for="inputPassword">Password</label>
                         <input type="password" id="l_password" name="l_password" class="form-control" placeholder="Password">
+                        <label for="inputPassword2">Password Confirmation</label>
+                        <input type="password" id="l_password2" name="l_password2" class="form-control" placeholder="Password Confirmation">
                     </fieldset>
                     <fieldset>
                         <legend>Security Question:</legend>
@@ -92,6 +99,19 @@
                         <legend>Your E-Mail Address:</legend>
                         <label for="id">E-Mail</label>
                         <input type="text" id="l_email" name="l_email" class="form-control" placeholder="E-Mail address. Example: umaqgeek@gmail.com">
+                    </fieldset>
+                    <fieldset>
+                        <legend>Security Question:</legend>
+                        <div class="form-group">
+                            <select class="form-control" id="l_safequest" name="l_safequest">
+                                <option>What is your mother name?</option>
+                                <option>What is your first cat name?</option>
+                                <option>Where is your first school?</option>
+                                <option>What color is your first bike?</option>
+                            </select>
+                        </div>
+                        <label for="answer">Answer</label>
+                        <input type="text" id="l_safeans" name="l_safeans" class="form-control" placeholder="Answer" >
                     </fieldset>
 
                 </div>

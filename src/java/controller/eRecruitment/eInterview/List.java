@@ -1,42 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller.eRecruitment.eInterview;
 
 import helpers.objData;
 import models.DBConn;
 import oms.rmi.server.MainClient;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
- * @author SUNNY
+ * @author Vijay
  */
 public class List {
-
-    public objData getVenueList() {
+    /*
+    * Method to get list of Chirmans to Dropdown
+    */
+    public objData getChairmans(){
         objData objdata = new objData();
-        try {
+        try{
             MainClient mc = new MainClient(DBConn.getHost());
-
-            String query = "SELECT ID, DESC FROM VENUES";
+            
+            String query = "SELECT U_REFID, U_NAME FROM USERS1";
             String data[] = {};
-
+            
             objdata.setTableData(mc.getQuery(query, data));
-        } catch (Exception e) {
-            objdata.setErrorMessage(e.toString());
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
             objdata.setFlag(1);
         }
         return objdata;
     }
-
-    public objData getPanelList() {
+    /*
+    * Method to display setup interviews
+    */
+    public objData getInterviews(){
+        objData objdata = new objData();
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            String query = "SELECT IC_REFID, IC_INTERVIEW_DATETIME, IC_VENUE, IC_APPROVAL_DATETIME FROM INTERVIEW_CHAIRMAN ORDER BY IC_INTERVIEW_DATETIME DESC";
+            String data[] = {};
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
+    /*
+    * Method to get Panel
+    */
+    public objData getPanels() {
         objData objdata = new objData();
         try {
             MainClient mc = new MainClient(DBConn.getHost());
 
-            String query = "SELECT ID, DESC FROM PANEL";
+            String query = "SELECT U_REFID, U_NAME FROM USERS1";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
@@ -47,13 +67,11 @@ public class List {
         return objdata;
     }
     /*  Method to display the list of ADs that are ended */
-
-    public objData getJobListEnding() {
+    public objData getPositions() {
         objData objdata = new objData();
         try {
             MainClient mc = new MainClient(DBConn.getHost());
-
-            String query = "SELECT * FROM EADS WHERE END_DATE < NOW()";
+            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, (SELECT I_REFID FROM INTERVIEW WHERE PA_REFID = (SELECT PA_REFID FROM VACANCY_POS_PTJ WHERE PPH_REFID=PPH.PPH_REFID)) FROM POSITION_PTJ_HR PPH WHERE PPH.PPH_REFID IN (SELECT VPP.PPH_REFID FROM VACANCY_POS_PTJ VPP)";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
@@ -63,19 +81,21 @@ public class List {
         }
         return objdata;
     }
-    /*  Method to display the list of all ADs */
-
-    public objData getJobList() {
+    /*
+    * Method to display the list of Interview Questions
+    */
+    public objData getInterviewQuestions(){
         objData objdata = new objData();
-        try {
+        try{
             MainClient mc = new MainClient(DBConn.getHost());
-
-            String query = "SELECT * FROM EADS";
+            
+            String query = "SELECT IQ_REFID, IQ_QUESTION, IQ_MAX_MARK, IQ_DESC FROM INTERVIEW_QUESTION";
             String data[] = {};
-
+            
             objdata.setTableData(mc.getQuery(query, data));
-        } catch (Exception e) {
-            objdata.setErrorMessage(e.toString());
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
             objdata.setFlag(1);
         }
         return objdata;

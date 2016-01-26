@@ -1,9 +1,9 @@
 <jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eTest.List"%>
+<%@page import="controller.eRecruitment.eTest.List"%>
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="libraries.eRecruitment.eTest.Action"%>
+<%@page import="controller.eRecruitment.eTest.Action"%>
 <%
     if (request.getParameter("txt_TST_TYPE")!=null){
         ArrayList<String> data = new ArrayList<String>();
@@ -70,7 +70,7 @@
                                 <tr>
                                     <td><%=row+1%></td>
                                     <td><%=Row.get(0)%></td>
-                                    <td><a href="#" title="Edit"><i class="fa fa-edit"></i></a></td>
+                                    <td><a href="#" title="Edit" data-toggle="modal" data-target="#myQ" OnClick="javascript:"><i class="fa fa-edit"></i></a></td>
                                     <td><a href="#" title="Delete"><i class="fa fa-minus"></i></a></td>
                                 </tr>
                                 <%

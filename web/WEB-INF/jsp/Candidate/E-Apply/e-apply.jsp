@@ -4,8 +4,10 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="helpers.Func"%>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="<%=Config.getBase_url(request)%>assets/css/jquery-ui.css">
+<script src="<%=Config.getBase_url(request)%>assets/js/jquery-ui.js"></script>
+
 <%
     String l_refid = "";
     Enumeration sess = session.getAttributeNames();
@@ -86,11 +88,11 @@
 %>
 <div class="row">
     <div class="col-lg-12">
-        <div class="alert alert-info alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a>
-            <i class="fa fa-coffee"></i>
-            This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>
+        <!--        <div class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert">×</a>
+                    <i class="fa fa-coffee"></i>
+                    This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                </div>-->
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -175,6 +177,7 @@
                                         String pphl7 = "";
                                         try {
                                             pphl7 = pph_login.get(0).get(7);
+
                                         } catch (Exception e) {
                                             pphl7 = "";
                                         }
@@ -263,7 +266,7 @@
                                         } catch (Exception e) {
                                             ppha5 = "";
                                         }
-                                        
+
                                     %>
 
                                     <div class="form-group">
@@ -274,11 +277,11 @@
                                                         if (ppha5 != null && ppha5 != "" && !ppha5.equals("")) {
                                                             if (ppha5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>" selected><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -290,7 +293,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
                                                     }
@@ -423,23 +426,23 @@
                                                                 if (pph6.equalsIgnoreCase(pph_gender.get(i).get(0).toString())) {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" checked="checked" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>"/>
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" checked="checked" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>"/>
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                     } else {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>" />
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                         }
                                                     } else {
                                                     %>
                                                     <label class="radio inline">
-                                                        <input type="radio" name="C_Sex" value="<%out.print(pph_gender.get(i).get(0).toString());%>" />
-                                                        <%out.print(pph_gender.get(i).get(0).toString()); %>
+                                                        <input type="radio" name="C_Sex" value="<%=pph_gender.get(i).get(0).toString() %>" />
+                                                        <%=pph_gender.get(i).get(0).toString() %>
                                                     </label>
                                                     <%
                                                             }
@@ -477,11 +480,11 @@
                                                         if (pph7 != null && pph7 != "" && !pph7.equals("")) {
                                                             if (pph7.equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
                                                 %>
-                                                <option selected value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option selected value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -493,7 +496,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_religion.get(i).get(0).toString());%>"><%out.print(pph_religion.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
 
@@ -528,11 +531,11 @@
                                                         if (pph8 != null && pph8 != "" && !pph8.equals("")) {
                                                             if (pph8.equalsIgnoreCase(pph_race.get(i).get(0).toString())) {
                                                 %>
-                                                <option selected value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option selected value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                 } else {
                                                 %>
-                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                     }
                                                 } else {
@@ -544,7 +547,7 @@
                                                     }
 
                                                 %>
-                                                <option value="<%out.print(pph_race.get(i).get(0).toString());%>"><%out.print(pph_race.get(i).get(0).toString());%></option>
+                                                <option value="<%=pph_race.get(i).get(0).toString() %>"><%=pph_race.get(i).get(0).toString() %></option>
                                                 <%
                                                         }
                                                     }
@@ -583,7 +586,7 @@
                                                 var age = now - year;
                                                 $('#age').val(age);
                                         });
-                                        });                                    </script>
+                                        });</script>
 
                             </div>
                             <div class="col-lg-6">
@@ -645,7 +648,7 @@
                                             var bmi = weight / (height / 100 * height / 100);
                                             $('#bmi').val(bmi.toFixed(2));
                                     });
-                                    });                                </script>
+                                    });</script>
                                 <br/><br/>
                                 <%
                                     String pphaa2 = "";
@@ -671,6 +674,7 @@
                                     }
                                 %>
                                 <br/><br/><br/><br/><br/><br/><br/><br/>
+
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postage Postcode:</label>
                                     <div class="col-lg-6">
@@ -696,11 +700,11 @@
                                                     if (pphaa5 != null && pphaa5 != "" && !pphaa5.equals("")) {
                                                         if (pphaa5.toString().equalsIgnoreCase(pph_master.get(i).get(0).toString())) {
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>" selected><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>" selected><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                             } else {
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                                 }
                                             } else {
@@ -712,7 +716,7 @@
                                                 }
 
                                             %>
-                                            <option value="<%out.print(pph_master.get(i).get(0).toString());%>"><%out.print(pph_master.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_master.get(i).get(0).toString() %>"><%=pph_master.get(i).get(0).toString() %></option>
                                             <%
                                                     }
                                                 }
@@ -763,24 +767,24 @@
                                                         if (pph9.equalsIgnoreCase(pph_nationality.get(i).get(0).toString())) {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" checked="checked" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString());%>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" checked="checked" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
 
                                             <%
                                             } else {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
                                             <%
                                                 }
                                             } else {
                                             %>
                                             <label class="radio inline">
-                                                <input name="C_Nationality" type="radio" value="<%out.print(pph_nationality.get(i).get(0).toString()); %>"/>
-                                                <%out.print(pph_nationality.get(i).get(0).toString());%>
+                                                <input name="C_Nationality" type="radio" value="<%=pph_nationality.get(i).get(0).toString() %>"/>
+                                                <%=pph_nationality.get(i).get(0).toString() %>
                                             </label>
                                             <%
                                                     }
@@ -818,11 +822,11 @@
                                                     if (pph12 != null && pph12 != "" && !pph12.equals("")) {
                                                         if (pph12.equalsIgnoreCase(pph_marriage.get(i).get(0).toString())) {
                                             %>
-                                            <option selected value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option selected value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                             } else {
                                             %>
-                                            <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                                 }
                                             } else {
@@ -834,7 +838,7 @@
                                                 }
 
                                             %>
-                                            <option value="<%out.print(pph_marriage.get(i).get(0).toString());%>"><%out.print(pph_marriage.get(i).get(0).toString());%></option>
+                                            <option value="<%=pph_marriage.get(i).get(0).toString() %>"><%=pph_marriage.get(i).get(0).toString() %></option>
                                             <%
                                                     }
                                                 }
@@ -873,7 +877,7 @@
                                     } catch (Exception e) {
                                         pph13 = "";
                                     }
-                                    
+
                                     String license_list = "";
                                     
                                     //provide dropdown list
@@ -907,21 +911,21 @@
                                                             int license_counter=1;
                                                            
                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
-                                                        for (int x = 0; x < pph_cvehicle.size(); x++) {
+                                                                for (int x = 0; x < pph_cvehicle.size(); x++) {
                                                         %>
                                                         <tr>
                                                             <td>
-                                                                <select id="dl_code_<%out.print(license_counter);%>" name="dl_code_<%out.print(license_counter);%>" class="form-control vehicle_license" >
+                                                                <select id="dl_code_<%=license_counter %>" name="dl_code_<%=license_counter %>" class="form-control vehicle_license" >
                                                                     <%  
                                                                         for (int i = 0; i < pph_vehicle.size(); i++) {
                                                                             if (pphcv != null && pphcv != "" && !pphcv.equals("")) {
                                                                                 if (pphcv.equalsIgnoreCase(pph_vehicle.get(i).get(0).toString())) {
                                                                     %>
-                                                                    <option selected value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option selected value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                     } else {
                                                                     %>
-                                                                    <option value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                         }
                                                                     } else {
@@ -932,7 +936,7 @@
                                                                         }
 
                                                                     %>
-                                                                    <option value="<%out.print(pph_vehicle.get(i).get(0).toString());%>"><%out.print(pph_vehicle.get(i).get(0).toString());%></option>
+                                                                    <option value="<%=pph_vehicle.get(i).get(0).toString() %>"><%=pph_vehicle.get(i).get(0).toString() %></option>
                                                                     <%
                                                                             }
                                                                         }
@@ -980,12 +984,13 @@
                                                            });
                                                 
                                                 
-                                                    //Add row
-                                                    table2.append(row2.compose({
-                                                    'grade': "<%=license_list%>",
-                                                            'action': "X"
-                                                    }));
+                                                        //Add row
+                                                        table2.append(row2.compose({
+                                                        'grade': "<%=license_list%>",
+                                                                'action': "X"
+                                                        }));
                                                     });
+
                                                     });                                               
                                                                                                          
                                                 </script>
@@ -1021,11 +1026,11 @@
                                         <div class="form-inline">
                                             <div class="controls-row">
                                                 <label class="radio inline">
-                                                    <input name="C_ServOfficer" type="radio" value="YES"/>
+                                                    <input name="C_ServOfficer" type="radio" value="YES" />
                                                     YES
                                                 </label>
                                                 <label class="radio inline">
-                                                    <input name="C_ServOfficer" type="radio" value="NO"/>
+                                                    <input name="C_ServOfficer" type="radio" value="NO" checked />
                                                     NO
                                                 </label>
 
@@ -1088,15 +1093,17 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
+                                                            
                                                             <select name="pmr_tahun" id="pmr_tahun" >
-                                                                <script>
+                                                                
+
+                                                            </select>
+                                                            <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
                                                                             $('#pmr_tahun').append($('<option/>').val(yr).text(yr));
-                                                                    };                                                                </script>
-
-                                                            </select>
+                                                                    };</script>
                                                         </div>
                                                         </div>
 
@@ -1129,11 +1136,11 @@
                                                                             if (pph_aci6 != null && pph_aci6 != "" && !pph_aci6.equals("")) {
                                                                                 if (pph_aci6.equalsIgnoreCase(pph_type_academic_info.get(i).get(0).toString())) {
                                                                     %>
-                                                                    <option selected value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option selected value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                     } else {
                                                                     %>
-                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                         }
                                                                     } else {
@@ -1145,7 +1152,7 @@
                                                                         }
 
                                                                     %>
-                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <option value="<%=pph_type_academic_info.get(i).get(0).toString() %>"><%=pph_type_academic_info.get(i).get(1).toString() %></option>
                                                                     <%
                                                                             }
                                                                         }
@@ -1242,7 +1249,7 @@
                                                                         'grade': "<%=test%>"
                                                                 }));
                                                                 });
-                                                                });                                                            </script>
+                                                                });</script>
 
                                                             <div class="row">
                                                                 <div class="col-lg-5">
@@ -1470,7 +1477,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </form>
                                             </div>
@@ -1929,7 +1935,7 @@
                                     </div>
                                 </div>
                             </div>
-                                                                <div class="panel panel-default">
+                                 <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="academicheadingFive">
                                     <h4 class="panel-title">
                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -2337,6 +2343,429 @@
                                                             <div class="row">
                                                                 <div class="col-lg-5">
                                                                     <button type="button" id="add_stpm_2" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                                                <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingFive">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                            STAM
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingSix">
+                                    <div class="panel-body">
+                                        <ul id="stpmTabs" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#stpm_first_exam" id="stpm_first_exam-tab" role="tab" data-toggle="tab" aria-controls="stpm_first_exam" aria-expanded="true">First Exam</a>
+                                            </li>
+                                            <li role="presentation"><a href="#stpm_second_exam" role="tab" id="stpm_second_exam-tab" data-toggle="tab" aria-controls="stpm_second_exam">Second Exam</a>
+                                            </li>
+                                           
+                                        </ul>
+
+                                        <div id="stpmTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="stpm_first_exam" aria-labelledby="stpm_first_exam-tab">
+                                                <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="psmForm_1" name="psmForm_1" action="pmr.html" method="post">
+                                                
+                                                    <div class="row">
+                                                      <div class="col-lg-12">
+                                                            <div class="col-lg-2">
+                                                            <label>Year : </label>
+
+                                                        </div>
+
+                                                        <div class="col-lg-3">
+                                                            <select name="psm_tahun" id="psm_tahun" >
+                                                                <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('#psm_tahun').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+
+                                                            </select>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Certificate Type : </label>
+                                                            </div>
+                                                            <%
+                                                                String query_type_academic_info_stam = "SELECT * "
+                                                                        + "FROM TYPE_ACADEMIC_INFO ";
+
+                                                                MainClient mc_type_academic_info_stam = new MainClient(DBConn.getHost());
+                                                                String params_type_academic_stam[] = {};
+                                                                ArrayList<ArrayList<String>> pph_type_academic_info_stam = mc_type_academic_info2_stpm.getQuery(query_type_academic_info_stam, params_type_academic_stam);
+
+                                                                String pph_aci6_2_stam = "";
+                                                                try {
+                                                                    pph_aci6_2_stpm = pph_academic_info.get(0).get(6);
+                                                                } catch (Exception e) {
+                                                                    pph_aci6_2 = "";
+                                                                }
+                                                            %>
+                                                            <div class="col-lg-6">
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                    <%
+                                                                        for (int i = 0; i < pph_type_academic_info2.size(); i++) {
+                                                                            if (pph_aci6_2 != null && pph_aci6_2 != "" && !pph_aci6_2.equals("")) {
+                                                                                if (pph_aci6_2.equalsIgnoreCase(pph_type_academic_info2.get(i).get(0).toString())) {
+                                                                    %>
+                                                                    <option selected value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                    } else {
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+
+                                                                        if (i == 0) {
+                                                                    %>
+                                                                    <option value="" selected>Please Select</option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Rank : </label>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                    <option value=""> Please select </option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="S">S</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6"><p>Oral Test of Bahasa Melayu / Bahasa Malaysia</p></div>
+                                                                            
+                                                                            <div class="col-lg-3 col-lg-offset-2">
+                                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                                    <option value=""> Please select </option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="B">B</option>
+                                                                                    <option value="C">C</option>
+                                                                                    <option value="S">S</option>
+                                                                                </select>
+                                                                            </div>
+                                                                      
+                                                      
+                                                                    </div>
+
+                                                                </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_stam" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <%
+                                                                String test_stam = helpers.Func.generateSubjectSelect();
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_stam = $('#academic_stam').children('tbody');
+                                                                        var table_stam = tbody_stam.length ? tbody_stam : $('#academic_stam');
+                                                                        var row_stam = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_stam').click(function(){
+                                                                //Add row
+                                                                table_stam.append(row_stam.compose({
+                                                                'subject': "<%=test2%>",
+                                                                        'grade': "<%=test2%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
+
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_stam" class="btn btn-primary">Add</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="stpm_second_exam" aria-labelledby="stpm_second_exam-tab">
+                                             <div class="row">
+                                            <div class="col-lg-12">
+                                                <form id="psmForm_2" name="psmForm_2" action="pmr.html" method="post">
+                                                
+                                                    <div class="row">
+                                                      <div class="col-lg-12">
+                                                            <div class="col-lg-2">
+                                                            <label>Year : </label>
+
+                                                        </div>
+
+                                                        <div class="col-lg-3">
+                                                            <select name="psm_tahun_2" id="psm_tahun_2" >
+                                                                <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('#psm_tahun_2').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+
+                                                            </select>
+                                                        </div>
+
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Certificate Type : </label>
+                                                            </div>
+                                                            <%
+                                                                String query_type_academic_info_stam_2 = "SELECT * "
+                                                                        + "FROM TYPE_ACADEMIC_INFO ";
+
+                                                                MainClient mc_type_academic_info2_2_stam_2 = new MainClient(DBConn.getHost());
+                                                                String params_type_academic_info2_2_stam_2[] = {};
+                                                                ArrayList<ArrayList<String>> pph_type_academic_info2_2_stam_2 = mc_type_academic_info2_2.getQuery(query_type_academic_info_stam_2, params_type_academic_info2_2_stpm_2);
+
+                                                                String pph_aci6_2_2_sam_2 = "";
+                                                                try {
+                                                                    pph_aci6_2_2_stpm_2 = pph_academic_info.get(0).get(6);
+                                                                } catch (Exception e) {
+                                                                    pph_aci6_2_2_stpm_2 = "";
+                                                                }
+                                                            %>
+                                                            <div class="col-lg-6">
+                                                                <select name="tai_refid" id="tai_refid" >
+                                                                    <%
+                                                                        for (int i = 0; i < pph_type_academic_info2.size(); i++) {
+                                                                            if (pph_aci6_2 != null && pph_aci6_2 != "" && !pph_aci6_2.equals("")) {
+                                                                                if (pph_aci6_2.equalsIgnoreCase(pph_type_academic_info2.get(i).get(0).toString())) {
+                                                                    %>
+                                                                    <option selected value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                    } else {
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info2.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info2.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+
+                                                                        if (i == 0) {
+                                                                    %>
+                                                                    <option value="" selected>Please Select</option>
+                                                                    <%
+                                                                        }
+
+                                                                    %>
+                                                                    <option value="<%out.print(pph_type_academic_info.get(i).get(0).toString());%>"><%out.print(pph_type_academic_info.get(i).get(1).toString());%></option>
+                                                                    <%
+                                                                            }
+                                                                        }
+                                                                    %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="col-lg-4">
+                                                                <label>Rank : </label>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                    <option value=""> Please select </option>
+                                                                    <option value="A">A</option>
+                                                                    <option value="B">B</option>
+                                                                    <option value="C">C</option>
+                                                                    <option value="S">S</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="col-lg-6"><p>Oral Test of Bahasa Melayu / Bahasa Malaysia</p></div>
+                                                                            
+                                                                            <div class="col-lg-3 col-lg-offset-2">
+                                                                                <select name="pmr_tahun2" id="pmr_tahun2" >
+                                                                                    <option value=""> Please select </option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="B">B</option>
+                                                                                    <option value="C">C</option>
+                                                                                    <option value="S">S</option>
+                                                                                </select>
+                                                                            </div>
+                                                                      
+                                                      
+                                                                    </div>
+
+                                                                </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <table id="academic_stam_2" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Subject</th>
+                                                                        <th>Grade</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <select name="pmr_tahun6" id="pmr_tahun6" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="Bahasa Melayu">Bahasa Melayu</option>
+                                                                                <option value="English">English</option>
+                                                                                <option value="Mathematics">Mathematics</option>
+                                                                                <option value="Science">Science</option>
+                                                                                <option value="Sejarah">Sejarah</option>
+                                                                                <option value="Pendidikan Islam">Pendidikan Islam</option>
+                                                                                <option value="Pendidikan Moral">Pendidikan Moral</option>
+                                                                                <option value="Pendidikan Sivik dan Kewarganegaraan">Pendidikan Sivik dan Kewarganegaraan</option>
+                                                                                <option value="Geografi">Geografi</option>
+                                                                                <option value="Pendidikan Jasmani">Pendidikan Jasmani</option>
+                                                                                <option value="Kemahiran Hidup">Kemahiran Hidup</option>
+                                                                                <option value="Pendidikan Seni Visual">Pendidikan Seni Visual</option>
+                                                                                <option value="Pendidikan Muzik">Pendidikan Muzik</option>
+                                                                                <option value="Bahasa Arab">Bahasa Arab</option>
+                                                                                <option value="Bahasa Cina">Bahasa Cina</option>
+                                                                                <option value="Bahasa Cina">Bahasa Tamil</option>
+                                                                            </select> 
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="pmr_tahun5" id="pmr_tahun5" >
+                                                                                <option value=""> Please select </option>
+                                                                                <option value="A">A</option>
+                                                                                <option value="B">B</option>
+                                                                                <option value="C">C</option>
+                                                                                <option value="D">D</option>
+                                                                                <option value="E">E</option>
+                                                                            </select>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <%
+                                                                String test_stam_2 = helpers.Func.generateSubjectSelect();
+                                                            %>
+                                                            <script>
+                                                                        //Compose template string
+                                                                        String.prototype.compose = (function (){
+                                                                        var re = /\{{(.+?)\}}/g;
+                                                                                return function (o){
+                                                                                return this.replace(re, function (_, k){
+                                                                                return typeof o[k] != 'undefined' ? o[k] : '';
+                                                                                });
+                                                                                }
+                                                                        }());
+                                                                        var tbody_stam_2 = $('#academic_stam_2').children('tbody');
+                                                                        var table_stam_2 = tbody_stpm_2.length ? tbody_stam_2 : $('#academic_stam_2');
+                                                                        var row_stam_2 = '<tr>' +
+                                                                        '<td>{{subject}}</td>' +
+                                                                        '<td>{{grade}}</td>' +
+                                                                        '</tr>';
+                                                                        $(document).ready(function() {
+                                                                $('#add_stam_2').click(function(){
+                                                                //Add row
+                                                                table_stam_2.append(row_stam_2.compose({
+                                                                'subject': "<%=test3%>",
+                                                                        'grade': "<%=test3%>"
+                                                                }));
+                                                                });
+                                                                });                                                            </script>
+
+                                                            <div class="row">
+                                                                <div class="col-lg-5">
+                                                                    <button type="button" id="add_stam_2" class="btn btn-primary">Add</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2796,13 +3225,13 @@
 
                         <div class="col-sm-12">
                             <label>Description</label>
-                            <textarea name="editor3" id="editor3" rows="10" cols="80">
+                            <textarea name="editor31" id="editor31" rows="10" cols="80">
 
                             </textarea>
                             <script>
                                         // Replace the <textarea id="editor1"> with a CKEditor
                                         // instance, using default configuration.
-                                        CKEDITOR.replace('editor3');</script>
+                                        CKEDITOR.replace('editor31');</script>
                         </div>
                     </div>
                     <br/>
@@ -2902,73 +3331,15 @@
             <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
                 <div class="panel-body">
 
-                    <table class="table table-condensed" style="border-collapse:collapse;">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Grade</th>
-                                <th>Position</th>
-                                <th>Start date</th>
-                                <th>Close Date</th>
-                                <th>Status</th>
-                                <th>Delete</th>
+                    <button type="button" onclick="location.href = 'process.jsp?p=Candidate/E-Apply/e-apply-add.jsp';">Apply Job</button>
+                    <br /><br />
+                    <jsp:include page="e-apply_job.jsp"></jsp:include>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>FT41</td>
-                                <td><a href="#" data-toggle="modal" data-target="#myModal">Pegawai Teknologi Maklumat</a></td>
-                                <td>1/12/2015</td>
-                                <td>31/12/2015</td>
-                                <td></td>
-                                <td><a href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content--->
-                            <div class="modal-content">
-                                <div class="well">
-
-
-                                    <div class="modal-body">
-                                        <h2>Pegawai Teknologi Maklumat</h2>
-                                        <p>Start Date: 1/12/2015
-                                            Close Date: 31/12/2015
-
-                                            Syarat-Syarat:
-                                            1.
-                                            2.
-                                            3.
-                                            4.
-
-                                            Penerangan Tugas
-
-                                            seprti yg di maklumkan.
-
-                                        </p>
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Apply</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 </div>
 </div>

@@ -2,20 +2,6 @@
 <%@page import="helpers.objData"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="controller.eRecruitment.eInterview.List"%>
-<%
-    /*
-    if (request.getParameter("txt_TDB_SET_NAME")!=null){
-        ArrayList<String> data = new ArrayList<String>();
-
-        data.add(request.getParameter("hdn_TSDB_REFID"));
-        data.add(request.getParameter("txt_TDB_SET_NAME"));
-        data.add(request.getParameter("lst_TST_REFID"));
-
-        Action a = new Action();
-        a.saveTest(data);
-    }
-    */
-%>    
 <div class="row">
     <div class="well">
         <div class="row">
@@ -30,15 +16,15 @@
                         <tr>
                             <td style="width:5%">#</td>
                             <td style="width:15%">Grade<br/>Position<br/>Department</td>
-                            <td style="width:10%">DATE & TIME</td>
+                            <td style="width:10%">Date & Time</td>
                             <td style="width:20%">VENUE</td>
                             <td style="width:20%">PANEL</td>
-                            <td style="width:20%">CANDIDATE</td>
                             <td style="width:10%">&nbsp;</td>
                         </tr>
                     </thead>
                     <tbody>
                         <!--Html Test data-->
+                        <!--
                         <tr>
                             <td>1</td>
                             <td>Grade<br/>Position<br/>HR</td>
@@ -57,11 +43,11 @@
                             <td>NABILLA BINTI MUHAMMAD<br/>654321-12-1234</td>
                             <td><a href="#">Accept</a><br/><a href="#">Reject</a></td>
                         </tr>
-                        <!--
+                        -->
                         <%
                             objData objdata = new objData();
                             List lq = new List();
-                            objdata = lq.getJobListEnding();
+                            objdata = lq.getInterviewsOfDept("DEPT");
                             if (objdata.getFlag() == 1) {
                                 System.out.println(objdata.getErrorMessage());
                             } else {
@@ -70,17 +56,16 @@
                         %>
                         <tr>
                             <td><%=row + 1%></td>
-                            <td><%=Row.get(0)%></td>
-                            <td><%=Row.get(1)%></td>
-                            <td><%=Row.get(2)%></td>
+                            <td><%=Row.get(0)%><br/><%=Row.get(1)%><br/><%=Row.get(2)%></td>
                             <td><%=Row.get(3)%></td>
                             <td><%=Row.get(4)%></td>
+                            <td><%=Row.get(5)%></td>
+                            <td><a href="#">Accept</a><a href="#">Reject</a></td>
                         </tr>
                         <%
                                 }
                             }
                         %>
-                        -->
                     </tbody>
                 </table>
             </div>

@@ -26,7 +26,7 @@
 //    String update1[][] = {
 //        {"l_refid", l_refid}
 //    };
-//    String status = mc.update("login", data1, update1);
+//    String status = mc.update("login1", data1, update1);
 
     System.out.println("status:" + status);
     System.out.println("asdasd:" + status.equals("0"));

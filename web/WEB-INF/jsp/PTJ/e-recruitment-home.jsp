@@ -2,21 +2,22 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%
-  String sql = "SELECT w.w_grade, w.w_position, w.w_ptj, w.w_total, w.w_refid "
-          + "FROM warrant w "
-          + "WHERE w.w_status = 1 ";
+  String sql = "SELECT w.w_grade, w.w_position, w.w_ptj, w.w_refid, SUM(vp.vp_total) "
+          + "FROM warrant w, vacancy_pos vp "
+          + "WHERE w.w_status = 1 "
+          + "AND vp.w_refid = w.w_refid "
+          + "GROUP BY w.w_grade, w.w_position, w.w_ptj, w.w_refid ";
   String params[] = {};
-  
   MainClient mc = new MainClient(DBConn.getHost());
   ArrayList<ArrayList<String>> data = mc.getQuery(sql, params);
   
   String graphData = "";
   for (int i = 0; i < data.size()-1; i++) {
-      graphData += "{ name: \""+data.get(i).get(1)+"\", y: "+data.get(i).get(3)+" },";
+      graphData += "{ name: \""+data.get(i).get(1)+"\", y: "+data.get(i).get(4)+" },";
   }
   if (data.size() > 0) {
       int s = data.size();
-      graphData += "{ name: \""+data.get(s-1).get(1)+"\", y: "+data.get(s-1).get(3)+" }";
+      graphData += "{ name: \""+data.get(s-1).get(1)+"\", y: "+data.get(s-1).get(4)+" }";
   }
 %>
 <div class="row">

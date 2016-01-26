@@ -7,19 +7,35 @@ String pph_refid = session.getAttribute("pph_refid").toString();
 //out.print(pph_refid);
 //if (true) { return; }
 
-String query_vpp = "SELECT * "
-        + "FROM vacancy_pos_ptj vpp, vacancy_pos vp, position_ptj_hr pph "
-        + "WHERE vpp.pph_refid = pph.pph_refid "
-        + "AND vpp.vp_refid = vp.vp_refid "
+String query_vpp = "SELECT pph.pph_refid, " //0
+        + "pph.pph_grade, " //1
+        + "pph.pph_position, " //2
+        + "pph.pph_ptj, " //3
+        + "pph.pph_skill, " //4
+        + "pph.pph_attitude, " //5
+        + "pph.pph_knowledge, " //6
+        + "pph.pph_add_cond_ptj, " //7
+//        + "vp.vp_refid, " //8
+//        + "vp.vp_total, " //9
+        + "vpp.vpp_job_status, " //8
+        + "vpp.vpp_total, " //9
+        + "vpp.vpp_campus, " //10
+        + "vpp.vpp_refid, " //11
+//        + "w.w_refid, " //14
+        + "pph.pph_status " //12
+        + "FROM position_ptj_hr pph, vacancy_pos_ptj vpp "
+        + "WHERE pph.pph_refid = vpp.pph_refid "
+//        + "AND vpp.vp_refid = vp.vp_refid "
+//        + "AND vp.w_refid = w.w_refid "
         + "AND pph.pph_refid = ? ";
 String params_vpp[] = {pph_refid};
 MainClient mc_vpp = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data_vpp = mc_vpp.getQuery(query_vpp, params_vpp);
 
-String query_aep = "SELECT * "
-        + "FROM area_expertise_ptj aep, area_expertise ae, position_ptj_hr pph "
+String query_aep = "SELECT aep.ea_expert_code, ea.ea_expert_desc "
+        + "FROM area_expertise_ptj aep, expertise_area ea, position_ptj_hr pph "
         + "WHERE aep.pph_refid = pph.pph_refid "
-        + "AND aep.ae_refid = ae.ae_refid "
+        + "AND aep.ea_expert_code = ea.ea_expert_code "
         + "AND pph.pph_refid = ? ";
 String params_aep[] = {pph_refid};
 MainClient mc_aep = new MainClient(DBConn.getHost());
@@ -51,8 +67,7 @@ String param_pph[] = { pph_refid };
 MainClient mc_pph = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 
-//out.print(data_pph);
-//if (true) { return; }
+//out.print(data_aep); if (true) { return; }
 %>
 
 <ul>
@@ -61,9 +76,9 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 
 <form method="post" action="process/bpsm/eAds/eAds1.jsp" id="form_bpsm_eads1">
     <!--<div class="row">
-        Grade: <%=data_vpp.get(0).get(11) %> <br />
-        Position: <%=data_vpp.get(0).get(12) %> <br />
-        PTJ: <%=data_vpp.get(0).get(13) %> <br />
+        Grade: <%=data_vpp.get(0).get(10) %> <br />
+        Position: <%=data_vpp.get(0).get(11) %> <br />
+        PTJ: <%=data_vpp.get(0).get(12) %> <br />
     </div>
     <hr />--->
   
@@ -71,10 +86,10 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 	<!-----------------start------------------->
 		<div class="accordion">
 		<div class="accordion-section ">
-				<a class="accordion-section-title " href="#accordion-5">PTJ: <%=data_vpp.get(0).get(13) %></a>
+				<a class="accordion-section-title " href="#accordion-5">PTJ: <%=data_vpp.get(0).get(3) %></a>
 				<div id="accordion-5" class="accordion-section-content">
-					Grade: <%=data_vpp.get(0).get(11) %> <br />
-					Position: <%=data_vpp.get(0).get(12) %> <br />
+					Grade: <%=data_vpp.get(0).get(1) %> <br />
+					Position: <%=data_vpp.get(0).get(2) %> <br />
 				</div><!--end .accordion-section-content-->
 			</div><!--end .accordion-section-->
 
@@ -94,9 +109,9 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 						<tbody>
 							<% for (int i = 0; i < data_vpp.size(); i++) { %>
 							<tr>
-								<td><%=data_vpp.get(i).get(5) %></td>
-								<td><%=data_vpp.get(i).get(3) %></td>
-								<td><%=data_vpp.get(i).get(7) %></td>
+								<td><%=data_vpp.get(i).get(8) %></td>
+								<td><%=data_vpp.get(i).get(9) %></td>
+								<td><%=data_vpp.get(i).get(10) %></td>
 			<!--                    <td>
 									<button type="button">
 										<i class="glyphicon glyphicon-plus"></i> Add
@@ -123,15 +138,15 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="set1">
-								<%=data_vpp.get(0).get(14) %>
+								<%=data_vpp.get(0).get(4) %>
 							</div>
 
 							<div class="tab-pane fade" id="set2">
-								<%=data_vpp.get(0).get(15) %>
+								<%=data_vpp.get(0).get(5) %>
 							</div>
 
 							<div class="tab-pane fade" id="set3">
-								<%=data_vpp.get(0).get(16) %>
+								<%=data_vpp.get(0).get(6) %>
 							</div>
 						</div>
 					</div>
@@ -149,7 +164,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 				<a class="accordion-section-title" href="#accordion-3">Area of Expertise  (PTJ)</a>
 				<div id="accordion-3" class="accordion-section-content">
 					 <% for (int i = 0; i < data_aep.size(); i++) { %>
-						<%=data_aep.get(i).get(4) %> <br />
+						<%=data_aep.get(i).get(1) %> <br />
 					<% } %>
 				</div><!--end .accordion-section-content-->
 			</div><!--end .accordion-section-->
@@ -157,7 +172,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 			<div class="accordion-section">
 				<a class="accordion-section-title" href="#accordion-4"> Additional conditions (if any) (PTJ)</a>
 				<div id="accordion-4" class="accordion-section-content">
-					 <%=data_vpp.get(0).get(17) %>
+					 <%=data_vpp.get(0).get(7) %>
 				</div><!--end .accordion-section-content-->
 			</div><!--end .accordion-section-->
 		</div><!--end .accordion-->
@@ -165,20 +180,20 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 	<!------------------------end---------------->
     <input type="hidden" name="pph_refid" value="<%=pph_refid %>" />
 	<br/>
-	<hr/>
+<!--	<hr/>
 	<br/>
 
 
-    <!-- data for BPSM -->
+     data for BPSM 
     
     <div class="row">
         Start Date : <br />
         <input type="date" class="form-control" name="pph_startdate" value="<%=(data_pph.size()>0 && data_pph.get(0).get(0)!=null)?(Func.sqlToDate2(data_pph.get(0).get(0))):(Func.getTodayDate3()) %>" /> <br /><br />
         End Date : <br />
         <input type="date" class="form-control" name="pph_enddate" value="<%=(data_pph.size()>0 && data_pph.get(0).get(0)!=null)?(Func.sqlToDate2(data_pph.get(0).get(1))):(Func.getTodayDate3()) %>" />
-    </div>
+    </div>-->
     <hr />
-    <div class="row">
+<!--    <div class="row">
         General competence : <br />
         SPM BM : <br />
         <select name="pph_spm_bm">
@@ -207,7 +222,7 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
         MUET : <br />
         <input type="text" name="pph_muet" value="<%=(data_pph.size()>0 && data_pph.get(0).get(5)!=null)?(data_pph.get(0).get(5)):("") %>" /> <br />
     </div>
-    <hr />
+    <hr />-->
     <div class="row">
         Terms of Appointment : <br />
         <textarea name="pph_term_app" id="editor3" rows="10" cols="80"><%=(data_pph.size()>0 && data_pph.get(0).get(6)!=null)?(data_pph.get(0).get(6)):("") %></textarea>
@@ -228,9 +243,9 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
     <hr />
     <div class="row">
         <input type="button" value="SAVE" id="btn_bpsm_save" />
-        <input type="button" value="PREVIEW" id="btn_bpsm_preview" />
+        <!--<input type="button" value="PREVIEW" id="btn_bpsm_preview" />
         <input type="button" value="REPORT" id="btn_bpsm_report" />
-        <input type="button" value="PUBLISH" id="btn_bpsm_publish" />
+        <input type="button" value="PUBLISH" id="btn_bpsm_publish" />-->
     </div>
     
     <input type="hidden" name="pph_status" id="button_type" value="-" />
@@ -240,12 +255,12 @@ ArrayList<ArrayList<String>> data_pph = mc_pph.getQuery(sql_pph, param_pph);
 <script>
     $(document).ready(function() {
         $("#btn_bpsm_save").click(function() {
-            $("#button_type").val("HR");
+            $("#button_type").val("SUBMIT");
             $("#form_bpsm_eads1").submit();
         });
         $("#btn_bpsm_publish").click(function() {
-            $("#button_type").val("PUBLISH");
-            $("#form_bpsm_eads1").submit();
+//            $("#button_type").val("PUBLISH");
+//            $("#form_bpsm_eads1").submit();
         });
     });
 </script>

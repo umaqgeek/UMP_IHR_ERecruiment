@@ -23,7 +23,7 @@ try {
 <div id="main">
 
     <!-- Post -->
-    <article class="post">
+    <article id="article" class="post">
 
         <jsp:include page="<%=pageURL %>"></jsp:include>
 
