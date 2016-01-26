@@ -106,6 +106,31 @@ public class Func {
         }
     }
     
+       public static String generateSubjectSelect(){
+        String license_list = "<select id='dl_code' class='vehicle' name='dl_code'>";
+                                        
+                                            license_list += "<option value='Please Select'>Please Select</option>";
+                                            license_list += "<option value='Bahasa Melayu'>Bahasa Melayu</option>";
+                                            license_list += "<option value='English'>English</option>";
+                                             license_list += "<option value='Mathematics'>Mathematics</option>";
+                                              license_list += "<option value='Science'>Science</option>";
+                                               license_list += "<option value='Sejarah'>Sejarah</option>";
+                                                license_list += "<option value='Pendidikan Islam'>Pendidikan Islam</option>";
+                                                 license_list += "<option value='Pendidikan Moral'>Pendidikan Moral</option>";
+                                                  license_list += "<option value='Pendidikan Sivik dan Kewarganegaan'>Pendidikan Sivik dan Kewarganegaraan</option>";
+                                                   license_list += "<option value='Geografi'>Geografi</option>";
+                                                    license_list += "<option value='Pendidikan Jasmani'>Pendidikan Jasmani</option>";
+                                                     license_list += "<option value='Kemahiran Hidup'>Kemahiran Hidup</option>";
+                                                      license_list += "<option value='Pendidikan Seni Visual'>Pendidikan Seni Visual</option>";
+                                                       license_list += "<option value='Pendidikan Muzik'>Pendidikan Muzik</option>";
+                                                        license_list += "<option value='Bahasa Arab'>Bahasa Arab</option>";
+                                                         license_list += "<option value='Bahasa Cina'>Bahasa Cina</option>";
+                                                          license_list += "<option value='English'>Bahasa Tamil</option>";
+                                        license_list += "</select>";
+        
+        return license_list;
+    }
+    
     /**
      * Get date format 00/00/0000 00:00:00
      * @return 
