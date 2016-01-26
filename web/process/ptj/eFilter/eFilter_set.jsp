@@ -7,7 +7,7 @@ String status = request.getParameter("status");
 
 out.print(pa_refid);
 
-String pa_status = (status.equals("1")) ? ("PASS PTJ") : ("FAIL PTJ");
+String pa_status = (status.equals("1")) ? ("PASS_PTJ") : ("FAIL_PTJ");
 
 String sql = "UPDATE pos_applied "
         + "SET pa_status = ? "
@@ -22,7 +22,7 @@ if (isUpdate.equals("0")) {
     
     String sql2 = "UPDATE filter "
             + "SET f_ptj = ?, "
-            + "f_status = ? "
+            + "fs_code = ? "
             + "WHERE pa_refid = ? ";
     String param2[] = { f_ptj, pa_status, pa_refid };
     MainClient mc2 = new MainClient(DBConn.getHost());

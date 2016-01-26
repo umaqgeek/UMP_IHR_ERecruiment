@@ -21,12 +21,20 @@ String sql1 = "SELECT "
         + "AND pa.pph_refid = pph.pph_refid "
         + "AND pa.pa_refid = f.pa_refid "
         + "AND f.fs_code = fs.fs_code "
-        + "AND l.l_refid = ? ";
+        + "AND l.l_refid = ? "
+        + "GROUP BY pph.pph_grade, " //0
+        + "pph.pph_position, " //1
+        + "pph.pph_startdate, " //2
+        + "pph.pph_enddate, " //3
+        + "pa.pa_status, " //4
+        + "pa.pa_refid, " //5
+        + "pph.pph_refid, " //6
+        + "fs.fs_desc ";
 String param1[] = { l_refid };
 MainClient mc1 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
 
-//out.print(l_refid);
+//out.print(l_refid); if (true) { return; }
 %>
 
 
@@ -55,7 +63,7 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
             <td><%=i+1 %></td>
             <td><%=data1.get(i).get(0) %></td>
             <!--<td><a href="#" data-toggle="modal" data-target="#myModal_<%=i %>"><%=data1.get(i).get(1) %></a></td>-->
-            <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=data1.get(i).get(6)%>&prev_url=Candidate/E-Apply/e-apply.jsp"><%=data1.get(i).get(1) %></a></td>
+            <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=data1.get(i).get(6)%>&prev_url=Candidate/e-recruitment-home.jsp"><%=data1.get(i).get(1) %></a></td>
             <td><%=Func.getDate(data1.get(i).get(2)) %></td>
             <td><%=Func.getDate(data1.get(i).get(3)) %></td>
             <td><%=data1.get(i).get(7) %></td>
