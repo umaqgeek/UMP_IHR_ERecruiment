@@ -1,10 +1,11 @@
 
+<%@page import="config.Config"%>
 <%@page import="eOffer.E_Offer_Function"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="models.DBConn"%>
 <%@page import="controller.Session"%>
-<%  
+<%
     E_Offer_Function eliminate = new E_Offer_Function();
     String filter_stat_pass = "PASS_ALL";
     String pa_stat_pending = "OFFER_PENDING";
@@ -15,9 +16,11 @@
     String pa_stat_activated = "ACTIVATED";
     String action_send_btn = "disabled";
     String action_setup_btn = "active";
+    String title_another_offer = "Cannot Take Any Action For This Application Because Another Offer Has Been Accepted By Tis Candidate.";
+    String title_pending = "Please Setup This Offer First To Enable The Action.";
     
     String sql = "SELECT PPH.PPH_POSITION, F.F_INTUNI, C.C_NAME, PA.PA_STATUS, PA.PA_REFID, PPH.PPH_GRADE, PPH.PPH_PTJ, "
-            + "L.L_ICNO ,PA.PA_CAMPUS, PA.PA_SALARY, PA.PA_JOB_STATUS, FS.FS_DESC, PPH.PPH_SALARY_MIN, PPH.PPH_SALARY_MAX "
+            + "L.L_ICNO ,PA.PA_CAMPUS, PA.PA_SALARY, PA.PA_JOB_STATUS, FS.FS_DESC, PPH.PPH_SALARY_MIN, PPH.PPH_SALARY_MAX, PA.PA_PERIOD_CONTRACT "
             + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, FILTER F, FILTER_STATUS FS "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
@@ -109,25 +112,37 @@
                         if(!data.get(row).get(3).equalsIgnoreCase(pa_stat_pending) && !data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted_another))
                         {
                             %>
-                            <td colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>" class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_setup_btn %>">Preview Offer</a></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold;"><button data-toggle="modal" href="#modalSend_<%=row %>" class="form-control open-modalSend_<%=row %> btn btn-warning <%=action_setup_btn %>"><strong style="color: white">Preview Offer</strong></button></td>
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_pending))
                         {
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="form-control open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
+                            <!--<td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%//=row %>" class="form-control open-modalSetup_<%//=row %> btn btn-primary <%//=action_setup_btn %>">Setup Offer</a></td>-->
+                            <form method="post" action="process.jsp?p=BPSM/E-Offer/eOffer_setup_allowance.jsp&pa_refid=<%=data.get(row).get(4) %>">
+                            <td style="vertical-align: middle; color: white; text-align: center; font-weight: bold;">
+                                                                      
                             <%
                             if(data.get(row).get(9) != null)
                             {
                                 action_send_btn = "active";
+                                title_pending = "";
+                                %>
+                                <button style="vertical-align: middle; color: white" type="submit" class="form-control btn-primary <%=action_setup_btn %>" name="setupOffer"><strong style="color: white">Setup Offer <span class="glyphicon glyphicon-ok"></span></strong></button>
+                                <%
                             }
                             else
                             {
                                 action_send_btn = "disabled";
+                                title_pending = "Please Setup This Offer First To Enable The Action.";
+                                %>
+                                <button style="vertical-align: middle; color: white" type="submit" class="form-control btn-primary <%=action_setup_btn %>" name="setupOffer"><strong style="color: white">Setup Offer <span class="glyphicon glyphicon-remove"></span></strong></button>
+                                <%
                             }
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
-                            </tr>
+                            </td>
+                            </form>
+                            <td  title="<%=title_pending %>" style="vertical-align: middle; text-align: center; font-weight: bold;"><button data-toggle="modal" href="#modalSend_<%=row %>"  class="form-control open-modalSend_<%=row %> btn btn-success <%=action_send_btn %>"><strong style="color: white">Send Offer</strong></button></td>                        
                             <%
                         }
                         else if(data.get(row).get(3).equalsIgnoreCase(pa_stat_accepted_another))
@@ -135,11 +150,14 @@
                             action_send_btn = "disabled";
                             action_setup_btn = "disabled";
                             %>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_<%=row %>" class="form-control open-modalSetup_<%=row %> btn btn-primary <%=action_setup_btn %>">Setup Offer</a></td>
-                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSend_<%=row %>"  class="form-control open-modalSend_<%=row %> btn btn-primary <%=action_send_btn %>">Send Offer</a></td>
-                            </tr>
+                            <!--<td style="vertical-align: middle; text-align: center; font-weight: bold;"><a data-toggle="modal" href="#modalSetup_//row %>" class="form-control open-modalSetup_//row %> btn btn-primary <%//=action_setup_btn %>" title="<%//=title_another_offer %>">Setup Offer</a></td>-->
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><button href="#" class="form-control btn btn-primary <%=action_setup_btn %>" title="<%=title_another_offer %>"><strong style="color: white">Setup Offer</strong></button></td>
+                            <td style="vertical-align: middle; text-align: center; font-weight: bold;"><button href="#" class="form-control btn btn-success <%=action_send_btn %>" title="<%=title_another_offer %>"><strong style="color: white">Send Offer</strong></button></td>
                             <%
                         }
+                        %>
+                        </tr>
+                        <%
                     }
                 }
                 else
@@ -241,7 +259,13 @@ if(data.size()>0)
                                         </select>
                                     </div>
                                 </div>
-                                
+                                <div class="form-group">
+                                    <label class="col-md-2">Contract Period</label><label class="col-md-1">:</label>
+                                    <div class="col-md-2">
+                                        <input type="text" name="pa_period" class="form-control" placeholder="6 Month" required>
+                                    </div>
+                                    <label class="col-md-2">Month</label>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-md-2">Campus</label><label class="col-md-1">:</label>
                                     <div class="col-md-9">
@@ -388,7 +412,7 @@ if(data.size()>0)
                                 <input type="hidden" name="pa_refid" class="form-control" value="<%=data.get(row3).get(4) %>">
                                 <div class="form-group">
                                     <label class="col-md-2">Grade</label><label class="col-md-1">:</label>
-                                    <label class="col-md-9"><%=data.get(row3).get(5) %> </label>
+                                    <label class="col-md-9"><%=data.get(row3).get(5) %> (Expected Salary : RM <%=data.get(row3).get(12) %> - RM <%=data.get(row3).get(13) %>) </label>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2">Position</label><label class="col-md-1">:</label>
@@ -412,7 +436,17 @@ if(data.size()>0)
                                     <label class="col-md-2">Job Status</label><label class="col-md-1">:</label>
                                     <label class="col-md-9"><%=data.get(row3).get(10) %></label>
                                 </div>
-                                
+                                <%
+                                if(data.get(row3).get(14) != null)
+                                {
+                                    %>
+                                    <div class="form-group">
+                                        <label class="col-md-2">Contract Period</label><label class="col-md-1">:</label>
+                                        <label class="col-md-9"><%=data.get(row3).get(14) %> MONTHS</label>
+                                    </div>
+                                    <%
+                                }
+                                %>
                                 <div class="form-group">
                                     <label class="col-md-2">Campus</label><label class="col-md-1">:</label>
                                     <label class="col-md-9"><%=data.get(row3).get(8) %></label>
@@ -468,13 +502,43 @@ if(data.size()>0)
 %>
                 
 <script type="text/javascript">
+//this toggles the visibility of our parent permission fields depending on the current selected value of the underAge field
+function toggleFields()
+{
+    if ($("#selectedJobStatus").val() === 'CONTRACT')
+        $("#contractPeriod").show();
+    else
+        $("#contractPeriod").hide();
+}
+
 $(document).on("click", ".open-sendModal", function ()
 {
     var pa_refid = $(this).data('pa_refid');
     $(".modal-body #pa_refid").val( pa_refid );
 });
 
-$(document).ready(function() {
+$(document).ready(function()
+{
+    toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
+   //this will call our toggleFields function every time the selection value of our underAge field changes
+    $("selectedJobStatus").change(function()
+    {
+        toggleFields();
+    });
+    
+    /*$('#selectedJobStatus').on('change', function()
+    {
+        if ( this.value === "CONTRACT")
+        //.....................^.......
+        {
+          $("#contractPeriod").show();
+        }
+        else
+        {
+          $("#contractPeriod").hide();
+        }
+    });*/
+    
     $(".addButton").click(function() {
         var ap_size = $("#ap_size").val();
         ap_size = parseInt(ap_size) + 1;

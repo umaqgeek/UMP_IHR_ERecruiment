@@ -18,7 +18,7 @@
     String sC_refid = "";
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
     String sql = "SELECT "
-            + "PPH.PPH_POSITION, F.F_INTUNI, PA.PA_STATUS, PA.PA_REFID, C.C_REFID, PPH.PPH_GRADE, FS.FS_DESC, PPH.PPH_PTJ "
+            + "PPH.PPH_POSITION, F.F_INTUNI, PA.PA_STATUS, PA.PA_REFID, C.C_REFID, PPH.PPH_GRADE, FS.FS_DESC, PPH.PPH_PTJ, PA.PA_JOB_STATUS "
             + "FROM LOGIN1 L,CANDIDATE C, POS_APPLIED PA, POSITION_PTJ_HR PPH, FILTER F, FILTER_STATUS FS "
             + "WHERE C.C_REFID=L.C_REFID "
             + "AND C.C_REFID=PA.C_REFID "
@@ -90,13 +90,25 @@
                             display_btn = "disabled";
                             display_title = "Please Accept The Offer To Enable This Link";
                         }
+                        
+                        String download_link = "";
+                        String job_contract = "CONTRACT";
+                        String job_permanent = "PERMANENT";
+                        if(data.get(row).get(8).equals(job_contract))
+                        {
+                            download_link = "assets/eOffer/register_duty_form/BORANG_LAPOR_DIRI_STAF_KONTRAK.ZIP";
+                        }
+                        else if(data.get(row).get(8).equals(job_permanent))
+                        {
+                            download_link = "assets/eOffer/register_duty_form/BORANG_LAPOR_DIRI_STAF_TETAP.ZIP";
+                        }
                         %>
                         <tr>
                         <td style="vertical-align: middle; text-align: center"><%= row+1 %></td>
                         <td style="vertical-align: middle; text-align: center"><%=data.get(row).get(5) %></td>
                         <td style="vertical-align: middle"><%=data.get(row).get(0) %></td>
                         <td style="vertical-align: middle; text-align: center"><%=data.get(row).get(7) %></td>
-                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%=display_btn %>">Download</a></td>
+                        <td title="<%=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%=Config.getBase_url(request)+download_link %>" class="btn btn-success form-control <%=display_btn %>">Download <span class="glyphicon glyphicon-download"></span></a></td>
                         <!--<td title="<%//=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%//=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%//=display_btn %>">Download</a></td>
                         <td title="<%//=display_title %>" style="vertical-align: middle; text-align: center"><a target="_blank" href="<%//=Config.getBase_url(request) %>assets/uploads/files/pdftest.pdf" class="btn btn-sm <%//=display_btn %>">Download</a></td>-->
                         <td style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#modalOffer_<%=row %>" class="form-control open-modalOffer_<%=row %> btn btn-primary">Preview Offer</a></td>
