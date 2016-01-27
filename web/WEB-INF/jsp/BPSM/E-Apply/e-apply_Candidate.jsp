@@ -6,7 +6,8 @@
 <%
 String pph_refid = session.getAttribute("pph").toString();
     
-String sql = "SELECT c.c_name, l.l_icno, pa.pa_dateapplied, c.c_refid "
+String sql = "SELECT c.c_name, l.l_icno, pa.pa_dateapplied, c.c_refid, "
+        + "pph.pph_grade, pph.pph_position, pph.pph_ptj "
         + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
         + "WHERE pa.pph_refid = pph.pph_refid "
         + "AND pa.c_refid = c.c_refid "
@@ -20,6 +21,22 @@ ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 <h4>E-Apply</h4>
 
 <button type="button" onclick="location.href='process.jsp?<%=My_func.URL_KEY %>=BPSM/E-Apply/e-apply_BPSM.jsp';">Back</button>
+
+<div class="row">
+    <div class="col-md-3">Grade</div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-8"><%=d.get(0).get(4) %></div>
+</div>
+<div class="row">
+    <div class="col-md-3">Position</div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-8"><%=d.get(0).get(5) %></div>
+</div>
+<div class="row">
+    <div class="col-md-3">PTJ</div>
+    <div class="col-md-1">:</div>
+    <div class="col-md-8"><%=d.get(0).get(6) %></div>
+</div>
 
 <script>
 $(document).ready(function(){

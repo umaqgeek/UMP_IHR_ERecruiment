@@ -3,9 +3,12 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="models.DBConn"%>
 <%
-String q5 = "SELECT * "
+String q5 = "SELECT pph.pph_refid, pph.pph_position, pph.pph_grade, pph.pph_ptj, pph.pph_startdate, "
+        + "pph.pph_enddate "
         + "FROM position_ptj_hr pph "
-        + "WHERE pph.pph_status = 'PUBLISH' ";
+        + "WHERE pph.pph_status = 'PUBLISH' "
+        + "AND SYSDATE >= pph.pph_startdate "
+        + "AND SYSDATE <= pph.pph_enddate ";
 String p5[] = {};
 MainClient mc5 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
@@ -45,11 +48,11 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 String pph_refid = pph5.get(i).get(0);%>
                 <tr>
                     <td rowspan="2"><%=i + 1%></td>
-                    <td rowspan="2"><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=pph5.get(i).get(0)%>&prev_url=Candidate/E-Apply/e-apply-add.jsp"><%=pph5.get(i).get(2)%></a></td>
-                    <td rowspan="2"><%=pph5.get(i).get(1)%></td>
+                    <td rowspan="2"><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=pph_refid%>&prev_url=Candidate/E-Apply/e-apply-add.jsp"><%=pph5.get(i).get(1)%></a></td>
+                    <td rowspan="2"><%=pph5.get(i).get(2)%></td>
                     <td rowspan="2"><%=pph5.get(i).get(3)%></td>
-                    <td rowspan="2"><%=Func.getDate(pph5.get(i).get(8))%></td>
-                    <td rowspan="2"><%=Func.getDate(pph5.get(i).get(9))%>
+                    <td rowspan="2"><%=Func.getDate(pph5.get(i).get(4))%></td>
+                    <td rowspan="2"><%=Func.getDate(pph5.get(i).get(5))%>
                     <%
                         String sql_t1 = "SELECT vpp.vpp_campus, vpp.vpp_total, "
                                 + "vpp.vpp_refid "

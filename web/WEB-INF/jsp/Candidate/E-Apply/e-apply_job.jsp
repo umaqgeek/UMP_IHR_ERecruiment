@@ -22,6 +22,8 @@ String sql1 = "SELECT "
         + "AND pa.pa_refid = f.pa_refid "
         + "AND f.fs_code = fs.fs_code "
         + "AND l.l_refid = ? "
+//        + "AND SYSDATE >= pph.pph_startdate "
+//        + "AND SYSDATE <= pph.pph_enddate "
         + "GROUP BY pph.pph_grade, " //0
         + "pph.pph_position, " //1
         + "pph.pph_startdate, " //2
@@ -34,7 +36,7 @@ String param1[] = { l_refid };
 MainClient mc1 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
 
-//out.print(l_refid); if (true) { return; }
+//out.print(sql1); if (true) { return; }
 %>
 
 
