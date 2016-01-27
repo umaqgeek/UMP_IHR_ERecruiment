@@ -57,6 +57,21 @@ public class Func {
         return license_list;
     }
     
+    public static String generateGradeSelect(){
+        String license_list = "<select id='pmr_grade' class='vehicle' name='stam_grade'>";
+                                        
+                                            license_list += "<option value='Please Select'>Please Select</option>";
+                                            license_list += "<option value='A'>A</option>";
+                                            license_list += "<option value='B'>B</option>";
+                                             license_list += "<option value='C'>C</option>";
+                                              license_list += "<option value='D'>D</option>";
+                                               license_list += "<option value='E'>E</option>";
+                                          
+                                        license_list += "</select>";
+        
+        return license_list;
+    }
+    
     public static String generateSubjectSelect(){
         String license_list = "<select id='dl_code' class='vehicle' name='dl_code'>";
                                         
