@@ -41,6 +41,55 @@ public class Action {
         }
         return msg;
     }
+    /*
+    * Method to delete Interview setup
+    */
+    public String deleteInterview(String ID){
+        String msg = "";
+        String query = "DELETE FROM INTERVIRE_CHAIRMAN WHERE IC_REFID = ?";
+        
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            String data[] = new String[1];
+
+            data[0] = ID;
+
+            msg = mc.setQuery(query, data);
+        }
+        catch(Exception ex){
+            msg = ex.toString();
+        }
+        return msg;
+    }
+    /*
+    * Method to save Interview Result
+    */
+    public String saveInterviewResult(ArrayList<String> rData){
+        String msg = "";
+        String query = "";
+        
+        try{
+            MainClient mc = new MainClient(DBConn.getHost());
+            
+            if (!rData.get(0).equals("N")){
+                query = "UPDATE INTERVIEW_RESULT SET IC_REFID = ?, PA_REFID = ?  WHERE IR_REFID = '" + rData.get(0) + "'";
+                String data[] = new String[2];
+                data[0] = rData.get(1);
+                data[1] = rData.get(2);
+                msg = mc.setQuery(query, data);
+            }
+            else{
+                query = "INSERT INTO INTERVIEW_RESULT(IC_REFID, PA_REFID) VALUES((SELECT MAX(IC_REFID) FROM INTERVIEW_CHAIRMAN), ?)";
+                String data[] = new String[1];
+                data[0] = rData.get(2);
+                msg = mc.setQuery(query, data);
+            }
+        }
+        catch(Exception ex){
+            msg = ex.toString();
+        }
+        return msg;
+    }
     /* Insert /Update to database table INTERVIEW Panel*/
     public String saveInterviewPanel(ArrayList<String> rData){
         String query = "";

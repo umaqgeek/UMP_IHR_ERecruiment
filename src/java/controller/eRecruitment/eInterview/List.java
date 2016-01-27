@@ -19,7 +19,7 @@ public class List {
         try{
             MainClient mc = new MainClient(DBConn.getHost());
             
-            String query = "SELECT U_REFID, U_NAME FROM USERS";
+            String query = "SELECT U_REFID, U_NAME FROM USERS1";
             String data[] = {};
             
             objdata.setTableData(mc.getQuery(query, data));
@@ -71,7 +71,10 @@ public class List {
         objData objdata = new objData();
         try {
             MainClient mc = new MainClient(DBConn.getHost());
-            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, (SELECT I_REFID FROM INTERVIEW WHERE PA_REFID = (SELECT PA_REFID FROM VACANCY_POS_PTJ WHERE PPH_REFID=PPH.PPH_REFID)) FROM POSITION_PTJ_HR PPH WHERE PPH.PPH_REFID IN (SELECT VPP.PPH_REFID FROM VACANCY_POS_PTJ VPP)";
+            String query  = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, PPH.PPH_PTJ, PPH.PPH_STARTDATE, PPH.PPH_ENDDATE, PPH.PPH_REFID, PA.PA_REFID, IC.IC_INTERVIEW_DATETIME, IC.IC_VENUE, '' AS IC_NOPANELS, IR.IR_REFID "
+                    + "      FROM POSITION_PTJ_HR PPH"
+                    + "      JOIN POS_APPLIED PA ON PA.PPH_REFID = PPH.PPH_REFID LEFT OUTER JOIN INTERVIEW_RESULT IR ON IR.PA_REFID = PA.PA_REFID LEFT OUTER JOIN INTERVIEW_CHAIRMAN IC ON IC.IC_REFID = IR.IC_REFID"
+                    + "      WHERE PPH.PPH_REFID IN (SELECT PPH_REFID FROM VACANCY_POS_PTJ)";
             String data[] = {};
 
             objdata.setTableData(mc.getQuery(query, data));
