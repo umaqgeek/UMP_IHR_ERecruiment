@@ -1224,6 +1224,7 @@
                                                             </table>
                                                             <%
                                                                 String test = helpers.Func.generateSubjectSelect();
+                                                                String grade = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1246,7 +1247,7 @@
                                                                 //Add row
                                                                 table_pmr.append(row_pmr.compose({
                                                                 'subject': "<%=test%>",
-                                                                        'grade': "<%=test%>"
+                                                                        'grade': "<%=grade%>"
                                                                 }));
                                                                 });
                                                                 });</script>
@@ -1444,6 +1445,7 @@
                                                             </table>
                                                             <%
                                                                 String test2 = helpers.Func.generateSubjectSelect();
+                                                                String grade2 = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1466,7 +1468,7 @@
                                                                 //Add row
                                                                 table_psm.append(row_psm.compose({
                                                                 'subject': "<%=test2%>",
-                                                                        'grade': "<%=test2%>"
+                                                                        'grade': "<%=grade2%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
@@ -1642,6 +1644,7 @@
                                                             </table>
                                                             <%
                                                                 String test3 = helpers.Func.generateSubjectSelect();
+                                                                String grade3 = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1664,7 +1667,7 @@
                                                                 //Add row
                                                                 table_psm_2.append(row_psm_2.compose({
                                                                 'subject': "<%=test3%>",
-                                                                        'grade': "<%=test3%>"
+                                                                        'grade': "<%=grade3%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
@@ -1815,6 +1818,7 @@
                                                             </table>
                                                             <%
                                                                 String test4 = helpers.Func.generateSubjectSelect();
+                                                                String grade4 = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -1837,7 +1841,7 @@
                                                                 //Add row
                                                                 table_add_exam.append(row_add_exam.compose({
                                                                 'subject': "<%=test3%>",
-                                                                        'grade': "<%=test3%>"
+                                                                        'grade': "<%=grade4%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
@@ -1938,12 +1942,12 @@
                                  <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="academicheadingFive">
                                     <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseFive" aria-expanded="false" aria-controls="collapseFive">
                                             STPM / STP / HSC
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="academicCollapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingSix">
+                                <div id="academicCollapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingFive">
                                     <div class="panel-body">
                                         <ul id="stpmTabs" class="nav nav-tabs" role="tablist">
                                             <li role="presentation" class="active"><a href="#stpm_first_exam" id="stpm_first_exam-tab" role="tab" data-toggle="tab" aria-controls="stpm_first_exam" aria-expanded="true">First Exam</a>
@@ -1967,12 +1971,12 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
-                                                            <select name="psm_tahun" id="psm_tahun" >
+                                                            <select class="year" name="psm_tahun" id="psm_tahun" >
                                                                 <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
-                                                                            $('#psm_tahun').append($('<option/>').val(yr).text(yr));
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
                                                                     };                                                                </script>
 
                                                             </select>
@@ -2114,6 +2118,7 @@
                                                             </table>
                                                             <%
                                                                 String test_stpm = helpers.Func.generateSubjectSelect();
+                                                                String grade_stpm = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -2136,7 +2141,7 @@
                                                                 //Add row
                                                                 table_stpm.append(row_stpm.compose({
                                                                 'subject': "<%=test2%>",
-                                                                        'grade': "<%=test2%>"
+                                                                        'grade': "<%=grade_stpm%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
@@ -2166,12 +2171,12 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
-                                                            <select name="psm_tahun_2" id="psm_tahun_2" >
+                                                            <select class="year" name="psm_tahun_2" id="psm_tahun_2" >
                                                                 <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
-                                                                            $('#psm_tahun_2').append($('<option/>').val(yr).text(yr));
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
                                                                     };                                                                </script>
 
                                                             </select>
@@ -2313,6 +2318,7 @@
                                                             </table>
                                                             <%
                                                                 String test_stpm_2 = helpers.Func.generateSubjectSelect();
+                                                                String grade_stpm_2 = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -2335,7 +2341,7 @@
                                                                 //Add row
                                                                 table_stpm_2.append(row_stpm_2.compose({
                                                                 'subject': "<%=test3%>",
-                                                                        'grade': "<%=test3%>"
+                                                                        'grade': "<%=grade_stpm_2%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
@@ -2368,16 +2374,16 @@
                                 </div>
                                 <div id="academicCollapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingSix">
                                     <div class="panel-body">
-                                        <ul id="stpmTabs" class="nav nav-tabs" role="tablist">
-                                            <li role="presentation" class="active"><a href="#stpm_first_exam" id="stpm_first_exam-tab" role="tab" data-toggle="tab" aria-controls="stpm_first_exam" aria-expanded="true">First Exam</a>
+                                        <ul id="stamTabs" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#stam_first_exam" id="stam_first_exam-tab" role="tab" data-toggle="tab" aria-controls="stam_first_exam" aria-expanded="true">First Exam</a>
                                             </li>
-                                            <li role="presentation"><a href="#stpm_second_exam" role="tab" id="stpm_second_exam-tab" data-toggle="tab" aria-controls="stpm_second_exam">Second Exam</a>
+                                            <li role="presentation"><a href="#stam_second_exam" role="tab" id="stam_second_exam-tab" data-toggle="tab" aria-controls="stam_second_exam">Second Exam</a>
                                             </li>
                                            
                                         </ul>
 
-                                        <div id="stpmTabContent" class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="stpm_first_exam" aria-labelledby="stpm_first_exam-tab">
+                                        <div id="stamTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="stam_first_exam" aria-labelledby="stam_first_exam-tab">
                                                 <div class="row">
                                             <div class="col-lg-12">
                                                 <form id="psmForm_1" name="psmForm_1" action="pmr.html" method="post">
@@ -2390,12 +2396,12 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
-                                                            <select name="psm_tahun" id="psm_tahun" >
+                                                            <select class="year" name="psm_tahun" id="psm_tahun" >
                                                                 <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
-                                                                            $('#psm_tahun').append($('<option/>').val(yr).text(yr));
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
                                                                     };                                                                </script>
 
                                                             </select>
@@ -2537,6 +2543,7 @@
                                                             </table>
                                                             <%
                                                                 String test_stam = helpers.Func.generateSubjectSelect();
+                                                                String grade_stam = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -2559,7 +2566,7 @@
                                                                 //Add row
                                                                 table_stam.append(row_stam.compose({
                                                                 'subject': "<%=test2%>",
-                                                                        'grade': "<%=test2%>"
+                                                                        'grade': "<%=grade_stam%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
@@ -2576,7 +2583,7 @@
                                             </div>
                                         </div>
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="stpm_second_exam" aria-labelledby="stpm_second_exam-tab">
+                                            <div role="tabpanel" class="tab-pane fade" id="stam_second_exam" aria-labelledby="stam_second_exam-tab">
                                              <div class="row">
                                             <div class="col-lg-12">
                                                 <form id="psmForm_2" name="psmForm_2" action="pmr.html" method="post">
@@ -2589,12 +2596,12 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
-                                                            <select name="psm_tahun_2" id="psm_tahun_2" >
+                                                            <select class="year" name="psm_tahun_2" id="psm_tahun_2" >
                                                                 <script>
                                                                             var i, yr, now = new Date();
                                                                             for (i = 0; i < 30; i++) {
                                                                     yr = now.getFullYear() - i; // or whatever
-                                                                            $('#psm_tahun_2').append($('<option/>').val(yr).text(yr));
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
                                                                     };                                                                </script>
 
                                                             </select>
@@ -2736,6 +2743,7 @@
                                                             </table>
                                                             <%
                                                                 String test_stam_2 = helpers.Func.generateSubjectSelect();
+                                                                String grade_stam_2 = helpers.Func.generateGradeSelect();
                                                             %>
                                                             <script>
                                                                         //Compose template string
@@ -2758,7 +2766,7 @@
                                                                 //Add row
                                                                 table_stam_2.append(row_stam_2.compose({
                                                                 'subject': "<%=test3%>",
-                                                                        'grade': "<%=test3%>"
+                                                                        'grade': "<%=grade_stam_2%>"
                                                                 }));
                                                                 });
                                                                 });                                                            </script>
