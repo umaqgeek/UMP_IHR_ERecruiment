@@ -50,11 +50,12 @@
      * C.C_WEIGHT           28
      * C.C_BMI              29
      * C.C_IMAGE            30
+     * PA.PA_PERIOD_CONTRACT31
      */
     String sql = "SELECT C.C_NAME, L.L_ICNO, PPH.PPH_POSITION, C.C_REFID, PA.PA_REFID, L.L_USERNAME, C.C_HP, "
             + "A.A_ROADNO, A.A_CITY, A.A_POSTCODE, A.A_STATE, A.A_COUNTRY, PPH.PPH_GRADE, PPH.PPH_PTJ, PA.PA_SALARY, PA.PA_JOB_STATUS, "
             + "PA.PA_CAMPUS, C.C_DOB, C.C_AGE, C.C_BIRTHSTATE, C.C_SEX, C.C_RELIGION, C.C_RACE, C.C_NATIONALITY, C.C_HOMETEL, "
-            + "C.C_MARITALSTAT, C.C_LICENSE, C.C_HEIGHT, C.C_WEIGHT, C.C_BMI, C.C_IMAGE "
+            + "C.C_MARITALSTAT, C.C_LICENSE, C.C_HEIGHT, C.C_WEIGHT, C.C_BMI, C.C_IMAGE, PA.PA_PERIOD_CONTRACT "
             + "FROM POS_APPLIED PA, CANDIDATE C, POSITION_PTJ_HR PPH, LOGIN1 L, ADDRESS A, ADDRESS_TYPE AT "
             + "WHERE C.C_REFID = PA.C_REFID "
             + "AND C.C_REFID = L.C_REFID "
@@ -160,6 +161,18 @@
                 <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
                 <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(15) %></td>
                 </tr>
+                <%
+                if(data.get(row).get(15).equals("CONTRACT"))
+                {
+                    %>
+                    <tr>
+                    <td style="vertical-align: middle; font-weight: bold">Contract Period</td>
+                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                    <td colspan="2" style="vertical-align: middle;"><%=data.get(row).get(31) %> MONTHS</td>
+                    </tr>
+                    <%
+                }
+                %>
                 <tr>
                 <td style="vertical-align: middle; font-weight: bold">Campus</td>
                 <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
@@ -185,8 +198,8 @@
                     if(row_ap == 0)
                     {
                         %>
-                        <td rowspan="<%=data_ap.size() %>" style="vertical-align: middle; font-weight: bold">Allowance</td>
-                        <td rowspan="<%=data_ap.size() %>" style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                        <td rowspan="<%=data_ap.size() %>" style="vertical-align: top; font-weight: bold">Allowance</td>
+                        <td rowspan="<%=data_ap.size() %>" style="vertical-align: top; text-align: center; font-weight: bold">:</td>
                         <%
                     }
                     %>
