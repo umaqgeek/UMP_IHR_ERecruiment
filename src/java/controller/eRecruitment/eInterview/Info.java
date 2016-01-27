@@ -6,9 +6,29 @@ import oms.rmi.server.MainClient;
 
 /**
  *
- * @author SUNNY
+ * @author Vijay
  */
 public class Info {
+    /*
+    * Method to display an Interview Setup info
+    */
+    public objData getSetupInterview(String refID){
+        MainClient mc = new MainClient(DBConn.getHost());
+        objData objdata = new objData();
+        
+        try{
+            String query = "SELECT IC_REFID, IC_INTERVIEW_DATETIME, IC_VENUE, '' AS IC_NOPANELS FROM INTERVIEW_CHAIRMAN WHERE IC_REFID = ?";
+            
+            String data[] = new String[1];
+            
+            objdata.setTableData(mc.getQuery(query, data));
+        }
+        catch(Exception ex){
+            objdata.setErrorMessage(ex.toString());
+            objdata.setFlag(1);
+        }
+        return objdata;
+    }
     /*
     * Method to display an Interview Question info
     */
