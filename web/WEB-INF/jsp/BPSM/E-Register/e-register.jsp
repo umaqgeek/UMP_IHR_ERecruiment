@@ -63,7 +63,7 @@
             + "AND C.C_REFID = A.C_REFID "
             + "AND AT.AT_REFID = A.AT_REFID "
             + "AND AT.AT_DESC = ? "
-            + "AND (PA.PA_STATUS = ? OR PA.PA_STATUS = ? ) "
+            + "AND ( PA.PA_STATUS = ? OR PA.PA_STATUS = ? ) "
             + "AND L.L_ICNO = ? "
             + "ORDER BY C.C_NAME";
     
@@ -92,14 +92,14 @@
             <table width="100%" class="table table-condensed" style="border-collapse: collapse; color: #000;">
             <tbody>
             <%
-            String sql2 = "SELECT R.R_STAFFID, R.R_STAFFNAME, R.R_TELNO, R.R_ADDRESS "
+            String sql2 = "SELECT R.R_STAFFID, R.R_STAFFNAME, R.R_TELNO, R.R_ADDRESS  "
                 + "FROM REGISTRATION R "
                 + "WHERE R.PA_REFID = ? ";
             ArrayList<ArrayList<String>> r_data;
-
+            String[] r_param = new String[1];
             for(int row = 0; row < data.size(); row++)
             {
-                String r_param[] = { data.get(row).get(4) };
+                r_param[0] = data.get(row).get(4);
                 r_data = mc.getQuery(sql2, r_param);
                 %>
                 <input type="hidden" name="pa_refid" value="<%=data.get(row).get(4) %>">
