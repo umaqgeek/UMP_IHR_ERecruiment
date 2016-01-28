@@ -1,3 +1,4 @@
+<%@page import="libraries.My_func"%>
 <%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
@@ -60,12 +61,12 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
         </tr>
     </thead>
     <tbody>
-        <% if (data1.size() > 0) { for (int i = 0; i < data1.size(); i++) { %>
+        <% if (data1.size() > 0) { for (int i = 0; i < data1.size(); i++) { String pph_refid = data1.get(i).get(6); %>
         <tr>
             <td><%=i+1 %></td>
             <td><%=data1.get(i).get(0) %></td>
             <!--<td><a href="#" data-toggle="modal" data-target="#myModal_<%=i %>"><%=data1.get(i).get(1) %></a></td>-->
-            <td><a href="process.jsp?p=Public/e-publish.jsp&pph_refid=<%=data1.get(i).get(6)%>&prev_url=Candidate/e-recruitment-home.jsp"><%=data1.get(i).get(1) %></a></td>
+            <td><a href="process.jsp?<%=My_func.URL_KEY %>=Public/e-publish.jsp&pph_refid=<%=data1.get(i).get(6)%>&prev_url=Candidate/e-recruitment-home.jsp"><%=data1.get(i).get(1) %></a></td>
             <td><%=Func.getDate(data1.get(i).get(2)) %></td>
             <td><%=Func.getDate(data1.get(i).get(3)) %></td>
             <td><%=data1.get(i).get(7) %></td>
@@ -73,6 +74,24 @@ ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
                 <% if (data1.get(i).get(4).toUpperCase().equals(status_new.toUpperCase())) { %>
                 <a href="process/candidate/eApply/eApply_deleteJob.jsp?pa=<%=data1.get(i).get(5) %>"><i class="glyphicon glyphicon-remove"></i></a>
                 <% } %>
+                <%
+                String sql_ts = "SELECT tr.tr_refid "
+                        + "FROM test_result tr, pos_applied pa, candidate c, login1 l "
+                        + "WHERE tr.pa_refid = pa.pa_refid "
+                        + "AND pa.c_refid = c.c_refid "
+                        + "AND c.c_refid = l.c_refid "
+                        + "AND l.l_refid = ? "
+                        + "AND pa.pph_refid = ? ";
+                String param_ts[] = { l_refid, pph_refid };
+                MainClient mc_ts = new MainClient(DBConn.getHost());
+                ArrayList<ArrayList<String>> d_ts = mc_ts.getQuery(sql_ts, param_ts);
+
+                if (d_ts.size() > 0) {
+                    %>
+                <a href="process.jsp?<%=My_func.URL_KEY %>=Candidate/E-Test/e-Test.jsp"> Test </a>
+                    <%
+                }
+                %>
             </td>
         </tr>
         <% } } else { %>

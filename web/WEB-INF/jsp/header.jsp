@@ -50,7 +50,11 @@
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
 		
-		
+        <!-- date picker bootstrap -->
+<!--        <script src="<%=Config.getBase_url(request) %>assets/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="<%=Config.getBase_url(request) %>assets/datepicker/js/bootstrap-datetimepicker.pt-BR.js"></script>
+        <link href="<%=Config.getBase_url(request) %>assets/datepicker/css/bootstrap-combined.min.css" />
+        <link href="<%=Config.getBase_url(request) %>assets/datepicker/css/bootstrap-datetimepicker.min.css" />-->
  
         
         <%

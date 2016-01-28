@@ -1,8 +1,9 @@
+<%@page import="libraries.My_func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%
-String sql = "SELECT tsd.tsdb_refid, tsd.tsdb_set_name, tst.tst_type "
+String sql = "SELECT tsd.tsdb_refid, tsd.tsdb_set_name, tst.tst_type, tst.tst_refid "
         + "FROM test_set_db tsd, test_set_type tst "
         + "WHERE tsd.tst_refid = tst.tst_refid ";  
 String param[] = {};
@@ -11,6 +12,10 @@ ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 
 //out.print(d); if (true) { return; }
 %>
+
+<h4>E-Test</h4>
+
+<button type="button" onclick="location.href='process.jsp?<%=My_func.URL_KEY %>=BPSM/E-Test/e-AssignTest.jsp';"> Assign Test </button> <br />
 
 <script>
 $(document).ready(function(){
@@ -36,7 +41,7 @@ $(document).ready(function(){
                 <% for (int i = 0; i < d.size(); i++) { %>
                 <tr>
                     <td><%=i+1 %></td>
-                    <td><a href=""><%=d.get(i).get(1) %></a></td>
+                    <td><a href="process.jsp?<%=My_func.URL_KEY %>=BPSM/E-Test/e-Questions.jsp&tsdb=<%=d.get(i).get(0) %>"><%=d.get(i).get(1) %></a></td>
                     <td><%=d.get(i).get(2) %></td>
                     <td>
                         <a href="#!" data-toggle="modal" data-target="#myModal_<%=i %>"><span class="glyphicon glyphicon-edit"></span></a>
@@ -90,7 +95,7 @@ $(document).ready(function(){
     </div>
 </div>
               
-<% out.print(d.size()); for (int i = 0; i < d.size(); i++) { out.print(d); %>
+<% for (int i = 0; i < d.size(); i++) { %>
 <!-- Modal -->
 <div id="myModal_<%=i %>" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -100,6 +105,7 @@ $(document).ready(function(){
         <div class="modal-content">
             <!--<form method="post" action="Register">-->
             <form method="post" action="process/bpsm/eTest/setSetupUpdate.jsp">
+                <input type="hidden" name="tsdb_refid" value="<%=d.get(i).get(0) %>" />
                 <div class="modal-header">
                     <h4 class="modal-title">E-Test Setup</h4>
                 </div>
@@ -117,8 +123,9 @@ $(document).ready(function(){
                         ArrayList<ArrayList<String>> d3 = mc3.getQuery(sql3, param3);
                         %>
                         <select name="tst_refid">
-                            <% for (int j = 0; i < d3.size(); i++) { %>
-                            <option value="<%=d3.get(i).get(0) %>"><%=d3.get(i).get(1).toUpperCase() %></option>
+                            <% for (int j = 0; j < d3.size(); j++) { %>
+                            <option value="<%=d3.get(j).get(0) %>" 
+                                    <% if (d.get(i).get(3).equals(d3.get(j).get(0))) { out.print("selected"); }  %>><%=d3.get(j).get(1).toUpperCase() %></option>
                             <% } %>
                         </select>
                     </fieldset>
