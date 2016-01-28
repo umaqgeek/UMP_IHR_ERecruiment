@@ -36,11 +36,11 @@ $(document).ready(function(){
                 <% for (int i = 0; i < d.size(); i++) { %>
                 <tr>
                     <td><%=i+1 %></td>
-                    <td><%=d.get(i).get(1) %></td>
+                    <td><a href=""><%=d.get(i).get(1) %></a></td>
                     <td><%=d.get(i).get(2) %></td>
                     <td>
                         <a href="#!" data-toggle="modal" data-target="#myModal_<%=i %>"><span class="glyphicon glyphicon-edit"></span></a>
-                        <a href="#!"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a href="process/bpsm/eTest/setDelete.jsp?tsdb=<%=d.get(i).get(0) %>"><span class="glyphicon glyphicon-remove"></span></a>
                     </td>
                 </tr>
                 <% } %>
@@ -90,7 +90,7 @@ $(document).ready(function(){
     </div>
 </div>
               
-<% out.print(d.size()); for (int i = 0; i < d.size(); i++) { %>
+<% for (int i = 0; i < d.size(); i++) { %>
 <!-- Modal -->
 <div id="myModal_<%=i %>" class="modal fade" role="dialog">
     <div class="modal-dialog">
