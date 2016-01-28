@@ -2365,7 +2365,7 @@
                                 </div>
                             </div>
                                                                 <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="academicheadingFive">
+                                <div class="panel-heading" role="tab" id="academicheadingSix">
                                     <h4 class="panel-title">
                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseSix" aria-expanded="false" aria-controls="collapseSix">
                                             STAM
@@ -2789,6 +2789,169 @@
                                     </div>
                                 </div>
                             </div>
+                                <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingSeven">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                            Higher Degree
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingSeven">
+                                    <div class="panel-body">
+                                         <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    <p><b>Final Year Student : </b>Students who are studying in their final semester only.</p>
+
+                                                </div>   
+
+                                            </div>
+                                        </div>
+                                        <ul id="highTabs" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#high_first_exam" id="high_first_exam-tab" role="tab" data-toggle="tab" aria-controls="high_first_exam" aria-expanded="true">First Exam</a>
+                                            </li>
+                                            <li role="presentation"><a href="#high_second_exam" role="tab" id="high_second_exam-tab" data-toggle="tab" aria-controls="high_second_exam">Second Exam</a>
+                                            </li>
+                                           <li role="presentation"><a href="#high_add" role="tab" id="high_add" data-toggle="tab" aria-controls="high_add">+</a>
+                                            </li>
+                                        </ul>
+                                       
+                                        <div id="highTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="high_first_exam" aria-labelledby="high_first_exam-tab">
+                                                <!-- first exam -->
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <label>Graduated Year :</label>
+                                                                 <select class="year" name="high_tahun" id="high_tahun" > 
+                                                                  <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+                                                                 </select>
+                                                                
+
+                                                            </div>
+                                                             <hr/>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6"><label>Graduation Level :</label></div>
+                                                            <div class="col-lg-6"><select><option>Diploma With CGPA 3.25 - 3.49</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>CPGA :</label></div>
+                                                            <div class="col-lg-6"><input type="text" value="3.43" /></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Issuing Institution :</label></div>
+                                                            <div class="col-lg-6"><select><option>Politeknik Sultan Haji Ahmad Shah, Kuantan</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Overseas Franchise Institution :</label></div>
+                                                            <div class="col-lg-6">
+
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="Yes" />
+                                                                    Yes
+                                                                </label>
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="No" />
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Subject :</label></div>
+                                                            <div class="col-lg-6"><select><option>Engineering</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Specialization :</label></div>
+                                                            <div class="col-lg-6"><select><option>Civil Engineering</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Scholarship :</label></div>
+                                                            <div class="col-lg-6"><select><option>JPA Scholarships Recipient</option></select></div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="high_second_exam" aria-labelledby="high_second_exam-tab">
+                                             <!-- second exam -->
+                                              <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <label>Graduated Year :</label>
+                                                                 <select class="year" name="high_tahun" id="high_tahun" > 
+                                                                  <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+                                                                 </select>
+                                                                
+
+                                                            </div>
+                                                             <hr/>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6"><label>Graduation Level :</label></div>
+                                                            <div class="col-lg-6"><select><option>Diploma With CGPA 3.25 - 3.49</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>CPGA :</label></div>
+                                                            <div class="col-lg-6"><input type="text" value="3.43" /></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Issuing Institution :</label></div>
+                                                            <div class="col-lg-6"><select><option>Politeknik Sultan Haji Ahmad Shah, Kuantan</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Overseas Franchise Institution :</label></div>
+                                                            <div class="col-lg-6">
+
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="Yes" />
+                                                                    Yes
+                                                                </label>
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="No" />
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Subject :</label></div>
+                                                            <div class="col-lg-6"><select><option>Engineering</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Specialization :</label></div>
+                                                            <div class="col-lg-6"><select><option>Civil Engineering</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Scholarship :</label></div>
+                                                            <div class="col-lg-6"><select><option>JPA Scholarships Recipient</option></select></div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>                                
                         </div>
                     </div>
                 </div>
