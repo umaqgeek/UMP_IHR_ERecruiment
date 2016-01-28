@@ -90,7 +90,7 @@ $(document).ready(function(){
     </div>
 </div>
               
-<% for (int i = 0; i < d.size(); i++) { %>
+<% out.print(d.size()); for (int i = 0; i < d.size(); i++) { out.print(d); %>
 <!-- Modal -->
 <div id="myModal_<%=i %>" class="modal fade" role="dialog">
     <div class="modal-dialog">
