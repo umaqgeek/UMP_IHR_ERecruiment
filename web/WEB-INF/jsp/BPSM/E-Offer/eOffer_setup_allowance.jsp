@@ -276,6 +276,13 @@ $(document).ready(function ()
         $('#pa_field').show();
         $('#contractPeriod').show();
     }
+    else
+    {
+        $("#pa_field").removeAttr('required');
+        //pa_period.required = false;
+        $('#pa_field').hide();
+        $('#contractPeriod').hide();
+    }
     
     $('#selectedJob').change(function ()
     {

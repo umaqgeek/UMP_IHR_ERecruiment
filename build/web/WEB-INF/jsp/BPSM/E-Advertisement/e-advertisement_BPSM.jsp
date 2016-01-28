@@ -50,10 +50,12 @@
                     <th>Action</th>
                     <th>
                         ( <input type="checkbox" id="pph_refid_all" /> Tick All ) 
-                        <a href="#!" data-toggle="modal" data-target="#myModalAll" id="idsetupall">Set Publish Date All</a>
+                        <a href="#!" data-toggle="modal" data-target="#myModalAll" id="idsetupall">Set Date All</a>
                     </th>
                     <th>Open Date</th>
                     <th>Closing Date</th>
+                    <th>Status to Publish</th>
+                    <th><a href="process/bpsm/eAds/ePublishAll.jsp">Publish All</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -69,10 +71,35 @@
                     </td>
                     <td>
                         <input type="checkbox" name="pph_refid_<%=i%>" id="pph_refid_<%=i%>" value="<%=pph.get(i).get(0)%>" />
-                        <a href="#!" data-toggle="modal" data-target="#myModal_<%=i%>"> Set Publish Date </a>
+                        <a href="#!" data-toggle="modal" data-target="#myModal_<%=i%>"> Set Date </a>
                     </td>
                     <td><%=Func.getDate(pph.get(i).get(5))%></td>
                     <td><%=Func.getDate(pph.get(i).get(6))%></td>
+                    <td>
+                        <%
+                        String sql1 = "SELECT pph.pph_startdate, pph.pph_enddate, pph.pph_salary_min, pph.pph_salary_max "
+                                + "FROM position_ptj_hr pph "
+                                + "WHERE pph.pph_status = 'SUBMIT' "
+                                + "AND (NVL(pph.pph_startdate, '01-JAN-1970') <> '01-JAN-1970' "
+                                + "AND NVL(pph.pph_enddate, '01-JAN-1970') <> '01-JAN-1970' "
+                                + "AND NVL(pph.pph_salary_min, 0) <> 0 "
+                                + "AND NVL(pph.pph_salary_max, 0) <> 0) "
+                                + "AND pph.pph_refid = ? ";
+                        String param1[] = { pph.get(i).get(0) };
+                        MainClient mc1 = new MainClient(DBConn.getHost());
+                        ArrayList<ArrayList<String>> d1 = mc1.getQuery(sql1, param1);
+                        %>
+                        <% if (d1.size() > 0) { %>
+                        <span class="glyphicon glyphicon-ok"></span>
+                        <% } else { %>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <% } %>
+                    </td>
+                    <td>
+                        <% if (Func.getDate(pph.get(i).get(5)) != "" && Func.getDate(pph.get(i).get(6)) != "") { %>
+                        <a href="process/bpsm/eAds/ePublish.jsp?pph=<%=pph.get(i).get(0)%>">Publish</a>
+                        <% } %>
+                    </td>
                 </tr>
                 <% }%>
             </tbody>
@@ -185,6 +212,7 @@
                     <th rowspan="2">Job Status</th>
                     <th rowspan="2">Number of Availability</th>
                     <th colspan="2">Advertisement Date</th>
+                    <th rowspan="2">Edit</th>
                 </tr>
                 <tr>
                     <th>Open Date</th>
@@ -203,7 +231,7 @@
                             String sql_t1 = "SELECT vpp.vpp_campus, vpp.vpp_total "
                                     + "FROM vacancy_pos_ptj vpp "
                                     + "WHERE vpp.pph_refid = ? "
-                                    + "AND vpp.vpp_job_status = 'PERMANENT' ";
+                                    + "AND vpp.vpp_job_status = 'TETAP' ";
                             String params_t1[] = {pph_refid};
                             MainClient mc_t1 = new MainClient(DBConn.getHost());
                             ArrayList<ArrayList<String>> d_t1 = mc_t1.getQuery(sql_t1, params_t1);
@@ -211,7 +239,7 @@
                             String sql_t2 = "SELECT vpp.vpp_campus, vpp.vpp_total "
                                     + "FROM vacancy_pos_ptj vpp "
                                     + "WHERE vpp.pph_refid = ? "
-                                    + "AND vpp.vpp_job_status = 'CONTRACT' ";
+                                    + "AND vpp.vpp_job_status = 'KONTRAK' ";
                             String params_t2[] = {pph_refid};
                             MainClient mc_t2 = new MainClient(DBConn.getHost());
                             ArrayList<ArrayList<String>> d_t2 = mc_t2.getQuery(sql_t2, params_t2);
@@ -219,7 +247,7 @@
                             String sql_t3 = "SELECT vpp.vpp_campus, vpp.vpp_total "
                                     + "FROM vacancy_pos_ptj vpp "
                                     + "WHERE vpp.pph_refid = ? "
-                                    + "AND vpp.vpp_job_status = 'FELLOWSHIP' ";
+                                    + "AND vpp.vpp_job_status = 'FELLOW' ";
                             String params_t3[] = {pph_refid};
                             MainClient mc_t3 = new MainClient(DBConn.getHost());
                             ArrayList<ArrayList<String>> d_t3 = mc_t3.getQuery(sql_t3, params_t3);
@@ -238,6 +266,11 @@
                         }%></td>
                     <td rowspan="3"><%=Func.getDate(pph5.get(i).get(8))%></td>
                     <td rowspan="3"><%=Func.getDate(pph5.get(i).get(9))%></td>
+                    <td rowspan="3">
+                        <a href="process/bpsm/eAds/eEditBack.jsp?pph=<%=pph5.get(i).get(0) %>">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </td>
                 </tr>
                 <tr>
                 </tr>

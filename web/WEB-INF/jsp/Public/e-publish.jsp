@@ -15,6 +15,7 @@ String sql = "SELECT * "
 String param[] = { pph_refid };
 MainClient mc = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
+
 %>
 
 <style>
@@ -27,6 +28,8 @@ ArrayList<ArrayList<String>> d = mc.getQuery(sql, param);
 <link href='<%=Config.getBase_url(request) %>assets/fonts/font.css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
 
 <button onclick="location.href='process.jsp?p=<%=prev_url %>';"> Back </button>
+
+<% if (d.size() <= 0) { return; } %>
 
 <div id="cv" class="instaFade"></div>
 

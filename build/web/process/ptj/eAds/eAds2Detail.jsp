@@ -50,22 +50,22 @@ if (status1.equals("0")) {
     int nvr = Integer.parseInt(num_vp_refid);
     
     for (int i = 0; i < nvr; i++) {
-        String vp_refid = request.getParameter("vp_refid_"+i);
-        int vp_total = Integer.parseInt(request.getParameter("vp_total_"+i));
+//        String vp_refid = request.getParameter("vp_refid_"+i);
+//        int vp_total = Integer.parseInt(request.getParameter("vp_total_"+i));
         String vpp_refid = request.getParameter("vpp_refid_"+i);
         int vpp_total = Integer.parseInt(request.getParameter("vpp_total_"+i));
         int vpp_total_new = Integer.parseInt(request.getParameter("vpp_total_new_"+i));
         
-        vp_total = vp_total + vpp_total - vpp_total_new;
+//        vp_total = vp_total + vpp_total - vpp_total_new;
 //        vpp_total_grand += vpp_total;
 //        vpp_total_new_grand += vpp_total_new;
         
-        String sql_vp1 = "UPDATE vacancy_pos "
-                + "SET vp_total = ? "
-                + "WHERE vp_refid = ? ";
-        String param_vp1[] = { String.valueOf(vp_total), vp_refid };
-        MainClient mc_vp1 = new MainClient(DBConn.getHost());
-        mc_vp1.setQuery(sql_vp1, param_vp1);
+//        String sql_vp1 = "UPDATE vacancy_pos "
+//                + "SET vp_total = ? "
+//                + "WHERE vp_refid = ? ";
+//        String param_vp1[] = { String.valueOf(vp_total), vp_refid };
+//        MainClient mc_vp1 = new MainClient(DBConn.getHost());
+//        mc_vp1.setQuery(sql_vp1, param_vp1);
         
         vpp_total = vpp_total_new;
         
@@ -94,15 +94,15 @@ if (status1.equals("0")) {
     
     if (isDelete.equals("0")) {
         
-        String num_ae_refid = request.getParameter("num_ae_refid");
-        int nar = Integer.parseInt(num_ae_refid);
+        String num_ea_expert_code = request.getParameter("num_ea_expert_code");
+        int nar = Integer.parseInt(num_ea_expert_code);
         for (int i = 0; i < nar; i++) {
-            if (request.getParameter("ae_refid_"+i) != null && request.getParameter("ae_refid_"+i) != "") {
-                String ae_refid = request.getParameter("ae_refid_"+i);
+            if (request.getParameter("ea_expert_code_"+i) != null && request.getParameter("ea_expert_code_"+i) != "") {
+                String ea_expert_code = request.getParameter("ea_expert_code_"+i);
                 
-                String sql_ae2 = "INSERT INTO area_expertise_ptj(ae_refid, pph_refid) "
+                String sql_ae2 = "INSERT INTO area_expertise_ptj(ea_expert_code, pph_refid) "
                         + "VALUES(?, ?) ";
-                String param_ae2[] = { ae_refid, pph_refid };
+                String param_ae2[] = { ea_expert_code, pph_refid };
                 MainClient mc_ae2 = new MainClient(DBConn.getHost());
                 mc_ae2.setQuery(sql_ae2, param_ae2);
             }
