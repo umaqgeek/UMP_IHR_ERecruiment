@@ -97,6 +97,13 @@ public class Func {
         return license_list;
     }
     
+    public static String generateHigherDegreeExamForm(){
+     String form="";
+     
+     
+     return form;
+    }
+    
     
     /**
      * Get today's date format dd/MM/yyyy
