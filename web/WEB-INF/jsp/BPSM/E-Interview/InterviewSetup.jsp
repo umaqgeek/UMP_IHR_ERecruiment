@@ -36,7 +36,7 @@
                                     <td style="width:10%">#</td>
                                     <td style="width:20%">Interview<br/>Date & Time</td>
                                     <td style="width:40%">Venue</td>
-                                    <td style="width:30%">Status<br/>Date & Time</td>
+                                    <td style="width:30%">Grade<br/>Position<br/>Dept</td>
                                     <td style="width:10%">&nbsp;</td>
                                 </tr>
                             </thead>
@@ -57,12 +57,17 @@
                                     <td><%=row+1%></td>
                                     <td><%=Row.get(1)%></td>
                                     <td><%=Row.get(2)%></td>
+                                    <td><%=Row.get(5)%><br/><%=Row.get(6)%><br/><%=Row.get(7)%></td>
                                     <% if (Row.get(3)==null) { %>
                                     <td>-N/A-</td>
                                     <% }else {%>
                                     <td><%=Row.get(3)%></td>
                                     <% } %>
-                                    <td><a href="#" OnClick="javascript:document.getElementById('hdn_IC_REFID').value='<%=Row.get(0)%>';" class="btn" data-toggle="modal" data-target="#myInt">Edit</a></td>
+                                    <td>
+                                        <a href="#" OnClick="javascript:document.getElementById('hdn_IC_REFID').value='<%=Row.get(0)%>';" class="btn" data-toggle="modal" data-target="#myChm">Chairman</a>
+                                        <br/>
+                                        <a href="#" OnClick="javascript:document.getElementById('hdn_IC_REFID').value='<%=Row.get(0)%>';" class="btn" data-toggle="modal" data-target="#myPnl">Panel</a>
+                                    </td>
                                 </tr>
                                 <%
                                         }
@@ -73,7 +78,52 @@
                     </div>
                 </div>
                 <!-- Add/Edit DIV-->
-                <div id="myInt" class="modal fade" role="dialog">
+                <div id="myChm" class="modal fade" role="dialog">
+                    <form id="frmQ" name="frmQ" method="POST" class="form-horizontal" action="#">
+                        <div class="modal-dialog">
+                            <!-- Modal content for Universiti-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Interview Setup </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" id="hdn_IC_REFID" name="hdn_IC_REFID" class="form-control" value=""/>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Date & Time</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" id="txt_IC_INTERVIEW_DATETIME" name="txt_IC_INTERVIEW_DATETIME" value=""/>
+                                        </div>
+                                    </div>    
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Venue</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" id="txt_IC_VENUE" name="txt_IC_VENUE" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Panels</label>
+                                        <div class="col-lg-2">
+                                            <select multiple="true" id="lst_IP_FROM" name="lst_IP_FROM" class="form-control col-lg-2">
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <select multiple="true" id="lst_IP_LIST" name="lst_IP_LIST" class="form-control col-lg-4">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--DIV-->
+                <!-- Add/Edit DIV-->
+                <div id="myPnl" class="modal fade" role="dialog">
                     <form id="frmQ" name="frmQ" method="POST" class="form-horizontal" action="#">
                         <div class="modal-dialog">
                             <!-- Modal content for Universiti-->

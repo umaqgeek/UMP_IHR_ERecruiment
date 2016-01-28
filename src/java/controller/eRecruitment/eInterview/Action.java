@@ -190,4 +190,42 @@ public class Action {
         }
         return msg;
     }
+    /*
+    * Method to accept a candidate 
+    */
+    public String acceptCandidate(String intID, String cndID){
+        String msg = "";
+        try{
+            String query = "UPDATE INTERVIEW_CHARMAIN SET IC_APPROVAL_DATETIME = SYSDATE WHERE IC_REFID = ?";
+            String data[] = new String[1];
+            
+            data[0] = intID;
+            
+            MainClient mc = new MainClient(DBConn.getHost());
+            msg = mc.setQuery(query, data);
+        }
+        catch(Exception ex){
+            msg = ex.toString();
+        }
+        return msg;
+    }
+    /*
+    * Method to reject a candidate 
+    */
+    public String rejectCandidate(String intID, String cndID){
+        String msg = "";
+        try{
+            String query = "UPDATE INTERVIEW_CHARMAIN SET IC_APPROVAL_DATETIME = SYSDATE WHERE IC_REFID = ?";
+            String data[] = new String[1];
+            
+            data[0] = intID;
+            
+            MainClient mc = new MainClient(DBConn.getHost());
+            msg = mc.setQuery(query, data);
+        }
+        catch(Exception ex){
+            msg = ex.toString();
+        }
+        return msg;
+    }
 }
