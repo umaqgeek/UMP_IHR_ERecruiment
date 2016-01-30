@@ -73,6 +73,7 @@ $(document).ready(function(){
                     <th>IC/No Passport</th>
                     <th>Apply Date</th>
                     <th>Status</th>
+                    <th>Question's Set</th>
                 </tr>
             </thead>
             <tbody>
@@ -84,9 +85,10 @@ $(document).ready(function(){
                     <td><%=Func.getDate(cand.get(i).get(2)) %></td>
                     <td>
                         <%
-                        String sql_ts = "SELECT tr.tr_refid "
-                                + "FROM test_result tr, pos_applied pa, candidate c "
-                                + "WHERE tr.pa_refid = pa.pa_refid "
+                        String sql_ts = "SELECT tsdb.tsdb_set_name, tr.tr_refid "
+                                + "FROM test_set_db tsdb, test_result tr, pos_applied pa, candidate c "
+                                + "WHERE tsdb.tsdb_refid = tr.tsdb_refid "
+                                + "AND tr.pa_refid = pa.pa_refid "
                                 + "AND pa.c_refid = c.c_refid "
                                 + "AND pa.c_refid = ? "
                                 + "AND pa.pph_refid = ? ";
@@ -103,6 +105,13 @@ $(document).ready(function(){
                             <span class="glyphicon glyphicon-remove" style="color:red;"> Not Yet Assigned </span>
                             <%
                         }
+                        %>
+                    </td>
+                    <td>
+                        <% 
+                        for (int j = 0; j < d_ts.size(); j++) {
+                            out.print(d_ts.get(j).get(0) + "<br />");
+                        } 
                         %>
                     </td>
                 </tr>

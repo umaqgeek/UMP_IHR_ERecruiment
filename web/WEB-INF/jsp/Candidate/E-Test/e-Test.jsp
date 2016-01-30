@@ -34,4 +34,6 @@ String param1[] = { l_refid };
 MainClient mc1 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> data1 = mc1.getQuery(sql1, param1);
 %>
+
 <h4>E-Test</h4>
+
