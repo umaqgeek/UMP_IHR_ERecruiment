@@ -3,6 +3,7 @@
     Created on : Jan 28, 2016, 4:38:16 PM
     Author     : Habib
 --%>
+<%@page import="controller.Session"%>
 <%@page import="config.Config"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
@@ -158,7 +159,24 @@ MainClient mc = new MainClient(DBConn.getHost());
             </table>
         </div>
         <div class="row">
-            <div class="col-sm-12"><h1>INVITATION LIST</h1></div>
+            <div class="col-sm-12"><h4>INVITATION LIST</h4></div>
+            <%
+            String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
+            String sql_invite = "SELECT IAL.U_REFID, IAL.IAL_REFID "
+                            + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, INTERVIEW_PANELS IP, "
+                            + "USERS1 U, LOGIN1 L "
+                            + "WHERE U.U_REFID = L.U_REFID "
+                            + "AND U.U_REFID = IAL.U_REFID "
+                            + "AND L.L_REFID = ? "
+                            + "GROUP BY IAL.U_REFID, IAL.IAL_REFID";
+            String param_invite[] = { l_refid };
+            ArrayList<ArrayList<String>> data_invite = mc.getQuery(sql_invite, param_invite);
+
+//            for(int a = 0; a< data_invite.size(); a++)
+//            {
+//                out.print((a+1)+" "+data_invite.get(a).get(0)+" "+data_invite.get(a).get(1)+"<br>");
+//            }
+            %>
             <table id="invite_list" class="table-bordered" width="100%">
                 <thead>
                 <tr style="vertical-align: middle;">
@@ -170,27 +188,89 @@ MainClient mc = new MainClient(DBConn.getHost());
                     <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Start</th>
                     <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">End</th>
                     <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Venue</th>
+                    <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Interview Stage</th>
                     <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Invited As</th>
                     <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <%
-                    %>
-                    <tr>
-                        <td colspan="2" style="vertical-align: middle; text-align: center">1</td>
-                        <td colspan="2" style="vertical-align: middle; text-align: center">DS45-A</td>
-                        <td colspan="2" style="vertical-align: middle">PENSYARAH UNIVERSITI</td>
-                        <td colspan="2" style="vertical-align: middle">FAKULTI SISTEM KOMPUTER & KEJURUTERAAN PERISIAN</td>
-                        <td colspan="2" style="vertical-align: middle">30/01/2016</td>
-                        <td colspan="2" style="vertical-align: middle; text-align: center">8:00AM</td>
-                        <td colspan="2" style="vertical-align: middle; text-align: center">12:00PM</td>
-                        <td colspan="2" style="vertical-align: middle; text-align: center">HR BUILDING</td>
-                        <td colspan="2" style="vertical-align: middle; text-align: center">CHAIRMAN</td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-success form-control" href="#">Accept</a></td>
-                        <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#">Reject</a></td>
-                    </tr>
-                    <%
+                <%
+                if(data_invite.size() > 0)
+                {
+                    int row_num = 1;
+                    String interview_position = "";
+                    String sql_int_chairman = "";
+                    String[] param_int_chairman = new String[1];
+                    ArrayList<ArrayList<String>> data_int_chairman;
+                    
+                    String sql_check_pos = "SELECT IAL.IC_REFID, IAL.IP_REFID "
+                                        + "FROM INTERVIEW_ASSIGN_LIST IAL "
+                                        + "WHERE IAL.IAL_REFID = ? ";
+                    String[] param_check_pos = new String[1];
+                    ArrayList<ArrayList<String>> data_check_pos;
+                    
+                    String sql_int_detail = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, "
+                            + "IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE "
+                            + "FROM INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, POS_APPLIED PA, POSITION_PTJ_HR PPH "
+                            + "WHERE IC.IC_REFID = IR.IC_REFID "
+                            + "AND PA.PA_REFID = IR.PA_REFID "
+                            + "AND PPH.PPH_REFID = PA.PPH_REFID "
+                            + "AND IC.IC_REFID = ? "
+                            + "GROUP BY PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE";
+                    String[] param_int_detail = new String[1]; 
+                    ArrayList<ArrayList<String>> data_int_detail;
+                    
+                    for(int a = 0; a< data_invite.size(); a++)
+                    {
+                        param_check_pos[0] = data_invite.get(a).get(1);
+                        data_check_pos = mc.getQuery(sql_check_pos, param_check_pos);
+                        //out.print(data_check_pos);
+                        if(data_check_pos.get(0).get(1) != null)
+                        {
+                            sql_int_chairman = "SELECT IC.IC_REFID "
+                                + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_PANELS IP, INTERVIEW_RESULT IR "
+                                + "WHERE IP.IP_REFID = IAL.IP_REFID "
+                                + "AND IR.IR_REFID = IP.IR_REFID "
+                                + "AND IC.IC_REFID = IR.IC_REFID "
+                                + "AND IAL.IAL_REFID = ? "
+                                + "GROUP BY IC.IC_REFID";
+                            param_int_chairman[0] = data_invite.get(a).get(1);
+                            
+                            interview_position="PANEL";
+                        }
+                        else if(data_check_pos.get(0).get(0) != null)
+                        {
+                            sql_int_chairman = "SELECT IC.IC_REFID "
+                                + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR "
+                                + "WHERE IC.IC_REFID = IAL.IC_REFID "
+                                + "AND IAL.IAL_REFID = ? "
+                                + "GROUP BY IC.IC_REFID";
+                            param_int_chairman[0] = data_invite.get(a).get(1);
+                            interview_position="CHAIRMAN";
+                        }
+                        data_int_chairman = mc.getQuery(sql_int_chairman, param_int_chairman);
+                        
+                        param_int_detail[0] = data_int_chairman.get(0).get(0);
+                        data_int_detail = mc.getQuery(sql_int_detail, param_int_detail);
+                        %>
+                        <tr>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=row_num %></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(0) %></td>
+                            <td colspan="2" style="vertical-align: middle"><%=data_int_detail.get(0).get(1) %></td>
+                            <td colspan="2" style="vertical-align: middle"><%=data_int_detail.get(0).get(4) %></td>
+                            <td colspan="2" style="vertical-align: middle"><%=data_int_detail.get(0).get(3) %></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(6) %></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(7) %></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(8) %></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(9) %></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=interview_position %></td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-success form-control" href="#">Accept</a></td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#">Reject</a></td>
+                        </tr>
+                        <%
+                        row_num++;
+                    }
+                }
                     %>
                 </tbody>
             </table>
