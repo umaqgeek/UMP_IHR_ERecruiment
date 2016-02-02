@@ -18,7 +18,7 @@ import oms.rmi.server.MainClient;
 public class Controller {
     
     public static void setIP() {
-        DBConn.setHost("175.145.207.13");
+        DBConn.setHost("175.142.65.30");
     }
     
     public final static String dashboardLinks[][] = {
