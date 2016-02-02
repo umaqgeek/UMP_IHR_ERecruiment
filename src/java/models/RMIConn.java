@@ -38,9 +38,9 @@ public class RMIConn {
 
         } catch (Exception e) {
             
-            status = false;
             System.out.println("Error: "+"Network Error!\nPlease check with your administrator ..");
-            e.printStackTrace();
+            System.out.println("Error: "+e.getMessage());
+            status = startRMI(DBConn.getHost(), DBConn.getPort_rmi());
         }
         return status;
     }

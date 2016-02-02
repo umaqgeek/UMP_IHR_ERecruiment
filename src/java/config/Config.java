@@ -13,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Config {
     
+    public static String webURL = "localhost";
+    
     public static String getBase_url(HttpServletRequest request) {
-        return "http://localhost:8080"+request.getContextPath()+"/";
+//        return "http://"+webURL+":8080"+request.getContextPath()+"/";
+        return "http://"+request.getServerName()+":"+request.getServerPort()+""+request.getContextPath()+"/";
     }
 }

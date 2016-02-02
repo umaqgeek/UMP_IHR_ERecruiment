@@ -5,6 +5,7 @@
  */
 package controller;
 
+import config.Config;
 import java.util.ArrayList;
 import libraries.My_func;
 import models.DBConn;
@@ -15,6 +16,10 @@ import oms.rmi.server.MainClient;
  * @author umarmukhtar
  */
 public class Controller {
+    
+    public static void setIP() {
+        DBConn.setHost("175.145.207.13");
+    }
     
     public final static String dashboardLinks[][] = {
         {"E-Advertisement", "Advertisement"},

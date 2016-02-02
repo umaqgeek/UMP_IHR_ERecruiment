@@ -1,8 +1,11 @@
+<%@page import="controller.Controller"%>
 <%@page import="libraries.My_func"%>
 <%@page import="config.Config"%>
 <%
 //response.sendRedirect("MOCKUP_06122015.2257/index.html");
 %>
+
+<% Controller.setIP(); %>
 
 <jsp:include page="WEB-INF/jsp/header.jsp"></jsp:include>
 <jsp:include page="WEB-INF/jsp/menu.jsp"></jsp:include>
