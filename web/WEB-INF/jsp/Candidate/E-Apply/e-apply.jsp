@@ -2881,6 +2881,14 @@
                                                        
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input type="submit" name="high_first_exam" class="btn btn-primary" value="Save Changes">
+                                                        <span></span>
+                                                        <input type="reset" class="btn btn-default" value="Cancel">
+                                                    </div>
+
+                                                </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="high_second_exam" aria-labelledby="high_second_exam-tab">
                                              <!-- second exam -->
@@ -2945,13 +2953,200 @@
                                                        
                                                     </div>
                                                 </div>
+                                              <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input type="submit" name="high_second_exam" class="btn btn-primary" value="Save Changes">
+                                                        <span></span>
+                                                        <input type="reset" class="btn btn-default" value="Cancel">
+                                                    </div>
+
+                                                </div>
                                             </div>
                                            
                                         </div>
                                         
                                     </div>
                                 </div>
-                            </div>                                
+                            </div>   
+                                                                <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="academicheadingEight">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAcademic" href="#academicCollapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                            Professional Degree
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="academicCollapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="academicheadingEight">
+                                    <div class="panel-body">
+                                         <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    <p><b>Final Year Student : </b>Students who are studying in their final semester only.</p>
+
+                                                </div>   
+
+                                            </div>
+                                        </div>
+                                        <ul id="profTabs" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#prof_first_result" id="prof_first_result-tab" role="tab" data-toggle="tab" aria-controls="prof_first_result" aria-expanded="true">First Result</a>
+                                            </li>
+                                            <li role="presentation"><a href="#prof_second_result" role="tab" id="prof_second_result-tab" data-toggle="tab" aria-controls="prof_second_result">Second Result</a>
+                                            </li>
+                                           <li role="presentation"><a href="#prof_add" role="tab" id="prof_add" data-toggle="tab" aria-controls="prof_add">+</a>
+                                            </li>
+                                        </ul>
+                                       
+                                        <div id="profTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="prof_first_result" aria-labelledby="prof_first_result-tab">
+                                                <!-- first exam -->
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <label>Graduated Year :</label>
+                                                                 <select class="year" name="high_tahun" id="high_tahun" > 
+                                                                  <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+                                                                 </select>
+                                                                
+
+                                                            </div>
+                                                             <hr/>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6"><label>Graduation Level :</label></div>
+                                                            <div class="col-lg-6"><select><option>Diploma With CGPA 3.25 - 3.49</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>CPGA :</label></div>
+                                                            <div class="col-lg-6"><input type="text" value="3.43" /></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Issuing Institution :</label></div>
+                                                            <div class="col-lg-6"><select><option>University Of Wisconsin, OSHKOSH, USA</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Overseas Franchise Institution :</label></div>
+                                                            <div class="col-lg-6">
+
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="Yes" />
+                                                                    Yes
+                                                                </label>
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="No" />
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Subject :</label></div>
+                                                            <div class="col-lg-6"><select><option>Architecture</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Specialization :</label></div>
+                                                            <div class="col-lg-6"><select><option>Design</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Scholarship :</label></div>
+                                                            <div class="col-lg-6"><select><option>KPTM Scholarships Recipient</option></select></div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input type="submit" name="high_first_exam" class="btn btn-primary" value="Save Changes">
+                                                        <span></span>
+                                                        <input type="reset" class="btn btn-default" value="Cancel">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="prof_second_result" aria-labelledby="prof_second_result-tab">
+                                             <!-- second exam -->
+                                              <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <label>Graduated Year :</label>
+                                                                 <select class="year" name="high_tahun" id="high_tahun" > 
+                                                                  <script>
+                                                                            var i, yr, now = new Date();
+                                                                            for (i = 0; i < 30; i++) {
+                                                                    yr = now.getFullYear() - i; // or whatever
+                                                                            $('.year').append($('<option/>').val(yr).text(yr));
+                                                                    };                                                                </script>
+                                                                 </select>
+                                                                
+
+                                                            </div>
+                                                             <hr/>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6"><label>Graduation Level :</label></div>
+                                                            <div class="col-lg-6"><select><option>Diploma With CGPA 3.25 - 3.49</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>CPGA :</label></div>
+                                                            <div class="col-lg-6"><input type="text" value="3.43" /></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Issuing Institution :</label></div>
+                                                            <div class="col-lg-6"><select><option>University Of Wisconsin, OSHKOSH, USA</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Overseas Franchise Institution :</label></div>
+                                                            <div class="col-lg-6">
+
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="Yes" />
+                                                                    Yes
+                                                                </label>
+                                                                <label class="radio inline">
+                                                                    
+                                                                    <input type="radio" name="franchise" value="No" />
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Subject :</label></div>
+                                                            <div class="col-lg-6"><select><option>Architecture</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Specialization :</label></div>
+                                                            <div class="col-lg-6"><select><option>Design</option></select></div>
+                                                        </div>
+                                                         <div class="row">
+                                                            <div class="col-lg-6"><label>Scholarship :</label></div>
+                                                            <div class="col-lg-6"><select><option>KPTM Scholarships Recipient</option></select></div>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                              <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input type="submit" name="high_second_exam" class="btn btn-primary" value="Save Changes">
+                                                        <span></span>
+                                                        <input type="reset" class="btn btn-default" value="Cancel">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>      
                         </div>
                     </div>
                 </div>
