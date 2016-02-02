@@ -99,14 +99,16 @@ MainClient mc = new MainClient(DBConn.getHost());
         <div class="row">
             <div class="col-sm-12"><h4>SAVED INTERVIEW LIST</h4></div>
             <%
-            String pre_interview = "PRE-INTERVIEW";
-            String sql_select_int = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID "
+            String pre_interview = "UNIVERSITY";
+            String sql_select_int = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, "
+                    + "IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE "
                     + "FROM INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, POS_APPLIED PA, POSITION_PTJ_HR PPH "
                     + "WHERE IC.IC_REFID = IR.IC_REFID "
                     + "AND PA.PA_REFID = IR.PA_REFID "
                     + "AND PPH.PPH_REFID = PA.PPH_REFID "
                     + "AND IC.IC_TYPE = ? "
-                    + "GROUP BY PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID";
+                    + "GROUP BY PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, "
+                    + "IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE";
             String param_select_int[] = { pre_interview };
             ArrayList<ArrayList<String>> data_select_int = mc.getQuery(sql_select_int, param_select_int);
             %>
@@ -114,13 +116,16 @@ MainClient mc = new MainClient(DBConn.getHost());
                 <thead>
                     <tr style="vertical-align: middle;">
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">#</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="20%">Interview</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">Grade</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="20%">Position</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="20%">PTJ</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">Date</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="5%">Grade</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">Position</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">PTJ</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Date</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Start</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">End</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Venue</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Interview Stage</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Interviews Committee</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">More Detail</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Detail</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Publish</th>
                     </tr>
                 </thead>
@@ -142,13 +147,16 @@ MainClient mc = new MainClient(DBConn.getHost());
                         %>
                         <tr>
                             <td style="vertical-align: middle; text-align: center"><%=row+1 %></td>
-                            <td style="vertical-align: middle; text-align: center">INTERVIEW <%=row+1 %></td>
                             <td style="vertical-align: middle"><%=data_select_int.get(row).get(0) %></td>
                             <td style="vertical-align: middle"><%=data_select_int.get(row).get(1) %></td>
                             <td style="vertical-align: middle"><%=data_select_int.get(row).get(4) %></td>
                             <td style="vertical-align: middle; text-align: center"><%=data_select_int.get(row).get(3) %></td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&pph_refid=<%=data_select_int.get(row).get(5) %>&alert=0">Set</a></td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#modalDetail<%=row %>" data-toggle="modal">More Detail</a></td>
+                            <td style="vertical-align: middle; text-align: center"><%=data_select_int.get(row).get(6) %></td>
+                            <td style="vertical-align: middle; text-align: center"><%=data_select_int.get(row).get(7) %></td>
+                            <td style="vertical-align: middle; text-align: center"><%=data_select_int.get(row).get(8) %></td>
+                            <td style="vertical-align: middle; text-align: center"><%=data_select_int.get(row).get(9) %></td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&pph_refid=<%=data_select_int.get(row).get(5) %>&ic_refid=<%=data_select_int.get(row).get(2) %>&alert=0">Invite</a></td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#modalDetail<%=row %>" data-toggle="modal">Detail</a></td>
                             <td style="vertical-align: middle; text-align: center"><a class="btn btn-success form-control disabled" href="#modalDetail<%=row %>" data-toggle="modal">Publish</a></td>
                         </tr>
                         <%

@@ -57,34 +57,7 @@ if(alert.equals("4"))
         <div class="row">
             <%
             String pph_refid = session.getAttribute("pph_refid").toString();
-            String ic_refid_pre = "";
-            String ic_refid_main = "";
-            
-            String sql_get_chairman = "SELECT IC.IC_REFID, IC.IC_TYPE "
-                                    + "FROM INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, POS_APPLIED PA, POSITION_PTJ_HR PPH "
-                                    + "WHERE IC.IC_REFID = IR.IC_REFID "
-                                    + "AND PA.PA_REFID = IR.PA_REFID "
-                                    + "AND PPH.PPH_REFID = PA.PPH_REFID "
-                                    + "AND PPH.PPH_REFID = ? ";
-            String param_get_chairman[] = { pph_refid };
-            ArrayList<ArrayList<String>> data_get_chairman = mc.getQuery(sql_get_chairman, param_get_chairman);
-            if(data_get_chairman.size() > 0)
-            {
-                for(int a=0; a<data_get_chairman.size(); a++)
-                {
-                    if(data_get_chairman.get(a).get(1).equals("PRE-INTERVIEW"))
-                    {
-                        ic_refid_pre = data_get_chairman.get(a).get(0);
-                        //out.print(ic_refid_pre);
-                    }
-                    
-                    if(data_get_chairman.get(a).get(1).equals("MAIN INTERVIEW"))
-                    {
-                        ic_refid_main = data_get_chairman.get(a).get(0);
-                        //out.print(ic_refid_main);
-                    }
-                }
-            }
+            String ic_refid = session.getAttribute("ic_refid").toString();
             
             
             String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
@@ -103,6 +76,8 @@ if(alert.equals("4"))
                                     + "AND PA.PPH_REFID = ? ";
             String[] param_count_pass = new String[2];
             ArrayList<ArrayList<String>> data_count_pass;
+            
+            
             %>
             <div class="col-sm-12"><h4>E-INTERVIEW: Setup Interview</h4></div>
         </div>
@@ -136,8 +111,7 @@ if(alert.equals("4"))
                                     data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
                                     %>
                                     <input type="hidden" name="pph_refid" value="<%=pph_refid %>">
-                                    <input type="hidden" name="ic_refid_pre" value="<%=ic_refid_pre %>">
-                                    <input type="hidden" name="ic_refid_main" value="<%=ic_refid_main %>">
+                                    <input type="hidden" name="ic_refid" value="<%=ic_refid %>">
                                     <tr>
                                         <td style="vertical-align: middle; text-align: center"><%=data_pos_list.get(0).get(0) %></td>
                                         <td style="vertical-align: middle"><%=data_pos_list.get(0).get(1) %></td>
@@ -152,143 +126,149 @@ if(alert.equals("4"))
             </div>
         </div>
         
-        <div class="row">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                        <h4 class="panel-title">
-                                PRE-INTERVIEW
-                        </h4>
-                        <input type="hidden" name="ic_type" value="PRE-INTERVIEW">
-                    </div>
-                    <div class="panel-body">                                        
-                        <div class="row">
-                            <table class="table-condensed" width="100%">
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
-                                    <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle">
+        <%
+        String sql_select_chairman = "SELECT IAL.U_REFID, U.U_NAME, RL.RL_ROLE, IAL.IAL_STATUS "
+                                + "FROM INTERVIEW_ASSIGN_LIST IAL, USERS1 U, ROLE RL, LOGIN1 L "
+                                + "WHERE U.U_REFID = IAL.U_REFID "
+                                + "AND U.U_REFID = L.U_REFID "
+                                + "AND RL.RL_REFID = L.RL_REFID "
+                                + "AND IAL.IC_REFID = ? ";
+        String param_select_chairman[] = { ic_refid };
+        ArrayList<ArrayList<String>> data_select_chairman = mc.getQuery(sql_select_chairman, param_select_chairman);
+        
+        if(data_select_chairman.size() > 0)
+        {
+            %>  
+            <div class="row">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                   INVITATION PROGRESS
+                            </h4>
+                        </div>
+
+                        <div class="panel-body">                                        
+                            <div class="row">
+                                <table class="table-condensed" width="100%">
+                                    <thead style="vertical-align: middle;">
+                                        <tr style="vertical-align: middle;">
+                                            <th style="vertical-align: middle; text-align: center; font-weight: bold">#</th>
+                                            <th style="vertical-align: middle; text-align: center; font-weight: bold">Name</th>
+                                            <th style="vertical-align: middle; text-align: center; font-weight: bold">Invited As</th>
+                                            <th style="vertical-align: middle; text-align: center; font-weight: bold">Invitation Status</th>
+                                            <th style="vertical-align: middle; text-align: center; font-weight: bold">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                     <%
-                                        String role_candidate = "CANDIDATE";
-                                        String sql_select_user = "SELECT U.U_REFID, U.U_NAME, RL.RL_ROLE "
-                                                                + "FROM USERS1 U, LOGIN1 L, ROLE RL "
-                                                                + "WHERE RL.RL_REFID = L.RL_REFID "
-                                                                + "AND U.U_REFID = L.U_REFID "
-                                                                + "AND RL.RL_ROLE != ? ";
-                                        String param_select_user[] = { role_candidate };
-                                        ArrayList<ArrayList<String>> data_select_user = mc.getQuery(sql_select_user, param_select_user);
+                                    for(int a = 0; a < data_select_chairman.size(); a++)
+                                    {
                                         %>
-                                        <select name="chairman" class="form-control">
-                                            <%
-                                            for(int a=0; a < data_select_user.size(); a++)
-                                            {
-                                                %><
-                                                  <option value="<%=data_select_user.get(a).get(0)%>"><%=data_select_user.get(a).get(1)%> ( <%=data_select_user.get(a).get(2)%> )</option>
-                                                <%
-                                            }
-                                            %>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >Panels</td>
-                                    <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >:</td>
-                                    <td>
-                                        <div class="form-group" id="itemRows">
-                                            <div id="selection" class="col-md-10">
-                                                <select name="panels" class="form-control">
-                                                    <%
-                                                    for(int a=0; a < data_select_user.size(); a++)
-                                                    {
-                                                        %>
-                                                        <option value="<%=data_select_user.get(a).get(0)%>"><%=data_select_user.get(a).get(1)%> ( <%=data_select_user.get(a).get(2)%> )</option>
-                                                        <%
-                                                    }
-                                                    %>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2"  style="text-align: center">
-                                                <input name="rowExist" data-rowExist="0" id="rowExistId" class="open-rowExist" type="hidden" value="0">
-                                                <button type="button" id="addButton" class="btn btn-default form-control"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
+                                        <tr>
+                                            <td><%=a+1 %></td>
+                                            <td><%=data_select_chairman.get(a).get(1) %></td>
+                                            <td>CHAIRMAN</td>
+                                            <td><%=data_select_chairman.get(a).get(3) %></td>
+                                            <td><a href="#" class="btn btn-warning">Cancel Invite</a></td>
+                                            <td><a href="#" class="btn btn-default disabled">Invite New</a></td>
+                                        </tr>
+                                        <%
+                                    }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-                    
-        <div class="row">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                        <h4 class="panel-title">
-                                MAIN INTERVIEW
-                        </h4>
-                        <input type="hidden" name="ic_type2" value="PRE-INTERVIEW">
-                    </div>
-                    <div class="panel-body">                                        
-                        <div class="row">
-                            <table class="table-condensed" width="100%">
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
-                                    <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle">
-                                        <select name="chairman2" class="form-control">
-                                            <%
-                                            for(int a=0; a < data_select_user.size(); a++)
-                                            {
-                                                %><
-                                                  <option value="<%=data_select_user.get(a).get(0)%>"><%=data_select_user.get(a).get(1)%> ( <%=data_select_user.get(a).get(2)%> )</option>
-                                                <%
-                                            }
+            <%
+        }
+        else
+        {
+            %>                  
+            <div class="row">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                    INVITE INTERVIEWS COMMITTEE
+                            </h4>
+                        </div>
+
+                        <div class="panel-body">                                        
+                            <div class="row">
+                                <table class="table-condensed" width="100%">
+                                    <tr>
+                                        <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
+                                        <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
+                                        <td style="vertical-align: middle">
+                                        <%
+                                            String role_candidate = "CANDIDATE";
+                                            String sql_select_user = "SELECT U.U_REFID, U.U_NAME, RL.RL_ROLE "
+                                                                    + "FROM USERS1 U, LOGIN1 L, ROLE RL "
+                                                                    + "WHERE RL.RL_REFID = L.RL_REFID "
+                                                                    + "AND U.U_REFID = L.U_REFID "
+                                                                    + "AND RL.RL_ROLE != ? ";
+                                            String param_select_user[] = { role_candidate };
+                                            ArrayList<ArrayList<String>> data_select_user = mc.getQuery(sql_select_user, param_select_user);
                                             %>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >Panels</td>
-                                    <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >:</td>
-                                    <td>
-                                        <div class="form-group" id="itemRows2">
-                                            <div id="selection2" class="col-md-10">
-                                                <select name="panels2" class="form-control">
+                                            <select name="chairman" class="form-control">
+                                                <%
+                                                for(int a=0; a < data_select_user.size(); a++)
+                                                {
+                                                    %><
+                                                      <option value="<%=data_select_user.get(a).get(0)%>"><%=data_select_user.get(a).get(1)%> ( <%=data_select_user.get(a).get(2)%> )</option>
                                                     <%
-                                                    for(int a=0; a < data_select_user.size(); a++)
-                                                    {
-                                                        %>
-                                                        <option value="<%=data_select_user.get(a).get(0)%>"><%=data_select_user.get(a).get(1)%> ( <%=data_select_user.get(a).get(2)%> )</option>
+                                                }
+                                                %>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >Panels</td>
+                                        <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >:</td>
+                                        <td>
+                                            <div class="form-group" id="itemRows">
+                                                <div id="selection" class="col-md-10">
+                                                    <select name="panels" class="form-control">
                                                         <%
-                                                    }
-                                                    %>
-                                                </select>
+                                                        for(int a=0; a < data_select_user.size(); a++)
+                                                        {
+                                                            %>
+                                                            <option value="<%=data_select_user.get(a).get(0)%>"><%=data_select_user.get(a).get(1)%> ( <%=data_select_user.get(a).get(2)%> )</option>
+                                                            <%
+                                                        }
+                                                        %>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2"  style="text-align: center">
+                                                    <input name="rowExist" data-rowExist="0" id="rowExistId" class="open-rowExist" type="hidden" value="0">
+                                                    <button type="button" id="addButton" class="btn btn-default form-control"><i class="fa fa-plus"></i></button>
+                                                </div>
                                             </div>
-                                            <div class="col-md-2"  style="text-align: center">
-                                                <input name="rowExist2" data-rowExist2="0" id="rowExistId2" class="open-rowExist2" type="hidden" value="0">
-                                                <button type="button" id="addButton2" class="btn btn-default form-control"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-                    
-        <div class="row">
-        <table>
-            <tr>
-                <td colspan="3" style="font-weight: bold; vertical-align: middle; text-align: center">
-                    <button class="btn btn-success form-control"><span style="color: white">Save</span></button>
-                </td>
-            </tr>
-        </table>
-        </div>
+             
+            <div class="row">
+            <table>
+                <tr>
+                    <td colspan="3" style="font-weight: bold; vertical-align: middle; text-align: center">
+                        <button class="btn btn-success form-control"><span style="color: white">Send Invite</span></button>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <%
+        }
+        %>
         </form>
     </div>
 </div>
@@ -342,85 +322,5 @@ $(document).ready(function ()
         $("#panelSize").val(rnum);
         jQuery('#rowNum'+rnum).remove();
     });
-    
-    $("#panelSize2").val('1');
-    var selection2 = $("#selection2").html();
-    //var selection = document.getElementById("selection");
-    var rowNum2 = document.getElementById("rowExistId2").value;
-    $('#addButton2').click(function addRow()
-    {
-        rowNum2 ++;
-        //var row = '<p id="rowNum'+rowNum+'">Item quantity: <input type="text" name="qty[]" size="4" value="'+frm.add_qty.value+'"> Item name: <input type="text" name="name[]" value="'+frm.add_name.value+'"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
-        var row2 = '<div class="form-group" id="rowNum2'+rowNum2+'">'
-                        +'<div class="col-md-10">'
-                            +selection2
-                        +'</div>'
-                        +'<div class="col-md-2"  style="text-align: center">'
-                                +'<button type="button" id="removeButton2" data-rnum2="'+rowNum2+'" class="btn open-removeButton2 btn-danger form-control"><strong style="color: white"><i class="fa fa-minus"></i></strong></button>'
-                        +'</div>'
-                    +'</div>';
-        $("#panelSize2").val( rowNum2+1 );
-        jQuery('#itemRows2').append(row2);
-    });
-    
-    $(document).on("click", ".open-removeButton2", function ()
-    {
-        var rnum2 = $(this).data('rnum2');
-        $("#panelSize2").val(rnum2);
-        jQuery('#rowNum2'+rnum2).remove();
-    });
 });
 </script>
-
-<!-- <tr>
-                        <td style="font-weight: bold; vertical-align: middle" >Chairman</td>
-                        <td style="font-weight: bold; vertical-align: middle; text-align: center" >:</td>
-                        <td style="vertical-align: middle">
-                            <%
-//                            String role_candidate = "CANDIDATE";
-//                            String sql_select_user = "SELECT U.U_REFID, U.U_NAME, RL.RL_ROLE "
-//                                                    + "FROM USERS1 U, LOGIN1 L, ROLE RL "
-//                                                    + "WHERE RL.RL_REFID = L.RL_REFID "
-//                                                    + "AND U.U_REFID = L.U_REFID "
-//                                                    + "AND RL.RL_ROLE != ? ";
-//                            String param_select_user[] = { role_candidate };
-//                            ArrayList<ArrayList<String>> data_select_user = mc.getQuery(sql_select_user, param_select_user);
-                            %>
-                            <select name="chairman" class="form-control">
-                                <option disabled selected>--PLEASE SELECT TO INVITE INTERVIEW CHAIRMAN--</option>
-                                <%
-//                                for(int a=0; a < data_select_user.size(); a++)
-//                                {
-//                                    %><
-//                                    <option value="<%//=data_select_user.get(a).get(0)%>"><%//=data_select_user.get(a).get(1)%> ( <%//=data_select_user.get(a).get(2)%> )</option>
-//                                    <%
-//                                }
-                                %>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >Panels</td>
-                        <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >:</td>
-                        <td style="vertical-align: middle">
-                            <div class="form-group" id="itemRows">
-                                <div id="selection" class="col-md-10">
-                                    <select name="panels" class="form-control">
-                                        <option disabled selected>--PLEASE SELECT TO INVITE INTERVIEW PANEL --</option>
-                                        <% //
-//                                        for(int a=0; a < data_select_user.size(); a++)
-//                                        {
-//                                            %>
-//                                            <option value="<%//=data_select_user.get(a).get(0)%>"><%//=data_select_user.get(a).get(1)%> ( <%//=data_select_user.get(a).get(2)%> )</option>
-//                                            <%
-//                                        }
-                                        %>
-                                    </select>
-                                </div>
-                                <div class="col-md-2"  style="text-align: center">
-                                    <input name="rowExist" data-rowExist="0" id="rowExistId" class="open-rowExist" type="hidden" value="0">
-                                    <button type="button" id="addButton" class="btn btn-default form-control"><i class="fa fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>-->

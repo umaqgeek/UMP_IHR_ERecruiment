@@ -14,7 +14,7 @@
     String ic_interview_datetime = Func.getDate(request.getParameter("ic_interview_date"));
     String ic_start_time = request.getParameter("ic_start_time");
     String ic_end_time = request.getParameter("ic_end_time");
-    String ic_venue = request.getParameter("ic_venue");
+    String ic_venue = request.getParameter("ic_venue").toUpperCase();
     
 /*    for(int a =0; a < pph_refid.length; a++)
 //    {
