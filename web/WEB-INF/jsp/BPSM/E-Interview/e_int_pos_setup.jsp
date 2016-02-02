@@ -91,22 +91,6 @@ MainClient mc = new MainClient(DBConn.getHost());
                     </div>
                 </div>
             </div>
-       </div>
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <br>
-                    <div class="row">
-                        <table class="table-condensed" width="100%">
-                            <tr>
-                                <td style="font-weight: bold; vertical-align: middle" width="20%">Date</td>
-                                <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                <td style="vertical-align: middle"><input type="date" class="form-control" name="ic_interview_date" required="" placeholder="30/02/2015"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
         
         <div class="row">
@@ -114,56 +98,27 @@ MainClient mc = new MainClient(DBConn.getHost());
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
-                                PRE-INTERVIEW
+                            GENERAL SETUP
                         </h4>
-                        <input type="hidden" name="ic_type" value="PRE-INTERVIEW">
+                        <input type="hidden" name="ic_type" value="UNIVERSITY">
                     </div>
                     <div class="panel-body">                                        
                         <div class="row">
                             <table class="table-condensed" width="100%">
                                 <tr>
+                                    <td style="font-weight: bold; vertical-align: middle" width="20%">Date</td>
+                                    <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
+                                    <td style="vertical-align: middle"><input type="date" class="form-control" name="ic_interview_date" required="" placeholder="30/02/2015"></td>
+                                </tr>
+                                <tr>
                                     <td style="font-weight: bold; vertical-align: middle" width="20%">Start</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_start_time" required="" placeholder="30/02/2015 03:00PM"></td>
+                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_start_time" required="" placeholder="03:00PM"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle" width="20%">End</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_end_time" required="" placeholder="30/02/2015 03:00PM"></td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: middle">Venue</td>
-                                    <td style="font-weight: bold; vertical-align: middle; text-align: center">:</td>
-                                    <td style="vertical-align: middle"><input type="text" class="form-control" name="ic_venue" placeholder="Example: HR BUILDING" required></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-                    
-        <div class="row">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                        <h4 class="panel-title">
-                                MAIN INTERVIEW
-                        </h4>
-                        <input type="hidden" name="ic_type" value="MAIN INTERVIEW">
-                    </div>
-                    <div class="panel-body">                                        
-                        <div class="row">
-                            <table class="table-condensed" width="100%">
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: middle" width="20%">Start</td>
-                                    <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_start_time" required="" placeholder="30/02/2015 03:00PM"></td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: bold; vertical-align: middle" width="20%">End</td>
-                                    <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_end_time" required="" placeholder="30/02/2015 03:00PM"></td>
+                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_end_time" required="" placeholder="03:00PM"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle">Venue</td>
@@ -241,56 +196,3 @@ $(document).ready(function ()
     });
 });
 </script>
-
-<!-- <tr>
-                        <td style="font-weight: bold; vertical-align: middle" >Chairman</td>
-                        <td style="font-weight: bold; vertical-align: middle; text-align: center" >:</td>
-                        <td style="vertical-align: middle">
-                            <%
-//                            String role_candidate = "CANDIDATE";
-//                            String sql_select_user = "SELECT U.U_REFID, U.U_NAME, RL.RL_ROLE "
-//                                                    + "FROM USERS1 U, LOGIN1 L, ROLE RL "
-//                                                    + "WHERE RL.RL_REFID = L.RL_REFID "
-//                                                    + "AND U.U_REFID = L.U_REFID "
-//                                                    + "AND RL.RL_ROLE != ? ";
-//                            String param_select_user[] = { role_candidate };
-//                            ArrayList<ArrayList<String>> data_select_user = mc.getQuery(sql_select_user, param_select_user);
-                            %>
-                            <select name="chairman" class="form-control">
-                                <option disabled selected>--PLEASE SELECT TO INVITE INTERVIEW CHAIRMAN--</option>
-                                <%
-//                                for(int a=0; a < data_select_user.size(); a++)
-//                                {
-//                                    %><
-//                                    <option value="<%//=data_select_user.get(a).get(0)%>"><%//=data_select_user.get(a).get(1)%> ( <%//=data_select_user.get(a).get(2)%> )</option>
-//                                    <%
-//                                }
-                                %>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >Panels</td>
-                        <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >:</td>
-                        <td style="vertical-align: middle">
-                            <div class="form-group" id="itemRows">
-                                <div id="selection" class="col-md-10">
-                                    <select name="panels" class="form-control">
-                                        <option disabled selected>--PLEASE SELECT TO INVITE INTERVIEW PANEL --</option>
-                                        <% //
-//                                        for(int a=0; a < data_select_user.size(); a++)
-//                                        {
-//                                            %>
-//                                            <option value="<%//=data_select_user.get(a).get(0)%>"><%//=data_select_user.get(a).get(1)%> ( <%//=data_select_user.get(a).get(2)%> )</option>
-//                                            <%
-//                                        }
-                                        %>
-                                    </select>
-                                </div>
-                                <div class="col-md-2"  style="text-align: center">
-                                    <input name="rowExist" data-rowExist="0" id="rowExistId" class="open-rowExist" type="hidden" value="0">
-                                    <button type="button" id="addButton" class="btn btn-default form-control"><i class="fa fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>-->
