@@ -3317,6 +3317,172 @@
                     </div>
                 </div>
             </div>
+                                                                <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Co-Curriculum
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body">
+                        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+                            <tbody><tr>
+                                    <td colspan="3">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tbody><tr>
+                                                    <td colspan="3">
+                                                        <input type="hidden" name="bakatLOV" value="1/DANDANAN DAN SOLEKAN|2/FOTOGRAFI|3/LAKONAN|4/LUKISAN|5/MUZIK|6/PENERBITAN BERITA RADIO|7/PENERBITAN BERITA TV|8/PENERBITAN FILEM|9/PENERBITAN RANCANGAN RADIO|10/PENERBITAN RANCANGAN TV|11/TARIAN"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%" align="left" class="body_fnt1">&nbsp;Skill Type&nbsp;</td>
+                                                    <td width="2%" class="body_fnt1">&nbsp;</td>
+                                                    <td width="74%" class="body_fnt1">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><hr></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <table id="dataTambah">
+
+                                                            <tbody><tr>
+                                                                    <td width="24%" align="left" class="body_fnt1">
+                                                                        <select name="bakat" onfocus="focusColour(this);">
+
+                                                                            <option value="">Sila Pilih</option>
+
+                                                                            <option value="1">DANDANAN DAN SOLEKAN</option>
+
+                                                                            <option value="2">FOTOGRAFI</option>
+
+                                                                            <option value="3">LAKONAN</option>
+
+                                                                            <option value="4" selected="">LUKISAN</option>
+
+                                                                            <option value="5">MUZIK</option>
+
+                                                                            <option value="6">PENERBITAN BERITA RADIO</option>
+
+                                                                            <option value="7">PENERBITAN BERITA TV</option>
+
+                                                                            <option value="8">PENERBITAN FILEM</option>
+
+                                                                            <option value="9">PENERBITAN RANCANGAN RADIO</option>
+
+                                                                            <option value="10">PENERBITAN RANCANGAN TV</option>
+
+                                                                            <option value="11">TARIAN</option>
+
+                                                                        </select>
+                                                                        <input type="hidden" name="bakatAsal" value="4">
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td width="2%" class="body_fnt1">&nbsp;</td>
+                                                                    <td width="74%" class="body_fnt1">&nbsp;</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td width="24%" align="left" class="body_fnt1">
+                                                                        <select name="bakat" onfocus="focusColour(this);">
+
+                                                                            <option value="">Sila Pilih</option>
+
+                                                                            <option value="1">DANDANAN DAN SOLEKAN</option>
+
+                                                                            <option value="2">FOTOGRAFI</option>
+
+                                                                            <option value="3">LAKONAN</option>
+
+                                                                            <option value="4">LUKISAN</option>
+
+                                                                            <option value="5" selected="">MUZIK</option>
+
+                                                                            <option value="6">PENERBITAN BERITA RADIO</option>
+
+                                                                            <option value="7">PENERBITAN BERITA TV</option>
+
+                                                                            <option value="8">PENERBITAN FILEM</option>
+
+                                                                            <option value="9">PENERBITAN RANCANGAN RADIO</option>
+
+                                                                            <option value="10">PENERBITAN RANCANGAN TV</option>
+
+                                                                            <option value="11">TARIAN</option>
+
+                                                                        </select>
+                                                                        <input type="hidden" name="bakatAsal" value="5">
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td width="2%" class="body_fnt1">&nbsp;</td>
+                                                                    <td width="74%" class="body_fnt1">&nbsp;</td>
+                                                                </tr>
+
+
+
+                                                                <tr>
+                                                                    <td width="24%" align="left" class="body_fnt1">
+                                                                        <select id="bakat" name="bakat" onchange="document.getElementById( & #39; bakatAsal2 & #39; ).value = this.value" onfocus="focusColour(this);">
+
+                                                                            <option value="">Sila Pilih</option>
+
+                                                                            <option value="1">DANDANAN DAN SOLEKAN</option>
+
+                                                                            <option value="2">FOTOGRAFI</option>
+
+                                                                            <option value="3">LAKONAN</option>
+
+                                                                            <option value="4">LUKISAN</option>
+
+                                                                            <option value="5">MUZIK</option>
+
+                                                                            <option value="6">PENERBITAN BERITA RADIO</option>
+
+                                                                            <option value="7">PENERBITAN BERITA TV</option>
+
+                                                                            <option value="8">PENERBITAN FILEM</option>
+
+                                                                            <option value="9">PENERBITAN RANCANGAN RADIO</option>
+
+                                                                            <option value="10">PENERBITAN RANCANGAN TV</option>
+
+                                                                            <option value="11">TARIAN</option>
+
+                                                                        </select>
+                                                                        <input type="hidden" id="bakatAsal2" name="bakatAsal">
+                                                                    </td>
+
+                                                                    <td width="2%" class="body_fnt1">&nbsp;</td>
+                                                                    <td width="74%" class="body_fnt1">&nbsp;</td>
+
+                                                                </tr>
+
+                                                            </tbody></table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="body_fnt1"><br>&nbsp;&nbsp;
+                                                        <input type="button" name="tambah" value=" + Tambah " onclick="addRowToTable()"></td>
+                                                    <td colspan="2" class="body_fnt1"><br>
+                                                        <input type="reset" name="batal" value="BATAL">&nbsp;&nbsp;&nbsp;
+                                                        <input type="submit" name="hantar" value="SIMPAN">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">&nbsp;</td>
+                                                </tr>
+
+                                            </tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                    </div>
+                </div>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
@@ -3705,7 +3871,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </div>
 </div>
