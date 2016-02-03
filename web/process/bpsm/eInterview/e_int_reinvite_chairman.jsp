@@ -1,7 +1,7 @@
 <%-- 
     Document   : e_int_reinvite_chairman
     Created on : Feb 2, 2016, 10:45:37 PM
-    Author     : User
+    Author     : Habib
 --%>
 
 <%@page import="oms.rmi.server.MainClient"%>
