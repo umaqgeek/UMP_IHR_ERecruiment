@@ -3151,6 +3151,164 @@
                     </div>
                 </div>
             </div>
+                                                                <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingFour">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Co-Curriculum
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <label>Professional Certificate</label>
+                                            </div>
+                                             <div class="col-lg-4">
+                                                <label>Certificate Date</label>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>Expertise No</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="" id="sel1">
+                                                    <option>Institution of Surveyors Malysia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                               <input type="date" class="form-control" id="codatepicker" >
+                                            </div>
+                                            <script type="text/javascript">
+                                                          
+                                                                    $(document).ready(function() {
+                                                                           $("#codatepicker").datepicker("option", "dateFormat", "d-M-yy");
+                                                                    $("#codatepicker").datepicker('setDate', new Date());
+                                                                    });
+                                                                    
+                                                               </script>
+                                            <div class="col-lg-2">
+                                                <input type="text" />
+                                            </div>
+                                        </div>
+                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="" id="sel1">
+                                                    <option>Institution of Surveyors Malysia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                               <input type="date" class="form-control" id="codatepicker" >
+                                            </div>
+                                            <script type="text/javascript">
+                                                          
+                                                                    $(document).ready(function() {
+                                                                           $("#codatepicker").datepicker("option", "dateFormat", "d-M-yy");
+                                                                    $("#codatepicker").datepicker('setDate', new Date());
+                                                                    });
+                                                                    
+                                                               </script>
+                                            <div class="col-lg-2">
+                                                <input type="text" />
+                                            </div>
+                                        </div>
+                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="" id="sel1">
+                                                    <option>Institution of Surveyors Malysia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                               <input type="date" class="form-control" id="codatepicker" >
+                                            </div>
+                                            <script type="text/javascript">
+                                                          
+                                                                    $(document).ready(function() {
+                                                                           $("#codatepicker").datepicker("option", "dateFormat", "d-M-yy");
+                                                                    $("#codatepicker").datepicker('setDate', new Date());
+                                                                    });
+                                                                    
+                                                               </script>
+                                            <div class="col-lg-2">
+                                                <input type="text" />
+                                            </div>
+                                        </div>
+                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="" id="sel1">
+                                                    <option>Institution of Surveyors Malysia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                               <input type="date" class="form-control" id="codatepicker" >
+                                            </div>
+                                            <script type="text/javascript">
+                                                          
+                                                                    $(document).ready(function() {
+                                                                           $("#codatepicker").datepicker("option", "dateFormat", "d-M-yy");
+                                                                    $("#codatepicker").datepicker('setDate', new Date());
+                                                                    });
+                                                                    
+                                                               </script>
+                                            <div class="col-lg-2">
+                                                <input type="text" />
+                                            </div>
+                                        </div>
+                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="" id="sel1">
+                                                    <option>Institution of Surveyors Malysia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                               <input type="date" class="form-control" id="codatepicker" >
+                                            </div>
+                                            <script type="text/javascript">
+                                                          
+                                                                    $(document).ready(function() {
+                                                                           $("#codatepicker").datepicker("option", "dateFormat", "d-M-yy");
+                                                                    $("#codatepicker").datepicker('setDate', new Date());
+                                                                    });
+                                                                    
+                                                               </script>
+                                            <div class="col-lg-2">
+                                                <input type="text" />
+                                            </div>
+                                        </div>
+                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="" id="sel1">
+                                                    <option>Institution of Surveyors Malysia</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                               <input type="date" class="form-control" id="codatepicker" >
+                                            </div>
+                                            <script type="text/javascript">
+                                                          
+                                                                    $(document).ready(function() {
+                                                                           $("#codatepicker").datepicker("option", "dateFormat", "d-M-yy");
+                                                                    $("#codatepicker").datepicker('setDate', new Date());
+                                                                    });
+                                                                    
+                                                               </script>
+                                            <div class="col-lg-2">
+                                                <input type="text" />
+                                            </div>
+                                        </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input type="submit" name="high_first_exam" class="btn btn-primary" value="Save Changes">
+                                                        <span></span>
+                                                        <input type="reset" class="btn btn-default" value="Cancel">
+                                                    </div>
+
+                                                </div>
+                    </div>
+                </div>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingThree">
                     <h4 class="panel-title">
@@ -3317,10 +3475,11 @@
                     </div>
                 </div>
             </div>
+                
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingFour">
                     <h4 class="panel-title">
-                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                             Achievement
                         </a>
                     </h4>
@@ -3705,7 +3864,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </div>
 </div>
