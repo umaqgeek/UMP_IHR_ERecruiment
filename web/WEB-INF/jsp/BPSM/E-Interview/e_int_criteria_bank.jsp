@@ -1,8 +1,9 @@
 <%-- 
-    Document   : e_int_pos_list
-    Created on : Jan 28, 2016, 4:38:16 PM
+    Document   : e_int_criteria_bank
+    Created on : Feb 4, 2016, 4:58:28 PM
     Author     : Habib
 --%>
+
 <%@page import="controller.Session"%>
 <%@page import="config.Config"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,16 +19,17 @@ MainClient mc = new MainClient(DBConn.getHost());
         </div>
         <div class="row">
             <ul class="nav nav-tabs">
-              <li class="active"><a>PUBLISHED INTERVIEW</a></li>
+              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_pos_list.jsp">PUBLISHED INTERVIEW</a></li>
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_pos_to_setup_list.jsp">POSITION TO SETUP</a></li>
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_pos_saved_setup_list.jsp">SAVED SETUP POSITION</a></li>
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_my_invitation_list.jsp">MY INVITATION</a></li>
-              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_criteria_bank.jsp">CRITERIA BANK</a></li>
+              <li class="active"><a>CRITERIA BANK</a></li>
             </ul>
         </div>
-        
         <div class="row">
-            <div class="col-sm-12"><h4>PUBLISHED INTERVIEW LIST</h4></div>
+            
+        </div>
+        <div class="row">
             <table class="table-bordered" id="publishedList" width="100%">
                 <thead style="vertical-align: middle;">
                     <tr style="vertical-align: middle;">
@@ -49,6 +51,6 @@ MainClient mc = new MainClient(DBConn.getHost());
 <script type="text/javascript">
 $(document).ready(function()
 {
-    $('#publishedList').DataTable();
+    $('#criteriaList').DataTable();
 });
 </script>
