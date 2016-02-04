@@ -1,7 +1,7 @@
 <%-- 
     Document   : e_int_cancel_panel
     Created on : Feb 3, 2016, 10:13:24 AM
-    Author     : User
+    Author     : Habib
 --%>
 
 <%@page import="java.util.ArrayList"%>
@@ -25,11 +25,11 @@
                             + "AND IAL.U_REFID = ? ";
     String param_select_panel[] = { ic_refid, u_refid };
     ArrayList<ArrayList<String>> data_select_panel = mc.getQuery(sql_select_panel, param_select_panel);
-    out.print(data_select_panel);
-    if(true)
-    {
-       return; 
-    }
+//    out.print(data_select_panel);
+//    if(true)
+//    {
+//       return; 
+//    }
     
     String sql_cancel_panel = "UPDATE INTERVIEW_ASSIGN_LIST "
                             + "SET IAL_STATUS = ? "

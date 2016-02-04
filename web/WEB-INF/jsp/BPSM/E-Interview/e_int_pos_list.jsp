@@ -169,21 +169,47 @@ MainClient mc = new MainClient(DBConn.getHost());
         <div class="row">
             <div class="col-sm-12"><h4>INVITATION LIST</h4></div>
             <%
+            String sent = "SENT";
+            String accepted = "ACCEPTED";
+            String rejected = "REJECTED";
+            String canceled = "CANCELED";
             String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
-            String sql_invite = "SELECT IAL.U_REFID, IAL.IAL_REFID "
-                            + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, INTERVIEW_PANELS IP, "
-                            + "USERS1 U, LOGIN1 L "
-                            + "WHERE U.U_REFID = L.U_REFID "
-                            + "AND U.U_REFID = IAL.U_REFID "
-                            + "AND L.L_REFID = ? "
-                            + "GROUP BY IAL.U_REFID, IAL.IAL_REFID";
-            String param_invite[] = { l_refid };
-            ArrayList<ArrayList<String>> data_invite = mc.getQuery(sql_invite, param_invite);
+//            String sql_invite = "SELECT IAL.U_REFID, IAL.IAL_REFID "
+//                            + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, INTERVIEW_PANELS IP, "
+//                            + "USERS1 U, LOGIN1 L "
+//                            + "WHERE U.U_REFID = L.U_REFID "
+//                            + "AND U.U_REFID = IAL.U_REFID "
+//                            + "AND L.L_REFID = ? "
+//                            + "GROUP BY IAL.U_REFID, IAL.IAL_REFID";
+//            String param_invite[] = { l_refid };
+//            ArrayList<ArrayList<String>> data_invite = mc.getQuery(sql_invite, param_invite);
+            String null_data = "null";
+            String sql_invited_as_chairman = "SELECT IAL.IAL_REFID, U.U_REFID, U.U_NAME, IAL.IC_REFID, IAL.IAL_STATUS "
+                                            +"FROM INTERVIEW_ASSIGN_LIST IAL, USERS1 U, LOGIN1 L "
+                                            +"WHERE U.U_REFID = IAL.U_REFID "
+                                            +"AND U.U_REFID = L.U_REFID "
+                                            +"AND IAL.IC_REFID != ? "
+                                            +"AND L.L_REFID = ? ";
+            String param_invited_as_chairman[] = { null_data, l_refid };
+            ArrayList<ArrayList<String>> data_invited_as_chairman = mc.getQuery(sql_invited_as_chairman, param_invited_as_chairman);
+            //out.print(l_refid);
+//            out.print(data_invited_as_chairman);
+            
+            String interview_position = "";
+            String sql_int_chairman = "";
+            String[] param_int_chairman = new String[1];
+            ArrayList<ArrayList<String>> data_int_chairman;
 
-//            for(int a = 0; a< data_invite.size(); a++)
-//            {
-//                out.print((a+1)+" "+data_invite.get(a).get(0)+" "+data_invite.get(a).get(1)+"<br>");
-//            }
+            String sql_int_detail = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, "
+                    + "IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE "
+                    + "FROM INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, POS_APPLIED PA, POSITION_PTJ_HR PPH "
+                    + "WHERE IC.IC_REFID = IR.IC_REFID "
+                    + "AND PA.PA_REFID = IR.PA_REFID "
+                    + "AND PPH.PPH_REFID = PA.PPH_REFID "
+                    + "AND IC.IC_REFID = ? "
+                    + "GROUP BY PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE";
+            String[] param_int_detail = new String[1]; 
+            ArrayList<ArrayList<String>> data_int_detail;
             %>
             <table id="invite_list" class="table-bordered" width="100%">
                 <thead>
@@ -203,62 +229,89 @@ MainClient mc = new MainClient(DBConn.getHost());
                 </thead>
                 <tbody>
                 <%
-                if(data_invite.size() > 0)
+                int row_num = 1;
+                for(int a = 0; a < data_invited_as_chairman.size(); a++)
                 {
-                    int row_num = 1;
-                    String interview_position = "";
-                    String sql_int_chairman = "";
-                    String[] param_int_chairman = new String[1];
-                    ArrayList<ArrayList<String>> data_int_chairman;
-                    
-                    String sql_check_pos = "SELECT IAL.IC_REFID, IAL.IP_REFID "
-                                        + "FROM INTERVIEW_ASSIGN_LIST IAL "
-                                        + "WHERE IAL.IAL_REFID = ? ";
-                    String[] param_check_pos = new String[1];
-                    ArrayList<ArrayList<String>> data_check_pos;
-                    
-                    String sql_int_detail = "SELECT PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, "
-                            + "IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE "
-                            + "FROM INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR, POS_APPLIED PA, POSITION_PTJ_HR PPH "
-                            + "WHERE IC.IC_REFID = IR.IC_REFID "
-                            + "AND PA.PA_REFID = IR.PA_REFID "
-                            + "AND PPH.PPH_REFID = PA.PPH_REFID "
-                            + "AND IC.IC_REFID = ? "
-                            + "GROUP BY PPH.PPH_GRADE, PPH.PPH_POSITION, IC.IC_REFID, IC.IC_INTERVIEW_DATETIME, PPH.PPH_PTJ, PPH.PPH_REFID, IC.IC_STARTTIME, IC.IC_ENDTIME, IC.IC_VENUE, IC.IC_TYPE";
-                    String[] param_int_detail = new String[1]; 
-                    ArrayList<ArrayList<String>> data_int_detail;
-                    
-                    for(int a = 0; a< data_invite.size(); a++)
+                    param_int_detail[0] = data_invited_as_chairman.get(a).get(3);
+                    data_int_detail = mc.getQuery(sql_int_detail, param_int_detail);
+                    %>
+                    <tr>
+                        <td colspan="2" style="vertical-align: middle; text-align: center"><%=row_num %></td>
+                        <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(0) %></td>
+                        <td colspan="2" style="vertical-align: middle"><%=data_int_detail.get(0).get(1) %></td>
+                        <td colspan="2" style="vertical-align: middle"><%=data_int_detail.get(0).get(4) %></td>
+                        <td colspan="2" style="vertical-align: middle"><%=data_int_detail.get(0).get(3) %></td>
+                        <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(6) %></td>
+                        <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(7) %></td>
+                        <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(8) %></td>
+                        <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(9) %></td>
+                        <td colspan="2" style="vertical-align: middle; text-align: center">CHAIRMAN</td>
+                        <%
+                        if(data_invited_as_chairman.get(a).get(4).equals(sent))
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-success form-control" data-toggle="modal" href="#modalChairmanAccept<%=a %>">Accept</a></td>
+                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" data-toggle="modal" href="#modalChairmanReject<%=a %>">Reject</a></td>
+                            <%
+                        }
+                        else if(data_invited_as_chairman.get(a).get(4).equals(accepted))
+                        {
+                            %>
+                            <td colspan="2" style="vertical-align: middle; text-align: center; color: limegreen; font-weight: bold"><%=data_invited_as_chairman.get(a).get(4) %></td>
+                            <%
+                        }
+                        else if(data_invited_as_chairman.get(a).get(4).equals(rejected))
+                        {
+                            %>
+                            <td colspan="2" style="vertical-align: middle; text-align: center; color: red; font-weight: bold"><%=data_invited_as_chairman.get(a).get(4) %></td>
+                            <%
+                        }
+                        else if(data_invited_as_chairman.get(a).get(4).equals(canceled))
+                        {
+                            %>
+                            <td colspan="2" style="vertical-align: middle; text-align: center; color: #ee5f5b;; font-weight: bold"><%=data_invited_as_chairman.get(a).get(4) %></td>
+                            <%
+                        }
+                        %>
+                    </tr>
+                    <%
+                    row_num++;
+                }
+                
+                String sql_ic_refid_panel = "SELECT IC.IC_REFID "
+                        +"FROM INTERVIEW_CHAIRMAN IC, LOGIN1 L, USERS1 U, INTERVIEW_PANELS IP, INTERVIEW_RESULT IR, INTERVIEW_ASSIGN_LIST IAL "
+                        +"WHERE U.U_REFID = L.U_REFID "
+                        +"AND U.U_REFID = IAL.U_REFID "
+                        +"AND IP.IP_REFID = IAL.IP_REFID "
+                        +"AND IR.IR_REFID = IP.IR_REFID "
+                        +"AND IC.IC_REFID = IR.IC_REFID "
+                        +"AND L.L_REFID = ? "
+                        +"GROUP BY IC.IC_REFID";
+                String param_ic_refid_panel[] = { l_refid };
+                ArrayList<ArrayList<String>> data_ic_refid_panel = mc.getQuery(sql_ic_refid_panel, param_ic_refid_panel);
+                
+                String sql_u_refid = "SELECT IC.IC_REFID, IAL.U_REFID, U.U_NAME, IAL.IAL_STATUS "
+                        +"FROM INTERVIEW_CHAIRMAN IC, LOGIN1 L, USERS1 U, INTERVIEW_PANELS IP, INTERVIEW_RESULT IR, INTERVIEW_ASSIGN_LIST IAL "
+                        +"WHERE U.U_REFID = IAL.U_REFID "
+                        +"AND IP.IP_REFID = IAL.IP_REFID "
+                        +"AND IR.IR_REFID = IP.IR_REFID "
+                        +"AND IC.IC_REFID = IR.IC_REFID "
+                        +"AND U.U_REFID = L.U_REFID "
+                        +"AND IAL.IP_REFID != ? "
+                        +"AND IC.IC_REFID = ? "
+                        +"AND L.L_REFID = ? "
+                        +"GROUP BY IC.IC_REFID, IAL.U_REFID, U.U_NAME, IAL.IAL_STATUS";
+                String[] param_u_refid = new String[3];
+                ArrayList<ArrayList<String>> data_u_refid;
+                for(int a = 0; a < data_ic_refid_panel.size(); a++)
+                {
+                    param_u_refid[0] = null_data;
+                    param_u_refid[1] = data_ic_refid_panel.get(a).get(0);
+                    param_u_refid[2] = l_refid;
+                    data_u_refid = mc.getQuery(sql_u_refid, param_u_refid);
+                    for(int b=0; b<data_u_refid.size(); b++)
                     {
-                        param_check_pos[0] = data_invite.get(a).get(1);
-                        data_check_pos = mc.getQuery(sql_check_pos, param_check_pos);
-                        //out.print(data_check_pos);
-                        if(data_check_pos.get(0).get(1) != null)
-                        {
-                            sql_int_chairman = "SELECT IC.IC_REFID "
-                                + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_PANELS IP, INTERVIEW_RESULT IR "
-                                + "WHERE IP.IP_REFID = IAL.IP_REFID "
-                                + "AND IR.IR_REFID = IP.IR_REFID "
-                                + "AND IC.IC_REFID = IR.IC_REFID "
-                                + "AND IAL.IAL_REFID = ? "
-                                + "GROUP BY IC.IC_REFID";
-                            param_int_chairman[0] = data_invite.get(a).get(1);
-                            
-                            interview_position="PANEL";
-                        }
-                        else if(data_check_pos.get(0).get(0) != null)
-                        {
-                            sql_int_chairman = "SELECT IC.IC_REFID "
-                                + "FROM INTERVIEW_ASSIGN_LIST IAL, INTERVIEW_CHAIRMAN IC, INTERVIEW_RESULT IR "
-                                + "WHERE IC.IC_REFID = IAL.IC_REFID "
-                                + "AND IAL.IAL_REFID = ? "
-                                + "GROUP BY IC.IC_REFID";
-                            param_int_chairman[0] = data_invite.get(a).get(1);
-                            interview_position="CHAIRMAN";
-                        }
-                        data_int_chairman = mc.getQuery(sql_int_chairman, param_int_chairman);
-                        
-                        param_int_detail[0] = data_int_chairman.get(0).get(0);
+                        param_int_detail[0] = data_ic_refid_panel.get(a).get(0);
                         data_int_detail = mc.getQuery(sql_int_detail, param_int_detail);
                         %>
                         <tr>
@@ -271,15 +324,39 @@ MainClient mc = new MainClient(DBConn.getHost());
                             <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(7) %></td>
                             <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(8) %></td>
                             <td colspan="2" style="vertical-align: middle; text-align: center"><%=data_int_detail.get(0).get(9) %></td>
-                            <td colspan="2" style="vertical-align: middle; text-align: center"><%=interview_position %></td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-success form-control" href="#">Accept</a></td>
-                            <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#">Reject</a></td>
+                            <td colspan="2" style="vertical-align: middle; text-align: center">PANEL</td>
+                            <%
+                            if(data_u_refid.get(a).get(3).equals(sent))
+                            {
+                                %>
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-success form-control" data-toggle="modal" href="#modalPanelAccept<%=a %>">Accept</a></td>
+                                <td style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" data-toggle="modal" href="#modalPanelReject<%=a %>">Reject</a></td>
+                                <%
+                            }else if(data_u_refid.get(a).get(3).equals(accepted))
+                            {
+                                %>
+                                <td colspan="2" style="vertical-align: middle; text-align: center; color: limegreen; font-weight: bold"><%=data_u_refid.get(a).get(3) %></td>
+                                <%
+                            }
+                            else if(data_u_refid.get(a).get(3).equals(rejected))
+                            {
+                                %>
+                                <td colspan="2" style="vertical-align: middle; text-align: center; color: red; font-weight: bold"><%=data_u_refid.get(a).get(3) %></td>
+                                <%
+                            }
+                            else if(data_u_refid.get(a).get(3).equals(canceled))
+                            {
+                                %>
+                                <td colspan="2" style="vertical-align: middle; text-align: center; color: #ee5f5b;; font-weight: bold"><%=data_u_refid.get(a).get(3) %></td>
+                                <%
+                            }
+                            %>
                         </tr>
                         <%
-                        row_num++;
                     }
+                    row_num++;
                 }
-                    %>
+                %>
                 </tbody>
             </table>
         </div>
@@ -288,6 +365,118 @@ MainClient mc = new MainClient(DBConn.getHost());
 
 
 <!-- Start Modal -->
+<!-- Modal Chairman Accept -->
+<%
+for(int a = 0; a < data_invited_as_chairman.size(); a++)
+{
+    param_int_detail[0] = data_invited_as_chairman.get(a).get(3);
+    data_int_detail = mc.getQuery(sql_int_detail, param_int_detail);
+    %>
+    <div id="modalChairmanAccept<%=a %>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <form action="process/bpsm/eInterview/e_int_accept_chairman.jsp" method="post">
+            <input name="ial_refid" type="hidden" value="<%=data_invited_as_chairman.get(a).get(0) %>">
+            <input name="u_refid" type="hidden" value="<%=data_invited_as_chairman.get(a).get(1) %>">
+            <input name="ic_refid" type="hidden" value="<%=data_invited_as_chairman.get(a).get(3) %>">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                    <fieldset>
+                        <h4 class="modal-title" style="font-weight: bold">Accept This Invitation As Chairman</h4>
+                        <h6 class="modal-title">Are You Sure ?</h6>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success form-control" type="submit">YES</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+            
+    <div id="modalChairmanReject<%=a %>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <form action="process/bpsm/eInterview/e_int_reject_chairman.jsp" method="post">
+            <input name="ial_refid" type="hidden" value="<%=data_invited_as_chairman.get(a).get(0) %>">
+            <input name="u_refid" type="hidden" value="<%=data_invited_as_chairman.get(a).get(1) %>">
+            <input name="ic_refid" type="hidden" value="<%=data_invited_as_chairman.get(a).get(3) %>">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                    <fieldset>
+                        <h4 class="modal-title" style="font-weight: bold">Reject This Invitation</h4>
+                        <h6 class="modal-title">Are You Sure ?</h6>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning form-control" type="submit">YES</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <%
+}
+%>
+<!-- Modal Panel Accept -->
+<%
+for(int a = 0; a < data_ic_refid_panel.size(); a++)
+{
+    param_u_refid[0] = null_data;
+    param_u_refid[1] = data_invited_as_chairman.get(a).get(3);
+    param_u_refid[2] = l_refid;
+    data_u_refid = mc.getQuery(sql_u_refid, param_u_refid);
+    for(int b=0; b<data_u_refid.size(); b++)
+    {
+        param_int_detail[0] = data_invited_as_chairman.get(a).get(3);
+        data_int_detail = mc.getQuery(sql_int_detail, param_int_detail);
+        %>
+        <div id="modalPanelAccept<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form action="process/bpsm/eInterview/e_int_accept_panel.jsp" method="post">
+                    <input name="ic_refid" type="hidden" value="<%=data_u_refid.get(b).get(0) %>">
+                <input name="u_refid" type="hidden" value="<%=data_u_refid.get(b).get(1) %>">
+                <div class="modal-content">
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h4 class="modal-title" style="font-weight: bold">Accept This Invitation As Panel</h4>
+                            <h6 class="modal-title">Are You Sure ?</h6>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success form-control" type="submit">YES</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+                
+       <div id="modalPanelReject<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form action="process/bpsm/eInterview/e_int_reject_panel.jsp" method="post">
+                    <input name="ic_refid" type="hidden" value="<%=data_u_refid.get(b).get(0) %>">
+                <input name="u_refid" type="hidden" value="<%=data_u_refid.get(b).get(1) %>">
+                <div class="modal-content">
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h4 class="modal-title" style="font-weight: bold">Reject This Invitation</h4>
+                            <h6 class="modal-title">Are You Sure ?</h6>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning form-control" type="submit">YES</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <%
+    }
+}
+%>
+<!-- End Panel Accept -->
 <!-- Modal Detail -->
 <%
 if(data_select_int.size() > 0)

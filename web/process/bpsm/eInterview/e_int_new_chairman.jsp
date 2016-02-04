@@ -11,7 +11,7 @@
     String sent = "SENT";
     String pph_refid = request.getParameter("pph_refid");
     String ic_refid = request.getParameter("ic_refid");
-    String u_refid = request.getParameter("chairman");
+    String u_refid = request.getParameter("new_chairman");
     
     String sql_assign_chairman = "INSERT INTO INTERVIEW_ASSIGN_LIST (IC_REFID, U_REFID, IAL_STATUS) "
                             + "VALUES( ? , ? , ? )";
