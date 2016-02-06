@@ -6,6 +6,7 @@
 package oms.rmi.server;
 
 import java.rmi.RemoteException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -234,5 +235,21 @@ public class MainClient {
             e.printStackTrace();
         }
         return output;
+    }
+    
+    public Connection getOracleConn() {
+        RMIConn rmic = new RMIConn();
+        Connection connTemp = null;
+        try {
+            if (rmic.getImpl() == null) {
+                new MainClient(this.host);
+            }
+            connTemp = rmic.getImpl().getOracleConn();
+        } catch (Exception e) {
+            System.out.println("Error:"+e.getMessage());
+            connTemp = null;
+            e.printStackTrace();
+        }
+        return connTemp;
     }
 }
