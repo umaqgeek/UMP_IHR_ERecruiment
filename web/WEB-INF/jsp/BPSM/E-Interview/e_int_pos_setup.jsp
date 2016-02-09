@@ -16,28 +16,28 @@ MainClient mc = new MainClient(DBConn.getHost());
         </div>
         <div class="row">
             <%
-            String selected_size = session.getAttribute("selected_size").toString();
-            String[] selected_pos = new String[Integer.parseInt(selected_size)];
-            for(int a=0;a < selected_pos.length; a++)
-            {
-                selected_pos[a] = session.getAttribute("selected_pos"+Integer.toString(a)).toString();
-            }
-            String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
-                        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
-                        + "WHERE pa.pph_refid = pph.pph_refid "
-                        + "AND pa.c_refid = c.c_refid "
-                        + "AND l.c_refid = c.c_refid "
-                        + "AND pph.pph_refid = ? ";
-            String[] param_pos_list = new String[1];
-            ArrayList<ArrayList<String>> data_pos_list;
-            
-            String sql_count_pass = "SELECT COUNT(PA.PA_REFID) "
-                                    + "FROM POS_APPLIED PA, POSITION_PTJ_HR PPH "
-                                    + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
-                                    + "AND PA.PA_STATUS = ? "
-                                    + "AND PA.PPH_REFID = ? ";
-            String[] param_count_pass = new String[2];
-            ArrayList<ArrayList<String>> data_count_pass;
+//            String selected_size = session.getAttribute("selected_size").toString();
+//            String[] selected_pos = new String[Integer.parseInt(selected_size)];
+//            for(int a=0;a < selected_pos.length; a++)
+//            {
+//                selected_pos[a] = session.getAttribute("selected_pos"+Integer.toString(a)).toString();
+//            }
+//            String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
+//                        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
+//                        + "WHERE pa.pph_refid = pph.pph_refid "
+//                        + "AND pa.c_refid = c.c_refid "
+//                        + "AND l.c_refid = c.c_refid "
+//                        + "AND pph.pph_refid = ? ";
+//            String[] param_pos_list = new String[1];
+//            ArrayList<ArrayList<String>> data_pos_list;
+//            
+//            String sql_count_pass = "SELECT COUNT(PA.PA_REFID) "
+//                                    + "FROM POS_APPLIED PA, POSITION_PTJ_HR PPH "
+//                                    + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
+//                                    + "AND PA.PA_STATUS = ? "
+//                                    + "AND PA.PPH_REFID = ? ";
+//            String[] param_count_pass = new String[2];
+//            ArrayList<ArrayList<String>> data_count_pass;
             %>
             <div class="col-sm-12"><h4>E-INTERVIEW: Setup Interview</h4></div>
         </div>
@@ -65,25 +65,46 @@ MainClient mc = new MainClient(DBConn.getHost());
                                 </thead>
                                 <tbody>
                                 <%
-                                String pass_ptj = "PASS_PTJ";
-                                for(int a=0; a < selected_pos.length; a++)
-                                {
-                                    param_pos_list[0] =  selected_pos[a];
-                                    data_pos_list = mc.getQuery(sql_pos_list, param_pos_list);
-                                    param_count_pass[0] = pass_ptj;
-                                    param_count_pass[1] = data_pos_list.get(0).get(3);
-                                    data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
-                                    %>
-                                    <input type="hidden" name="pph_refid" value="<%=selected_pos[a] %>">
+//                                String pass_ptj = "PASS_PTJ";
+//                                for(int a=0; a < selected_pos.length; a++)
+//                                {
+//                                    param_pos_list[0] =  selected_pos[a];
+//                                    data_pos_list = mc.getQuery(sql_pos_list, param_pos_list);
+//                                    param_count_pass[0] = pass_ptj;
+//                                    param_count_pass[1] = data_pos_list.get(0).get(3);
+//                                    data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
+//                                    %>
+<!--//                                    <input type="hidden" name="pph_refid" value="<%//=selected_pos[a] %>">
+//                                    <tr>
+//                                        <td style="vertical-align: middle; text-align: center"><%//=a+1 %></td>
+//                                        <td style="vertical-align: middle; text-align: center"><%//=data_pos_list.get(0).get(0) %></td>
+//                                        <td style="vertical-align: middle"><%//=data_pos_list.get(0).get(1) %></td>
+//                                        <td style="vertical-align: middle"><%//=data_pos_list.get(0).get(2) %></td>
+//                                        <td style="vertical-align: middle; text-align: center"><%//=data_count_pass.get(0).get(0) %></td>
+//                                    </tr>-->
                                     <tr>
-                                        <td style="vertical-align: middle; text-align: center"><%=a+1 %></td>
-                                        <td style="vertical-align: middle; text-align: center"><%=data_pos_list.get(0).get(0) %></td>
-                                        <td style="vertical-align: middle"><%=data_pos_list.get(0).get(1) %></td>
-                                        <td style="vertical-align: middle"><%=data_pos_list.get(0).get(2) %></td>
-                                        <td style="vertical-align: middle; text-align: center"><%=data_count_pass.get(0).get(0) %></td>
+                                        <td style="vertical-align: middle; text-align: center">1</td>
+                                        <td style="vertical-align: middle; text-align: center">Grade 1</td>
+                                        <td style="vertical-align: middle">Position 1</td>
+                                        <td style="vertical-align: middle">PTJ 1</td>
+                                        <td style="vertical-align: middle; text-align: center">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: middle; text-align: center">2</td>
+                                        <td style="vertical-align: middle; text-align: center">Grade 2</td>
+                                        <td style="vertical-align: middle">Position 2</td>
+                                        <td style="vertical-align: middle">PTJ 2</td>
+                                        <td style="vertical-align: middle; text-align: center">6</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: middle; text-align: center">3</td>
+                                        <td style="vertical-align: middle; text-align: center">Grade 3</td>
+                                        <td style="vertical-align: middle">Position 3</td>
+                                        <td style="vertical-align: middle">PTJ 3</td>
+                                        <td style="vertical-align: middle; text-align: center">9</td>
                                     </tr>
                                     <%
-                                }
+//                                }
                                 %>
                                 </tbody>
                             </table>
@@ -131,6 +152,57 @@ MainClient mc = new MainClient(DBConn.getHost());
                 </div>
             </div>
         </div>
+                                
+        <div class="row">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                                INVITE INTERVIEWS COMMITTEE
+                        </h4>
+                    </div>
+
+                    <div class="panel-body">                                        
+                        <div class="row">
+                            <table class="table-condensed" width="100%">
+                                <tr>
+                                    <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
+                                    <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
+                                    <td style="vertical-align: middle">
+                                        <select name="chairman" class="form-control">
+                                            <option value="">Name 1 (Grade1-Position1 : PTJName 1)</option>
+                                            <option value="">Name 2 (Grade2-Position2 : PTJName 2)</option>
+                                            <option value="">Name 3 (Grade3-Position3 : PTJName 3)</option>
+                                            <option value="">Name 4 (Grade4-Position4 : PTJName 4)</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >Panels</td>
+                                    <td style="font-weight: bold; vertical-align: top; padding-top: 18px" >:</td>
+                                    <td>
+                                        <div class="form-group" id="itemRows">
+                                            <div id="selection" class="col-md-10">
+                                                <select name="panels" class="form-control">
+                                                    <option value="">Name 1 (Grade1-Position1 : PTJName 1)</option>
+                                                    <option value="">Name 2 (Grade2-Position2 : PTJName 2)</option>
+                                                    <option value="">Name 3 (Grade3-Position3 : PTJName 3)</option>
+                                                    <option value="">Name 4 (Grade4-Position4 : PTJName 4)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2"  style="text-align: center">
+                                                <input name="rowExist" data-rowExist="0" id="rowExistId" class="open-rowExist" type="hidden" value="0">
+                                                <button type="button" id="addButton" class="btn btn-default form-control"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                     
         <div class="row">
         <table>
@@ -158,7 +230,7 @@ MainClient mc = new MainClient(DBConn.getHost());
                 </fieldset>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_pos_list.jsp">OK</a>
+                <a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_pos_to_setup_list.jsp">OK</a>
             </div>
         </div>
         </form>
