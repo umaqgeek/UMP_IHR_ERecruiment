@@ -8,8 +8,8 @@
 <div>
     <form  class="form-signin" action="process/login_process.jsp" method="post">
         <h2 class="form-signin-heading">e-Recruitment</h2>
-        <label for="id" class="sr-only">IC / Passport No.</label>
-        <input  type="text" id="userid" name='userid' class="form-control" placeholder="IC / Passport No." >
+        <label for="id" class="sr-only">IC No. / Passport No. / Username</label>
+        <input  type="text" id="userid" name='userid' class="form-control" placeholder="IC No. / Passport No. / Username" >
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="pwd" name='pwd' class="form-control" placeholder="Password">
         <div class="checkbox">
