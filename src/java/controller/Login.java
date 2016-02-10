@@ -23,7 +23,7 @@ public class Login {
                     + "FROM interface_menu im, role r, interface_menu_role imr "
                     + "WHERE im.im_refid = imr.im_refid "
                     + "AND r.rl_refid = imr.rl_refid "
-                    + "AND r.rl_role = ? "
+                    + "AND UPPER(r.rl_role) = UPPER(?) "
                     + "ORDER BY im.im_priority ASC ";
             String params[] = {role};
             MainClient mc = new MainClient(DBConn.getHost());

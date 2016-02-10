@@ -88,6 +88,7 @@
             } catch (Exception e) {
             }
             ArrayList<ArrayList<String>> menus = login.menuList(role);
+//            out.print(role);
     %>
     
     <section>
