@@ -329,16 +329,22 @@
                                     %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date Of Birth:</label>
+                                        <%
+                                        String dobfromic="";
+                                        dobfromic=helpers.Func.getDobFromIc(pphlog10.toString());
+                                       out.println(dobfromic);
+                                       //out.println(pph2);
+                                        %>
                                         <div class="col-lg-6">
                                             <div class='input-group date'>
-                                                <input type='text' name="C_DOB" id="datepicker" value="<%=pph2%>" class="form-control" />
+                                                <input type='text' name="C_DOB" id="datepicker" value="<%=dobfromic%>" class="form-control" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
 
                                                 <script type="text/javascript">
                                                             $(function() {
-                                                            var existing_date = "<%=pph2%>";
+                                                            var existing_date = "<%=dobfromic%>";
                                                                     $("#datepicker").datepicker({
                                                             changeMonth: true,
                                                                     changeYear: true,
@@ -363,7 +369,7 @@
                                                                     }
                                                             });
                                                                     $("#datepicker").datepicker("option", "dateFormat", "d-M-yy");
-                                                                    $("#datepicker").datepicker('setDate', new Date());
+                                                                    $("#datepicker").datepicker('setDate', existing_date);
                                                             });</script>
                                             </div>
                                         </div>
