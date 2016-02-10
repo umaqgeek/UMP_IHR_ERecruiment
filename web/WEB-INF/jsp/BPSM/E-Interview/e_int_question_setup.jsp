@@ -4,6 +4,27 @@
     Author     : Habib
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="oms.rmi.server.MainClient"%>
+<%@page import="models.DBConn"%>
+<%
+MainClient mc = new MainClient(DBConn.getHost());
+
+String is_refid = session.getAttribute("is_refid").toString();
+String sql_iii_refid = "SELECT irm.irm_refid "
+                    +"FROM interview_setup iss, interview_result_mark irm, interview_irm_icm iii "
+                    +"WHERE iss.is_refid = irm.is_refid "
+                    +"AND irm.irm_refid = iii.irm_refid "
+                    +"AND iss.is_refid = ? ";
+String param_iii_refid[] = { is_refid };
+ArrayList<ArrayList<String>> data_iii_refid = mc.getQuery(sql_iii_refid, param_iii_refid);
+
+String sql_criteria_list = "SELECT icm.icm_refid, icm.icm_criteria, icm.icm_minmark, icm.icm_maxmark "
+                        + "FROM interview_criteria_mark icm "
+                        + "ORDER BY icm.icm_criteria";
+String param_criteria_list[] = {};
+ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list, param_criteria_list);
+%>
 <div class="row">
     <div class="well">
         <div class="row">
@@ -160,8 +181,8 @@
                         <td style="vertical-align: middle; text-align: center">
                             <select class="form-control">
                                 <option class="disabled">-Choose-</option>
-                                <option>BERJAYA</option>
-                                <option>GAGAL</option>
+                                <option>PASS</option>
+                                <option>FAIL</option>
                                 <option>KIV</option>
                             </select>
                         </td>
@@ -198,6 +219,7 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <form action="process/bpsm/eInterview/e_int_select_criteria_process.jsp" method="post">
+        <input type="hidden" name="is_refid" value="<%=is_refid %>">
         <div class="modal-content">
             <div class="modal-header" align="center">
                 <h4>Choose Criteria</h4>
@@ -211,66 +233,24 @@
                                 <th style="vertical-align: middle; text-align: center; font-weight: bold">Criteria</th>
                                 <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Min. Mark</th>
                                 <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Max. Score</th>
-                                <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1">Choose</th>
+                                <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Choose</th>
                             </tr>
                         </thead>
                         <tbody>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle">Kelayakan Akademi</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">2</td>
-                                <td style="vertical-align: middle">Pengalaman Kerja</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">3</td>
-                                <td style="vertical-align: middle">Minat Terhadap</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">4</td>
-                                <td style="vertical-align: middle">Pengetahuan Am</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">5</td>
-                                <td style="vertical-align: middle">Kecerdasan</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">6</td>
-                                <td style="vertical-align: middle">Ko-Kurikulum</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">7</td>
-                                <td style="vertical-align: middle">Kemahiran Komunikasi</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
-                             <tr>
-                                <td style="vertical-align: middle; text-align: center">8</td>
-                                <td style="vertical-align: middle">Sahsiah</td>
-                                <td style="vertical-align: middle; text-align: center">1</td>
-                                <td style="vertical-align: middle; text-align: center">10</td>
-                                <td style="vertical-align: middle; text-align: center"><input type="checkbox" checked></td>
-                             </tr>
+                        <%
+                        for(int a = 0; a < data_criteria_list.size(); a++)
+                        {
+                            %>
+                            <tr>
+                               <td style="vertical-align: middle; text-align: center"><%=a+1 %></td>
+                               <td style="vertical-align: middle"><%=data_criteria_list.get(a).get(1) %></td>
+                               <td style="vertical-align: middle; text-align: center"><%=data_criteria_list.get(a).get(2) %></td>
+                               <td style="vertical-align: middle; text-align: center"><%=data_criteria_list.get(a).get(3) %></td>
+                               <td style="vertical-align: middle; text-align: center"><input name="icm_refid" type="checkbox" value="<%=data_criteria_list.get(a).get(0) %>"></td>
+                            </tr>
+                            <%
+                        }
+                        %>
                         </tbody>
                     </table>
                 </fieldset>

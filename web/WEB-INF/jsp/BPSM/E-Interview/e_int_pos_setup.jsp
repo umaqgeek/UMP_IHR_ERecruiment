@@ -8,6 +8,7 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
 MainClient mc = new MainClient(DBConn.getHost());
+String alert = session.getAttribute("alert").toString();
 %>
 <div class="row">
     <div class="well">
@@ -16,28 +17,28 @@ MainClient mc = new MainClient(DBConn.getHost());
         </div>
         <div class="row">
             <%
-//            String selected_size = session.getAttribute("selected_size").toString();
-//            String[] selected_pos = new String[Integer.parseInt(selected_size)];
-//            for(int a=0;a < selected_pos.length; a++)
-//            {
-//                selected_pos[a] = session.getAttribute("selected_pos"+Integer.toString(a)).toString();
-//            }
-//            String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
-//                        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
-//                        + "WHERE pa.pph_refid = pph.pph_refid "
-//                        + "AND pa.c_refid = c.c_refid "
-//                        + "AND l.c_refid = c.c_refid "
-//                        + "AND pph.pph_refid = ? ";
-//            String[] param_pos_list = new String[1];
-//            ArrayList<ArrayList<String>> data_pos_list;
-//            
-//            String sql_count_pass = "SELECT COUNT(PA.PA_REFID) "
-//                                    + "FROM POS_APPLIED PA, POSITION_PTJ_HR PPH "
-//                                    + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
-//                                    + "AND PA.PA_STATUS = ? "
-//                                    + "AND PA.PPH_REFID = ? ";
-//            String[] param_count_pass = new String[2];
-//            ArrayList<ArrayList<String>> data_count_pass;
+            String selected_size = session.getAttribute("selected_size").toString();
+            String[] selected_pos = new String[Integer.parseInt(selected_size)];
+            for(int a=0;a < selected_pos.length; a++)
+            {
+                selected_pos[a] = session.getAttribute("selected_pos"+Integer.toString(a)).toString();
+            }
+            String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
+                        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
+                        + "WHERE pa.pph_refid = pph.pph_refid "
+                        + "AND pa.c_refid = c.c_refid "
+                        + "AND l.c_refid = c.c_refid "
+                        + "AND pph.pph_refid = ? ";
+            String[] param_pos_list = new String[1];
+            ArrayList<ArrayList<String>> data_pos_list;
+            
+            String sql_count_pass = "SELECT COUNT(PA.PA_REFID) "
+                                    + "FROM POS_APPLIED PA, POSITION_PTJ_HR PPH "
+                                    + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
+                                    + "AND PA.PA_STATUS = ? "
+                                    + "AND PA.PPH_REFID = ? ";
+            String[] param_count_pass = new String[2];
+            ArrayList<ArrayList<String>> data_count_pass;
             %>
             <div class="col-sm-12"><h4>E-INTERVIEW: Setup Interview</h4></div>
         </div>
@@ -65,24 +66,24 @@ MainClient mc = new MainClient(DBConn.getHost());
                                 </thead>
                                 <tbody>
                                 <%
-//                                String pass_ptj = "PASS_PTJ";
-//                                for(int a=0; a < selected_pos.length; a++)
-//                                {
-//                                    param_pos_list[0] =  selected_pos[a];
-//                                    data_pos_list = mc.getQuery(sql_pos_list, param_pos_list);
-//                                    param_count_pass[0] = pass_ptj;
-//                                    param_count_pass[1] = data_pos_list.get(0).get(3);
-//                                    data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
-//                                    %>
-<!--//                                    <input type="hidden" name="pph_refid" value="<%//=selected_pos[a] %>">
-//                                    <tr>
-//                                        <td style="vertical-align: middle; text-align: center"><%//=a+1 %></td>
-//                                        <td style="vertical-align: middle; text-align: center"><%//=data_pos_list.get(0).get(0) %></td>
-//                                        <td style="vertical-align: middle"><%//=data_pos_list.get(0).get(1) %></td>
-//                                        <td style="vertical-align: middle"><%//=data_pos_list.get(0).get(2) %></td>
-//                                        <td style="vertical-align: middle; text-align: center"><%//=data_count_pass.get(0).get(0) %></td>
-//                                    </tr>-->
+                                String pass_ptj = "PASS_PTJ";
+                                for(int a=0; a < selected_pos.length; a++)
+                                {
+                                    param_pos_list[0] =  selected_pos[a];
+                                    data_pos_list = mc.getQuery(sql_pos_list, param_pos_list);
+                                    param_count_pass[0] = pass_ptj;
+                                    param_count_pass[1] = data_pos_list.get(0).get(3);
+                                    data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
+                                    %>
+                                    <input type="hidden" name="pph_refid" value="<%=selected_pos[a] %>">
                                     <tr>
+                                        <td style="vertical-align: middle; text-align: center"><%=a+1 %></td>
+                                       <td style="vertical-align: middle; text-align: center"><%=data_pos_list.get(0).get(0) %></td>
+                                        <td style="vertical-align: middle"><%=data_pos_list.get(0).get(1) %></td>
+                                        <td style="vertical-align: middle"><%=data_pos_list.get(0).get(2) %></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=data_count_pass.get(0).get(0) %></td>
+                                    </tr>
+<!--                                    <tr>
                                         <td style="vertical-align: middle; text-align: center">1</td>
                                         <td style="vertical-align: middle; text-align: center">Grade 1</td>
                                         <td style="vertical-align: middle">Position 1</td>
@@ -102,9 +103,9 @@ MainClient mc = new MainClient(DBConn.getHost());
                                         <td style="vertical-align: middle">Position 3</td>
                                         <td style="vertical-align: middle">PTJ 3</td>
                                         <td style="vertical-align: middle; text-align: center">9</td>
-                                    </tr>
+                                    </tr>-->
                                     <%
-//                                }
+                                }
                                 %>
                                 </tbody>
                             </table>
@@ -121,7 +122,7 @@ MainClient mc = new MainClient(DBConn.getHost());
                         <h4 class="panel-title">
                             GENERAL SETUP
                         </h4>
-                        <input type="hidden" name="ic_type" value="UNIVERSITY">
+                        <input type="hidden" name="is_type" value="UNIVERSITY">
                     </div>
                     <div class="panel-body">                                        
                         <div class="row">
@@ -129,22 +130,22 @@ MainClient mc = new MainClient(DBConn.getHost());
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle" width="20%">Date</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="date" class="form-control" name="ic_interview_date" required="" placeholder="30/02/2015"></td>
+                                    <td style="vertical-align: middle"><input type="date" class="form-control" name="is_date" id="date" required></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle" width="20%">Start</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_start_time" required="" placeholder="03:00PM"></td>
+                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="is_starttime" id="start" required></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle" width="20%">End</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="ic_end_time" required="" placeholder="03:00PM"></td>
+                                    <td style="vertical-align: middle"><input type="time" class="form-control" name="is_endtime" id="end" required></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle">Venue</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center">:</td>
-                                    <td style="vertical-align: middle"><input type="text" class="form-control" name="ic_venue" placeholder="Example: HR BUILDING" required></td>
+                                    <td style="vertical-align: middle"><input type="text" class="form-control" name="is_venue" placeholder="Example: HR BUILDING" required></td>
                                 </tr>
                             </table>
                         </div>
@@ -164,16 +165,29 @@ MainClient mc = new MainClient(DBConn.getHost());
 
                     <div class="panel-body">                                        
                         <div class="row">
+                            <%
+                            String status_active = "ACTIVE";
+                            String sql_staff_list = "SELECT sm.sm_staff_name, sm.sm_staff_id, dm.dm_dept_desc "
+                                                + "FROM staff_main sm, department_main dm "
+                                                + "WHERE dm.dm_dept_code = sm.sm_dept_code "
+                                                + "AND sm.sm_staff_status = ? ";
+                            String param_staff_list[] = { status_active };
+                            ArrayList<ArrayList<String>> data_staff_list = mc.getQuery(sql_staff_list, param_staff_list);
+                            %>
                             <table class="table-condensed" width="100%">
                                 <tr>
                                     <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
                                     <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
                                     <td style="vertical-align: middle">
-                                        <select name="chairman" class="form-control">
-                                            <option value="">Name 1 (Grade1-Position1 : PTJName 1)</option>
-                                            <option value="">Name 2 (Grade2-Position2 : PTJName 2)</option>
-                                            <option value="">Name 3 (Grade3-Position3 : PTJName 3)</option>
-                                            <option value="">Name 4 (Grade4-Position4 : PTJName 4)</option>
+                                        <select name="chairman_staff_id" class="form-control">
+                                        <%
+                                        for(int a=0; a<data_staff_list.size(); a++)
+                                        {
+                                            %>
+                                            <option value="<%=data_staff_list.get(a).get(1) %>"><%=data_staff_list.get(a).get(0) %> (<%=data_staff_list.get(a).get(2).toUpperCase() %>)</option>
+                                            <%
+                                        }
+                                        %>
                                         </select>
                                     </td>
                                 </tr>
@@ -183,11 +197,15 @@ MainClient mc = new MainClient(DBConn.getHost());
                                     <td>
                                         <div class="form-group" id="itemRows">
                                             <div id="selection" class="col-md-10">
-                                                <select name="panels" class="form-control">
-                                                    <option value="">Name 1 (Grade1-Position1 : PTJName 1)</option>
-                                                    <option value="">Name 2 (Grade2-Position2 : PTJName 2)</option>
-                                                    <option value="">Name 3 (Grade3-Position3 : PTJName 3)</option>
-                                                    <option value="">Name 4 (Grade4-Position4 : PTJName 4)</option>
+                                                <select name="panel_staff_id" class="form-control">
+                                                <%
+                                                for(int a=0; a<data_staff_list.size(); a++)
+                                                {
+                                                    %>
+                                                    <option value="<%=data_staff_list.get(a).get(1) %>"><%=data_staff_list.get(a).get(0) %> (<%=data_staff_list.get(a).get(2).toUpperCase() %>)</option>
+                                                    <%
+                                                }
+                                                %>
                                                 </select>
                                             </div>
                                             <div class="col-md-2"  style="text-align: center">
@@ -216,7 +234,18 @@ MainClient mc = new MainClient(DBConn.getHost());
         </form>
     </div>
 </div>
-                        
+
+<%
+if(alert.equals("1"))
+{
+    %>
+    <script type="text/javascript">
+        alert("One person can sit for one chair only!");
+    </script>
+    <%
+    session.setAttribute("alert", "0");
+}
+%>                                                
 <!-- Modal Discard Setup -->
 <div id="modalDiscard" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -266,5 +295,12 @@ $(document).ready(function ()
         $("#panelSize").val(rnum);
         jQuery('#rowNum'+rnum).remove();
     });
+    
+    var today = new Date().toISOString().split('T')[0];
+    var timeNow = new Date().toISOString().split('T')[1].substring(0,5);
+    $('#date').attr('min', today);
+    document.getElementById("date").value = today;
+    document.getElementById("start").value = timeNow;
+    document.getElementById("end").value = timeNow;
 });
 </script>
