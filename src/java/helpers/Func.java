@@ -45,6 +45,22 @@ public class Func {
         return dateFormat.format(today.getTime());
     }
     
+     /**
+     * Get today's date format yyyy-MM-dd HH:mm:ss
+     * @return 
+     */
+    public static String getDobFromIc(String icstring) throws ParseException {
+        icstring=icstring.toString().substring(0,6);
+        String dd="";
+        String mm="";
+        String yy="";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+        Date d = sdf.parse(icstring);
+        sdf.applyPattern("dd-MMM-yyyy");
+        icstring=sdf.format(d);
+        return icstring;
+    }
+    
     public static String generateDriverSelect(int param, ArrayList<ArrayList<String>> pph_vehicle){
         String license_list = "<select id='dl_code' class='vehicle' name='dl_code'>";
                                         for (int i = 0; i < pph_vehicle.size(); i++) {
