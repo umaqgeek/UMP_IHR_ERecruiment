@@ -4,6 +4,39 @@
     Author     : Habib
 --%>
 
+<%
+MainClient mc = new MainClient(DBConn.getHost());
+
+String rejected = "REJECTED";
+String sql_interview_saved_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iss.is_status "
+                            +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph "
+                            +"WHERE iss.is_refid = irm.is_refid "
+                            +"AND pa.pa_refid = irm.pa_refid "
+                            +"AND pph.pph_refid = pa.pph_refid "
+                            +"AND pph.pph_refid = ? "
+                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iss.is_status";
+String[] param_interview_saved_list = new String[1];
+ArrayList<ArrayList<String>> data_interview_saved_list;
+
+String pass_ptj = "PASS_PTJ";
+String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
+            + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
+            + "WHERE pa.pph_refid = pph.pph_refid "
+            + "AND pa.c_refid = c.c_refid "
+            + "AND l.c_refid = c.c_refid "
+            + "AND pa.pa_status = ? "
+            + "GROUP BY pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid ";
+String param_pos_list[] = { pass_ptj };
+ArrayList<ArrayList<String>> data_pos_list = mc.getQuery(sql_pos_list, param_pos_list);
+
+String sql_count_pass = "SELECT COUNT(PA.PA_REFID) "
+                    + "FROM POS_APPLIED PA, POSITION_PTJ_HR PPH "
+                    + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
+                    + "AND PA.PA_STATUS = ? "
+                    + "AND PA.PPH_REFID = ? ";
+String[] param_count_pass = new String[2];
+ArrayList<ArrayList<String>> data_count_pass;
+%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.ArrayList"%>
@@ -25,27 +58,6 @@
         <div class="row">
             <div class="col-sm-12"><h4>POSITION TO BE SETUP LIST</h4></div>
             <!-- Tab List Position -->
-            <%
-//            MainClient mc = new MainClient(DBConn.getHost());
-//            String pass_ptj = "PASS_PTJ";
-//            String sql_pos_list = "SELECT pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid "
-//                        + "FROM pos_applied pa, position_ptj_hr pph, candidate c, login1 l "
-//                        + "WHERE pa.pph_refid = pph.pph_refid "
-//                        + "AND pa.c_refid = c.c_refid "
-//                        + "AND l.c_refid = c.c_refid "
-//                        + "AND pa.pa_status = ? "
-//                        + "GROUP BY pph.pph_grade, pph.pph_position, pph.pph_ptj, pph.pph_refid ";
-//            String param_pos_list[] = { pass_ptj };
-//            ArrayList<ArrayList<String>> data_pos_list = mc.getQuery(sql_pos_list, param_pos_list);
-//
-//            String sql_count_pass = "SELECT COUNT(PA.PA_REFID) "
-//                                + "FROM POS_APPLIED PA, POSITION_PTJ_HR PPH "
-//                                + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
-//                                + "AND PA.PA_STATUS = ? "
-//                                + "AND PA.PPH_REFID = ? ";
-//            String[] param_count_pass = new String[2];
-//            ArrayList<ArrayList<String>> data_count_pass;
-            %>
             <form method="post" action="process/bpsm/eInterview/e_int_go_setup_page.jsp">
                 <table class="table-bordered" id="pos_list" width="100%">
                     <thead style="vertical-align: middle;">
@@ -60,66 +72,51 @@
                     </thead>
                     <tbody>
                     <%
-//                    if(data_pos_list.size() > 0)
-//                    {
-//                        String sql_check_pph = "SELECT IR.IR_REFID "
-//                                + "FROM POSITION_PTJ_HR PPH, POS_APPLIED PA, INTERVIEW_RESULT IR "
-//                                + "WHERE PPH.PPH_REFID = PA.PPH_REFID "
-//                                + "AND PA.PA_REFID = IR.PA_REFID "
-//                                + "AND PPH.PPH_REFID = ? ";
-//                        String[] param_check_pph = new String[1];
-//                        ArrayList<ArrayList<String>> data_check_pph;
-//                        int num = 1;
-//                        for(int row = 0; row < data_pos_list.size(); row++)
-//                        {
-//                            param_check_pph[0] = data_pos_list.get(row).get(3);
-//                            data_check_pph = mc.getQuery(sql_check_pph, param_check_pph);
-//                            if(data_check_pph.size() == 0)
-//                            {
-//                                param_count_pass[0] = pass_ptj;
-//                                param_count_pass[1] = data_pos_list.get(row).get(3);
-//                                data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
-//                                if(Integer.parseInt(data_count_pass.get(0).get(0)) > 0)
-//                                {
+                    if(data_pos_list.size() > 0)
+                    {
+                        int num = 1;
+                        for(int row = 0; row < data_pos_list.size(); row++)
+                        {
+                            param_count_pass[0] = pass_ptj;
+                            param_count_pass[1] = data_pos_list.get(row).get(3);
+                            data_count_pass = mc.getQuery(sql_count_pass, param_count_pass);
+                            
+                            param_interview_saved_list[0] = data_pos_list.get(row).get(3);
+                            data_interview_saved_list = mc.getQuery(sql_interview_saved_list, param_interview_saved_list);
+                            
+                            if(data_interview_saved_list.size() > 0)
+                            {
+                                if(data_interview_saved_list.get(0).get(4).equals(rejected))
+                                {
                                     %>
-<!--                                    <tr>
-                                        <td style="vertical-align: middle; text-align: center"><%//=num %></td>
-                                        <td style="vertical-align: middle; text-align: center"><%//=data_pos_list.get(row).get(0) %></td>
-                                        <td style="vertical-align: middle"><%//=data_pos_list.get(row).get(1) %></td>
-                                        <td style="vertical-align: middle"><%//=data_pos_list.get(row).get(2) %></td>
-                                        <td style="vertical-align: middle; text-align: center"><%//=data_count_pass.get(0).get(0) %></td>
-                                        <td style="vertical-align: middle; text-align: center"><input type="checkbox" onclick="checkTotalCheckedBoxes();" id="selected_pos" name="selected_pos" value="<%//=data_pos_list.get(row).get(3) %>"></td>
-                                    </tr>-->
                                     <tr>
-                                        <td style="vertical-align: middle; text-align: center">1</td>
-                                        <td style="vertical-align: middle; text-align: center">Grade 1</td>
-                                        <td style="vertical-align: middle">Position 1</td>
-                                        <td style="vertical-align: middle">PTJ 1</td>
-                                        <td style="vertical-align: middle; text-align: center">3</td>
-                                        <td style="vertical-align: middle; text-align: center"><input type="checkbox" onclick="checkTotalCheckedBoxes();" id="selected_pos" name="selected_pos" value="<%//=data_pos_list.get(row).get(3) %>"></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=num %></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=data_pos_list.get(row).get(0) %></td>
+                                        <td style="vertical-align: middle"><%=data_pos_list.get(row).get(1) %></td>
+                                        <td style="vertical-align: middle"><%=data_pos_list.get(row).get(2) %></td>
+                                        <td style="vertical-align: middle; text-align: center"><a href="process.jsp?p=BPSM/E-Interview/e_int_ptj_pass_list.jsp&pph_refid=<%=data_pos_list.get(row).get(3) %>"><%=data_count_pass.get(0).get(0) %></a></td>
+                                        <td style="vertical-align: middle; text-align: center"><input type="checkbox" onclick="checkTotalCheckedBoxes();" id="selected_pos" name="selected_pos" value="<%=data_pos_list.get(row).get(3) %>"></td>
                                     </tr>
-                                    <tr>
-                                        <td style="vertical-align: middle; text-align: center">2</td>
-                                        <td style="vertical-align: middle; text-align: center">Grade 2</td>
-                                        <td style="vertical-align: middle">Position 2</td>
-                                        <td style="vertical-align: middle">PTJ 2</td>
-                                        <td style="vertical-align: middle; text-align: center">6</td>
-                                        <td style="vertical-align: middle; text-align: center"><input type="checkbox" onclick="checkTotalCheckedBoxes();" id="selected_pos" name="selected_pos" value="<%//=data_pos_list.get(row).get(3) %>"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="vertical-align: middle; text-align: center">3</td>
-                                        <td style="vertical-align: middle; text-align: center">Grade 3</td>
-                                        <td style="vertical-align: middle">Position 3</td>
-                                        <td style="vertical-align: middle">PTJ 3</td>
-                                        <td style="vertical-align: middle; text-align: center">9</td>
-                                        <td style="vertical-align: middle; text-align: center"><input type="checkbox" onclick="checkTotalCheckedBoxes();" id="selected_pos" name="selected_pos" value="<%//=data_pos_list.get(row).get(3) %>"></td>
-                                    </tr>
-                                    <%
-//                                    num++;
-//                                }
-//                            }
-//                        }
-//                    }
+                                    <% 
+                                    num++;
+                                }
+                            }
+                            else
+                            {
+                                 %>
+                                <tr>
+                                    <td style="vertical-align: middle; text-align: center"><%=num %></td>
+                                    <td style="vertical-align: middle; text-align: center"><%=data_pos_list.get(row).get(0) %></td>
+                                    <td style="vertical-align: middle"><%=data_pos_list.get(row).get(1) %></td>
+                                    <td style="vertical-align: middle"><%=data_pos_list.get(row).get(2) %></td>
+                                    <td style="vertical-align: middle; text-align: center"><a href="process.jsp?p=BPSM/E-Interview/e_int_ptj_pass_list.jsp&pph_refid=<%=data_pos_list.get(row).get(3) %>"><%=data_count_pass.get(0).get(0) %></a></td>
+                                    <td style="vertical-align: middle; text-align: center"><input type="checkbox" onclick="checkTotalCheckedBoxes();" id="selected_pos" name="selected_pos" value="<%=data_pos_list.get(row).get(3) %>"></td>
+                                </tr>
+                                <% 
+                                num++;
+                            }
+                        }
+                    }
                     %>
                     </tbody>
                 </table>

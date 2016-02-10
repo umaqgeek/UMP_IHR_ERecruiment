@@ -4,9 +4,30 @@
     Author     : Habib
 --%>
 
+<%@page import="helpers.Func"%>
+<%@page import="java.util.ArrayDeque"%>
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="java.util.ArrayList"%>
+<%
+MainClient mc = new MainClient(DBConn.getHost());
+String is_type = "UNIVERSITY";
+String sql_saved_list = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type "
+                    + "FROM interview_setup iss";
+String param_saved_list[] = {};
+ArrayList<ArrayList<String>> data_saved_list = mc.getQuery(sql_saved_list, param_saved_list);
+//out.print(data_saved_list);
+
+String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj "
+                            +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph "
+                            +"WHERE iss.is_refid = irm.is_refid "
+                            +"AND pa.pa_refid = irm.pa_refid "
+                            +"AND pph.pph_refid = pa.pph_refid "
+                            +"AND iss.is_refid = ? "
+                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj";
+String[] param_interview_pos_list = new String[1];
+ArrayList<ArrayList<String>> data_interview_pos_list;
+%>
 <div class="row">
     <div class="well">
         <div class="row">
@@ -43,67 +64,45 @@
                     </tr>
                 </thead>
                 <tbody>
+                <%
+                for(int a = 0; a < data_saved_list.size(); a++)
+                {
+                    param_interview_pos_list[0] = data_saved_list.get(a).get(0);
+                    data_interview_pos_list = mc.getQuery(sql_interview_pos_list, param_interview_pos_list);
+                    %>
                     <tr>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">1</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">01/01/2016</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">3:00PM</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">5:00PM</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">HR BUILDING</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">UNIVERSITY</td>
-                        <td style="vertical-align: middle">Grade 1</td>
-                        <td style="vertical-align: middle">Position 1</td>
-                        <td style="vertical-align: middle">PTJ 1</td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=a+1 %></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=Func.getDate(data_saved_list.get(a).get(1)) %></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(2) %></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(3) %></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(4) %></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(5) %></td>
+                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(1) %></td>
+                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(2) %></td>
+                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(3) %></td>
                         <td style="vertical-align: middle">INFORMED</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center">
                             <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp">General</a>
-                            <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp">Question</a>
+                            <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Question</a>
                         </td>
 <!--                        <td rowspan="3" style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#modalDetail" data-toggle="modal">Detail</a></td>-->
-                        <td rowspan="3" style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control disabled" href="#modalInviteCandidate" data-toggle="modal">Invite</a></td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center"><a class="btn btn-primary form-control disabled" href="#modalPublish" data-toggle="modal">Publish</a></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control disabled" href="#modalInviteCandidate" data-toggle="modal">Invite</a></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><a class="btn btn-primary form-control disabled" href="#modalPublish" data-toggle="modal">Publish</a></td>
                     </tr>
-                    <tr>
-                        <td style="vertical-align: middle">Grade 2</td>
-                        <td style="vertical-align: middle">Position 2</td>
-                        <td style="vertical-align: middle">PTJ 2</td>
-                        <td style="vertical-align: middle">INFORMED</td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: middle">Grade 3</td>
-                        <td style="vertical-align: middle">Position 3</td>
-                        <td style="vertical-align: middle">PTJ 3</td>
-                        <td style="vertical-align: middle">INFORMED</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">2</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">01/01/2015</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">3:00PM</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">5:00PM</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">HR BUILDING</td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">UNIVERSITY</td>
-                        <td style="vertical-align: middle">Grade 1</td>
-                        <td style="vertical-align: middle">Position 1</td>
-                        <td style="vertical-align: middle">PTJ 1</td>
-                        <td style="vertical-align: middle"><a data-toggle="modal" href="#modalPreInterviewDetail" style="color: limegreen; font-weight: bold;">ACCEPTED</a></td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center">
-                            <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp">General</a>
-                            <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp">Question</a>
-                        </td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_invite_candidate.jsp">Invite</a></td>
-                        <td rowspan="3" style="vertical-align: middle; text-align: center"><a class="btn btn-primary form-control" href="process/bpsm/eInterview/e_int_publish_process.jsp">Publish</a></td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: middle">Grade 2</td>
-                        <td style="vertical-align: middle">Position 2</td>
-                        <td style="vertical-align: middle">PTJ 2</td>
-                        <td style="vertical-align: middle"><a data-toggle="modal" href="#modalReason" style="color: red; font-weight: bold;">REJECTED</a></td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: middle">Grade 3</td>
-                        <td style="vertical-align: middle">Position 3</td>
-                        <td style="vertical-align: middle">PTJ 3</td>
-                        <td style="vertical-align: middle"><a data-toggle="modal" href="#modalPreInterviewDetail" style="color: limegreen; font-weight: bold;">ACCEPTED</a></td>
-                    </tr>
+                    <%
+                    for(int b = 1; b < data_interview_pos_list.size(); b++)
+                    {
+                        %>
+                        <tr>
+                            <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(1) %></td>
+                            <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(2) %></td>
+                            <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(3) %></td>
+                            <td style="vertical-align: middle">INFORMED</td>
+                        </tr>
+                        <%
+                    }
+                }
+                %>
                 </tbody>
             </table>
         </div>
