@@ -144,52 +144,7 @@
                             <div class="col-lg-6">
                                 <form method="post" action="process/candidate/eApply/eApply.jsp" class="form-horizontal" name="form_personal" role="form">
 
-                                    <%
-                                        String pphl = "";
-                                        try {
-                                            pphl = pph_login.get(0).get(5);
-                                        } catch (Exception e) {
-                                            pphl = "";
-                                        }
-                                    %>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Password:</label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" name="L_Password" type="text" value="<%=(pphl != null && pphl != "" && !pphl.equals("")) ? pphl : ""%>">
-                                        </div>
-                                    </div>
-                                    <%
-                                        String pphl6 = "";
-                                        try {
-                                            pphl6 = pph_login.get(0).get(6);
-                                        } catch (Exception e) {
-                                            pphl6 = "";
-                                        }
-                                    %>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Safe Question</label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" name="L_SAFEQUEST" type="text" value="<%=(pphl6 != null && pphl6 != "" && !pphl6.equals("")) ? pphl6 : ""%>">
-                                        </div>
-                                    </div>
-
-                                    <%
-                                        String pphl7 = "";
-                                        try {
-                                            pphl7 = pph_login.get(0).get(7);
-
-                                        } catch (Exception e) {
-                                            pphl7 = "";
-                                        }
-                                    %>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Safe Answer</label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" name="L_SAFEANS" type="text" value="<%=(pphl7 != null && pphl7 != "" && !pphl7.equals("")) ? pphl7 : ""%>">
-                                        </div>
-                                    </div>
-
-
+                                    
                                     <%
                                         String pphlog10 = "";
                                         try {
@@ -236,20 +191,6 @@
                                         </div>
                                     </div>
 
-                                    <%
-                                        String ppha4 = "";
-                                        try {
-                                            ppha4 = pph_address.get(0).get(4);
-                                        } catch (Exception e) {
-                                            ppha4 = "";
-                                        }
-                                    %>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Home Postcode:</label>
-                                        <div class="col-lg-6">
-                                            <input class="form-control" name="A_Postcode" type="text" value="<%=ppha4%>">
-                                        </div>
-                                    </div>
                                     <%
                                         String query_master = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                 + "FROM LOOKUP_DETAIL JOIN "
@@ -316,7 +257,54 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="AT_REFID" value="<%=pph_address_type.get(0).get(0)%>"  />
+                                    
+                                    <%
+                                        String ppha4 = "";
+                                        try {
+                                            ppha4 = pph_address.get(0).get(4);
+                                        } catch (Exception e) {
+                                            ppha4 = "";
+                                        }
+                                    %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Home Postcode:</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" name="A_Postcode" type="text" value="<%=ppha4%>">
+                                        </div>
+                                    </div>
+                                        
+                                        <%
+                                        String pph3 = "";
+                                        try {
+                                            pph3 = pph_candidate.get(0).get(3);
+                                        } catch (Exception e) {
+                                            pph3 = "";
+                                        }
+                                    %>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Age:</label>
+                                        <div class="col-lg-3">
+                                            <input class="form-control" name="C_Age" id="age" type="text" value="<%=pph3%>">
+                                        </div>
+                                    </div>
+                                    <script>
+                                                $(document).ready(function() {
+                                        var date = $('#datepicker').val().split('-');
+                                                var year = date[2];
+                                                var now = new Date().getFullYear();
+                                                var age = now - year;
+                                                $('#age').val(age);
+                                                $("#datepicker").keyup(function() {
 
+                                        var date = $('#datepicker').val().split('-');
+                                                var year = date[2];
+                                                var now = new Date().getFullYear();
+                                                var age = now - year;
+                                                var age = now - year;
+                                                $('#age').val(age);
+                                        });
+                                        });</script>
+                                        
                                     <%
                                         String pph2 = "";
                                         try {
@@ -329,16 +317,22 @@
                                     %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Date Of Birth:</label>
+                                        <%
+                                        String dobfromic="";
+                                        dobfromic=helpers.Func.getDobFromIc(pphlog10.toString());
+                                       //out.println(dobfromic);
+                                       //out.println(pph2);
+                                        %>
                                         <div class="col-lg-6">
                                             <div class='input-group date'>
-                                                <input type='text' name="C_DOB" id="datepicker" value="<%=pph2%>" class="form-control" />
+                                                <input type='text' name="C_DOB" id="datepicker" value="<%=dobfromic%>" class="form-control" />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
 
                                                 <script type="text/javascript">
                                                             $(function() {
-                                                            var existing_date = "<%=pph2%>";
+                                                            var existing_date = "<%=dobfromic%>";
                                                                     $("#datepicker").datepicker({
                                                             changeMonth: true,
                                                                     changeYear: true,
@@ -363,7 +357,7 @@
                                                                     }
                                                             });
                                                                     $("#datepicker").datepicker("option", "dateFormat", "d-M-yy");
-                                                                    $("#datepicker").datepicker('setDate', new Date());
+                                                                    $("#datepicker").datepicker('setDate', existing_date);
                                                             });</script>
                                             </div>
                                         </div>
@@ -454,58 +448,6 @@
                                         </div>
                                     </div><!-- end gender-->
                                     <%
-                                        String pph7 = "";
-                                        try {
-                                            pph7 = pph_candidate.get(0).get(7);
-                                        } catch (Exception e) {
-                                            pph7 = "";
-                                        }
-                                    %>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Religion:</label>
-                                        <div class="col-lg-6">
-                                            <%
-                                                String query_religion = "SELECT LOOKUP_DETAIL.LD_DESC "
-                                                        + "FROM LOOKUP_DETAIL JOIN "
-                                                        + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
-                                                        + "WHERE LOOKUP_DETAIL.LM_REFID = '1452457867.568' ";
-
-                                                MainClient mc_religon = new MainClient(DBConn.getHost());
-                                                String params_religion[] = {};
-                                                ArrayList<ArrayList<String>> pph_religion = mc_religon.getQuery(query_religion, params_religion);
-
-                                            %>
-                                            <select name="C_Religion" class="form-control" id="sel1">
-                                                <%     for (int i = 0; i < pph_religion.size(); i++) {
-                                                        if (pph7 != null && pph7 != "" && !pph7.equals("")) {
-                                                            if (pph7.equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
-                                                %>
-                                                <option selected value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
-                                                <%
-                                                } else {
-                                                %>
-                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
-                                                <%
-                                                    }
-                                                } else {
-
-                                                    if (i == 0) {
-                                                %>
-                                                <option selected value="">Please Select</option>
-                                                <%
-                                                    }
-
-                                                %>
-                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
-                                                <%
-                                                        }
-
-                                                    }
-                                                %>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                    <%
                                         String query_race = "SELECT LOOKUP_DETAIL.LD_DESC "
                                                 + "FROM LOOKUP_DETAIL JOIN "
                                                 + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
@@ -557,37 +499,58 @@
                                         </div>
                                     </div>
                                     <%
-                                        String pph3 = "";
+                                        String pph7 = "";
                                         try {
-                                            pph3 = pph_candidate.get(0).get(3);
+                                            pph7 = pph_candidate.get(0).get(7);
                                         } catch (Exception e) {
-                                            pph3 = "";
+                                            pph7 = "";
                                         }
                                     %>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Age:</label>
-                                        <div class="col-lg-3">
-                                            <input class="form-control" name="C_Age" id="age" type="text" value="<%=pph3%>">
+                                        <label class="col-lg-3 control-label">Religion:</label>
+                                        <div class="col-lg-6">
+                                            <%
+                                                String query_religion = "SELECT LOOKUP_DETAIL.LD_DESC "
+                                                        + "FROM LOOKUP_DETAIL JOIN "
+                                                        + "LOOKUP_MASTER ON LOOKUP_DETAIL.LM_REFID = LOOKUP_MASTER.LM_REFID "
+                                                        + "WHERE LOOKUP_DETAIL.LM_REFID = '1452457867.568' ";
+
+                                                MainClient mc_religon = new MainClient(DBConn.getHost());
+                                                String params_religion[] = {};
+                                                ArrayList<ArrayList<String>> pph_religion = mc_religon.getQuery(query_religion, params_religion);
+
+                                            %>
+                                            <select name="C_Religion" class="form-control" id="sel1">
+                                                <%     for (int i = 0; i < pph_religion.size(); i++) {
+                                                        if (pph7 != null && pph7 != "" && !pph7.equals("")) {
+                                                            if (pph7.equalsIgnoreCase(pph_religion.get(i).get(0).toString())) {
+                                                %>
+                                                <option selected value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
+                                                <%
+                                                } else {
+                                                %>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
+                                                <%
+                                                    }
+                                                } else {
+
+                                                    if (i == 0) {
+                                                %>
+                                                <option selected value="">Please Select</option>
+                                                <%
+                                                    }
+
+                                                %>
+                                                <option value="<%=pph_religion.get(i).get(0).toString() %>"><%=pph_religion.get(i).get(0).toString() %></option>
+                                                <%
+                                                        }
+
+                                                    }
+                                                %>
+                                            </select> 
                                         </div>
                                     </div>
-                                    <script>
-                                                $(document).ready(function() {
-                                        var date = $('#datepicker').val().split('-');
-                                                var year = date[2];
-                                                var now = new Date().getFullYear();
-                                                var age = now - year;
-                                                $('#age').val(age);
-                                                $("#datepicker").keyup(function() {
-
-                                        var date = $('#datepicker').val().split('-');
-                                                var year = date[2];
-                                                var now = new Date().getFullYear();
-                                                var age = now - year;
-                                                var age = now - year;
-                                                $('#age').val(age);
-                                        });
-                                        });</script>
-
+                                    
                             </div>
                             <div class="col-lg-6">
                                 <%
@@ -665,22 +628,7 @@
                                     </div>
                                 </div>
 
-                                <%
-                                    String pphaa4 = "";
-                                    try {
-                                        pphaa4 = pph_address2.get(0).get(4);
-                                    } catch (Exception e) {
-                                        pphaa4 = "";
-                                    }
-                                %>
-                                <br/><br/><br/><br/><br/><br/><br/><br/>
-
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Postage Postcode:</label>
-                                    <div class="col-lg-6">
-                                        <input class="form-control" name="A_Postcode_2" type="text" value="<%=pphaa4%>">
-                                    </div>
-                                </div>
+                                
                                 <%
 
                                     String pphaa5 = "";
@@ -691,7 +639,7 @@
                                     }
 
                                 %>
-                                <br/><br/><br/>
+                                <br/><br/><br/><br/><br/><br/><br/>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postage State:</label>
                                     <div class="col-lg-6">
@@ -740,6 +688,23 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="AT_REFID_2" value="<%=pph_address_type.get(1).get(0)%>"  />
+                                
+                                <%
+                                    String pphaa4 = "";
+                                    try {
+                                        pphaa4 = pph_address2.get(0).get(4);
+                                    } catch (Exception e) {
+                                        pphaa4 = "";
+                                    }
+                                %>
+                                <br/><br/>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Postage Postcode:</label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" name="A_Postcode_2" type="text" value="<%=pphaa4%>">
+                                    </div>
+                                </div>
                                 <br/><br/>
                                 <%
                                     String query_nationality = "SELECT LOOKUP_DETAIL.LD_DESC "
@@ -1021,7 +986,7 @@
                                 %>
                                 <div class="form-group">
                                     <label class="col-lg-8 control-label">
-                                        Are you serving at services of civil / military / local goverment / statutory / police ? :</label>
+                                        Existing Government Servant ? :</label>
                                     <div class="col-md-4">
                                         <div class="form-inline">
                                             <div class="controls-row">
