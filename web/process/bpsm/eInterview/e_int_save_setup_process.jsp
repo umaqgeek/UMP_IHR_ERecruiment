@@ -54,7 +54,7 @@
     //*****End Get all pa_refid******************************************************************
     
     //******************Insert to interview setup*********************************************
-    String is_status_saved = "SAVED";
+    String is_status_saved = "4";
     String sql_insert_setup = "INSERT INTO interview_setup(is_date, is_starttime, is_endtime, is_venue, is_type, is_status) "
                             + "VALUES ( ? , ? , ? , ? , ? , ? )";
     String param_insert_setup[] = { is_date, is_starttime, is_endtime, is_venue, is_type, is_status_saved};
@@ -62,7 +62,7 @@
     //**************End Insert to interview setup*********************************************
    
     //*****************Insert Chairman**********************************************
-    String icl_status_set = "SET";
+    String icl_status_set = "2";
     String sql_insert_chairman = "INSERT INTO interview_chairman_list(icl_status, sm_staff_id, is_refid) "
                             + "VALUES( ? , ? , ? )";
     String param_insert_chairman[] = { icl_status_set, chairman_staff_id, is_refid };
@@ -70,7 +70,7 @@
     //***************End Insert Chairman********************************************
     
     //*****************Insert panel************************************************************
-    String ipl_status_set = "SET";
+    String ipl_status_set = "2";
     String sql_insert_panel = "INSERT INTO interview_panel_list(ipl_status, sm_staff_id) "
                             + "VALUES( ? , ? )";
     String[] param_insert_panel = new String[2];
@@ -87,9 +87,10 @@
 //    out.print(is_refid);
     
     //***********Insert interview result************************
-    String sql_insert_result = "INSERT INTO interview_result_mark(pa_refid, is_refid) "
-                            + "VALUES( ? , ? )";
-    String[] param_insert_result = new String[2];
+    String irm_status_informed = "1";
+    String sql_insert_result = "INSERT INTO interview_result_mark(irm_status, pa_refid, is_refid) "
+                            + "VALUES( ? , ? , ? )";
+    String[] param_insert_result = new String[3];
     String irm_refid = "";
     //***********End Insert interview result********************
     
@@ -108,8 +109,9 @@
         
         for(int b = 0; b < data_pa_list.size();b++)
         {
-            param_insert_result[0] = data_pa_list.get(b).get(0);
-            param_insert_result[1] = is_refid;
+            param_insert_result[0] = irm_status_informed;
+            param_insert_result[1] = data_pa_list.get(b).get(0);
+            param_insert_result[2] = is_refid;
             irm_refid = mc.setQuery(sql_insert_result, param_insert_result, "irm_refid");
             
             for(int c = 0; c < ipl_refid.length; c++)
