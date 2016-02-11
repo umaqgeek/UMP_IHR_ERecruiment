@@ -104,7 +104,7 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
                 <th>Total</th>
                 <th>Status</th>
                 <th>Action</th>
-                <th><a href="process/ptj/eAds/ePublishAll.jsp">Publish All</a></th>
+                <th><a href="process/ptj/eAds/ePublishAll.jsp">Submit All</a></th>
             </tr>
         </thead>
         <tbody>
@@ -123,7 +123,7 @@ ArrayList<ArrayList<String>> d_test = mc_test.getQuery(sql_test, param_test);
                 <td>
                     <% if (pph.get(i).get(4).toUpperCase().equals("ENTRY".toUpperCase())) { %>
                     <!--<input type="checkbox" id="publish_<%=i %>" />--> 
-                    <a href="process/ptj/eAds/ePublish1.jsp?pph=<%=pph.get(i).get(0)%>">Publish</a>
+                    <a href="process/ptj/eAds/ePublish1.jsp?pph=<%=pph.get(i).get(0)%>">Submit</a>
                     <% } %>
                 </td>
             </tr>

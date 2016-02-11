@@ -6,6 +6,9 @@ String i = request.getParameter("i");
 
 String sql_job_status = "SELECT JSM.JSM_JOB_CODE, JSM.JSM_JOD_DESC "
         + "FROM JOB_STATUS_MAIN JSM "
+        + "WHERE JSM.JSM_JOD_DESC LIKE 'TETAP' "
+        + "OR JSM.JSM_JOD_DESC LIKE 'KONTRAK' "
+        + "OR JSM.JSM_JOD_DESC LIKE 'FELLOW' "
         + "ORDER BY JSM.JSM_JOD_DESC ASC ";
 String param_job_status[] = {};
 MainClient mc_job_status = new MainClient(DBConn.getHost());
