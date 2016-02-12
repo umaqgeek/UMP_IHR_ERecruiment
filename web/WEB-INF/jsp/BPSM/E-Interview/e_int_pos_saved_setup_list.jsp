@@ -18,13 +18,14 @@ String param_saved_list[] = {};
 ArrayList<ArrayList<String>> data_saved_list = mc.getQuery(sql_saved_list, param_saved_list);
 //out.print(data_saved_list);
 
-String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj "
-                            +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph "
+String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc "
+                            +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph, interview_invite_status iis "
                             +"WHERE iss.is_refid = irm.is_refid "
                             +"AND pa.pa_refid = irm.pa_refid "
                             +"AND pph.pph_refid = pa.pph_refid "
+                            +"AND iis.iis_code = irm.irm_status "
                             +"AND iss.is_refid = ? "
-                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj";
+                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc";
 String[] param_interview_pos_list = new String[1];
 ArrayList<ArrayList<String>> data_interview_pos_list;
 %>
@@ -48,12 +49,15 @@ ArrayList<ArrayList<String>> data_interview_pos_list;
             <table id="intList" class="table-bordered" width="100%">
                 <thead>
                     <tr style="vertical-align: middle;">
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">#</th>
+                        <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">#</th>
+                        <th colspan="3" style="vertical-align: middle; text-align: center; font-weight: bold">Interview</th>
+                        <th colspan="4" style="vertical-align: middle; text-align: center; font-weight: bold">Pre-Interview</th>
+                        <th colspan="3" style="vertical-align: middle; text-align: center; font-weight: bold">Action</th>
+                    </tr>
+                    <tr style="vertical-align: middle;">
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Date</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Start</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">End</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Venue</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Interview Level</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Details</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="5%">Grade</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">Position</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">PTJ</th>
@@ -73,16 +77,14 @@ ArrayList<ArrayList<String>> data_interview_pos_list;
                     <tr>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=a+1 %></td>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=Func.getDate(data_saved_list.get(a).get(1)) %></td>
-                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(2) %></td>
-                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(3) %></td>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(4) %></td>
-                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(5) %></td>
+                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#modalUniDetail<%=a %>" class="btn btn-default">Details</a></td>
                         <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(1) %></td>
                         <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(2) %></td>
                         <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(3) %></td>
-                        <td style="vertical-align: middle">INFORMED</td>
+                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(4) %></td>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center">
-                            <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp">General</a>
+                            <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">General</a>
                             <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Question</a>
                         </td>
 <!--                        <td rowspan="3" style="vertical-align: middle; text-align: center"><a class="btn btn-warning form-control" href="#modalDetail" data-toggle="modal">Detail</a></td>-->
@@ -372,6 +374,53 @@ ArrayList<ArrayList<String>> data_interview_pos_list;
     </div>
 </div>
 <!-- End modal pre -->
+<!-- Modal Uni Interview Detail -->
+<%
+for(int a = 0; a < data_saved_list.size(); a++)
+{
+    %>
+    <div id="modalUniDetail<%=a %>" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" align="center">
+                    <h4 class="modal-title" style="font-weight: bold">INTERVIEW DETAIL</h4>
+                </div>
+                <div class="modal-body" align="center">
+                    <fieldset>
+                        <table style="width: 100%" class="table-condensed">
+                            <tbody>
+                                 <tr>
+                                    <td style="vertical-align: middle; font-weight: bold">Date</td>
+                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                    <td style="vertical-align: middle"><%=Func.getDate(data_saved_list.get(a).get(1)) %></td>
+                                 </tr>
+                                 <tr>
+                                    <td style="vertical-align: middle; font-weight: bold">Start</td>
+                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(2) %></td>
+                                 </tr>
+                                 <tr>
+                                    <td style="vertical-align: middle; font-weight: bold">End</td>
+                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(3) %></td>
+                                 </tr>
+                                 <tr>
+                                    <td style="vertical-align: middle; font-weight: bold">Venue</td>
+                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(4) %></td>
+                                 </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%
+}
+%>
+<!-- End modal uni -->
 <script type="text/javascript">
 $(document).ready(function()
 {

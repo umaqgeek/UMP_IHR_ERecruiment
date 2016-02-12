@@ -9,7 +9,7 @@
 <%@page import="models.DBConn"%>
 <%
 MainClient mc = new MainClient(DBConn.getHost());
-
+String checked = "";
 String is_refid = session.getAttribute("is_refid").toString();
 String sql_iii_refid = "SELECT irm.irm_refid "
                     +"FROM interview_setup iss, interview_result_mark irm, interview_irm_icm iii "
@@ -24,6 +24,17 @@ String sql_criteria_list = "SELECT icm.icm_refid, icm.icm_criteria, icm.icm_minm
                         + "ORDER BY icm.icm_criteria";
 String param_criteria_list[] = {};
 ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list, param_criteria_list);
+
+String sql_selected_criteria = "SELECT icm.icm_refid, icm.icm_criteria, icm.icm_minmark, icm.icm_maxmark "
+            +"FROM interview_setup iss, interview_result_mark irm, interview_irm_icm iii, interview_iii_mark iim, interview_criteria_mark icm "
+            +"WHERE iss.is_refid = irm.is_refid "
+            +"AND irm.irm_refid = iii.irm_refid "
+            +"AND iii.iii_refid = iim.iii_refid "
+            +"AND icm.icm_refid =iim.icm_refid "
+            +"AND iss.is_refid = ? "
+            +"GROUP BY icm.icm_refid, icm.icm_criteria, icm.icm_minmark, icm.icm_maxmark";
+String param_selected_criteria[] = { is_refid };
+ArrayList<ArrayList<String>> data_selected_criteria = mc.getQuery(sql_selected_criteria, param_selected_criteria);
 %>
 <div class="row">
     <div class="well">
@@ -43,14 +54,14 @@ ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list,
                     <tr style="vertical-align: middle;">
                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold">NAME</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">KELAYAKAN AKADEMI</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">PENGALAMAN KERJA</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">MINAT TERHADAP</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">PENGETAHUAN AM</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">KECERDASAN</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">KO-KURIKULUM</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">KEMAHIRAN KOMUNIKASI</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">SAHSIAH</th>
+                        <%
+                        for(int a = 0; a < data_selected_criteria.size(); a++)
+                        {
+                            %>
+                            <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%"><%=data_selected_criteria.get(a).get(1) %></th>
+                            <%
+                        }
+                        %>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold">DECISION</th>
                     </tr>
                 </thead>
@@ -58,129 +69,29 @@ ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list,
                      <tr>
                         <td style="vertical-align: middle; text-align: center">1</td>
                         <td style="vertical-align: middle; text-align: center"><a>Candidate Name</a></td>
+                        <%
+                        for(int a = 0; a < data_selected_criteria.size(); a++)
+                        {
+                            %>
+                            <td style="vertical-align: middle; text-align: center">
+                                <select class="form-control">
+                                    <option selected disabled>-</option>
+                                <%
+                                for(int b = Integer.parseInt(data_selected_criteria.get(a).get(2)); b <= Integer.parseInt(data_selected_criteria.get(a).get(3)); b++)
+                                {
+                                    %>
+                                    <option value="<%=b %>"><%=b %></option>
+                                    <%
+                                }
+                                %>
+                                </select>
+                            </td>
+                            <%
+                        }
+                        %>
                         <td style="vertical-align: middle; text-align: center">
                             <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </td>
-                        <td style="vertical-align: middle; text-align: center">
-                            <select class="form-control">
-                                <option class="disabled">-Choose-</option>
+                                <option selected disabled>-Choose-</option>
                                 <option>PASS</option>
                                 <option>FAIL</option>
                                 <option>KIV</option>
@@ -240,13 +151,26 @@ ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list,
                         <%
                         for(int a = 0; a < data_criteria_list.size(); a++)
                         {
+                            checked = "";
+                            for(int b = 0; b < data_selected_criteria.size(); b++)
+                            {
+                                if(data_criteria_list.get(a).get(0).equals(data_selected_criteria.get(b).get(0)))
+                                {
+                                    checked = "checked";
+                                    b = data_selected_criteria.size();
+                                }
+                                else
+                                {
+                                    checked = "";
+                                }
+                            }
                             %>
                             <tr>
                                <td style="vertical-align: middle; text-align: center"><%=a+1 %></td>
                                <td style="vertical-align: middle"><%=data_criteria_list.get(a).get(1) %></td>
                                <td style="vertical-align: middle; text-align: center"><%=data_criteria_list.get(a).get(2) %></td>
                                <td style="vertical-align: middle; text-align: center"><%=data_criteria_list.get(a).get(3) %></td>
-                               <td style="vertical-align: middle; text-align: center"><input name="icm_refid" type="checkbox" value="<%=data_criteria_list.get(a).get(0) %>"></td>
+                               <td style="vertical-align: middle; text-align: center"><input name="icm_refid" type="checkbox" value="<%=data_criteria_list.get(a).get(0) %>" <%=checked %> ></td>
                             </tr>
                             <%
                         }
