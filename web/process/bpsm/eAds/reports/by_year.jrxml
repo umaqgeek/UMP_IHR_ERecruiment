@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="by_year" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="2687"/>
+	<property name="ireport.y" value="537"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+	<parameter name="P_YEAR" class="java.lang.String"/>
+	<parameter name="P_CUST_ID" class="java.lang.String"/>
+	<parameter name="P_CYEAR" class="java.lang.String"/>
+	<parameter name="P_LOGO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+POSITION_PTJ_HR.PPH_POSITION,
+POSITION_PTJ_HR.PPH_GRADE,
+POSITION_PTJ_HR.PPH_PTJ,
+POS_APPLIED.PA_CAMPUS,
+POS_APPLIED.PA_JOB_STATUS,
+TO_CHAR(POSITION_PTJ_HR.PPH_STARTDATE,'DD-MM-YYYY') AS PPH_STARTDATE,
+TO_CHAR(POSITION_PTJ_HR.PPH_ENDDATE,'DD-MM-YYYY') AS  PPH_ENDDATE FROM POSITION_PTJ_HR,POS_APPLIED
+WHERE POSITION_PTJ_HR.PPH_REFID = POS_APPLIED.PPH_REFID]]>
+	</queryString>
+	<field name="PPH_POSITION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PPH_GRADE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PPH_PTJ" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PA_CAMPUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PA_JOB_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PPH_STARTDATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PPH_ENDDATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="total">
+		<groupExpression><![CDATA[$P{IS_IGNORE_PAGINATION}]]></groupExpression>
+		<groupFooter>
+			<band height="24"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="-19" y="0" width="187" height="65"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{P_LOGO}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="324" y="49" width="207" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statistik Mengikut Tahun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="10" width="362" height="24"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIVERSITI MALAYSIA PAHANG]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="174" y="0" width="62" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gred]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="0" width="185" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PTJ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="52" width="802" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="28" y="0" width="147" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jawatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="29" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="0" width="97" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kampus Penempatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="515" y="0" width="69" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Taraf Jawatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="583" y="0" width="90" height="44"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bilangan Kekosongan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="672" y="0" width="130" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tarikh Iklan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="672" y="21" width="66" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Buka]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="737" y="21" width="65" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tutup]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="234" y="0" width="185" height="22"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PPH_PTJ}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="173" y="0" width="62" height="22"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PPH_GRADE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="28" y="0" width="146" height="22"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PPH_POSITION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="29" height="22"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="0" width="98" height="22"/>
+				<textElement/>
+			</textField>
+			<textField>
+				<reportElement x="515" y="0" width="68" height="22"/>
+				<textElement/>
+			</textField>
+			<textField>
+				<reportElement x="582" y="0" width="91" height="22"/>
+				<textElement/>
+			</textField>
+			<textField>
+				<reportElement x="672" y="0" width="66" height="22"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PPH_STARTDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="737" y="0" width="65" height="22"/>
+				<textElement/>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="316" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="396" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="36" splitType="Stretch"/>
+	</summary>
+</jasperReport>
