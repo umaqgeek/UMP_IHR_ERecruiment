@@ -13,14 +13,13 @@ import java.util.logging.Logger;
  *
  * @author End User
  */
-public class DBConn { 
-    
-    private static String host = "175.142.65.70"; 
+public class DBConn {
+    private static String host = "175.142.50.124";
     private static int netTime = 2000;
-    private static String user = "root";
-    private static String pass = "qwerty";
-    private static String database = "servercis";
-    private static String dbUrl = "jdbc:mysql://" + getHost() + "/" + getDatabase();
+    private static String user = "cmsadmin";
+    private static String pass = "7";
+    private static String database = "UMPDB";
+    private static String dbUrl = "jdbc:oracle:thin:@" + getHost() + ":80/" + getDatabase();
     private static int port_rmi = 1099;
 
     public static String getHost() {
@@ -51,9 +50,9 @@ public class DBConn {
         port_rmi = aPort_rmi;
     }
     
-    public Connection getConn() {
+    public static Connection getConn() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
             return DriverManager.getConnection(dbUrl, getUser(), pass);
         } catch (Exception ex) {
             ex.printStackTrace();
