@@ -3,29 +3,54 @@
 <%@page import="models.DBConn"%>
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="config.Config"%>
-<div style=" width:85%" class="container" >
 
-<div>
-    <form  class="form-signin" action="process/login_process.jsp" method="post">
-        <h2 class="form-signin-heading">e-Recruitment</h2>
-        <label for="id" class="sr-only">IC No. / Passport No. / Username</label>
-        <input  type="text" id="userid" name='userid' class="form-control" placeholder="IC No. / Passport No. / Username" >
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="pwd" name='pwd' class="form-control" placeholder="Password">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <a style="float:justify;" href="#!" data-toggle="modal" data-target="#myModal">New Registration</a>&nbsp;&nbsp;
-        <a style="float:right;" href="#!" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
-    </form>
+<div class="row">
+    <div class="col-md-8">
+        
+        <div style=" width:85%" class="container" >
 
+            <div>
+                <form  class="form-signin" action="process/login_process.jsp" method="post">
+                    <h2 class="form-signin-heading">e-Recruitment</h2>
+                    <label for="id" class="sr-only">IC No. / Passport No. / Username</label>
+                    <input  type="text" id="userid" name='userid' class="form-control" placeholder="IC No. / Passport No. / Username" >
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="pwd" name='pwd' class="form-control" placeholder="Password">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <a style="float:justify;" href="#!" data-toggle="modal" data-target="#myModal">New Registration</a>&nbsp;&nbsp;
+                    <a style="float:right;" href="#!" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
+                </form>
+            </div>
+
+        </div> <!-- /container -->
+        
+    </div>
+    <div class="col-md-4">
+        
+        <h3>New Advertisement</h3>
+        <%
+            String sql = "SELECT pph.pph_startdate, pph.pph_enddate "
+                    + "FROM position_ptj_hr pph "
+                    + "WHERE pph.pph_status = 'PUBLISH' "
+                    + "GROUP BY pph.pph_startdate, pph.pph_enddate ";
+            String param[] = {};
+            MainClient mc = new MainClient(DBConn.getHost());
+            ArrayList<ArrayList<String>> iklan = mc.getQuery(sql, param);
+            
+            for (int i = 0; i < iklan.size(); i++) {
+                String str = (i+1)+". Ads "+Func.getDate(iklan.get(i).get(0))+" - "+Func.getDate(iklan.get(i).get(1))+"<br />";
+                str = "<a href=''>"+str+"</a>";
+                out.print(str);
+            }
+            %>
+        
+    </div>
 </div>
-
-</div> <!-- /container -->
-
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">

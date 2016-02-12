@@ -3,7 +3,7 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%@page import="controller.Session"%>
 <%@page import="libraries.My_func"%>
-<%
+<%    
 String pph_refid = session.getAttribute("pph").toString();
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 

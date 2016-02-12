@@ -4,12 +4,12 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
     String query3 = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, "
-            + "SUM(vpp.vpp_total), pph.pph_status, pph.pph_startdate, pph.pph_enddate "
+            + "SUM(vpp.vpp_total), pph.pph_status, pph.pph_startdate, pph.pph_enddate, pph.pph_ptj "
             + "FROM vacancy_pos_ptj vpp, position_ptj_hr pph "
             + "WHERE pph.pph_refid = vpp.pph_refid "
             + "AND pph.pph_status = 'SUBMIT' "
             + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_status, "
-            + "pph.pph_startdate, pph.pph_enddate ";
+            + "pph.pph_startdate, pph.pph_enddate, pph.pph_ptj ";
     MainClient mc3 = new MainClient(DBConn.getHost());
     String params3[] = {};
     ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
@@ -46,6 +46,7 @@
                     <th>#</th>
                     <th>Grade</th>
                     <th>Position</th>
+                    <th>PTJ</th>
                     <th>Total</th>
                     <th>Action</th>
                     <th>
@@ -64,6 +65,7 @@
                     <td><%=i + 1%></td>
                     <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(1)%></a></td>
                     <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(2)%></a></td>
+                    <td><a href="process.jsp?p=BPSM/E-Advertisement/e-advertisement_BPSM_setup.jsp&pph_refid=<%=pph.get(i).get(0)%>"><%=pph.get(i).get(7)%></a></td>
                     <td><%=pph.get(i).get(3)%></td>
                     <td>
                         <a href="process/bpsm/eAds/eAds2ReturnToPtj.jsp?pph=<%=pph.get(i).get(0)%>"> Return to PTJ </a>

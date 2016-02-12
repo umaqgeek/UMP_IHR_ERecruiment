@@ -13,6 +13,12 @@ String p5[] = {};
 MainClient mc5 = new MainClient(DBConn.getHost());
 ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
 %>
+<script>
+    $(document).ready(function(){
+        $('#myTable1').DataTable();
+    });
+</script>
+
 <div class="row">
     <div class="col-md-12">
 
@@ -20,12 +26,7 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
 
         <h2>List of Published Positions</h2>
         
-        <script>
-            $(document).ready(function(){
-                $('#myTable1').DataTable();
-            });
-        </script>
-        
+        <form method="post" action="process/candidate/eApply/eApplyConfirm.jsp">
         <table class="table-bordered" id="myTable1">
             <thead>
                 <tr>
@@ -92,7 +93,8 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                         <% if (d_t1.size() > 0 || d_t2.size() > 0) { 
                         %>
                         <!--<a href="process/candidate/eApply/eApply_job.jsp?pph=<%=pph_refid %>">Apply</a>-->
-                        <a href="process.jsp?p=Candidate/E-Apply/e-apply-confirmation.jsp&pph=<%=pph_refid %>">Apply</a>
+                        <!--<a href="process.jsp?p=Candidate/E-Apply/e-apply-confirmation.jsp&pph=<%=pph_refid %>">Apply</a>-->
+                        <input type="checkbox" name="pph" value="<%=pph_refid %>" />
                         <% } %>
                     </td>
                 </tr>
@@ -113,6 +115,10 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                 <% }%>
             </tbody>
         </table>
+            
+        <button type="submit">Apply</button>
+            
+        </form>
         
     </div>
 </div>
