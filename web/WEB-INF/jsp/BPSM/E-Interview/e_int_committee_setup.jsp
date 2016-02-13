@@ -87,54 +87,59 @@ String sql_interview_detail = "SELECT iss.is_refid, iss.is_date, iss.is_starttim
 String param_interview_detail[] = { is_refid };
 ArrayList<ArrayList<String>> data_interview_detail = mc.getQuery(sql_interview_detail, param_interview_detail);
 
-String sql_chairman_list = "SELECT sm.sm_staff_id, sm.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status, iis.iis_desc "
-                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, interview_invite_status iis "
+String sql_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status, iis.iis_desc "
+                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
                         +"WHERE iss.is_refid = icl.is_refid "
                         +"AND sm.sm_staff_id = icl.sm_staff_id "
                         +"AND dm.dm_dept_code = sm.sm_dept_code "
+                        +"AND sm.sm_staff_id = sma.sm_staff_id "
                         +"AND iis.iis_code = icl.icl_status "
                         +"AND iss.is_refid = ? ";
 String param_chairman_list[] = { is_refid };
 ArrayList<ArrayList<String>> data_chairman_list = mc.getQuery(sql_chairman_list, param_chairman_list);
 
-String sql_accepted_chairman_list = "SELECT sm.sm_staff_id, sm.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status "
-                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm "
+String sql_accepted_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status "
+                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, staff_main_archive052014 sma "
                         +"WHERE iss.is_refid = icl.is_refid "
                         +"AND sm.sm_staff_id = icl.sm_staff_id "
                         +"AND dm.dm_dept_code = sm.sm_dept_code "
+                        +"AND sm.sm_staff_id = sma.sm_staff_id "
                         +"AND iss.is_refid = ? "
                         +"AND icl.icl_status = ? ";
 String param_accepted_chairman_list[] = { is_refid, accepted };
 ArrayList<ArrayList<String>> data_accepted_chairman_list = mc.getQuery(sql_accepted_chairman_list, param_accepted_chairman_list);
 
-String sql_sent_chairman_list = "SELECT sm.sm_staff_id, sm.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status "
-                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm "
+String sql_sent_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status "
+                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, staff_main_archive052014 sma "
                         +"WHERE iss.is_refid = icl.is_refid "
                         +"AND sm.sm_staff_id = icl.sm_staff_id "
                         +"AND dm.dm_dept_code = sm.sm_dept_code "
+                        +"AND sm.sm_staff_id = sma.sm_staff_id "
                         +"AND iss.is_refid = ? "
                         +"AND icl.icl_status = ? ";
 String param_sent_chairman_list[] = { is_refid, sent };
 ArrayList<ArrayList<String>> data_sent_chairman_list = mc.getQuery(sql_sent_chairman_list, param_sent_chairman_list);
 
 String status_active = "ACTIVE";
-String sql_staff_list = "SELECT sm.sm_staff_name, sm.sm_staff_id, dm.dm_dept_desc "
-                    + "FROM staff_main sm, department_main dm "
+String sql_staff_list = "SELECT sma.sm_staff_name, sm.sm_staff_id, dm.dm_dept_desc "
+                    + "FROM staff_main sm, department_main dm, staff_main_archive052014 sma "
                     + "WHERE dm.dm_dept_code = sm.sm_dept_code "
+                    + "AND sm.sm_staff_id = sma.sm_staff_id "
                     + "AND sm.sm_staff_status = ? ";
 String param_staff_list[] = { status_active };
 ArrayList<ArrayList<String>> data_staff_list = mc.getQuery(sql_staff_list, param_staff_list);
 
-String sql_panel_list = "SELECT sm.sm_staff_id, sm.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc "
-                    +"FROM interview_setup iss, interview_result_mark irm, interview_panel_list ipl, interview_irm_icm iii, staff_main sm, department_main dm, interview_invite_status iis "
+String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc "
+                    +"FROM interview_setup iss, interview_result_mark irm, interview_panel_list ipl, interview_irm_icm iii, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
                     +"WHERE iss.is_refid = irm.is_refid "
                     +"AND irm.irm_refid = iii.irm_refid "
                     +"AND ipl.ipl_refid = iii.ipl_refid "
                     +"AND sm.sm_staff_id = ipl.sm_staff_id "
                     +"AND dm.dm_dept_code = sm.sm_dept_code "
+                    +"AND sm.sm_staff_id = sma.sm_staff_id "
                     +"AND iis.iis_code = ipl.ipl_status "
                     +"AND iss.is_refid = ? "
-                    +"GROUP BY sm.sm_staff_id, sm.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc";
+                    +"GROUP BY sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc";
 String param_panel_list[] = { is_refid };
 ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param_panel_list);
 %>

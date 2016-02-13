@@ -167,10 +167,11 @@ String alert = session.getAttribute("alert").toString();
                         <div class="row">
                             <%
                             String status_active = "ACTIVE";
-                            String sql_staff_list = "SELECT sm.sm_staff_name, sm.sm_staff_id, dm.dm_dept_desc "
-                                                + "FROM staff_main sm, department_main dm "
-                                                + "WHERE dm.dm_dept_code = sm.sm_dept_code "
-                                                + "AND sm.sm_staff_status = ? ";
+                            String sql_staff_list = "SELECT sma.sm_staff_name, sm.sm_staff_id, dm.dm_dept_code, dm.dm_dept_desc "
+                                                    + "FROM staff_main sm, staff_main_archive052014 sma, department_main dm "
+                                                    + "WHERE sm.sm_staff_id = sma.sm_staff_id "
+                                                    + "AND dm.dm_dept_code = sm.sm_dept_code "
+                                                    + "AND sm.sm_staff_status = ? ";
                             String param_staff_list[] = { status_active };
                             ArrayList<ArrayList<String>> data_staff_list = mc.getQuery(sql_staff_list, param_staff_list);
                             %>
@@ -184,7 +185,7 @@ String alert = session.getAttribute("alert").toString();
                                         for(int a=0; a<data_staff_list.size(); a++)
                                         {
                                             %>
-                                            <option value="<%=data_staff_list.get(a).get(1) %>"><%=data_staff_list.get(a).get(0) %> (<%=data_staff_list.get(a).get(2).toUpperCase() %>)</option>
+                                            <option value="<%=data_staff_list.get(a).get(1) %>"><%=data_staff_list.get(a).get(0) %> (<%=data_staff_list.get(a).get(3).toUpperCase() %>)</option>
                                             <%
                                         }
                                         %>
@@ -202,7 +203,7 @@ String alert = session.getAttribute("alert").toString();
                                                 for(int a=0; a<data_staff_list.size(); a++)
                                                 {
                                                     %>
-                                                    <option value="<%=data_staff_list.get(a).get(1) %>"><%=data_staff_list.get(a).get(0) %> (<%=data_staff_list.get(a).get(2).toUpperCase() %>)</option>
+                                                    <option value="<%=data_staff_list.get(a).get(1) %>"><%=data_staff_list.get(a).get(0) %> (<%=data_staff_list.get(a).get(3).toUpperCase() %>)</option>
                                                     <%
                                                 }
                                                 %>
