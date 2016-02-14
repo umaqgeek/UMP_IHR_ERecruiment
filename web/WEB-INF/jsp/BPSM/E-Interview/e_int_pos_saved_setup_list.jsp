@@ -17,15 +17,17 @@ String sql_saved_list = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss
 String param_saved_list[] = {};
 ArrayList<ArrayList<String>> data_saved_list = mc.getQuery(sql_saved_list, param_saved_list);
 //out.print(data_saved_list);
-
-String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc "
+String rejected = "12";
+String accepted = "11";
+String informed = "1";
+String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason "
                             +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph, interview_invite_status iis "
                             +"WHERE iss.is_refid = irm.is_refid "
                             +"AND pa.pa_refid = irm.pa_refid "
                             +"AND pph.pph_refid = pa.pph_refid "
-                            +"AND iis.iis_code = irm.irm_status "
+                            +"AND iis.iis_code = irm.irm_ptj_status "
                             +"AND iss.is_refid = ? "
-                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc";
+                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason";
 String[] param_interview_pos_list = new String[1];
 ArrayList<ArrayList<String>> data_interview_pos_list;
 %>
@@ -82,7 +84,26 @@ ArrayList<ArrayList<String>> data_interview_pos_list;
                         <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(1) %></td>
                         <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(2) %></td>
                         <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(3) %></td>
-                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(4) %></td>
+                        <%
+                        if(data_interview_pos_list.get(0).get(5).equals(informed))
+                        {
+                            %>
+                            <td style="vertical-align: middle; font-weight: bold"><%=data_interview_pos_list.get(0).get(4) %></td>
+                            <%
+                        }
+                        else if(data_interview_pos_list.get(0).get(5).equals(accepted))
+                        {
+                            %>
+                            <td style="vertical-align: middle"><a style="color: limegreen; font-weight: bold"><%=data_interview_pos_list.get(0).get(4) %></a></td>
+                            <%
+                        }
+                        else if(data_interview_pos_list.get(0).get(5).equals(rejected))
+                        {
+                            %>
+                            <td style="vertical-align: middle"><a style="color: red; font-weight: bold" href="#modalReason<%=a+"_0" %>" data-toggle="modal"><%=data_interview_pos_list.get(0).get(4) %></a></td>
+                            <%
+                        }
+                        %>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center">
                             <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">General</a>
                             <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Question</a>
@@ -99,7 +120,26 @@ ArrayList<ArrayList<String>> data_interview_pos_list;
                             <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(1) %></td>
                             <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(2) %></td>
                             <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(3) %></td>
-                            <td style="vertical-align: middle">INFORMED</td>
+                            <%
+                            if(data_interview_pos_list.get(b).get(5).equals(informed))
+                            {
+                                %>
+                                <td style="vertical-align: middle; font-weight: bold"><%=data_interview_pos_list.get(b).get(4) %></td>
+                                <%
+                            }
+                            else if(data_interview_pos_list.get(b).get(5).equals(accepted))
+                            {
+                                %>
+                                <td style="vertical-align: middle"><a style="color: limegreen; font-weight: bold"><%=data_interview_pos_list.get(b).get(4) %></a></td>
+                                <%
+                            }
+                            else if(data_interview_pos_list.get(b).get(5).equals(rejected))
+                            {
+                                %>
+                                <td style="vertical-align: middle"><a style="color: red; font-weight: bold" href="#modalReason<%=a+"_"+b %>" data-toggle="modal"><%=data_interview_pos_list.get(b).get(4) %></a></td>
+                                <%
+                            }
+                            %>
                         </tr>
                         <%
                     }
@@ -303,21 +343,34 @@ ArrayList<ArrayList<String>> data_interview_pos_list;
 %>
 <!-- End modal set chairman -->
 <!-- Modal Reason -->
-<div id="modalReason" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" align="center">
-                <h4 class="modal-title">REJECT REASON</h4>
-            </div>
-            <div class="modal-body" align="center">
-                <fieldset>
-                    <h4 class="modal-title">Not available on that date</h4>
-                </fieldset>
+<%
+
+for(int a = 0; a < data_saved_list.size(); a++)
+{
+    param_interview_pos_list[0] = data_saved_list.get(a).get(0);
+    data_interview_pos_list = mc.getQuery(sql_interview_pos_list, param_interview_pos_list);
+    for(int b = 0; b < data_interview_pos_list.size(); b++)
+    {
+        %>
+        <div id="modalReason<%=a+"_"+b %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <h4 class="modal-title" style="font-weight: bold">REJECT REASON</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h6><%=data_interview_pos_list.get(b).get(6) %></h6>
+                        </fieldset>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <%
+    }
+}
+%>
 <!-- End modal reason -->
 <!-- Modal Pre Interview Detail -->
 <div id="modalPreInterviewDetail" class="modal fade" role="dialog">

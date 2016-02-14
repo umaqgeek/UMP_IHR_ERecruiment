@@ -87,10 +87,11 @@
 //    out.print(is_refid);
     
     //***********Insert interview result************************
-    String irm_status_informed = "1";
-    String sql_insert_result = "INSERT INTO interview_result_mark(irm_status, pa_refid, is_refid) "
-                            + "VALUES( ? , ? , ? )";
-    String[] param_insert_result = new String[3];
+    String irm_ptj_status_informed = "1";
+    String irm_cand_status_set = "2";
+    String sql_insert_result = "INSERT INTO interview_result_mark(irm_cand_status, irm_ptj_status, pa_refid, is_refid) "
+                            + "VALUES( ? , ? , ? , ? )";
+    String[] param_insert_result = new String[4];
     String irm_refid = "";
     //***********End Insert interview result********************
     
@@ -109,9 +110,10 @@
         
         for(int b = 0; b < data_pa_list.size();b++)
         {
-            param_insert_result[0] = irm_status_informed;
-            param_insert_result[1] = data_pa_list.get(b).get(0);
-            param_insert_result[2] = is_refid;
+            param_insert_result[0] = irm_cand_status_set;
+            param_insert_result[1] = irm_ptj_status_informed;
+            param_insert_result[2] = data_pa_list.get(b).get(0);
+            param_insert_result[3] = is_refid;
             irm_refid = mc.setQuery(sql_insert_result, param_insert_result, "irm_refid");
             
             for(int c = 0; c < ipl_refid.length; c++)
