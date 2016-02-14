@@ -18,6 +18,17 @@ ArrayList<ArrayList<String>> d1 = mc1.getQuery(sql1, param1);
 
 String error = "";
 if (d1.size() > 0) {
+    
+    String sql2 = "SELECT ab.ab_refid, ab.ab_startdate, ab.ab_enddate "
+            + "FROM advertisement_batch ab "
+            + "WHERE ab.ab_startdate = ? "
+            + "AND ab.ab_enddate = ? ";
+    String param2[] = { d1.get(0).get(0), d1.get(0).get(1) };
+    MainClient mc2 = new MainClient(DBConn.getHost());
+    ArrayList<ArrayList<String>> d2 = mc2.getQuery(sql2, param2);
+    
+    out.print(d1); if (true) { return; }
+    
     String sql = "UPDATE position_ptj_hr "
             + "SET pph_status = 'PUBLISH' "
             + "WHERE pph.pph_status = 'SUBMIT' ";
