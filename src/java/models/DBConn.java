@@ -13,9 +13,8 @@ import java.util.logging.Logger;
  *
  * @author End User
  */
-public class DBConn { 
-    
-    private static String host = "175.142.65.70"; 
+public class DBConn {
+    private static String host = "175.142.50.124"; 
     private static int netTime = 2000;
     private static String user = "root";
     private static String pass = "qwerty";
