@@ -39,11 +39,13 @@
 
     String query_address = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324570.621' ";
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453380723.636' ";
+    
+    String query_addresstype="SELECT * FROM ADDRESS_TYPE";
 
     String query_address2 = "SELECT * "
             + "FROM address "
-            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453324578.698' ";
+            + "WHERE c_refid =" + c_refid + " AND AT_REFID = '1453380781.855' ";
 
     String query_login = "SELECT * "
             + "FROM login1 "
@@ -110,7 +112,7 @@
                                 <div class="text-center">
                                     <form action="process/upload_file.jsp" method="post"
                                           enctype="multipart/form-data">
-                                        <%                                            String pph18 = "";
+                                        <%    String pph18 = "";
                                             try {
                                                 pph18 = pph_candidate.get(0).get(18);
                                             } catch (Exception e) {
@@ -183,6 +185,9 @@
                                         } catch (Exception e) {
                                             ppha2 = "";
                                         }
+                                        
+                                           //out.println(pphtemp);
+                                            //if (true) { return; }
                                     %>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Home Address:</label>
