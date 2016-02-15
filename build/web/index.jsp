@@ -5,7 +5,7 @@
 //response.sendRedirect("MOCKUP_06122015.2257/index.html");
 %>
 
-<% Controller.setIP("175.142.50.124"); %>
+<% Controller.setIP("202.188.52.208"); %>
 
 <jsp:include page="WEB-INF/jsp/header.jsp"></jsp:include>
 <jsp:include page="WEB-INF/jsp/menu.jsp"></jsp:include>
