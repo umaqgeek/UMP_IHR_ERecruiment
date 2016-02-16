@@ -15,7 +15,7 @@ MainClient mc = new MainClient(DBConn.getHost());
 
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 
-String sql_dept_code = "SELECT l.l_username "
+String sql_dept_code = "SELECT l.l_icno "
                         + "FROM login1 l "
                         + "WHERE l.l_refid = ? ";
 String param_dept_code[] = { l_refid };
@@ -73,7 +73,7 @@ ArrayList<ArrayList<String>> data_count_candidate;
         <div class="row">
             <ul class="nav nav-tabs">
               <li class="active"><a>INTERVIEW MEMO</a></li>
-              <li><a href="#">SAVED PRE-INTERVIEW SETUP</a></li>
+              <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp">SAVED PRE-INTERVIEW SETUP</a></li>
               <li><a href="#">MY INVITATION</a></li>
             </ul>
         </div>

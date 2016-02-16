@@ -23,32 +23,32 @@
     String chairman_staff_id[] = request.getParameterValues("chairman_staff_id");
     String panel_staff_id[] = request.getParameterValues("panel_staff_id");
     
-    out.print("PPH REFID:<br>");
-    for(int a=0; a < pph_refid.length; a++)
-    {
-        out.print(pph_refid[a]+"<br>");
-    }
-    out.print("<br>");
-    out.print("PA REFID:<br>");
-    for(int a=0; a < pa_refid.length; a++)
-    {
-        out.print(pa_refid[a]+"<br>");
-    }
-    
-    out.print("<br>");
-    out.print("UNI IS REFID:"+uni_is_refid);
-    out.print("<br>");
-    out.print("IS TYPE:"+is_type);
-    out.print("<br>");
-    out.print("IS DATE:"+is_date);
-    out.print("<br>");
-    out.print("IS START:"+is_starttime);
-    out.print("<br>");
-    out.print("IS END:"+is_endtime);
-    out.print("<br>");
-    out.print("IS VENUE:"+is_venue);
-    
-    out.print("<br>");
+//    out.print("PPH REFID:<br>");
+//    for(int a=0; a < pph_refid.length; a++)
+//    {
+//        out.print(pph_refid[a]+"<br>");
+//    }
+//    out.print("<br>");
+//    out.print("PA REFID:<br>");
+//    for(int a=0; a < pa_refid.length; a++)
+//    {
+//        out.print(pa_refid[a]+"<br>");
+//    }
+//    
+//    out.print("<br>");
+//    out.print("UNI IS REFID:"+uni_is_refid);
+//    out.print("<br>");
+//    out.print("IS TYPE:"+is_type);
+//    out.print("<br>");
+//    out.print("IS DATE:"+is_date);
+//    out.print("<br>");
+//    out.print("IS START:"+is_starttime);
+//    out.print("<br>");
+//    out.print("IS END:"+is_endtime);
+//    out.print("<br>");
+//    out.print("IS VENUE:"+is_venue);
+//    
+//    out.print("<br>");
     //*************************** Validate Null Chairman *****************************
     if(chairman_staff_id == null)
     {
@@ -91,11 +91,12 @@
         param_accept[2] = pa_refid[a];
         aa = mc.setQuery(sql_accept, param_accept);
     }
-    out.print(aa);
-    if(true)
-    {
-        return;
-    }
+//    out.print(aa);
+//    if(true)
+//    {
+//        return;
+//    }
+    //*********************End Update accept*****************************
     
     //******************Insert to interview setup*********************************************
     String is_status_saved = "4";
@@ -106,15 +107,15 @@
     //**************End Insert to interview setup*********************************************
    
     //***************************Insert Chairman**********************************************
-    String icl_status_set = "2";
+    String icl_status_sent = "21";
     String sql_insert_chairman = "INSERT INTO interview_chairman_list(icl_status, sm_staff_id, is_refid) "
                             + "VALUES( ? , ? , ? )";
-    String param_insert_chairman[] = { icl_status_set, chairman_staff_id[0], is_refid };
+    String param_insert_chairman[] = { icl_status_sent, chairman_staff_id[0], is_refid };
     String icl_refid = mc.setQuery(sql_insert_chairman, param_insert_chairman, "icl_refid");
     //***************End Insert Chairman******************************************************
     
     //*****************Insert panel************************************************************
-    String ipl_status_set = "2";
+    String ipl_status_sent = "21";
     String sql_insert_panel = "INSERT INTO interview_panel_list(ipl_status, sm_staff_id) "
                             + "VALUES( ? , ? )";
     String[] param_insert_panel = new String[2];
@@ -122,7 +123,7 @@
     
     for(int a = 0; a < panel_staff_id.length; a++)
     {
-        param_insert_panel[0] = ipl_status_set;
+        param_insert_panel[0] = ipl_status_sent;
         param_insert_panel[1] = panel_staff_id[a];
         
         ipl_refid[a] = mc.setQuery(sql_insert_panel, param_insert_panel, "ipl_refid");
@@ -153,7 +154,7 @@
                                 + "AND icm.icm_refid = iim.icm_refid "
                                 + "AND iss.is_refid = ? "
                                 + "GROUP BY iim.icm_refid, icm.icm_criteria ";
-    String param_uni_criteria[] = { is_refid };
+    String param_uni_criteria[] = { uni_is_refid };
     ArrayList<ArrayList<String>> data_select_iimrefid = mc.getQuery(sql_uni_criteria, param_uni_criteria);
     //*******************************************************************************//
     //********************************INSERT ELECTED CRITERIA************************//
@@ -174,7 +175,7 @@
         for(int b = 0; b < ipl_refid.length; b++)
         {
             param_insert_irm_icm[0] = irm_refid;
-            param_insert_irm_icm[1] = ipl_refid[a];
+            param_insert_irm_icm[1] = ipl_refid[b];
             
             iii_refid = mc.setQuery(sql_insert_irm_icm, param_insert_irm_icm, "iii_refid");
             for(int c = 0; c < data_select_iimrefid.size(); c++)

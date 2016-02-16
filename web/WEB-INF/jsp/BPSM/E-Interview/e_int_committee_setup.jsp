@@ -1,5 +1,5 @@
 <%-- 
-    Document   : e_int_pos_setup
+    Document   : e_int_committee_setup
     Created on : Jan 29, 2016, 7:07:31 PM
     Author     : Habib
 --%>
