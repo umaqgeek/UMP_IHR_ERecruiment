@@ -15,7 +15,7 @@ MainClient mc = new MainClient(DBConn.getHost());
 
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 
-String sql_dept_code = "SELECT l.l_icno "
+String sql_dept_code = "SELECT l.l_username "
                         + "FROM login1 l "
                         + "WHERE l.l_refid = ? ";
 String param_dept_code[] = { l_refid };

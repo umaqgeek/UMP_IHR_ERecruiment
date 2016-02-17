@@ -89,7 +89,7 @@ String sql_interview_detail = "SELECT iss.is_refid, iss.is_date, iss.is_starttim
 String param_interview_detail[] = { is_refid };
 ArrayList<ArrayList<String>> data_interview_detail = mc.getQuery(sql_interview_detail, param_interview_detail);
 
-String sql_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status, iis.iis_desc "
+String sql_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status, iis.iis_desc, sm.sm_job_code "
                         +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
                         +"WHERE iss.is_refid = icl.is_refid "
                         +"AND sm.sm_staff_id = icl.sm_staff_id "
@@ -133,7 +133,7 @@ String sql_staff_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_de
 String param_staff_list[] = { dept_code, status_active };
 ArrayList<ArrayList<String>> data_staff_list = mc.getQuery(sql_staff_list, param_staff_list);
 
-String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid "
+String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid, sm.sm_job_code "
                     +"FROM interview_setup iss, interview_result_mark irm, interview_panel_list ipl, interview_irm_icm iii, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
                     +"WHERE iss.is_refid = irm.is_refid "
                     +"AND irm.irm_refid = iii.irm_refid "
@@ -143,7 +143,7 @@ String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_co
                     +"AND sm.sm_staff_id = sma.sm_staff_id "
                     +"AND iis.iis_code = ipl.ipl_status "
                     +"AND iss.is_refid = ? "
-                    +"GROUP BY sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid";
+                    +"GROUP BY sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid, sm.sm_job_code";
 String param_panel_list[] = { is_refid };
 ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param_panel_list);
 %>
@@ -281,6 +281,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     <tr style="vertical-align: middle;">
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">Name</th>
+                                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 5%">Grade</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">PTJ</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invited As</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invitation Status</th>
@@ -295,6 +296,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     <tr>
                                         <td style="vertical-align: middle; text-align: center;"><%=a+1 %></td>
                                         <td style="vertical-align: middle"><%=data_chairman_list.get(a).get(1) %></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=data_chairman_list.get(a).get(6) %></td>
                                         <td style="vertical-align: middle"><%=data_chairman_list.get(a).get(3) %></td>
                                         <td style="vertical-align: middle; text-align: center;">CHAIRMAN</td>
                                         <%
@@ -393,6 +395,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     <tr style="vertical-align: middle;">
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">Name</th>
+                                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 5%">Grade</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">PTJ</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invited As</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invitation Status</th>
@@ -407,6 +410,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                         <tr>
                                         <td style="vertical-align: middle; text-align: center;"><%=a+1 %></td>
                                         <td style="vertical-align: middle"><%=data_panel_list.get(a).get(1) %></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=data_panel_list.get(a).get(7) %></td>
                                         <td style="vertical-align: middle"><%=data_panel_list.get(a).get(3) %></td>
                                         <td style="vertical-align: middle; text-align: center;">PANEL</td>
                                         <%
@@ -521,7 +525,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                             <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
                             <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
                             <td style="vertical-align: middle">
-                                <select name="sm_staff_id" class="form-control">
+                                <select name="chairman_sm_staff_id" class="form-control">
                                 <%
                                 boolean yes_chairman = false;
                                 int count_list2 = 0;
@@ -689,18 +693,18 @@ if(data_panel_list.size() > 0)
 <div id="modalInviteNewPanel" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <form action="process/bpsm/eInterview/e_int_new_panel.jsp" method="post">
+        <form action="process/ptj/eInterview/e_pre_new_panel.jsp" method="post">
         <input name="is_refid" type="hidden" value="<%=is_refid %>">
-        <input name="dept_code" type="hidden" value="<%=dept_code %>">  
+        <input name="dept_code" type="hidden" value="<%=dept_code %>">
         <div class="modal-content">
             <div class="modal-body" align="center">
                 <fieldset>
                     <table class="table-condensed" width="100%">
                         <tr>
-                            <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
+                            <td style="font-weight: bold; vertical-align: middle" width="20%">Panel</td>
                             <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
                             <td style="vertical-align: middle">
-                                <select name="new_panel" class="form-control">
+                                <select name="panel_sm_staff_id" class="form-control">
                                 <%
                                 boolean yes_panel = false;
                                 int count_list = 0;
@@ -717,7 +721,7 @@ if(data_panel_list.size() > 0)
                                     if(!yes_panel)
                                     {
                                         %>
-                                        <option value="<%=data_staff_list.get(a).get(0)%>"><%=data_staff_list.get(a).get(1)%> ( <%=data_staff_list.get(a).get(2)%> )</option>
+                                        <option value="<%=data_staff_list.get(a).get(0)%>"><%=data_staff_list.get(a).get(1)%> ( <%=data_staff_list.get(a).get(3)%> )</option>
                                         <%
                                         count_list++;
                                     }
