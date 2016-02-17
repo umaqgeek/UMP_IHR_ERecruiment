@@ -144,7 +144,7 @@ ArrayList<ArrayList<String>> data_count_candidate;
                                     Action <span class="glyphicon glyphicon-menu-down"></span>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item btn btn-default form-control" href="#" data-toggle="modal">Interview Setup</a>
+                                    <a class="dropdown-item btn btn-default form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_committee_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>&dept_code=<%=dept_code %>&alert=0">Interview Setup</a>
                                     <a class="dropdown-item btn btn-primary form-control" href="#" data-toggle="modal">Publish</a>
                                 </div>
                             </div>
