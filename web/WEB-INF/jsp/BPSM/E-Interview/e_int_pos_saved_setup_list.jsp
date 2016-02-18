@@ -13,8 +13,9 @@
 MainClient mc = new MainClient(DBConn.getHost());
 String is_type = "UNIVERSITY";
 String sql_saved_list = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type "
-                    + "FROM interview_setup iss";
-String param_saved_list[] = {};
+                    + "FROM interview_setup iss "
+                    + "WHERE iss.is_type = ? ";
+String param_saved_list[] = { is_type };
 ArrayList<ArrayList<String>> data_saved_list = mc.getQuery(sql_saved_list, param_saved_list);
 //out.print(data_saved_list);
 String rejected = "12";
