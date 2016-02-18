@@ -1,8 +1,9 @@
 <%-- 
-    Document   : e_int_committee_setup
-    Created on : Jan 29, 2016, 7:07:31 PM
+    Document   : e_pre_committee_setup
+    Created on : Feb 17, 2016, 12:29:20 AM
     Author     : Habib
 --%>
+
 <%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.DBConn"%>
@@ -53,6 +54,7 @@
 <%
 MainClient mc = new MainClient(DBConn.getHost());
 String is_refid = session.getAttribute("is_refid").toString();
+String dept_code = session.getAttribute("dept_code").toString();
 
 String btn_invite_new = "";
 String pass_ptj = "PASS_PTJ";
@@ -87,7 +89,7 @@ String sql_interview_detail = "SELECT iss.is_refid, iss.is_date, iss.is_starttim
 String param_interview_detail[] = { is_refid };
 ArrayList<ArrayList<String>> data_interview_detail = mc.getQuery(sql_interview_detail, param_interview_detail);
 
-String sql_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status, iis.iis_desc "
+String sql_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status, iis.iis_desc, sm.sm_job_code "
                         +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
                         +"WHERE iss.is_refid = icl.is_refid "
                         +"AND sm.sm_staff_id = icl.sm_staff_id "
@@ -121,15 +123,17 @@ String param_sent_chairman_list[] = { is_refid, sent };
 ArrayList<ArrayList<String>> data_sent_chairman_list = mc.getQuery(sql_sent_chairman_list, param_sent_chairman_list);
 
 String status_active = "ACTIVE";
-String sql_staff_list = "SELECT sma.sm_staff_name, sm.sm_staff_id, dm.dm_dept_desc "
+String sql_staff_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_desc, sm.sm_job_code "
                     + "FROM staff_main sm, department_main dm, staff_main_archive052014 sma "
                     + "WHERE dm.dm_dept_code = sm.sm_dept_code "
                     + "AND sm.sm_staff_id = sma.sm_staff_id "
-                    + "AND sm.sm_staff_status = ? ";
-String param_staff_list[] = { status_active };
+                    + "AND sm.sm_dept_code = ? "
+                    + "AND sm.sm_staff_status = ? "
+                    + "ORDER BY sm.sm_job_code, sma.sm_staff_name";
+String param_staff_list[] = { dept_code, status_active };
 ArrayList<ArrayList<String>> data_staff_list = mc.getQuery(sql_staff_list, param_staff_list);
 
-String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc "
+String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid, sm.sm_job_code "
                     +"FROM interview_setup iss, interview_result_mark irm, interview_panel_list ipl, interview_irm_icm iii, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
                     +"WHERE iss.is_refid = irm.is_refid "
                     +"AND irm.irm_refid = iii.irm_refid "
@@ -139,7 +143,7 @@ String sql_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_co
                     +"AND sm.sm_staff_id = sma.sm_staff_id "
                     +"AND iis.iis_code = ipl.ipl_status "
                     +"AND iss.is_refid = ? "
-                    +"GROUP BY sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc";
+                    +"GROUP BY sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid, sm.sm_job_code";
 String param_panel_list[] = { is_refid };
 ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param_panel_list);
 %>
@@ -147,9 +151,6 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
     <div class="well">
         <div class="row">
             <div class="col-sm-12"><a href="#modalDiscard" data-toggle="modal" class="btn btn-default">Back</a></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12"><h4>E-INTERVIEW: Setup Interview</h4></div>
         </div>
         
         <form method="post" action="process/bpsm/eInterview/e_int_set_committee_process.jsp">
@@ -266,7 +267,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     btn_invite_new = "";
                                 }
                             %>
-                            <a data-toggle="modal" href="#modalInviteNewChairman" class="btn btn-default <%=btn_invite_new %> disabled">Invite New Chairman</a><br/>
+                            <a data-toggle="modal" href="#modalInviteNewChairman" class="btn btn-default <%=btn_invite_new %>">Invite New Chairman</a><br/>
                         </div>
                         <div class="row">
                             <p></p>
@@ -280,6 +281,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     <tr style="vertical-align: middle;">
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">Name</th>
+                                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 5%">Grade</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">PTJ</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invited As</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invitation Status</th>
@@ -294,6 +296,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     <tr>
                                         <td style="vertical-align: middle; text-align: center;"><%=a+1 %></td>
                                         <td style="vertical-align: middle"><%=data_chairman_list.get(a).get(1) %></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=data_chairman_list.get(a).get(6) %></td>
                                         <td style="vertical-align: middle"><%=data_chairman_list.get(a).get(3) %></td>
                                         <td style="vertical-align: middle; text-align: center;">CHAIRMAN</td>
                                         <%
@@ -378,7 +381,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                             <h1></h1>
                         </div>        
                         <div class="row">
-                            <a href="#modalInviteNewPanel" data-toggle="modal" class="btn btn-default disabled">Invite New Panels</a><br/>
+                            <a href="#modalInviteNewPanel" data-toggle="modal" class="btn btn-default">Invite New Panels</a><br/>
                         </div>
                         <div class="row">
                             <p></p>
@@ -392,6 +395,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                     <tr style="vertical-align: middle;">
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">Name</th>
+                                        <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 5%">Grade</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">PTJ</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invited As</th>
                                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Invitation Status</th>
@@ -406,6 +410,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                                         <tr>
                                         <td style="vertical-align: middle; text-align: center;"><%=a+1 %></td>
                                         <td style="vertical-align: middle"><%=data_panel_list.get(a).get(1) %></td>
+                                        <td style="vertical-align: middle; text-align: center"><%=data_panel_list.get(a).get(7) %></td>
                                         <td style="vertical-align: middle"><%=data_panel_list.get(a).get(3) %></td>
                                         <td style="vertical-align: middle; text-align: center;">PANEL</td>
                                         <%
@@ -484,75 +489,6 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
     </div>
 </div>
 
-<!-- Modal Invite New Chairman-->
-<div id="modalInviteNewChairman" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <form action="process/bpsm/eInterview/e_int_new_chairman.jsp" method="post">
-        <input name="pph_refid" type="hidden" value="<%//=pph_refid %>">
-        <input name="ic_refid" type="hidden" value="<%//=ic_refid %>">  
-        <div class="modal-content">
-            <div class="modal-body" align="center">
-                <fieldset>
-                    <table class="table-condensed" width="100%">
-                        <tr>
-                            <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
-                            <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
-                            <td style="vertical-align: middle">
-                                <select name="new_chairman" class="form-control">
-                                <%
-//                                boolean yes_chairman = false;
-//                                int count_list2 = 0;
-//                                for(int a = 0; a < data_select_user.size(); a++)
-//                                {
-//                                    for(int b = 0; b < data_select_chairman.size(); b++)
-//                                    {
-//                                        if(data_select_chairman.get(b).get(0).equals(data_select_user.get(a).get(0)))
-//                                        {
-//                                            yes_chairman = true;
-//                                        }
-//                                    }
-//                                    if(!yes_chairman)
-//                                    {
-                                        %>
-<!--                                        <option value="<%//=data_select_user.get(a).get(0)%>"><%//=data_select_user.get(a).get(1)%> ( <%//=data_select_user.get(a).get(2)%> )</option>-->
-                                        <%
-//                                        count_list2++;
-//                                    }
-//                                    yes_chairman = false;
-//                                }
-                                %>
-                                    <option value="">Name 1 (Grade1-Position1 : PTJName 1)</option>
-                                    <option value="">Name 2 (Grade2-Position2 : PTJName 2)</option>
-                                    <option value="">Name 3 (Grade3-Position3 : PTJName 3)</option>
-                                    <option value="">Name 4 (Grade4-Position4 : PTJName 4)</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </div>
-            <div class="modal-footer">
-                <%
-//                if(count_list2 > 0)
-//                {
-                    %>
-<!--                    <button class="btn btn-default form-control" type="submit">INVITE</button>
-                    <%
-//                }
-//                else
-//                {
-                    %>
-                    <button class="btn btn-default form-control disabled" type="submit">INVITE</button>-->
-                    <%
-//                }
-                %>
-                <button class="btn btn-default form-control">INVITE</button>
-            </div>
-        </div>
-        </form>
-    </div>
-</div>
 <!-- Modal Discard Setup -->
 <div id="modalDiscard" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -566,7 +502,7 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                 </fieldset>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_pos_saved_setup_list.jsp">OK</a>
+               <a class="btn btn-warning form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp">OK</a>
             </div>
         </div>
         </form>
@@ -574,123 +510,13 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
 </div>
 <!-- ENd Modal Discard Setup -->
 
-<!---- Modal Cancel  Chairman---->
-<%
-//if(data_select_chairman.size() > 0)
-//{
-//    for(int a = 0; a < data_select_chairman.size(); a++)
-//    {
-        %>
-        <div id="modalCancelChairman<%//=a %>" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <form action="process/bpsm/eInterview/e_int_cancel_chairman.jsp" method="post">
-                <input name="pph_refid" type="hidden" value="<//%=pph_refid %>">
-                <input name="ic_refid" type="hidden" value="<%//=ic_refid %>">
-                <input name="u_refid" type="hidden" value="<%//=data_select_chairman.get(a).get(0) %>">
-                <div class="modal-content">
-                    <div class="modal-body" align="center">
-                        <fieldset>
-                            <h4 class="modal-title" style="font-weight: bold">Cancel This Invitation</h4>
-                            <h6 class="modal-title">Are You Sure ?</h6>
-                        </fieldset>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger form-control" type="submit">YES</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
-                
-        <div id="modalReinviteChairman<%//=a %>" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <form action="process/bpsm/eInterview/e_int_reinvite_chairman.jsp" method="post">
-                <input name="pph_refid" type="hidden" value="<%//=pph_refid %>">
-                <input name="ic_refid" type="hidden" value="<%//=ic_refid %>">
-                <input name="u_refid" type="hidden" value="<%//=data_select_chairman.get(a).get(0) %>">
-                <div class="modal-content">
-                    <div class="modal-body" align="center">
-                        <fieldset>
-                            <h4 class="modal-title" style="font-weight: bold">Re-invite</h4>
-                            <h6 class="modal-title">Are You Sure ?</h6>
-                        </fieldset>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default form-control" type="submit">YES</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
-        <%
-//    }
-//}
-%>
-<!-- End Modal Cancel Chairman -->
-<!---- Modal Cancel  Panel---->
-<%
-//if(data_select_panel.size() > 0)
-//{
-//    for(int a = 0; a < data_select_panel.size(); a++)
-//    {
-        %>
-        <div id="modalCancelPanel<%//=a %>" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <form action="process/bpsm/eInterview/e_int_cancel_panel.jsp" method="post">
-                <input name="pph_refid" type="hidden" value="<%//=pph_refid %>">
-                <input name="ic_refid" type="hidden" value="<%//=ic_refid %>">
-                <input name="u_refid" type="hidden" value="<%//=data_select_panel.get(a).get(0) %>">
-                <div class="modal-content">
-                    <div class="modal-body" align="center">
-                        <fieldset>
-                            <h4 class="modal-title" style="font-weight: bold">Cancel This Invitation</h4>
-                            <h6 class="modal-title">Are You Sure ?</h6>
-                        </fieldset>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger form-control" type="submit">YES</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
-                
-        <div id="modalReinvitePanel<%//=a %>" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <form action="process/bpsm/eInterview/e_int_reinvite_panel.jsp" method="post">
-                <input name="pph_refid" type="hidden" value="<%//=pph_refid %>">
-                <input name="ic_refid" type="hidden" value="<%//=ic_refid %>">
-                <input name="u_refid" type="hidden" value="<%//=data_select_panel.get(a).get(0) %>">
-                <div class="modal-content">
-                    <div class="modal-body" align="center">
-                        <fieldset>
-                            <h4 class="modal-title" style="font-weight: bold">Re-invite</h4>
-                            <h6 class="modal-title">Are You Sure ?</h6>
-                        </fieldset>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default form-control" type="submit">YES</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
-        <%
-//    }
-//}
-%>
-<!-- End Modal Cancel Panel -->
-<!-- Modal Invite New Panel-->
-<div id="modalInviteNewPanel" class="modal fade" role="dialog">
+<!-- Modal Invite New Chairman-->
+<div id="modalInviteNewChairman" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
-        <form action="process/bpsm/eInterview/e_int_new_panel.jsp" method="post">
-        <input name="pph_refid" type="hidden" value="<%//=pph_refid %>">
-        <input name="ic_refid" type="hidden" value="<%//=ic_refid %>">  
+        <form action="process/ptj/eInterview/e_pre_new_chairman.jsp" method="post">
+        <input name="is_refid" type="hidden" value="<%=is_refid %>">
+        <input name="dept_code" type="hidden" value="<%=dept_code %>">  
         <div class="modal-content">
             <div class="modal-body" align="center">
                 <fieldset>
@@ -699,34 +525,30 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
                             <td style="font-weight: bold; vertical-align: middle" width="20%">Chairman</td>
                             <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
                             <td style="vertical-align: middle">
-                                <select name="new_panel" class="form-control">
+                                <select name="chairman_sm_staff_id" class="form-control">
                                 <%
-//                                boolean yes_panel = false;
-//                                int count_list = 0;
-//                                for(int a = 0; a < data_select_user.size(); a++)
-//                                {
-//                                    for(int b = 0; b < data_select_panel.size(); b++)
-//                                    {
-//                                        if(data_select_panel.get(b).get(0).equals(data_select_user.get(a).get(0)))
-//                                        {
-//                                            yes_panel = true;
-//                                        }
-//                                    }
-//                                    
-//                                    if(!yes_panel)
-//                                    {
+                                boolean yes_chairman = false;
+                                int count_list2 = 0;
+                                for(int a = 0; a < data_staff_list.size(); a++)
+                                {
+                                    for(int b = 0; b < data_chairman_list.size(); b++)
+                                    {
+                                        if(data_chairman_list.get(b).get(0).equals(data_staff_list.get(a).get(0)))
+                                        {
+                                            yes_chairman = true;
+                                        }
+                                    }
+                                    
+                                    if(!yes_chairman)
+                                    {
                                         %>
-<!--                                        <option value="<%//=data_select_user.get(a).get(0)%>"><%//=data_select_user.get(a).get(1)%> ( <%//=data_select_user.get(a).get(2)%> )</option>-->
+                                        <option value="<%=data_staff_list.get(a).get(0)%>"><%=data_staff_list.get(a).get(1)%> ( <%=data_staff_list.get(a).get(3)%> )</option>
                                         <%
-//                                        count_list++;
-//                                    }
-//                                    yes_panel = false;
-//                                }
+                                        count_list2++;
+                                    }
+                                    yes_chairman = false;
+                                }
                                 %>
-                                    <option value="">Name 1 (Grade1-Position1 : PTJName 1)</option>
-                                    <option value="">Name 2 (Grade2-Position2 : PTJName 2)</option>
-                                    <option value="">Name 3 (Grade3-Position3 : PTJName 3)</option>
-                                    <option value="">Name 4 (Grade4-Position4 : PTJName 4)</option>
                                 </select>
                             </td>
                         </tr>
@@ -735,18 +557,197 @@ ArrayList<ArrayList<String>> data_panel_list = mc.getQuery(sql_panel_list, param
             </div>
             <div class="modal-footer">
                 <%
-//                if(count_list > 0)
-//                {
+                if(count_list2 > 0)
+                {
                     %>
-<!--                    <button class="btn btn-default form-control" type="submit">INVITE</button>
+                    <button class="btn btn-default form-control" type="submit">INVITE</button>
                     <%
-//                }
-//                else
-//                {
+                }
+                else
+                {
                     %>
-                    <button class="btn btn-default form-control disabled" type="submit">INVITE</button>-->
+                    <button class="btn btn-default form-control disabled" type="submit">INVITE</button>
                     <%
-//                }
+                }
+                %>
+                <!--<button class="btn btn-default form-control">INVITE</button>-->
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<!---- Modal Cancel  Chairman---->
+<%
+if(data_chairman_list.size() > 0)
+{
+    for(int a = 0; a < data_chairman_list.size(); a++)
+    {
+        %>
+        <div id="modalCancelChairman<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form action="process/ptj/eInterview/e_pre_cancel_chairman.jsp" method="post">
+                <input name="is_refid" type="hidden" value="<%=is_refid %>">
+                <input name="dept_code" type="hidden" value="<%=dept_code %>">
+                <input name="sm_staff_id" type="hidden" value="<%=data_chairman_list.get(a).get(0) %>">
+                <div class="modal-content">
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h4 class="modal-title" style="font-weight: bold">Cancel This Invitation</h4>
+                            <h6 class="modal-title">Are You Sure ?</h6>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger form-control" type="submit">YES</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+                
+        <div id="modalReinviteChairman<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form action="process/ptj/eInterview/e_pre_reinvite_chairman.jsp" method="post">
+                <input name="is_refid" type="hidden" value="<%=is_refid %>">
+                <input name="dept_code" type="hidden" value="<%=dept_code %>">
+                <input name="sm_staff_id" type="hidden" value="<%=data_chairman_list.get(a).get(0) %>">
+                <div class="modal-content">
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h4 class="modal-title" style="font-weight: bold">Re-invite</h4>
+                            <h6 class="modal-title">Are You Sure ?</h6>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default form-control" type="submit">YES</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <%
+    }
+}
+%>
+<!-- End Modal Cancel Chairman -->
+<!---- Modal Cancel  Panel---->
+<%
+if(data_panel_list.size() > 0)
+{
+    for(int a = 0; a < data_panel_list.size(); a++)
+    {
+        %>
+        <div id="modalCancelPanel<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form action="process/ptj/eInterview/e_pre_cancel_panel.jsp" method="post">
+                <input name="is_refid" type="hidden" value="<%=is_refid %>">
+                <input name="dept_code" type="hidden" value="<%=dept_code %>">
+                <input name="ipl_refid" type="hidden" value="<%=data_panel_list.get(a).get(6) %>">
+                <input name="sm_staff_id" type="hidden" value="<%=data_panel_list.get(a).get(0) %>">
+                <div class="modal-content">
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h4 class="modal-title" style="font-weight: bold">Cancel This Invitation</h4>
+                            <h6 class="modal-title">Are You Sure ?</h6>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger form-control" type="submit">YES</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+                
+        <div id="modalReinvitePanel<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <form action="process/ptj/eInterview/e_pre_reinvite_panel.jsp" method="post">
+                <input name="is_refid" type="hidden" value="<%=is_refid %>">
+                <input name="dept_code" type="hidden" value="<%=dept_code %>">
+                <input name="ipl_refid" type="hidden" value="<%=data_panel_list.get(a).get(6) %>">
+                <input name="sm_staff_id" type="hidden" value="<%=data_panel_list.get(a).get(0) %>">
+                <div class="modal-content">
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <h4 class="modal-title" style="font-weight: bold">Re-invite</h4>
+                            <h6 class="modal-title">Are You Sure ?</h6>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default form-control" type="submit">YES</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <%
+    }
+}
+%>
+<!-- End Modal Cancel Panel -->
+<!-- Modal Invite New Panel-->
+<div id="modalInviteNewPanel" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form action="process/ptj/eInterview/e_pre_new_panel.jsp" method="post">
+        <input name="is_refid" type="hidden" value="<%=is_refid %>">
+        <input name="dept_code" type="hidden" value="<%=dept_code %>">
+        <div class="modal-content">
+            <div class="modal-body" align="center">
+                <fieldset>
+                    <table class="table-condensed" width="100%">
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: middle" width="20%">Panel</td>
+                            <td style="font-weight: bold; vertical-align: middle; text-align: center" width="1%">:</td>
+                            <td style="vertical-align: middle">
+                                <select name="panel_sm_staff_id" class="form-control">
+                                <%
+                                boolean yes_panel = false;
+                                int count_list = 0;
+                                for(int a = 0; a < data_staff_list.size(); a++)
+                                {
+                                    for(int b = 0; b < data_panel_list.size(); b++)
+                                    {
+                                        if(data_panel_list.get(b).get(0).equals(data_staff_list.get(a).get(0)))
+                                        {
+                                            yes_panel = true;
+                                        }
+                                    }
+                                    
+                                    if(!yes_panel)
+                                    {
+                                        %>
+                                        <option value="<%=data_staff_list.get(a).get(0)%>"><%=data_staff_list.get(a).get(1)%> ( <%=data_staff_list.get(a).get(3)%> )</option>
+                                        <%
+                                        count_list++;
+                                    }
+                                    yes_panel = false;
+                                }
+                                %>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <%
+                if(count_list > 0)
+                {
+                    %>
+                    <button class="btn btn-default form-control" type="submit">INVITE</button>
+                    <%
+                }
+                else
+                {
+                    %>
+                    <button class="btn btn-default form-control disabled" type="submit">INVITE</button>
+                    <%
+                }
                 %>
             </div>
         </div>

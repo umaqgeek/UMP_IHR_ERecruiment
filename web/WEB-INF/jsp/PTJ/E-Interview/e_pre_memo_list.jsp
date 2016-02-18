@@ -73,8 +73,8 @@ ArrayList<ArrayList<String>> data_count_candidate;
         <div class="row">
             <ul class="nav nav-tabs">
               <li class="active"><a>INTERVIEW MEMO</a></li>
-              <li><a href="#">SAVED PRE-INTERVIEW SETUP</a></li>
-              <li><a href="#">MY INVITATION</a></li>s
+              <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp">SAVED PRE-INTERVIEW SETUP</a></li>
+              <li><a href="#">MY INVITATION</a></li>
             </ul>
         </div>
         <div class="row">
@@ -84,9 +84,9 @@ ArrayList<ArrayList<String>> data_count_candidate;
                     <tr style="vertical-align: middle;">
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
                         <th colspan="4" style="vertical-align: middle; text-align: center; font-weight: bold">INTERVIEW (UNIVERSITY LEVEL)</th>
-                        <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Grade</th>
+                        <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold; width: 10%">Grade</th>
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold">Position</th>
-                        <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold">Shortlisted Candidate</th>
+                        <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Shortlisted Candidate</th>
 <!--                        <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold">PTJ</th>-->
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">Action</th>
                     </tr>
@@ -163,11 +163,14 @@ ArrayList<ArrayList<String>> data_count_candidate;
     </div>
 </div>
 
-<!-- Modal Pre Interview Detail -->
+<!-- Modal Accept -->
 <%
 for(int a = 0; a < data_memo_list.size(); a++)
 {
     %>
+    <form method="post" action="process/ptj/eInterview/e_pre_go_to_setup.jsp">
+    <input type="hidden" name="is_refid" value="<%=data_memo_list.get(a).get(0) %>">
+    <input type="hidden" name="dept_code" value="<%=dept_code %>">
     <div id="modalAcceptInterview<%=a %>" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -177,21 +180,22 @@ for(int a = 0; a < data_memo_list.size(); a++)
                 </div>
                 <div class="modal-body" align="center">
                     <fieldset>
-                        <h4>To <span style="color: limegreen; font-weight: bold">Accept</span>, Do you agree to perform Pre-Interview (PTJ Level) before Interview (Universty Level) start ?</h4>
+                        <h4>To <span style="color: limegreen; font-weight: bold">Accept</span>, Do you agree to perform <span style="font-weight: bold">Pre-Interview (PTJ Level)</span> before <span style="font-weight: bold">Interview (Universty Level)</span> start ?</h4>
                     </fieldset>
                 </div>
                 <div class="modal-footer" align="center">
-                    <a class="btn btn-success form-control">YES</a>
+                    <button type="submit" class="btn btn-success form-control"><span style="color: white">YES</span></button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
     <%
 }
 %>
-<!-- End modal pre -->
+<!-- End modal accept -->
                 
-<!-- Modal Pre Interview Detail -->
+<!-- Modal Reject Interview -->
 <%
 for(int a = 0; a < data_memo_list.size(); a++)
 {
@@ -222,7 +226,7 @@ for(int a = 0; a < data_memo_list.size(); a++)
     <%
 }
 %>
-<!-- End modal pre -->
+<!-- End reject interview -->
 <script type="text/javascript">
 $(document).ready(function()
 {
