@@ -561,10 +561,12 @@
                                 <%
                                     String pphc13 = "";
                                     try {
-                                        pphc13 = pph_candidate.get(0).get(13);
+                                        pphc13 = pph_candidate.get(0).get(14);
                                     } catch (Exception e) {
                                         pphc13 = "";
                                     }
+                                        //out.println(pph_candidate);
+                                        //if (true) { return; }
                                 %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Height:</label>
