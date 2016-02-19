@@ -74,7 +74,7 @@ ArrayList<ArrayList<String>> data_count_candidate;
             <ul class="nav nav-tabs">
               <li class="active"><a>INTERVIEW MEMO</a></li>
               <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp">SAVED PRE-INTERVIEW SETUP</a></li>
-              <li><a href="#">MY INVITATION</a></li>
+              <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_my_invitation_list.jsp">MY INVITATION</a></li>
             </ul>
         </div>
         <div class="row">
