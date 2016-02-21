@@ -627,6 +627,8 @@
                                     } catch (Exception e) {
                                         pphaa2 = "";
                                     }
+                                    //out.println(pph_address);
+                                      //  if (true) { return; }
                                 %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postage Address:</label>
@@ -635,9 +637,7 @@
                                     </div>
                                 </div>
 
-                                
                                 <%
-
                                     String pphaa5 = "";
                                     try {
                                         pphaa5 = pph_address2.get(0).get(5);
