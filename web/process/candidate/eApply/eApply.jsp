@@ -85,9 +85,10 @@
     MainClient mc3 = new MainClient(DBConn.getHost());
     String params3[] = {};
     ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
-
+   
     String c_refid = pph.get(0).get(0);
     String rl_refid = pph.get(0).get(1);
+    
 
     int sc = req_candidates.size();
     int sa = req_addresses.size();
@@ -131,6 +132,7 @@
     }
     param_candidate[sc] = c_refid;
     
+     
     //first, check if exist address based on existing C_REFID
     //get C_REFID from L_REFID
     String query4 = "SELECT A_REFID "

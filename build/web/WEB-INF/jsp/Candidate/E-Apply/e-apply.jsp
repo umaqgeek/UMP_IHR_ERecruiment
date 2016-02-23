@@ -469,7 +469,10 @@
                                         } catch (Exception e) {
                                             pph8 = "";
                                         }
+                                        
+                                       // out.println(pph8);
                                     %>
+                                    
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Race:</label>
                                         <div class="col-lg-6">
@@ -986,7 +989,7 @@
                                 <%
                                     String pph15 = "";
                                     try {
-                                        pph15 = pph_candidate.get(0).get(15);
+                                        pph15 = pph_candidate.get(0).get(16);
                                     } catch (Exception e) {
                                         pph15 = "";
                                     }
