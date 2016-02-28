@@ -21,10 +21,10 @@
                             + "AND sm_staff_id = ? ";
     String param_reject_chairman[] = { rejected, is_refid, sm_staff_id };
     String res = mc.setQuery(sql_reject_chairman, param_reject_chairman);
-    out.print(res);
-    if(true)
-    {
-        return;
-    }
+//    out.print(res);
+//    if(true)
+//    {
+//        return;
+//    }
     response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_my_invitation_list.jsp");
 %>
