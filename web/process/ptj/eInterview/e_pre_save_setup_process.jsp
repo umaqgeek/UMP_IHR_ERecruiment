@@ -108,7 +108,7 @@
         for(int a = 0; a < data_set_uni_invitation.size(); a++)
         {
             param_sent_uni_panel[0] = panel_status_sent;
-            param_sent_uni_panel[1] = uni_is_refid;
+            param_sent_uni_panel[1] = data_set_uni_invitation.get(a).get(0);
             mc.setQuery(sql_sent_uni_panel, param_sent_uni_panel);
         }
     }

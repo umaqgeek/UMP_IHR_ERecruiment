@@ -429,9 +429,16 @@ for(int a = 0; a < data_saved_list.size(); a++)
                                    <td style="vertical-align: middle"><%=total_candidate_combined %></td>
                                 </tr>
                                 <tr>
-                                   <td style="vertical-align: middle; font-weight: bold">Interview Chairman</td>
-                                   <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                   <td style="vertical-align: middle"><%=data_accepted_chairman_list.get(0).get(1) %></td>
+                                    <td style="vertical-align: middle; font-weight: bold">Interview Chairman</td>
+                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                    <td style="vertical-align: middle">
+                                    <% 
+                                    if(data_accepted_chairman_list.size() > 0)
+                                    {
+                                        out.print(data_accepted_chairman_list.get(0).get(1));
+                                    }
+                                    %>
+                                    </td>
                                 </tr>
                                 <%
                                 for(int b = 0; b < data_accepted_panel_list.size(); b++)
