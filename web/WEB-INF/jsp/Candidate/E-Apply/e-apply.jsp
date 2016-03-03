@@ -469,7 +469,10 @@
                                         } catch (Exception e) {
                                             pph8 = "";
                                         }
+                                        
+                                       // out.println(pph8);
                                     %>
+                                    
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Race:</label>
                                         <div class="col-lg-6">
@@ -627,6 +630,8 @@
                                     } catch (Exception e) {
                                         pphaa2 = "";
                                     }
+                                    //out.println(pph_address);
+                                      //  if (true) { return; }
                                 %>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Postage Address:</label>
@@ -635,9 +640,7 @@
                                     </div>
                                 </div>
 
-                                
                                 <%
-
                                     String pphaa5 = "";
                                     try {
                                         pphaa5 = pph_address2.get(0).get(5);
@@ -986,7 +989,7 @@
                                 <%
                                     String pph15 = "";
                                     try {
-                                        pph15 = pph_candidate.get(0).get(15);
+                                        pph15 = pph_candidate.get(0).get(16);
                                     } catch (Exception e) {
                                         pph15 = "";
                                     }

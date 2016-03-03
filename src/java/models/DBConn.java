@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author End User
  */
 public class DBConn {
-    private static String host = "175.142.50.124";
+    private static String host = "60.54.8.71";
     private static int netTime = 2000;
     private static String user = "cmsadmin";
     private static String pass = "7";
