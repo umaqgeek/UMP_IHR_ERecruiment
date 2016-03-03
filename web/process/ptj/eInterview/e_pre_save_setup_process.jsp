@@ -78,6 +78,41 @@
     
     //*************************Update accept*****************************
     String ptj_status_accept = "11";
+    String panel_status_set = "2";
+    String panel_status_sent = "21";
+    String chairman_status_sent = "21";
+    
+    String sql_set_uni_invitation = "SELECT ipl.ipl_refid "
+                                + "FROM interview_result_mark irm, interview_setup iss, interview_panel_list ipl, interview_irm_icm iii "
+                                + "WHERE iss.is_refid = irm.is_refid "
+                                + "AND irm.irm_refid = iii.irm_refid "
+                                + "AND ipl.ipl_refid = iii.ipl_refid "
+                                + "AND iss.is_refid = ? "
+                                + "AND ipl.ipl_status = ? "
+                                + "GROUP BY ipl.ipl_refid";
+    String param_set_uni_invitation[] = { uni_is_refid, panel_status_set };
+    ArrayList<ArrayList<String>> data_set_uni_invitation = mc.getQuery(sql_set_uni_invitation, param_set_uni_invitation);
+    
+    if(data_set_uni_invitation.size() > 0)
+    {
+        String sql_sent_uni_chairman = "UPDATE interview_chairman_list "
+                                    + "SET icl_status = ? "
+                                    + "WHERE is_refid = ? ";
+        String param_sent_uni_chairman[] = { chairman_status_sent, uni_is_refid };
+        mc.setQuery(sql_sent_uni_chairman, param_sent_uni_chairman);
+        
+        String sql_sent_uni_panel = "UPDATE interview_panel_list "
+                                + "SET ipl_status = ? "
+                                + "WHERE ipl_refid = ? ";
+        String[] param_sent_uni_panel = new String[2];
+        for(int a = 0; a < data_set_uni_invitation.size(); a++)
+        {
+            param_sent_uni_panel[0] = panel_status_sent;
+            param_sent_uni_panel[1] = data_set_uni_invitation.get(a).get(0);
+            mc.setQuery(sql_sent_uni_panel, param_sent_uni_panel);
+        }
+    }
+    
     String sql_accept   = "UPDATE interview_result_mark "
                         + "SET irm_ptj_status = ? "
                         + "WHERE is_refid = ? "
@@ -186,6 +221,6 @@
             }
         }
     }
-    
+     //*******************************************************************************//
     response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp");
 %>
