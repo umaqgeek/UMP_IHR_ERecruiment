@@ -85,9 +85,10 @@
     MainClient mc3 = new MainClient(DBConn.getHost());
     String params3[] = {};
     ArrayList<ArrayList<String>> pph = mc3.getQuery(query3, params3);
-
+   
     String c_refid = pph.get(0).get(0);
     String rl_refid = pph.get(0).get(1);
+    
 
     int sc = req_candidates.size();
     int sa = req_addresses.size();
@@ -131,6 +132,7 @@
     }
     param_candidate[sc] = c_refid;
     
+     
     //first, check if exist address based on existing C_REFID
     //get C_REFID from L_REFID
     String query4 = "SELECT A_REFID "
@@ -138,8 +140,8 @@
             + "WHERE C_REFID =? AND AT_REFID=?";
 
     MainClient mc4 = new MainClient(DBConn.getHost());
-    String params4[] = {c_refid,"1453324570.621"};
-    String params4_2[] = {c_refid,"1453324578.698"};
+    String params4[] = {c_refid,"1453380723.636"};
+    String params4_2[] = {c_refid,"1453380781.855"};
     ArrayList<ArrayList<String>> pph4 = mc4.getQuery(query4, params4);
     ArrayList<ArrayList<String>> pph4_2 = mc4.getQuery(query4, params4_2);
     /*
@@ -147,6 +149,8 @@
     out.println(pph4_2);
     if (true) { return; }
             */
+    //out.println(pph4_2);
+    //if (true) { return; }
     
     if (pph4.isEmpty() != true) { //ada isi, update
 
@@ -159,7 +163,7 @@
         }
        
         param_addresses[sa] = c_refid;
-        param_addresses[sa+1] = "1453324570.621";
+        param_addresses[sa+1] = "1453380723.636";
         //execute query address
         MainClient mc_address = new MainClient(DBConn.getHost());
         String isUpdate_address = mc_address.setQuery(sql_address, param_addresses);
@@ -178,7 +182,7 @@
             q2 += "?, ?";
         }
         param_addresses[sa] = c_refid;
-        param_addresses[sa+1]=" 1453324570.621";
+        param_addresses[sa+1]=" 1453380723.636";
         sql_address += ") VALUES(" + q2 + ") ";
 
         for (int i = 0; i < param_addresses.length; i++) {
@@ -201,7 +205,7 @@
            }
                  
            param_addresses2[sa2] = c_refid;
-           param_addresses2[sa2+1] = "1453324578.698";
+           param_addresses2[sa2+1] = "1453380781.855";
            
            //execute query address
            MainClient mc_address = new MainClient(DBConn.getHost());
@@ -221,7 +225,7 @@
             q2 += "?, ?";
         }
         param_addresses2[sa2] = c_refid;
-        param_addresses2[sa2+1] = "1453324578.698";
+        param_addresses2[sa2+1] = "1453380781.855";
         sql_address += ") VALUES(" + q2 + ") ";
 
            
