@@ -4,6 +4,7 @@
     Author     : Habib
 --%>
 
+<%@page import="eInterview.EInterview"%>
 <%@page import="controller.Session"%>
 <%@page import="config.Config"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,6 +12,17 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
 MainClient mc = new MainClient(DBConn.getHost());
+EInterview eint = new EInterview();
+
+String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
+String sql_dept_code = "SELECT l.l_username, l.l_icno "
+                    + "FROM login1 l "
+                    + "WHERE l.l_refid = ? ";
+String param_dept_code[] = { l_refid };
+ArrayList<ArrayList<String>> data_dept_code = mc.getQuery(sql_dept_code, param_dept_code);
+
+String dept_code = data_dept_code.get(0).get(0);
+String staff_id = data_dept_code.get(0).get(1);
 
 String sql_criteria_list = "SELECT icm.icm_refid, icm.icm_criteria, icm.icm_minmark, icm.icm_maxmark "
                         + "FROM interview_criteria_mark icm "
@@ -26,9 +38,27 @@ ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list,
         <div class="row">
             <ul class="nav nav-tabs">
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_published_list.jsp">PUBLISHED INTERVIEW</a></li>
-              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_pos_to_setup_list.jsp">POSITION READY TO SETUP</a></li>
+              <li>
+                  <a href="process.jsp?p=BPSM/E-Interview/e_int_pos_to_setup_list.jsp">POSITION READY TO SETUP 
+                  <% 
+                    if(eint.get_to_setup_list() > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.get_to_setup_list() %></span>
+                        <%
+                    }
+                    %>
+                  </a>
+              </li>
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_pos_saved_setup_list.jsp">SAVED INTERVIEW SETUP</a></li>
-              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_my_invitation_list.jsp">MY INVITATION</a></li>
+              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_my_invitation_list.jsp">MY INVITATION <% 
+                    if(eint.getInvitationList(l_refid) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getInvitationList(l_refid) %></span>
+                        <%
+                    }
+                    %></a></li>
               <li class="active"><a>CRITERIA BANK</a></li>
             </ul>
         </div>
@@ -36,7 +66,7 @@ ArrayList<ArrayList<String>> data_criteria_list = mc.getQuery(sql_criteria_list,
             <a data-toggle="modal" href="#modalAdd" class="btn btn-primary">Add New Criteria <span class="glyphicon glyphicon-plus"></span></a>
         </div>
         <div class="row">
-            <table style="width: 100%" id="criteriaList" class="table-bordered">
+            <table style="width: 100%; background-color: white" id="criteriaList" class="table table-bordered">
                 <thead style="vertical-align: middle;">
                     <tr style="vertical-align: middle;">
                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>

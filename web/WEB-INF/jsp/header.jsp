@@ -44,12 +44,21 @@
      <script src="<%=Config.getBase_url(request) %>assets/js/accordion.js"></script>   
 	<script src="<%=Config.getBase_url(request) %>assets/ckeditor/ckeditor.js"></script>
         
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="<%=Config.getBase_url(request) %>assets/selection_search/css/bootstrap-select.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="<%=Config.getBase_url(request) %>assets/selection_search/js/bootstrap-select.min.js"></script>
+        
+        <!-- Dual listbox -->
+        <link rel="stylesheet" type="text/css" href="<%=Config.getBase_url(request) %>assets/dual_listbox/css/bootstrap-duallistbox.css">
+        <script src="<%=Config.getBase_url(request) %>assets/dual_listbox/js/bootstrap-duallistbox.js"></script>
+        
 <!--        <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>-->
         
         <script src="<%=Config.getBase_url(request) %>assets/js/jquery.dataTables.min.js"></script>
         <link href="<%=Config.getBase_url(request) %>assets/css/jquery.dataTables.min.css" />
-		
+        
         <!-- date picker bootstrap -->
 <!--        <script src="<%=Config.getBase_url(request) %>assets/datepicker/js/bootstrap-datetimepicker.min.js"></script>
         <script src="<%=Config.getBase_url(request) %>assets/datepicker/js/bootstrap-datetimepicker.pt-BR.js"></script>

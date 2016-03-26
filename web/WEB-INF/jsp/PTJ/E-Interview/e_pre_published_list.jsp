@@ -4,6 +4,7 @@
     Author     : Habib
 --%>
 
+<%@page import="eInterview.EInterview"%>
 <%@page import="helpers.Func"%>
 <%@page import="controller.Session"%>
 <%@page import="config.Config"%>
@@ -12,7 +13,7 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
 MainClient mc = new MainClient(DBConn.getHost());
-
+EInterview eint = new EInterview();
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 
 String sql_dept_code = "SELECT l.l_username "
@@ -22,7 +23,7 @@ String param_dept_code[] = { l_refid };
 ArrayList<ArrayList<String>> data_dept_code = mc.getQuery(sql_dept_code, param_dept_code);
 
 String dept_code = data_dept_code.get(0).get(0);
-out.print(dept_code);
+//out.print(dept_code);
 
 String is_type_ptj = "PTJ";
 
@@ -49,10 +50,10 @@ String sql_published_list   = "SELECT iss.is_refid, iss.is_date, iss.is_starttim
                         + "AND iis.iis_code = iss.is_status "
                         + "AND iss.is_type = ? "
                         + "AND dm.dm_dept_code = ? "
-                        + "AND iss.is_status = ? "
+                        + "AND ( iss.is_status = ? OR iss.is_status = ? ) "
                         + "GROUP BY iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type, "
                         + "pph.pph_ptj, iss.is_status, iis.iis_desc ";
-String param_published_list[] = { is_type_ptj, dept_code, published };
+String param_published_list[] = { is_type_ptj, dept_code, published, result };
 ArrayList<ArrayList<String>> data_published_list = mc.getQuery(sql_published_list, param_published_list);
 
 String sql_position_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position "
@@ -84,15 +85,29 @@ ArrayList<ArrayList<String>> data_count_candidate;
         <div class="row">
             <ul class="nav nav-tabs">
                 <li class="active"><a>PUBLISHED PRE-INTERVIEW</a></li>
-                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_memo_list.jsp">INTERVIEW MEMO</a></li>
+                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_memo_list.jsp">INTERVIEW MEMO <% 
+                    if(eint.getMemoList(dept_code) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getMemoList(dept_code) %></span>
+                        <%
+                    }
+                    %></a></li>
                 <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp">SAVED PRE-INTERVIEW SETUP</a></li>
-                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_my_invitation_list.jsp">MY INVITATION</a></li>
+                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_my_invitation_list.jsp">MY INVITATION <% 
+                    if(eint.getInvitationList(l_refid) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getInvitationList(l_refid) %></span>
+                        <%
+                    }
+                    %></a></li>
             </ul>
         </div>
         
         <div class="row">
             <div class="col-sm-12"><h4>PUBLISHED INTERVIEW LIST</h4></div>
-            <table class="table-bordered" id="publishedList" width="100%">
+            <table style="background-color: white" class="table table-bordered" id="publishedList" width="100%">
                 <thead style="vertical-align: middle;">
                     <tr style="vertical-align: middle;">
                         <th style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
@@ -120,8 +135,8 @@ ArrayList<ArrayList<String>> data_count_candidate;
                     <tr>
                         <td rowspan="<%=data_position_list.size() %>"  style="vertical-align: middle; text-align: center"><%=a+1 %></td>
                         <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=Func.getDate(data_published_list.get(a).get(1)) %></td>
-                        <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_published_list.get(a).get(2) %></td>
-                        <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_published_list.get(a).get(3) %></td>
+                        <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=Func.get12HourTime(data_published_list.get(a).get(2)) %></td>
+                        <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=Func.get12HourTime(data_published_list.get(a).get(3)) %></td>
                         <td style="vertical-align: middle; text-align: center"><%=data_position_list.get(0).get(1) %></td>
                         <td style="vertical-align: middle; text-align: center"><%=data_position_list.get(0).get(2) %></td>
                         <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_published_list.get(a).get(6) %></td>
@@ -136,7 +151,7 @@ ArrayList<ArrayList<String>> data_count_candidate;
                         else if(data_published_list.get(a).get(7).equals(result))
                         {
                             %>
-                            <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><a href="process.jsp?p=PTJ/E-Interview/e_pre_result.jsp" style="color: limegreen; font-weight: bold">RESULT</a></td>
+                            <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><a href="process.jsp?p=PTJ/E-Interview/e_pre_result.jsp&is_refid=<%=data_published_list.get(a).get(0) %>" style="color: limegreen; font-weight: bold">RESULT</a></td>
                             <%
                         }
                         %>

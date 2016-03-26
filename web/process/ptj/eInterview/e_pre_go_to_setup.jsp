@@ -5,8 +5,8 @@
 --%>
 
 <%
-    String is_refid = request.getParameter("is_refid");
+    String is_refid = request.getParameter("ptj_is_refid");
     String dept_code = request.getParameter("dept_code");
-    
-    response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&is_refid="+is_refid+"&dept_code="+dept_code+"&alert=0");
+    String uni_is_refid = request.getParameter("uni_is_refid");
+    response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&ptj_is_refid="+is_refid+"&dept_code="+dept_code+"&uni_is_refid="+uni_is_refid+"&alert=0");
 %>
