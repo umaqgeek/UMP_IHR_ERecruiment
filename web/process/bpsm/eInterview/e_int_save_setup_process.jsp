@@ -17,6 +17,31 @@
     String is_venue = request.getParameter("is_venue").toUpperCase();
     String chairman_staff_id = request.getParameter("chairman_staff_id");
     String panel_staff_id[] = request.getParameterValues("panel_staff_id");
+    String icm_refid[] = request.getParameterValues("icm_refid");
+    
+//    out.print("Date: "+is_date+"<br>");
+//    out.print("<br>");
+//    
+//    out.print("Start: "+is_starttime+"<br>");
+//    out.print("<br>");
+//    
+//    out.print("End: "+is_endtime+"<br>");
+//    out.print("<br>");
+//    
+//    out.print("Venue: "+is_venue+"<br>");
+//    out.print("<br>");
+//    
+//    out.print("Chairman: "+chairman_staff_id+"<br>");
+//    out.print("<br>");
+//    
+//    out.print("Panel:<br>");
+//    for(int a = 0; a < panel_staff_id.length; a++)
+//    {
+//        out.print(panel_staff_id[a]+"<br>");
+//    }
+//    out.print("<br>");
+    
+   
     
     //************************ Validate Duplicate Person *****************************
     for(int a=0; a<panel_staff_id.length; a++)
@@ -43,14 +68,55 @@
         };
     }
     
+    if(icm_refid == null)
+    {
+        String[] selected_pos = request.getParameterValues("pph_refid");
+        String and = "&selected_pos";
+        String equals = "=";
+        String sCount = "";
+        String add_param = "";
+        String alert = "&alert=2";
+        String sSize = "&selected_size="+Integer.toString(selected_pos.length);
+        String link_to_setup = "../../../process.jsp?p=BPSM/E-Interview/e_int_pos_setup.jsp"+alert+sSize;
+        for(int b=0; b < selected_pos.length; b++)
+        {
+            sCount = Integer.toString(b);
+            add_param = and+sCount+equals+selected_pos[b];
+            link_to_setup = link_to_setup+add_param;
+        //    out.print("link: "+link_to_setup+"<br>");
+        }
+        response.sendRedirect(link_to_setup);
+        return;
+    };
     //********Get all pa_refid******************************************************************
     String pass_ptj = "PASS_PTJ";
-    String sql_pa_list = "SELECT pa.pa_refid "
-                    + "FROM pos_applied pa "
-                    + "WHERE pa.pa_status = ? "
-                    + "AND pa.pph_refid = ? ";
+    String sql_pa_list = "SELECT pa.pa_refid, pa.pa_status "
+                    + "FROM pos_applied pa, position_ptj_hr pph "
+                    + "WHERE pph.pph_refid = pa.pph_refid "
+                    + "AND pa.pa_status = ? "
+                    + "AND pph.pph_refid = ? ";
     String[] param_pa_list = new String[2];
     ArrayList<ArrayList<String>> data_pa_list;
+    
+//    out.print("PPH Refid:<br>");
+//    for(int a = 0; a < pph_refid.length; a++)
+//    {
+//        param_pa_list[0] = pass_ptj;
+//        param_pa_list[1] = pph_refid[a];
+//        data_pa_list = mc.getQuery(sql_pa_list, param_pa_list);
+//        out.print(pph_refid[a]+" :- Date: "+request.getParameter("ptj_is_date_"+pph_refid[a])+", Start: "+request.getParameter("ptj_is_starttime_"+pph_refid[a])+", End: "+request.getParameter("ptj_is_endtime_"+pph_refid[a])+"<br>");
+//        
+//        for(int b =0; b < data_pa_list.size(); b++)
+//        {
+//            out.print(data_pa_list.get(b).get(0)+" : "+data_pa_list.get(b).get(1)+"<br>");
+//        }
+//        out.print("<br>");
+//    }
+//    out.print("<br>");
+//    if(true)
+//    {
+//        return;
+//    }
     //*****End Get all pa_refid******************************************************************
     
     //******************Insert to interview setup*********************************************
@@ -101,7 +167,13 @@
     String[] param_insert_irm_icm = new String[2];
     String iii_refid = "";
     //*******End Insert into IRM_ICM**************************
-    
+    //********************************INSERT ELECTED CRITERIA************************//
+    String sql_insert_criteria  = "INSERT INTO interview_iii_mark(iii_refid, icm_refid) "
+                                + "VALUES ( ? ,? )";
+    String[] param_insert_criteria = new String[2];
+    String iim_refid = "";
+    //*******************************************************************************//
+    //******Uni Interview Data********************************
     for(int a = 0; a<pph_refid.length; a++)
     {
         param_pa_list[0] = pass_ptj;
@@ -120,7 +192,14 @@
             {
                 param_insert_irm_icm[0] = irm_refid;
                 param_insert_irm_icm[1] = ipl_refid[c];
-                iii_refid = mc.setQuery(sql_insert_irm_icm, param_insert_irm_icm);
+                iii_refid = mc.setQuery(sql_insert_irm_icm, param_insert_irm_icm, "iii_refid");
+                
+                for(int d = 0; d < icm_refid.length; d++)
+                {
+                    param_insert_criteria[0] = iii_refid;
+                    param_insert_criteria[1] = icm_refid[d];
+                    mc.setQuery(sql_insert_criteria, param_insert_criteria);
+                }
             }
         }
         
@@ -137,6 +216,40 @@
 //    {
 //        return;
 //    }
+    //*******End Uni Interview Data********************************
+    String is_type_ptj = "PTJ";
+    String sql_insert_ptj_setup = "INSERT INTO interview_setup(is_date, is_starttime, is_endtime, is_type, is_status) "
+                            + "VALUES ( ? , ? , ? , ? , ? )";
+    String[] param_insert_ptj_setup = new String[5];
+    String ptj_is_refid;
+    String result = "";
+    
+    //**********PTJ Interview Data********************************
+    for(int a = 0; a<pph_refid.length; a++)
+    {
+        ptj_is_refid = "";
+        
+        param_insert_ptj_setup[0] = Func.getOracleDate(request.getParameter("ptj_is_date_"+pph_refid[a]), "yyyy-MM-dd");
+        param_insert_ptj_setup[1] = request.getParameter("ptj_is_starttime_"+pph_refid[a]);
+        param_insert_ptj_setup[2] = request.getParameter("ptj_is_endtime_"+pph_refid[a]);
+        param_insert_ptj_setup[3] = is_type_ptj;
+        param_insert_ptj_setup[4] = irm_ptj_status_informed;
+        ptj_is_refid = mc.setQuery(sql_insert_ptj_setup, param_insert_ptj_setup, "is_refid");
+        
+        param_pa_list[0] = pass_ptj;
+        param_pa_list[1] = pph_refid[a];
+        data_pa_list = mc.getQuery(sql_pa_list, param_pa_list);
+        
+        for(int b = 0; b < data_pa_list.size(); b++)
+        {
+            param_insert_result[0] = irm_cand_status_set;
+            param_insert_result[1] = irm_ptj_status_informed;
+            param_insert_result[2] = data_pa_list.get(b).get(0);
+            param_insert_result[3] = ptj_is_refid;
+            result = mc.setQuery(sql_insert_result, param_insert_result);
+        }
+    }
+    
     
     response.sendRedirect("../../../process.jsp?p=BPSM/E-Interview/e_int_pos_saved_setup_list.jsp");
 %>

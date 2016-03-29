@@ -212,4 +212,22 @@ public class Func {
         String str2[] = str[0].split("-");
         return str2[0] + "-" + str2[1] + "-" + str2[2];
     }
+    
+    /**
+     * Get date format K:mm a
+     * @return 
+     */
+    public static String get12HourTime(String time) {
+        try
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("H:mm");
+            Date dateObj = sdf.parse(time);
+            return new SimpleDateFormat("K:mm a").format(dateObj);
+        } 
+        catch(ParseException e)
+        {
+            //e.printStackTrace();   
+            return time;
+        }
+    }
 }

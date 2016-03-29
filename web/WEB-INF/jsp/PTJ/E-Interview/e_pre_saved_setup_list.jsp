@@ -4,6 +4,7 @@
     Author     : Habib
 --%>
 
+<%@page import="eInterview.EInterview"%>
 <%@page import="helpers.Func"%>
 <%@page import="controller.Session"%>
 <%@page import="config.Config"%>
@@ -12,6 +13,7 @@
 <%@page import="oms.rmi.server.MainClient"%>
 <%
 MainClient mc = new MainClient(DBConn.getHost());
+EInterview eint = new EInterview();
 
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 
@@ -22,7 +24,7 @@ String param_dept_code[] = { l_refid };
 ArrayList<ArrayList<String>> data_dept_code = mc.getQuery(sql_dept_code, param_dept_code);
 
 String dept_code = data_dept_code.get(0).get(0);
-out.print(dept_code);
+//out.print(dept_code);
 
 String is_type_ptj = "PTJ";
 String accepted = "11";
@@ -148,15 +150,29 @@ ArrayList<ArrayList<String>> data_accepted_panel_list;
         <div class="row">
             <ul class="nav nav-tabs">
                 <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_published_list.jsp">PUBLISHED PRE-INTERVIEW</a></li>
-                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_memo_list.jsp">INTERVIEW MEMO</a></li>
+                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_memo_list.jsp">INTERVIEW MEMO <% 
+                    if(eint.getMemoList(dept_code) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getMemoList(dept_code) %></span>
+                        <%
+                    }
+                    %></a></li>
                 <li class="active"><a>SAVED PRE-INTERVIEW SETUP</a></li>
-                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_my_invitation_list.jsp">MY INVITATION</a></li>
+                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_my_invitation_list.jsp">MY INVITATION <% 
+                    if(eint.getInvitationList(l_refid) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getInvitationList(l_refid) %></span>
+                        <%
+                    }
+                    %></a></li>
             </ul>
         </div>
         
         <div class="row">
             <div class="col-sm-12"><h4>SAVED PRE-INTERVIEW LIST</h4></div>
-            <table class="table-bordered" id="memoList" width="100%">
+            <table style="background-color: white" class="table table-bordered" id="memoList" width="100%">
                 <thead style="vertical-align: middle;">
                     <tr style="vertical-align: middle;">
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">#</th>
@@ -236,6 +252,7 @@ ArrayList<ArrayList<String>> data_accepted_panel_list;
                                         <%
                                     }
                                     %>
+                                    <a class="dropdown-item btn btn-danger form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_committee_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Cancel</a>
                                 </div>
                             </div>
                         </td>
@@ -316,12 +333,12 @@ for(int a = 0; a < data_saved_list.size(); a++)
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Start</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(2) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_saved_list.get(a).get(2)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">End</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(3) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_saved_list.get(a).get(3)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Venue</td>
@@ -365,12 +382,12 @@ for(int a = 0; a < data_saved_list.size(); a++)
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Start</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_uni_details.get(a).get(2) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_uni_details.get(a).get(2)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">End</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_uni_details.get(a).get(3) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_uni_details.get(a).get(3)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Venue</td>
@@ -411,12 +428,12 @@ for(int a = 0; a < data_saved_list.size(); a++)
                                 <tr>
                                    <td style="vertical-align: middle; font-weight: bold">Start</td>
                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                   <td style="vertical-align: middle"><%=data_saved_list.get(a).get(2) %></td>
+                                   <td style="vertical-align: middle"><%=Func.get12HourTime(data_saved_list.get(a).get(2)) %></td>
                                 </tr>
                                 <tr>
                                    <td style="vertical-align: middle; font-weight: bold">End</td>
                                    <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                   <td style="vertical-align: middle"><%=data_saved_list.get(a).get(3) %></td>
+                                   <td style="vertical-align: middle"><%=Func.get12HourTime(data_saved_list.get(a).get(3)) %></td>
                                 </tr>
                                 <tr>
                                    <td style="vertical-align: middle; font-weight: bold">Venue</td>

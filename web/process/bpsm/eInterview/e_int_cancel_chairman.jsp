@@ -7,22 +7,21 @@
 <%@page import="models.DBConn"%>
 <%
     MainClient mc = new MainClient(DBConn.getHost());
-    String sent = "SENT";
-    String canceled = "CANCELED";
-    String pph_refid = request.getParameter("pph_refid");
-    String ic_refid = request.getParameter("ic_refid");
-    String u_refid = request.getParameter("u_refid");
+    String sent = "21";
+    String canceled = "24";
+    String is_refid = request.getParameter("is_refid");
+    String sm_staff_id = request.getParameter("sm_staff_id");
     
-    String sql_cancel_chairman = "UPDATE INTERVIEW_ASSIGN_LIST "
-                            + "SET IAL_STATUS = ? "
-                            + "WHERE IC_REFID = ? "
-                            + "AND U_REFID = ? ";
-    String param_cancel_chairman[] = { canceled, ic_refid, u_refid };
+    String sql_cancel_chairman = "UPDATE interview_chairman_list "
+                            + "SET icl_status = ? "
+                            + "WHERE is_refid = ? "
+                            + "AND sm_staff_id = ? ";
+    String param_cancel_chairman[] = { canceled, is_refid, sm_staff_id };
     String res = mc.setQuery(sql_cancel_chairman, param_cancel_chairman);
 //    out.print(res);
 //    if(true)
 //    {
 //        return;
 //    }
-    response.sendRedirect("../../../process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&pph_refid="+pph_refid+"&ic_refid="+ic_refid+"&alert=0");
+    response.sendRedirect("../../../process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&is_refid="+is_refid);
 %>
