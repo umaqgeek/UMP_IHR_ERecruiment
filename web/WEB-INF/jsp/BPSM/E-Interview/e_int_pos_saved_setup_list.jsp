@@ -4,6 +4,8 @@
     Author     : Habib
 --%>
 
+<%@page import="controller.Session"%>
+<%@page import="eInterview.EInterview"%>
 <%@page import="helpers.Func"%>
 <%@page import="java.util.ArrayDeque"%>
 <%@page import="models.DBConn"%>
@@ -11,28 +13,52 @@
 <%@page import="java.util.ArrayList"%>
 <%
 MainClient mc = new MainClient(DBConn.getHost());
+EInterview eint = new EInterview();
+
+String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
+String sql_dept_code = "SELECT l.l_username, l.l_icno "
+                    + "FROM login1 l "
+                    + "WHERE l.l_refid = ? ";
+String param_dept_code[] = { l_refid };
+ArrayList<ArrayList<String>> data_dept_code = mc.getQuery(sql_dept_code, param_dept_code);
+
+String dept_code = data_dept_code.get(0).get(0);
+String staff_id = data_dept_code.get(0).get(1);
+
 boolean informed_exist;
 
+String saved = "4";
 String is_type = "UNIVERSITY";
 String sql_saved_list = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type "
                     + "FROM interview_setup iss "
-                    + "WHERE iss.is_type = ? ";
-String param_saved_list[] = { is_type };
+                    + "WHERE iss.is_type = ? "
+                    + "AND iss.is_status = ? ";
+String param_saved_list[] = { is_type, saved };
 ArrayList<ArrayList<String>> data_saved_list = mc.getQuery(sql_saved_list, param_saved_list);
 //out.print(data_saved_list);
 String rejected = "12";
 String accepted = "11";
 String informed = "1";
-String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason "
+String result = "44";
+String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status "
                             +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph, interview_invite_status iis "
                             +"WHERE iss.is_refid = irm.is_refid "
                             +"AND pa.pa_refid = irm.pa_refid "
                             +"AND pph.pph_refid = pa.pph_refid "
                             +"AND iis.iis_code = irm.irm_ptj_status "
                             +"AND iss.is_refid = ? "
-                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason";
+                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status";
 String[] param_interview_pos_list = new String[1];
 ArrayList<ArrayList<String>> data_interview_pos_list;
+
+String sql_irm_reason = "SELECT irm.irm_reason "
+                    + "FROM interview_result_mark irm, pos_applie pa, position_ptj_hr pph "
+                    + "WHERE pph.pph_refid = pa.pph_refid "
+                    + "AND pa.pa_refid = irm.irm_refid "
+                    + "AND pph.pph_refid = ? "
+                    + "GROUP BY irm.irm_reason";
+String[] param_irm_reason = new String[1];
+ArrayList<ArrayList<String>> data_irm_reason;
 
 String sql_informed_pos_list = "SELECT pph.pph_refid "
                             +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph, interview_invite_status iis "
@@ -47,16 +73,75 @@ String[] param_informed_pos_list = new String[2];
 ArrayList<ArrayList<String>> data_informed_pos_list;
 
 String is_type_ptj = "PTJ";
-String sql_preinterview_detail  = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type "
-                                + "FROM interview_setup iss, interview_result_mark irm, position_ptj_hr pph, pos_applied pa "
+String sql_preinterview_detail  = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type, iss.is_status, iis.iis_desc "
+                                + "FROM interview_setup iss, interview_result_mark irm, position_ptj_hr pph, pos_applied pa, interview_invite_status iis "
                                 + "WHERE pph.pph_refid = pa.pph_refid "
+                                + "AND iis.iis_code = iss.is_status "
                                 + "AND pa.pa_refid = irm.pa_refid "
                                 + "AND iss.is_refid = irm.is_refid "
                                 + "AND iss.is_type = ? "
                                 + "AND pph.pph_refid = ? "
-                                + "GROUP BY iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type";
+                                + "GROUP BY iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type, iss.is_status, iis.iis_desc";
 String[] param_preinterview_detail = new String[2];
 ArrayList<ArrayList<String>> data_preinterview_detail;
+
+String sql_shorlisted_candidate = "SELECT irm.irm_refid, irm.irm_cand_status, irm.irm_ptj_status "
+                                + "FROM interview_setup iss, interview_result_mark irm "
+                                + "WHERE iss.is_refid = irm.is_refid "
+                                + "AND iss.is_refid = ? ";
+String[] param_shorlisted_candidate = new String[1];
+ArrayList<ArrayList<String>> data_shorlisted_candidate;
+
+String cand_set = "2";
+String cand_sent = "21";
+String cand_accepted = "22";
+String sql_pending_decision_cand = "SELECT irm.irm_refid "
+                        + "FROM interview_result_mark irm, interview_setup iss "
+                        + "WHERE iss.is_refid = irm.is_refid "
+                        + "AND iss.is_refid = ? "
+                        + "AND (irm.irm_cand_status = ? OR irm.irm_cand_status = ? )";
+String[] param_pending_decision_cand = new String[3];
+ArrayList<ArrayList<String>> data_pending_decision_cand;
+
+String panel_chairman_accepted = "22";
+
+String sql_accepted_chairman_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, icl.icl_status "
+                        +"FROM interview_setup iss, interview_chairman_list icl, staff_main sm, department_main dm, staff_main_archive052014 sma "
+                        +"WHERE iss.is_refid = icl.is_refid "
+                        +"AND sm.sm_staff_id = icl.sm_staff_id "
+                        +"AND dm.dm_dept_code = sm.sm_dept_code "
+                        +"AND sm.sm_staff_id = sma.sm_staff_id "
+                        +"AND iss.is_refid = ? "
+                        +"AND icl.icl_status = ? ";
+String[] param_accepted_chairman_list = new String[2];
+ArrayList<ArrayList<String>> data_accepted_chairman_list;
+
+String sql_accepted_panel_list = "SELECT sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid, sm.sm_job_code "
+                    +"FROM interview_setup iss, interview_result_mark irm, interview_panel_list ipl, interview_irm_icm iii, staff_main sm, department_main dm, interview_invite_status iis, staff_main_archive052014 sma "
+                    +"WHERE iss.is_refid = irm.is_refid "
+                    +"AND irm.irm_refid = iii.irm_refid "
+                    +"AND ipl.ipl_refid = iii.ipl_refid "
+                    +"AND sm.sm_staff_id = ipl.sm_staff_id "
+                    +"AND dm.dm_dept_code = sm.sm_dept_code "
+                    +"AND sm.sm_staff_id = sma.sm_staff_id "
+                    +"AND iis.iis_code = ipl.ipl_status "
+                    +"AND iss.is_refid = ? "
+                    +"AND ipl.ipl_status = ? "
+                    +"GROUP BY sm.sm_staff_id, sma.sm_staff_name, dm.dm_dept_code, dm.dm_dept_desc, ipl.ipl_status, iis.iis_desc, ipl.ipl_refid, sm.sm_job_code";
+String[] param_accepted_panel_list = new String[2];
+ArrayList<ArrayList<String>> data_accepted_panel_list;
+
+String pass_ptj = "PASS_PTJ";
+String sql_count_candidate_accepted = "SELECT COUNT(*) "
+                        + "FROM pos_applied pa, filter f, interview_setup iss, interview_result_mark irm "
+                        + "WHERE pa.pa_refid = f.pa_refid "
+                        + "AND pa.pa_refid = irm.pa_refid "
+                        + "AND iss.is_refid = irm.is_refid "
+                        + "AND iss.is_refid = ? "
+                        + "AND f.f_ptj_status = ? "
+                        + "AND irm.irm_cand_status = ? ";
+String[] param_count_candidate_accepted = new String[3];
+ArrayList<ArrayList<String>> data_count_candidate_accepted;
 %>
 <div class="row">
     <div class="well">
@@ -66,31 +151,50 @@ ArrayList<ArrayList<String>> data_preinterview_detail;
         <div class="row">
             <ul class="nav nav-tabs">
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_published_list.jsp">PUBLISHED INTERVIEW</a></li>
-              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_pos_to_setup_list.jsp">POSITION READY TO SETUP</a></li>
+              <li>
+                  <a href="process.jsp?p=BPSM/E-Interview/e_int_pos_to_setup_list.jsp">POSITION READY TO SETUP 
+                  <% 
+                    if(eint.get_to_setup_list() > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.get_to_setup_list() %></span>
+                        <%
+                    }
+                    %>
+                  </a>
+              </li>
               <li class="active"><a>SAVED INTERVIEW SETUP</a></li>
-              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_my_invitation_list.jsp">MY INVITATION</a></li>
+              <li><a href="process.jsp?p=BPSM/E-Interview/e_int_my_invitation_list.jsp">MY INVITATION <% 
+                    if(eint.getInvitationList(l_refid) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getInvitationList(l_refid) %></span>
+                        <%
+                    }
+                    %></a></li>
               <li><a href="process.jsp?p=BPSM/E-Interview/e_int_criteria_bank.jsp">CRITERIA BANK</a></li>
             </ul>
         </div>
         
         <div class="row">
             <div class="col-sm-12"><h4>SAVED INTERVIEW LIST</h4></div>
-            <table id="intList" class="table-bordered" width="100%">
+            <table id="intList" style="background-color: white" class="table table-bordered" width="100%">
                 <thead>
                     <tr style="vertical-align: middle;">
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">#</th>
-                        <th colspan="3" style="vertical-align: middle; text-align: center; font-weight: bold">Interview</th>
-                        <th colspan="4" style="vertical-align: middle; text-align: center; font-weight: bold">Pre-Interview</th>
+                        <th colspan="2" style="vertical-align: middle; text-align: center; font-weight: bold">Interview</th>
+                        <th colspan="6" style="vertical-align: middle; text-align: center; font-weight: bold">Pre-Interview</th>
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Action</th>
                     </tr>
                     <tr style="vertical-align: middle;">
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Date</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Venue</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Details</th>
                         <th style="vertical-align: middle; text-align: center; font-weight: bold" width="5%">Grade</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">Position</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="10%">PTJ</th>
-                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Approval Status</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold">Position</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold">PTJ</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Date</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Action</th>
+                        <th style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,32 +213,114 @@ ArrayList<ArrayList<String>> data_preinterview_detail;
                             b = data_interview_pos_list.size();
                         }
                     }
+                    
+                    param_accepted_chairman_list[0] = data_saved_list.get(a).get(0);
+                    param_accepted_chairman_list[1] = panel_chairman_accepted;
+                    data_accepted_chairman_list = mc.getQuery(sql_accepted_chairman_list, param_accepted_chairman_list);
+                    
+                    param_accepted_panel_list[0] = data_saved_list.get(a).get(0);
+                    param_accepted_panel_list[1] = panel_chairman_accepted;
+                    data_accepted_panel_list = mc.getQuery(sql_accepted_panel_list, param_accepted_panel_list);
+                    
+                    param_pending_decision_cand[0] = data_saved_list.get(a).get(0);
+                    param_pending_decision_cand[1] = cand_set;
+                    param_pending_decision_cand[2] = cand_sent;
+                    data_pending_decision_cand = mc.getQuery(sql_pending_decision_cand, param_pending_decision_cand);
+                    
+                    param_preinterview_detail[0] = is_type_ptj;
+                    if(data_interview_pos_list.size() > 0)
+                    {
+                        param_preinterview_detail[1] = data_interview_pos_list.get(0).get(0);
+                    }
+                    data_preinterview_detail = mc.getQuery(sql_preinterview_detail, param_preinterview_detail);
+                    //out.print(data_pending_decision_cand);
                     %>
                     <tr>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=a+1 %></td>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=Func.getDate(data_saved_list.get(a).get(1)) %></td>
-                        <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><%=data_saved_list.get(a).get(4) %></td>
                         <td rowspan="<%=data_interview_pos_list.size() %>" style="vertical-align: middle; text-align: center"><a data-toggle="modal" href="#modalUniDetail<%=a %>" class="btn btn-default">Details</a></td>
-                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(1) %></td>
-                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(2) %></td>
-                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(3) %></td>
                         <%
-                        if(data_interview_pos_list.get(0).get(5).equals(informed))
+                        if(data_interview_pos_list.size() > 0)
                         {
                             %>
-                            <td style="vertical-align: middle; font-weight: bold"><%=data_interview_pos_list.get(0).get(4) %></td>
+                            <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(1) %></td>
+                            <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(2) %></td>
+                            <td style="vertical-align: middle"><%=data_interview_pos_list.get(0).get(3) %></td>
+                            <td style="vertical-align: middle"><%=Func.getDate(data_preinterview_detail.get(0).get(1)) %></td>
+                            <td style="vertical-align: middle; text-align: center">
+                                <div class="btn-group">
+                                    <a class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action <span class="glyphicon glyphicon-menu-down"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <%
+                                        if(data_interview_pos_list.get(0).get(5).equals(rejected))
+                                        {
+                                            %>
+                                            <a data-toggle="modal" href="#modalSuggestNewDate<%=a+"_0" %>" class="btn btn-primary form-control">Suggest New Date</a>
+                                            <%
+                                        }
+                                        else
+                                        {
+                                            %>
+                                            <a class="btn btn-primary form-control disabled">Suggest New Date</a>
+                                            <%
+                                        }
+                                        %>
+
+                                        <a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_invite_candidate.jsp&is_refid=<%=data_preinterview_detail.get(0).get(0) %>">Invite Candidate</a>
+                                        <a data-toggle="modal" href="#modalPreInterviewDetail<%=a+"_0" %>" class="btn btn-default form-control">View Details</a>
+
+                                        <%
+                                        if(data_interview_pos_list.get(0).get(5).equals(accepted))
+                                        {
+                                            %>
+                                            <a class="btn btn-danger form-control disabled">Remove</a>
+                                            <%
+                                        }
+                                        else
+                                        {
+                                            %>
+                                            <a data-toggle="modal" href="#modalRemove<%=a+"_0" %>" class="btn btn-danger form-control">Remove</a>
+                                            <%
+                                        }
+                                        %>
+                                    </div>
+                                </div>
+                            </td>
                             <%
+                            if(data_preinterview_detail.get(0).get(6).equals(result))
+                            {
+                                %>
+                                <td style="vertical-align: middle; text-align: center"><a href="process.jsp?p=BPSM/E-Interview/e_int_ptj_result.jsp&is_refid=<%=data_preinterview_detail.get(0).get(0) %>&prev_page=BPSM/E-Interview/e_int_pos_saved_setup_list.jsp" style="color: purple; font-weight: bold"><%=data_preinterview_detail.get(0).get(7) %></a></td>
+                                <%
+                            }
+                            else
+                            {
+                                if(data_interview_pos_list.get(0).get(5).equals(informed))
+                                {
+                                    %>
+                                    <td style="vertical-align: middle; font-weight: bold"><%=data_interview_pos_list.get(0).get(4) %></td>
+                                    <%
+                                }
+                                else if(data_interview_pos_list.get(0).get(5).equals(accepted))
+                                {
+                                    %>
+                                    <td style="vertical-align: middle"><a style="color: limegreen; font-weight: bold"><%=data_interview_pos_list.get(0).get(4) %></a></td>
+                                    <%
+                                }
+                                else if(data_interview_pos_list.get(0).get(5).equals(rejected))
+                                {
+                                    %>
+                                    <td style="vertical-align: middle"><a style="color: red; font-weight: bold" href="#modalReason<%=a+"_0" %>" data-toggle="modal"><%=data_interview_pos_list.get(0).get(4) %></a></td>
+                                    <%
+                                }
+                            }
                         }
-                        else if(data_interview_pos_list.get(0).get(5).equals(accepted))
+                        else
                         {
                             %>
-                            <td style="vertical-align: middle"><a style="color: limegreen; font-weight: bold" href="#modalPreInterviewDetail<%=a+"_0" %>" data-toggle="modal"><%=data_interview_pos_list.get(0).get(4) %></a></td>
-                            <%
-                        }
-                        else if(data_interview_pos_list.get(0).get(5).equals(rejected))
-                        {
-                            %>
-                            <td style="vertical-align: middle"><a style="color: red; font-weight: bold" href="#modalReason<%=a+"_0" %>" data-toggle="modal"><%=data_interview_pos_list.get(0).get(4) %></a></td>
+                            <td style="vertical-align: middle; text-align: center" colspan="6">There is no selected position</td>
                             <%
                         }
                         %>
@@ -145,22 +331,23 @@ ArrayList<ArrayList<String>> data_preinterview_detail;
                                 </a>
                                 <div class="dropdown-menu">
                                     <a class="btn btn-default form-control" href="process.jsp?p=BPSM/E-Interview/e_int_committee_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">General Setup</a>
-                                    <a class="btn btn-success form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Question Setup</a>
+                                    <a class="btn btn-success form-control" href="process.jsp?p=BPSM/E-Interview/e_int_question_setup.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Marking Setup</a>
+                                    <a class="btn btn-warning form-control" data-toggle="modal" href="#modalPostpone<%=a %>">Postpone</a>
                                     <%
-                                    if(informed_exist)
+                                    ///////////////////////////////////////////////////////////////////
+                                    if(data_pending_decision_cand.size() > 0 || data_accepted_chairman_list.size() == 0 || data_accepted_panel_list.size() == 0)
                                     {
                                         %>
-                                            <a class="btn btn-warning form-control disabled">Invite Candidate</a>
+                                        <a class="btn btn-primary form-control disabled">Publish</a>
                                         <%
                                     }
                                     else
                                     {
                                         %>
-                                            <a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_invite_candidate.jsp&is_refid=<%=data_saved_list.get(a).get(0) %>">Invite Candidate</a>
+                                        <a class="btn btn-primary form-control" href="#modalPublish<%=a %>" data-toggle="modal">Publish</a>
                                         <%
                                     }
                                     %>
-                                    <a class="btn btn-primary form-control disabled" href="#modalPublish" data-toggle="modal">Publish</a>
                                 </div>
                             </div>
                         </td>
@@ -168,29 +355,84 @@ ArrayList<ArrayList<String>> data_preinterview_detail;
                     <%
                     for(int b = 1; b < data_interview_pos_list.size(); b++)
                     {
+                        param_preinterview_detail[0] = is_type_ptj;
+                        param_preinterview_detail[1] = data_interview_pos_list.get(b).get(0);
+                        data_preinterview_detail = mc.getQuery(sql_preinterview_detail, param_preinterview_detail);
                         %>
                         <tr>
                             <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(1) %></td>
                             <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(2) %></td>
                             <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(3) %></td>
+                            <td style="vertical-align: middle"><%=Func.getDate(data_preinterview_detail.get(0).get(1)) %></td>
+                            <td style="vertical-align: middle; text-align: center">
+                                <div class="btn-group">
+                                    <a class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Action <span class="glyphicon glyphicon-menu-down"></span>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <%
+                                        if(data_interview_pos_list.get(b).get(5).equals(rejected))
+                                        {
+                                            %>
+                                            <a data-toggle="modal" href="#modalSuggestNewDate<%=a+"_"+b %>" class="btn btn-primary form-control">Suggest New Date</a>
+                                            <%
+                                        }
+                                        else
+                                        {
+                                            %>
+                                            <a class="btn btn-primary form-control disabled">Suggest New Date</a>
+                                            <%
+                                        }
+                                        %>
+                                        
+                                        <a class="btn btn-warning form-control" href="process.jsp?p=BPSM/E-Interview/e_int_invite_candidate.jsp&is_refid=<%=data_preinterview_detail.get(0).get(0) %>">Invite Candidate</a>
+                                        <a data-toggle="modal" href="#modalPreInterviewDetail<%=a+"_"+b %>" class="btn btn-default form-control">View Details</a>
+                                        
+                                        <%
+                                        if(data_interview_pos_list.get(b).get(5).equals(accepted))
+                                        {
+                                            %>
+                                            <a class="btn btn-danger form-control disabled">Remove</a>
+                                            <%
+                                        }
+                                        else
+                                        {
+                                            %>
+                                            <a data-toggle="modal" href="#modalRemove<%=a+"_"+b %>" class="btn btn-danger form-control">Remove</a>
+                                            <%
+                                        }
+                                        %>
+                                    </div>
+                                </div>
+                            </td>
+                            
                             <%
-                            if(data_interview_pos_list.get(b).get(5).equals(informed))
+                            if(data_preinterview_detail.get(0).get(6).equals(result))
                             {
                                 %>
-                                <td style="vertical-align: middle; font-weight: bold"><%=data_interview_pos_list.get(b).get(4) %></td>
+                                <td style="vertical-align: middle; text-align: center"><a href="process.jsp?p=BPSM/E-Interview/e_int_ptj_result.jsp&is_refid=<%=data_preinterview_detail.get(0).get(0) %>&prev_page=BPSM/E-Interview/e_int_pos_saved_setup_list.jsp" style="color: purple; font-weight: bold"><%=data_preinterview_detail.get(0).get(7) %></a></td>
                                 <%
                             }
-                            else if(data_interview_pos_list.get(b).get(5).equals(accepted))
+                            else
                             {
-                                %>
-                                <td style="vertical-align: middle"><a style="color: limegreen; font-weight: bold" href="#modalPreInterviewDetail<%=a+"_"+b %>" data-toggle="modal"><%=data_interview_pos_list.get(b).get(4) %></a></td>
-                                <%
-                            }
-                            else if(data_interview_pos_list.get(b).get(5).equals(rejected))
-                            {
-                                %>
-                                <td style="vertical-align: middle"><a style="color: red; font-weight: bold" href="#modalReason<%=a+"_"+b %>" data-toggle="modal"><%=data_interview_pos_list.get(b).get(4) %></a></td>
-                                <%
+                                if(data_interview_pos_list.get(b).get(5).equals(informed))
+                                {
+                                    %>
+                                    <td style="vertical-align: middle; font-weight: bold"><%=data_interview_pos_list.get(b).get(4) %></td>
+                                    <%
+                                }
+                                else if(data_interview_pos_list.get(b).get(5).equals(accepted))
+                                {
+                                    %>
+                                    <td style="vertical-align: middle"><a style="color: limegreen; font-weight: bold" href="#modalPreInterviewDetail<%=a+"_"+b %>" data-toggle="modal"><%=data_interview_pos_list.get(b).get(4) %></a></td>
+                                    <%
+                                }
+                                else if(data_interview_pos_list.get(b).get(5).equals(rejected))
+                                {
+                                    %>
+                                    <td style="vertical-align: middle"><a style="color: red; font-weight: bold" href="#modalReason<%=a+"_"+b %>" data-toggle="modal"><%=data_interview_pos_list.get(b).get(4) %></a></td>
+                                    <%
+                                }
                             }
                             %>
                         </tr>
@@ -209,40 +451,175 @@ for(int a = 0; a < data_saved_list.size(); a++)
 {
     param_interview_pos_list[0] = data_saved_list.get(a).get(0);
     data_interview_pos_list = mc.getQuery(sql_interview_pos_list, param_interview_pos_list);
+    
+    param_accepted_chairman_list[0] = data_saved_list.get(a).get(0);
+    param_accepted_chairman_list[1] = panel_chairman_accepted;
+    data_accepted_chairman_list = mc.getQuery(sql_accepted_chairman_list, param_accepted_chairman_list);
+    
+    param_accepted_panel_list[0] = data_saved_list.get(a).get(0);
+    param_accepted_panel_list[1] = panel_chairman_accepted;
+    data_accepted_panel_list = mc.getQuery(sql_accepted_panel_list, param_accepted_panel_list);
+    
+    param_count_candidate_accepted[0] = data_saved_list.get(a).get(0);
+    param_count_candidate_accepted[1] = pass_ptj;
+    param_count_candidate_accepted[2] = cand_accepted;
+    data_count_candidate_accepted = mc.getQuery(sql_count_candidate_accepted, param_count_candidate_accepted);
     for(int b = 0; b < data_interview_pos_list.size(); b++)
     {
         param_preinterview_detail[0] = is_type_ptj;
         param_preinterview_detail[1] = data_interview_pos_list.get(b).get(0);
         data_preinterview_detail = mc.getQuery(sql_preinterview_detail, param_preinterview_detail);
+        
+        param_shorlisted_candidate[0] = data_preinterview_detail.get(0).get(0);
+        data_shorlisted_candidate = mc.getQuery(sql_shorlisted_candidate, param_shorlisted_candidate);
+        
+        if(data_interview_pos_list.get(b).get(5).equals(rejected))
+        {
+            param_irm_reason[0] = data_interview_pos_list.get(b).get(0);
+            data_irm_reason = mc.getQuery(sql_irm_reason, param_irm_reason);
+            
+            if(data_irm_reason.size() > 0)
+            {
+                %>
+                <!-- Modal Reason -->
+                <div id="modalReason<%=a+"_"+b %>" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header" align="center">
+                                <h4 class="modal-title" style="font-weight: bold">REJECT REASON</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <fieldset>
+                                    <h6><%=data_interview_pos_list.get(b).get(6) %></h6>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End modal reason -->
+                <%
+            }
+        }
         %>
-        <!-- Modal Reason -->
-        <div id="modalReason<%=a+"_"+b %>" class="modal fade" role="dialog">
+        
+        <!-- Modal Pre Interview Detail -->
+        <div id="modalPreInterviewDetail<%=a+"_"+b %>" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" align="center">
-                        <h4 class="modal-title" style="font-weight: bold">REJECT REASON</h4>
+                        <h4 class="modal-title" style="font-weight: bold">PRE-INTERVIEW DETAIL</h4>
                     </div>
                     <div class="modal-body" align="center">
                         <fieldset>
-                            <h6><%=data_interview_pos_list.get(b).get(6) %></h6>
+                            <table style="width: 100%" class="table-condensed">
+                                <tbody>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold; width: 20%">Grade</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">:</td>
+                                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(1) %></td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">Position</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(2) %></td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">PTJ</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle"><%=data_interview_pos_list.get(b).get(3) %></td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">Date</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle"><%=Func.getDate(data_preinterview_detail.get(0).get(1)) %></td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">Start</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle"><%=Func.get12HourTime(data_preinterview_detail.get(0).get(2)) %></td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">End</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle"><%=Func.get12HourTime(data_preinterview_detail.get(0).get(3)) %></td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">Venue</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle">
+                                            <%
+                                                if(data_preinterview_detail.get(0).get(4) == null)
+                                                {
+                                                    out.print("<strong>NOT SET YET</strong>"); 
+                                                }
+                                                else
+                                                {
+                                                    out.print(data_preinterview_detail.get(0).get(4)); 
+                                                }
+                                            %>
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">Candidate</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle"><a href="process.jsp?p=BPSM/E-Interview/e_int_invite_candidate.jsp&is_refid=<%=data_preinterview_detail.get(0).get(0) %>"><%=data_shorlisted_candidate.size() %></a></td>
+                                     </tr>
+                                </tbody>
+                            </table>
                         </fieldset>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End modal reason -->
+        <!-- End modal pre --> 
+        
+        <!-- Modal Remove -->
         <%
-        if(data_interview_pos_list.get(b).get(5).equals(accepted))
+        if(!data_interview_pos_list.get(b).get(5).equals(accepted))
         {
-            %>                
-            <!-- Modal Pre Interview Detail -->
-            <div id="modalPreInterviewDetail<%=a+"_"+b %>" class="modal fade" role="dialog">
+            %>
+            <form method="post" action="process/bpsm/eInterview/e_int_remove_pos_process.jsp">
+            <input type="hidden" name="uni_is_refid" value="<%=data_saved_list.get(a).get(0) %>" />
+            <input type="hidden" name="ptj_is_refid" value="<%=data_preinterview_detail.get(0).get(0) %>"/>
+            <input type="hidden" name="pph_refid" value="<%=data_interview_pos_list.get(b).get(0) %>"/>
+            <div id="modalRemove<%=a+"_"+b %>" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body" align="center">
+                            <fieldset>
+                                <h4 class="modal-title" style="font-weight: bold">REMOVE POSITION FROM THIS INTERVIEW SESSION</h4>
+                                <h6 class="modal-title">Are You Sure ?</h6>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger form-control">YES</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <%
+        }
+        %>
+        <!-- ENd Modal Discard Setup -->
+        
+        <!-- Modal Suggest New -->
+        <%
+        if(data_interview_pos_list.get(b).get(5).equals(rejected))
+        {
+            %>
+            <form method="post" action="process/bpsm/eInterview/e_int_suggestnew_process.jsp">
+            <input type="hidden" name="uni_is_refid" value="<%=data_saved_list.get(a).get(0) %>" />
+            <input type="hidden" name="ptj_is_refid" value="<%=data_preinterview_detail.get(0).get(0) %>"/>
+            <input type="hidden" name="pph_refid" value="<%=data_interview_pos_list.get(b).get(0) %>"/>
+            <div id="modalSuggestNewDate<%=a+"_"+b %>" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header" align="center">
-                            <h4 class="modal-title" style="font-weight: bold">PRE-INTERVIEW DETAIL</h4>
+                            <h4 class="modal-title" style="font-weight: bold">SUGGEST NEW DATE</h4>
                         </div>
                         <div class="modal-body" align="center">
                             <fieldset>
@@ -266,34 +643,174 @@ for(int a = 0; a < data_saved_list.size(); a++)
                                          <tr>
                                             <td style="vertical-align: middle; font-weight: bold">Date</td>
                                             <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                            <td style="vertical-align: middle"><%=Func.getDate(data_preinterview_detail.get(0).get(1)) %></td>
+                                            <td style="vertical-align: middle">
+                                                <input type="date" class="form-control" name="new_ptj_is_date" min="<%=Func.getTodayDate3() %>" max="<%=Func.sqlToDate2(data_saved_list.get(a).get(1)) %>"  value="<%=Func.sqlToDate2(data_preinterview_detail.get(0).get(1)) %>" required>
+                                            </td>
                                          </tr>
                                          <tr>
                                             <td style="vertical-align: middle; font-weight: bold">Start</td>
                                             <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                            <td style="vertical-align: middle"><%=data_preinterview_detail.get(0).get(2) %></td>
+                                            <td style="vertical-align: middle">
+                                                <input type="time" class="form-control" name="new_ptj_is_starttime" value="<%=data_preinterview_detail.get(0).get(2) %>" required>
+                                            </td>
                                          </tr>
                                          <tr>
                                             <td style="vertical-align: middle; font-weight: bold">End</td>
                                             <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                            <td style="vertical-align: middle"><%=data_preinterview_detail.get(0).get(3) %></td>
-                                         </tr>
-                                         <tr>
-                                            <td style="vertical-align: middle; font-weight: bold">Venue</td>
-                                            <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                            <td style="vertical-align: middle"><%=data_preinterview_detail.get(0).get(4) %></td>
+                                            <td style="vertical-align: middle">
+                                                <input type="time" class="form-control" name="new_ptj_is_endtime" value="<%=data_preinterview_detail.get(0).get(3) %>" required>
+                                            </td>
                                          </tr>
                                     </tbody>
                                 </table>
+                                <hr/>
+                                <button type="submit" class="btn btn-primary form-control"><span style="color: white">Submit</span></button>
                             </fieldset>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End modal pre -->
+            </form>
             <%
         }
+        %>
+        <!-- End Suggest New --> 
+        <%
     }
+    %>
+    <!-- Modal Publish -->
+    <form method="post" action="process/bpsm/eInterview/e_int_publish_process.jsp">
+        <input type="hidden" name="is_refid" value="<%=data_saved_list.get(a).get(0) %>" />
+        <div id="modalPublish<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <h4 class="modal-title" style="font-weight: bold">INTERVIEW SUMMARY</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <table style="width: 100%" class="table-condensed">
+                                <tbody>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold; width: 20%">Interview Level</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold; width: 1%">:</td>
+                                       <td style="vertical-align: middle"><%=data_saved_list.get(a).get(5) %></td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Date</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle"><%=Func.getDate(data_saved_list.get(a).get(1)) %></td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Start</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle"><%=data_saved_list.get(a).get(2) %></td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">End</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle"><%=data_saved_list.get(a).get(3) %></td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Venue</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle"><%=data_saved_list.get(a).get(4) %></td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Total Candidate</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle"><%=data_count_candidate_accepted.get(0).get(0) %></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="vertical-align: middle; font-weight: bold">Interview Chairman</td>
+                                        <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                        <td style="vertical-align: middle">
+                                        <% 
+                                        if(data_accepted_chairman_list.size() > 0)
+                                        {
+                                            out.print(data_accepted_chairman_list.get(0).get(1));
+                                        }
+                                        %>
+                                        </td>
+                                    </tr>
+                                    <%
+                                    for(int b = 0; b < data_accepted_panel_list.size(); b++)
+                                    {
+                                        %>
+                                        <tr>
+                                            <td style="vertical-align: middle; font-weight: bold">Panel <%=b+1 %></td>
+                                            <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                            <td style="vertical-align: middle"><%=data_accepted_panel_list.get(b).get(1) %></td>
+                                        </tr>
+                                        <%
+                                    }
+                                    %>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer" align="center">
+                        <button type="submit" class="btn btn-primary form-control"><span style="color: white">PUBLISH</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+                                
+    <!--Modal Postpone -->
+    <form method="post" action="process/bpsm/eInterview/e_int_postpone_process.jsp">
+        <input type="hidden" name="is_refid" value="<%=data_saved_list.get(a).get(0) %>" />
+        <div id="modalPostpone<%=a %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <h4 class="modal-title" style="font-weight: bold; color: red">POSTPONE</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <fieldset>
+                            <table style="width: 100%" class="table-condensed">
+                                <tbody>
+                                     <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Date</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle">
+                                           <input class="form-control" name="is_date" type="date" value="<%=Func.sqlToDate2(data_saved_list.get(a).get(1)) %>" min="<%=Func.sqlToDate2(data_saved_list.get(a).get(1)) %>"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Start</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle">
+                                           <input class="form-control" name="is_starttime" type="time" value="<%=data_saved_list.get(a).get(2) %>"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">End</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle">
+                                           <input class="form-control" name="is_endtime" type="time" value="<%=data_saved_list.get(a).get(3) %>"/>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td style="vertical-align: middle; font-weight: bold">Venue</td>
+                                       <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
+                                       <td style="vertical-align: middle">
+                                           <input class="form-control" name="is_venue" type="text" value="<%=data_saved_list.get(a).get(4) %>"/>
+                                       </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr/>
+                            <button type="submit" class="btn btn-primary form-control"><span style="color: white">Submit</span></button>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <%
 }
 %>
 
@@ -321,12 +838,12 @@ for(int a = 0; a < data_saved_list.size(); a++)
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Start</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(2) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_saved_list.get(a).get(2)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">End</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_saved_list.get(a).get(3) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_saved_list.get(a).get(3)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Venue</td>

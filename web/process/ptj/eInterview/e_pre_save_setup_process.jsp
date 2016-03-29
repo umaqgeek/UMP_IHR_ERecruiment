@@ -12,14 +12,11 @@
     MainClient mc = new MainClient(DBConn.getHost());
     String[] pph_refid = request.getParameterValues("pph_refid");
     String[] pa_refid = request.getParameterValues("pa_refid");
+    String ptj_is_refid = request.getParameter("ptj_is_refid");
     String uni_is_refid = request.getParameter("uni_is_refid");
     String dept_code = request.getParameter("dept_code");
     
-    String is_type = request.getParameter("is_type");
-    String is_date = Func.getOracleDate(request.getParameter("is_date"), "yyyy-MM-dd");
-    String is_starttime = request.getParameter("is_starttime");
-    String is_endtime = request.getParameter("is_endtime");
-    String is_venue = request.getParameter("is_venue").toUpperCase();
+    String ptj_is_venue = request.getParameter("is_venue").toUpperCase();
     String chairman_staff_id[] = request.getParameterValues("chairman_staff_id");
     String panel_staff_id[] = request.getParameterValues("panel_staff_id");
     
@@ -38,21 +35,31 @@
 //    out.print("<br>");
 //    out.print("UNI IS REFID:"+uni_is_refid);
 //    out.print("<br>");
-//    out.print("IS TYPE:"+is_type);
+//    out.print("PTJ IS REFID:"+ptj_is_refid);
 //    out.print("<br>");
-//    out.print("IS DATE:"+is_date);
+//    out.print("IS VENUE:"+ptj_is_venue);
 //    out.print("<br>");
-//    out.print("IS START:"+is_starttime);
 //    out.print("<br>");
-//    out.print("IS END:"+is_endtime);
+//    for(int a = 0; a < chairman_staff_id.length; a++)
+//    {
+//        out.print("CHAIRMAN : "+chairman_staff_id[a]);
+//        out.print("<br>");
+//    }
 //    out.print("<br>");
-//    out.print("IS VENUE:"+is_venue);
+//    for(int a = 0; a < panel_staff_id.length; a++)
+//    {
+//        out.print("PANEL "+(a+1)+" : "+panel_staff_id[a]);
+//        out.print("<br>");
+//    }
 //    
-//    out.print("<br>");
+//    if(true)
+//    {
+//        return;
+//    }
     //*************************** Validate Null Chairman *****************************
     if(chairman_staff_id == null)
     {
-        response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&alert=2&is_refid="+uni_is_refid+"&dept_code="+dept_code);
+        response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&alert=2&uni_is_refid="+uni_is_refid+"&dept_code="+dept_code);
         return;
     }
     //************************End Validate Null Chairman *****************************
@@ -60,7 +67,7 @@
     //*************************** Validate Null Panel ********************************
     if(panel_staff_id == null)
     {
-        response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&alert=3&is_refid="+uni_is_refid+"&dept_code="+dept_code);
+        response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&alert=3&ptj_is_refid="+ptj_is_refid+"&uni_is_refid="+uni_is_refid+"&dept_code="+dept_code);
         return;
     }
     //************************End Validate Null Panel ********************************
@@ -70,7 +77,7 @@
     {
         if(chairman_staff_id[0].equals(panel_staff_id[a]))
         {
-            response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&alert=1&is_refid="+uni_is_refid+"&dept_code="+dept_code);
+            response.sendRedirect("../../../process.jsp?p=PTJ/E-Interview/e_pre_setup.jsp&alert=1&ptj_is_refid="+ptj_is_refid+"&uni_is_refid="+uni_is_refid+"&dept_code="+dept_code);
             return;
         };
     }
@@ -135,17 +142,19 @@
     
     //******************Insert to interview setup*********************************************
     String is_status_saved = "4";
-    String sql_insert_setup = "INSERT INTO interview_setup(is_date, is_starttime, is_endtime, is_venue, is_type, is_status) "
-                            + "VALUES ( ? , ? , ? , ? , ? , ? )";
-    String param_insert_setup[] = { is_date, is_starttime, is_endtime, is_venue, is_type, is_status_saved};
-    String is_refid = mc.setQuery(sql_insert_setup, param_insert_setup, "is_refid");
+    String sql_insert_setup = "UPDATE interview_setup "
+                            + "SET is_venue = ? , "
+                            + "is_status = ? "
+                            + "WHERE is_refid = ? ";
+    String param_insert_setup[] = { ptj_is_venue, is_status_saved, ptj_is_refid};
+    mc.setQuery(sql_insert_setup, param_insert_setup);
     //**************End Insert to interview setup*********************************************
    
     //***************************Insert Chairman**********************************************
     String icl_status_sent = "21";
     String sql_insert_chairman = "INSERT INTO interview_chairman_list(icl_status, sm_staff_id, is_refid) "
                             + "VALUES( ? , ? , ? )";
-    String param_insert_chairman[] = { icl_status_sent, chairman_staff_id[0], is_refid };
+    String param_insert_chairman[] = { icl_status_sent, chairman_staff_id[0], ptj_is_refid };
     String icl_refid = mc.setQuery(sql_insert_chairman, param_insert_chairman, "icl_refid");
     //***************End Insert Chairman******************************************************
     
@@ -167,10 +176,23 @@
     
     //***********Insert interview result************************
     String irm_cand_status_set = "2";
-    String sql_insert_result = "INSERT INTO interview_result_mark(irm_cand_status, pa_refid, is_refid) "
-                            + "VALUES( ? , ? , ? )";
-    String[] param_insert_result = new String[3];
+    String irm_ptj_status_accepted = "11";
+    String sql_insert_result = "UPDATE interview_result_mark "
+                            + "SET irm_cand_status = ? , "
+                            + "irm_ptj_status = ? "
+                            + "WHERE pa_refid = ? "
+                            + "AND is_refid = ? ";
+    String[] param_insert_result = new String[4];
     String irm_refid = "";
+    
+    String sql_select_result = "SELECT irm.irm_refid "
+                            + "FROM interview_result_mark irm, pos_applied pa, interview_setup iss "
+                            + "WHERE pa.pa_refid = irm.pa_refid "
+                            + "AND iss.is_refid = irm.is_refid "
+                            + "AND pa.pa_refid = ? "
+                            + "AND iss.is_refid = ? ";
+    String[] param_select_result = new String[2];
+    ArrayList<ArrayList<String>> data_select_result;
     //***********End Insert interview result********************
     
     //***********Insert into IRM_ICM**************************
@@ -203,10 +225,16 @@
     for(int a = 0; a < pa_refid.length; a++)
     {
         param_insert_result[0] = irm_cand_status_set;
-        param_insert_result[1] = pa_refid[a];
-        param_insert_result[2] = is_refid;
+        param_insert_result[1] = irm_ptj_status_accepted;
+        param_insert_result[2] = pa_refid[a];
+        param_insert_result[3] = ptj_is_refid;
+        mc.setQuery(sql_insert_result, param_insert_result, "irm_refid");
         
-        irm_refid = mc.setQuery(sql_insert_result, param_insert_result, "irm_refid");
+        param_select_result[0] = pa_refid[a];
+        param_select_result[1] = ptj_is_refid;
+        data_select_result = mc.getQuery(sql_select_result, param_select_result);
+        
+        irm_refid = data_select_result.get(0).get(0);
         for(int b = 0; b < ipl_refid.length; b++)
         {
             param_insert_irm_icm[0] = irm_refid;

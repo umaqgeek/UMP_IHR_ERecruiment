@@ -4,6 +4,7 @@
     Author     : Habib
 --%>
 
+<%@page import="eInterview.EInterview"%>
 <%@page import="helpers.Func"%>
 <%@page import="javax.print.DocFlavor.STRING"%>
 <%@page import="controller.Session"%>
@@ -12,7 +13,7 @@
 <%@page import="java.util.ArrayList"%>
 <%
     MainClient mc = new MainClient(DBConn.getHost());
-    
+    EInterview eint = new EInterview();
     String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
     String sql_dept_code = "SELECT l.l_username, l.l_icno "
                         + "FROM login1 l "
@@ -23,13 +24,17 @@
     String dept_code = data_dept_code.get(0).get(0);
     String staff_id = data_dept_code.get(0).get(1);
     
+    String university = "UNIVERSITY";
+    String ptj = "PTJ";
     String set = "2";
     String sent = "21";
     String accepted = "22";
     String rejected = "23";
     String canceled = "24";
+    String published = "41";
+    String result = "44";
     
-    String sql_chairman_invitation  = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type, iss.is_status, icl.icl_status, iis.iis_desc "
+    String sql_chairman_invitation  = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type, iss.is_status, icl.icl_status, iis.iis_desc, icl.icl_refid "
                                     + "FROM interview_setup iss, interview_chairman_list icl, staff_main sm, staff_main_archive052014 sma, interview_invite_status iis "
                                     + "WHERE iss.is_refid = icl.is_refid "
                                     + "AND iis.iis_code = icl.icl_status "
@@ -63,6 +68,12 @@
                                 + "GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj ";
     String[] param_position_list = new String[1];
     ArrayList<ArrayList<String>> data_position_list;
+    
+    String sql_iis_desc = "SELECT iis.iis_desc "
+                        + "FROM interview_invite_status iis "
+                        + "WHERE iis.iis_code = ? ";
+    String[] param_iis_desc = new String[1];
+    ArrayList<ArrayList<String>> data_iis_desc;
 %>
 <div class="row">
     <div class="well">
@@ -72,15 +83,29 @@
         <div class="row">
             <ul class="nav nav-tabs">
                 <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_published_list.jsp">PUBLISHED PRE-INTERVIEW</a></li>
-                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_memo_list.jsp">INTERVIEW MEMO</a></li>
+                <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_memo_list.jsp">INTERVIEW MEMO <% 
+                    if(eint.getMemoList(dept_code) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getMemoList(dept_code) %></span>
+                        <%
+                    }
+                    %></a></li>
                 <li><a href="process.jsp?p=PTJ/E-Interview/e_pre_saved_setup_list.jsp">SAVED PRE-INTERVIEW SETUP</a></li>
-                <li class="active" ><a>MY INVITATION</a></li>
+                <li class="active" ><a>MY INVITATION <% 
+                    if(eint.getInvitationList(l_refid) > 0)
+                    { 
+                        %>
+                        <span class="badge" style="background-color: red"><%=eint.getInvitationList(l_refid) %></span>
+                        <%
+                    }
+                    %></a></li>
             </ul>
         </div>
         
         <div class="row">
             <div class="col-sm-12"><h4>INVITATION LIST</h4></div>
-            <table id="invite_list" class="table-bordered" width="100%">
+            <table id="invite_list" style="background-color: white" class="table table-bordered" width="100%">
                 <thead>
                     <tr style="vertical-align: middle;">
                         <th rowspan="2" style="vertical-align: middle; text-align: center; font-weight: bold" width="1%">#</th>
@@ -105,6 +130,9 @@
                 {
                     param_position_list[0] = data_chairman_invitation.get(a).get(0);
                     data_position_list = mc.getQuery(sql_position_list, param_position_list);
+                    
+                    param_iis_desc[0] = data_chairman_invitation.get(a).get(7);
+                    data_iis_desc = mc.getQuery(sql_iis_desc, param_iis_desc);
                     %>
                     <tr>
                         <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=counter %></td>
@@ -133,9 +161,33 @@
                         }
                         else if(data_chairman_invitation.get(a).get(7).equals(accepted))
                         {
-                            %>
-                            <a  title="You've been accepted. Wait until interview day" class="btn btn-primary form-control" data-toggle="modal" href="#modalStart<%=a %>">Start</a>
-                            <%
+                            if(data_chairman_invitation.get(a).get(6).equals(published))
+                            {
+                                if(data_chairman_invitation.get(a).get(5).equalsIgnoreCase(university))
+                                {
+                                    %>
+                                    <a  title="You've been accepted. Wait until interview day" class="btn btn-primary form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_chairman_start_uni.jsp&is_refid=<%=data_chairman_invitation.get(a).get(0) %>&icl_refid=<%=data_chairman_invitation.get(a).get(9) %>">Start</a>
+                                    <%
+                                }
+                                else if(data_chairman_invitation.get(a).get(5).equalsIgnoreCase(ptj))
+                                {
+                                    %>
+                                    <a  title="You've been accepted. Wait until interview day" class="btn btn-primary form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_chairman_start.jsp&is_refid=<%=data_chairman_invitation.get(a).get(0) %>&icl_refid=<%=data_chairman_invitation.get(a).get(9) %>">Start</a>
+                                    <%
+                                }
+                            }
+                            else if(data_chairman_invitation.get(a).get(6).equals(result))
+                            {
+                                %>
+                                <span style="color: slateblue; font-weight: bold">FINISHED</span>
+                                <%
+                            }
+                            else
+                            {
+                                %>
+                                <a title="will start soon" style="color: limegreen; font-weight: bold"><%=data_iis_desc.get(0).get(0) %></a>
+                                <%
+                            }
                         }
                         else if(data_chairman_invitation.get(a).get(7).equals(rejected))
                         {
@@ -165,6 +217,9 @@
                 {
                     param_position_list[0] = data_panel_invitation.get(a).get(0);
                     data_position_list = mc.getQuery(sql_position_list, param_position_list);
+                    
+                    param_iis_desc[0] = data_panel_invitation.get(a).get(7);
+                    data_iis_desc = mc.getQuery(sql_iis_desc, param_iis_desc);
                     %>
                     <tr>
                         <td rowspan="<%=data_position_list.size() %>" style="vertical-align: middle; text-align: center"><%=counter %></td>
@@ -193,14 +248,38 @@
                         }
                         else if(data_panel_invitation.get(a).get(7).equals(accepted))
                         {
-                            %>
-                            <a  title="You've been accepted. Wait until interview day" class="btn btn-primary form-control" data-toggle="modal" href="#modalStart<%=a %>">Start</a>
-                            <%
+                            if(data_panel_invitation.get(a).get(6).equals(published))
+                            {
+                                if(data_panel_invitation.get(a).get(5).equalsIgnoreCase(university))
+                                {
+                                    %>
+                                    <a class="btn btn-primary form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_panel_start_uni_pos_list.jsp&is_refid=<%=data_panel_invitation.get(a).get(0) %>&ipl_refid=<%=data_panel_invitation.get(a).get(8) %>">Start</a>
+                                    <%
+                                }
+                                else if(data_panel_invitation.get(a).get(5).equalsIgnoreCase(ptj))
+                                {
+                                    %>
+                                    <a class="btn btn-primary form-control" href="process.jsp?p=PTJ/E-Interview/e_pre_panel_start.jsp&is_refid=<%=data_panel_invitation.get(a).get(0) %>&ipl_refid=<%=data_panel_invitation.get(a).get(8) %>">Start</a>
+                                    <%
+                                }
+                            }
+                            else if(data_panel_invitation.get(a).get(6).equals(result))
+                            {
+                                %>
+                                <span style="color: slateblue; font-weight: bold">FINISHED</span>
+                                <%
+                            }
+                            else
+                            {
+                                %>
+                                <a title="will start soon" style="color: limegreen; font-weight: bold"><%=data_iis_desc.get(0).get(0) %></a>
+                                <%
+                            }
                         }
                         else if(data_panel_invitation.get(a).get(7).equals(rejected))
                         {
                             %>
-                            <span style="color: red; font-weight: bold">REJECTED</span>
+                            <span style="color: red; font-weight: bold"><%=data_iis_desc.get(0).get(0) %></span>
                             <%
                         }
                         %>
@@ -365,12 +444,12 @@ for(int a = 0; a < data_chairman_invitation.size(); a++)
                                 <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Start</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_chairman_invitation.get(a).get(2) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_chairman_invitation.get(a).get(2)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">End</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_chairman_invitation.get(a).get(3) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_chairman_invitation.get(a).get(3)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Venue</td>
@@ -419,12 +498,12 @@ for(int a = 0; a < data_panel_invitation.size(); a++)
                                 <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Start</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_panel_invitation.get(a).get(2) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_panel_invitation.get(a).get(2)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">End</td>
                                     <td style="vertical-align: middle; text-align: center; font-weight: bold">:</td>
-                                    <td style="vertical-align: middle"><%=data_panel_invitation.get(a).get(3) %></td>
+                                    <td style="vertical-align: middle"><%=Func.get12HourTime(data_panel_invitation.get(a).get(3)) %></td>
                                  </tr>
                                  <tr>
                                     <td style="vertical-align: middle; font-weight: bold">Venue</td>

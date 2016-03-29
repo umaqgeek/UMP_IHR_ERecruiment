@@ -29,16 +29,15 @@ String cand_rejected = "23";
 //ArrayList<ArrayList<String>> data_saved_list = mc.getQuery(sql_saved_list, param_saved_list);
 //out.print(data_saved_list);
 String is_refid = session.getAttribute("is_refid").toString();
-String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason "
+String sql_interview_pos_list = "SELECT pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason, iss.is_status "
                             +"FROM interview_setup iss, interview_result_mark irm, pos_applied pa, position_ptj_hr pph, interview_invite_status iis "
                             +"WHERE iss.is_refid = irm.is_refid "
                             +"AND pa.pa_refid = irm.pa_refid "
                             +"AND pph.pph_refid = pa.pph_refid "
                             +"AND iis.iis_code = irm.irm_ptj_status "
                             +"AND iss.is_refid = ? "
-                            +"AND irm.irm_ptj_status = ? "
-                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason";
-String[] param_interview_pos_list = { is_refid, accepted };
+                            +"GROUP BY pph.pph_refid, pph.pph_grade, pph.pph_position, pph.pph_ptj, iis.iis_desc, irm.irm_ptj_status, irm.irm_reason, iss.is_status ";
+String[] param_interview_pos_list = { is_refid };
 ArrayList<ArrayList<String>> data_interview_pos_list = mc.getQuery(sql_interview_pos_list, param_interview_pos_list);
 
 String sql_candidate_list = "SELECT c.c_name, l.l_icno, irm.irm_refid, irm.irm_cand_status, iis.iis_desc, iss.is_refid, pa.pa_refid "
@@ -51,15 +50,20 @@ String sql_candidate_list = "SELECT c.c_name, l.l_icno, irm.irm_refid, irm.irm_c
                         + "AND c.c_refid = l.c_refid "
                         + "AND iis.iis_code = irm.irm_cand_status "
                         + "AND iss.is_type = ? "
-                        + "AND irm.irm_ptj_status = ? "
                         + "AND f.f_ptj_status = ? "
                         + "AND pph.pph_refid = ? "
                         + "ORDER BY c.c_name";
-String[] param_candidate_list = new String[4];
+String[] param_candidate_list = new String[3];
 param_candidate_list[0] = is_type;
-param_candidate_list[1] = accepted;
-param_candidate_list[2] = filter_pass_ptj;
+param_candidate_list[1] = filter_pass_ptj;
 ArrayList<ArrayList<String>> data_candidate_list;
+
+String sql_candidate_status_set = "SELECT irm.irm_refid "
+        + "FROM interview_result_mark irm "
+        + "WHERE irm.is_refid = ? "
+        + "AND irm.irm_cand_status = ? ";
+String param_candidate_status_set[] = { is_refid, cand_set };
+ArrayList<ArrayList<String>> data_candidate_status_set = mc.getQuery(sql_candidate_status_set, param_candidate_status_set);
 //String is_type_ptj = "PTJ";
 //String sql_preinterview_detail  = "SELECT iss.is_refid, iss.is_date, iss.is_starttime, iss.is_endtime, iss.is_venue, iss.is_type "
 //                                + "FROM interview_setup iss, interview_result_mark irm, position_ptj_hr pph, pos_applied pa "
@@ -81,6 +85,7 @@ ArrayList<ArrayList<String>> data_candidate_list;
             <div class="col-sm-12"><h4>INVITE CANDIDATE</h4></div>
         </div>
         <form method="post" action="process/bpsm/eInterview/e_int_invite_candidate_process.jsp">
+        <input type="hidden" name="is_refid" value="<%=is_refid %>">
         <div class="row">
             <div class="panel-group">
                 <div class="panel panel-default">
@@ -110,7 +115,7 @@ ArrayList<ArrayList<String>> data_candidate_list;
                                 <%
                                 for(int a = 0; a < data_interview_pos_list.size(); a++)
                                 {
-                                    param_candidate_list[3] = data_interview_pos_list.get(a).get(0);
+                                    param_candidate_list[2] = data_interview_pos_list.get(a).get(0);
                                     data_candidate_list = mc.getQuery(sql_candidate_list, param_candidate_list);
                                     %>
                                     <tr>
@@ -143,6 +148,7 @@ ArrayList<ArrayList<String>> data_candidate_list;
                                         {
                                             %>
                                             <td style="vertical-align: middle; text-align: center; font-weight: bold"><%=data_candidate_list.get(0).get(4) %></td>
+                                            <input type="hidden" name="irm_refid" value="<%=data_candidate_list.get(0).get(2) %>" />
                                             <%
                                         }
                                         %>
@@ -157,7 +163,7 @@ ArrayList<ArrayList<String>> data_candidate_list;
                                         if(data_candidate_list.get(b).get(3).equals(cand_accepted))
                                         {
                                             %>
-                                            <td style="vertical-align: middle; text-align: center"><a style="color: limegreen; font-weight: bold"><%=data_candidate_list.get(b).get(4) %></a></td>
+                                            <td style="vertical-align: middle; text-align: center; color: limegreen; font-weight: bold"><%=data_candidate_list.get(b).get(4) %></td>
                                             <%
                                         }
                                         else if(data_candidate_list.get(b).get(3).equals(cand_rejected))
@@ -176,6 +182,7 @@ ArrayList<ArrayList<String>> data_candidate_list;
                                         {
                                             %>
                                             <td style="vertical-align: middle; text-align: center; font-weight: bold"><%=data_candidate_list.get(b).get(4) %></td>
+                                            <input type="hidden" name="irm_refid" value="<%=data_candidate_list.get(b).get(2) %>" />
                                             <%
                                         }
                                     }
@@ -185,7 +192,23 @@ ArrayList<ArrayList<String>> data_candidate_list;
                             </table>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn btn-warning form-control disabled"><span style="color: white">Invite Candidate</span></button><br/>
+                            <%
+                            if(!data_interview_pos_list.get(0).get(7).equals(informed))
+                            {
+                                if(data_candidate_status_set.size() > 0)
+                                {
+                                    %>
+                                    <button type="submit" class="btn btn-warning form-control"><span style="color: white">Invite Candidate</span></button><br/>
+                                    <%
+                                }
+                            }
+                            else
+                            {
+                                %>
+                                <button class="btn btn-warning form-control disabled"><span style="color: white">Invite Candidate</span></button><br/>
+                                <%
+                            }
+                            %>
                         </div>
                     </div>
                 </div>
