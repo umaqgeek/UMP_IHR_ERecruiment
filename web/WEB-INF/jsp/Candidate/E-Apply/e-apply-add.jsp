@@ -93,8 +93,8 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
                         <% if (d_t1.size() > 0 || d_t2.size() > 0) { 
                         %>
                         <!--<a href="process/candidate/eApply/eApply_job.jsp?pph=<%=pph_refid %>">Apply</a>-->
-                        <!--<a href="process.jsp?p=Candidate/E-Apply/e-apply-confirmation.jsp&pph=<%=pph_refid %>">Apply</a>-->
-                        <input type="checkbox" name="pph" value="<%=pph_refid %>" />
+                        <a href="process.jsp?p=Candidate/E-Apply/e-apply-confirmation.jsp&pph=<%=pph_refid %>">Apply</a>
+                        <!--<input type="checkbox" name="pph" value="<%=pph_refid %>" />-->
                         <% } %>
                     </td>
                 </tr>
@@ -116,7 +116,7 @@ ArrayList<ArrayList<String>> pph5 = mc5.getQuery(q5, p5);
             </tbody>
         </table>
             
-        <button type="submit">Apply</button>
+        <!--<button type="submit">Apply</button>-->
             
         </form>
         

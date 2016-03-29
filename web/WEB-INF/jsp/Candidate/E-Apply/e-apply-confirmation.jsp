@@ -7,6 +7,9 @@
 String pph_refid = session.getAttribute("pph").toString();
 String l_refid = session.getAttribute(Session.KEY_USER_ID).toString();
 
+//String str_pph = session.getAttribute("pphsx").toString();
+//String str_split[] = str_pph.split("\\|");
+
 String sql1 = "SELECT l.l_icno, c.c_name, a.a_roadno, a.a_postcode, a.a_city, a.a_state, c.c_hp, l.l_email "
         + "FROM login1 l, candidate c "
         + "LEFT JOIN address a ON c.c_refid = a.c_refid "
